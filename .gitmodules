@@ -1,0 +1,3 @@
+[submodule "libs/LibNetwork"]
+	path = libs/LibNetwork
+	url = git@gitlab.com:cubz/LibNetworks.git

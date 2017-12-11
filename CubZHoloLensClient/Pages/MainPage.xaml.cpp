@@ -4,6 +4,7 @@
 //
 
 #include "pch.h"
+#include "ExploPage.xaml.h"
 #include "AppView.h"
 #include "MainPage.xaml.h"
 
@@ -22,6 +23,7 @@ using namespace Windows::UI::Xaml::Navigation;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::UI::ViewManagement;
 using namespace Windows::UI::Core;
+using namespace CubZHoloLensClient;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,7 +35,8 @@ MainPage::MainPage()
 //Create a new view and launch the 3D App in it
 //https://stackoverflow.com/questions/19917466/how-to-wait-for-an-iasyncaction
 //http://blog.infernored.com/mixing-hololens-2d-and-3d-xaml-views-in-holographicspace
-void CubZHoloLensClient::MainPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+// TODO: Look on the thread problems
+void CubZHoloLensClient::MainPage::Button_Launch3D(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	HoloLensClient::AppViewSource^ appViewSource = ref new HoloLensClient::AppViewSource();
 	::CoreApplicationView^ newView = ::CoreApplication::CreateNewView(appViewSource);
@@ -48,4 +51,12 @@ void CubZHoloLensClient::MainPage::Button_Click(Platform::Object^ sender, Window
 		ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId);
 	}
 	));
+}
+
+
+void CubZHoloLensClient::MainPage::Button_Explo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	//ExploPage ^exploPage = ref new ExploPage();
+
+	this->Frame->Navigate(Windows::UI::Xaml::Interop::TypeName(ExploPage::typeid));
 }

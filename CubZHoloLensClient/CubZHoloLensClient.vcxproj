@@ -100,22 +100,22 @@
     <PackageCertificateKeyFile>CubZHoloLensClient_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <IncludePath>$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <IncludePath>$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
@@ -187,21 +187,23 @@
     <ClInclude Include="Content\ShaderStructures.h" />
     <ClInclude Include="Content\SpatialInputHandler.h" />
     <ClInclude Include="Content\SpinningCubeRenderer.h" />
+    <ClInclude Include="Objects\File.h" />
+    <ClInclude Include="Objects\FileDataTemplateSelector.h" />
+    <ClInclude Include="Pages\ExploPage.xaml.h">
+      <DependentUpon>Pages\ExploPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Pages\MainPage.xaml.h">
+      <DependentUpon>Pages\MainPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="MainPage.xaml.h">
-      <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -210,6 +212,7 @@
     <None Include="CubZHoloLensClient_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\folderIcon.png" />
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
@@ -229,8 +232,12 @@
     <ClCompile Include="Content\SpatialInputHandler.cpp" />
     <ClCompile Include="Content\SpinningCubeRenderer.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MainPage.xaml.cpp">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <ClCompile Include="Objects\File.cpp" />
+    <ClCompile Include="Pages\ExploPage.xaml.cpp">
+      <DependentUpon>Pages\ExploPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Pages\MainPage.xaml.cpp">
+      <DependentUpon>Pages\MainPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -298,6 +305,10 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Pages\ExploPage.xaml" />
+    <Page Include="Pages\MainPage.xaml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

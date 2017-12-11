@@ -8,7 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Content="Launch 3D" HorizontalAlignment="Left" Margin="111,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.641,0.001" Height="79" Width="152" Click="Button_Click"/>
+        <Button Content="Launch 3D" HorizontalAlignment="Left" Margin="156,160,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.641,0.001" Height="79" Width="152" Click="Button_Launch3D"/>
+        <Button Content="Explorateur" HorizontalAlignment="Left" Margin="502,160,0,0" VerticalAlignment="Top" Height="79" Width="151" Click="Button_Explo"/>
 
     </Grid>
 </Page>

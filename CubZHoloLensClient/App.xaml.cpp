@@ -5,6 +5,7 @@
 
 #include "pch.h"
 #include "MainPage.xaml.h"
+#include "ExploPage.xaml.h"
 
 using namespace CubZHoloLensClient;
 

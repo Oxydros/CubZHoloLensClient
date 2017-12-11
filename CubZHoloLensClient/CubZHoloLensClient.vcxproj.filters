@@ -14,13 +14,18 @@
     <Filter Include="Content\Shaders">
       <UniqueIdentifier>{a3ddf580-9126-4728-8ff1-fe1c6726723a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pages">
+      <UniqueIdentifier>{87668aff-b511-4460-8fb6-b0b058fb6b33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{c4da1d88-7947-439b-94ea-5e71108e5078}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp" />
-    <ClCompile Include="MainPage.xaml.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Common\AppView.cpp">
       <Filter>Common</Filter>
@@ -41,11 +46,15 @@
       <Filter>Content</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ExploPage.xaml.cpp" />
+    <ClCompile Include="Pages\MainPage.xaml.cpp" />
+    <ClCompile Include="Objects\File.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h" />
-    <ClInclude Include="MainPage.xaml.h" />
     <ClInclude Include="Common\AppView.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -73,6 +82,14 @@
     <ClInclude Include="Content\SpinningCubeRenderer.h">
       <Filter>Content</Filter>
     </ClInclude>
+    <ClInclude Include="ExploPage.xaml.h" />
+    <ClInclude Include="Pages\MainPage.xaml.h" />
+    <ClInclude Include="Objects\FileDataTemplateSelector.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\File.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -96,15 +113,15 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\folderIcon.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CubZHoloLensClient_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Content\GeometryShader.hlsl">
@@ -119,5 +136,13 @@
     <FxCompile Include="Content\VPRTVertexShader.hlsl">
       <Filter>Content\Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Pages\MainPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="Pages\ExploPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
 </Project>

@@ -19,6 +19,9 @@ namespace CubZHoloLensClient
 
 	private:
 		void Button_Launch3D(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
-		void Button_Explo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Button_LocalFileExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Button_ServerFileExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Button_DeviceExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+
 	};
 }

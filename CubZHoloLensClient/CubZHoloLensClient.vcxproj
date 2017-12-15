@@ -187,13 +187,24 @@
     <ClInclude Include="Content\ShaderStructures.h" />
     <ClInclude Include="Content\SpatialInputHandler.h" />
     <ClInclude Include="Content\SpinningCubeRenderer.h" />
+    <ClInclude Include="Objects\DeviceTypeValueConverter.h" />
     <ClInclude Include="Objects\File.h" />
     <ClInclude Include="Objects\FileDataTemplateSelector.h" />
-    <ClInclude Include="Pages\ExploPage.xaml.h">
-      <DependentUpon>Pages\ExploPage.xaml</DependentUpon>
+    <ClInclude Include="Objects\UserDevice.h" />
+    <ClInclude Include="Pages\AddDevicePage.xaml.h">
+      <DependentUpon>Pages\AddDevicePage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Pages\DeviceManagerPage.xaml.h">
+      <DependentUpon>Pages\DeviceManagerPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Pages\LocalFileExploPage.xaml.h">
+      <DependentUpon>Pages\LocalFileExploPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="Pages\MainPage.xaml.h">
       <DependentUpon>Pages\MainPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Pages\ServerFileExploPage.xaml.h">
+      <DependentUpon>Pages\ServerFileExploPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
@@ -232,12 +243,23 @@
     <ClCompile Include="Content\SpatialInputHandler.cpp" />
     <ClCompile Include="Content\SpinningCubeRenderer.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Objects\DeviceTypeValueConverter.cpp" />
     <ClCompile Include="Objects\File.cpp" />
-    <ClCompile Include="Pages\ExploPage.xaml.cpp">
-      <DependentUpon>Pages\ExploPage.xaml</DependentUpon>
+    <ClCompile Include="Objects\UserDevice.cpp" />
+    <ClCompile Include="Pages\AddDevicePage.xaml.cpp">
+      <DependentUpon>Pages\AddDevicePage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Pages\DeviceManagerPage.xaml.cpp">
+      <DependentUpon>Pages\DeviceManagerPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Pages\LocalFileExploPage.xaml.cpp">
+      <DependentUpon>Pages\LocalFileExploPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="Pages\MainPage.xaml.cpp">
       <DependentUpon>Pages\MainPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Pages\ServerFileExploPage.xaml.cpp">
+      <DependentUpon>Pages\ServerFileExploPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -307,8 +329,17 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Pages\ExploPage.xaml" />
+    <Page Include="Pages\AddDevicePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\DeviceManagerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\LocalFileExploPage.xaml" />
     <Page Include="Pages\MainPage.xaml" />
+    <Page Include="Pages\ServerFileExploPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

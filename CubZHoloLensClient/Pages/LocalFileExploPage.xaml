@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="CubZHoloLensClient.ExploPage"
+    x:Class="CubZHoloLensClient.LocalFileExploPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CubZHoloLensClient"
@@ -33,13 +33,9 @@
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="File type:" VerticalAlignment="Top" Width="99" Margin="10,115,-45.667,-134" FontSize="18"/>
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="{Binding Type}" VerticalAlignment="Top" Width="212" Margin="129,110,-277.667,-127.667" FontSize="18"/>
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="212" Margin="129,71,-277.667,-88.667" FontSize="18"/>
-            <Button HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="46" Margin="37,234,-18.333,-238">
-                <SymbolIcon Symbol="Download"/>
-            </Button>
             <Button HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="46" Margin="115,234,-96.333,-238">
                 <SymbolIcon Symbol="Upload"/>
             </Button>
         </RelativePanel>
-
     </Grid>
 </Page>

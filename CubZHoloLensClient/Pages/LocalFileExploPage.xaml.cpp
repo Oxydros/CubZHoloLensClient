@@ -1,12 +1,12 @@
 ﻿//
-// ExploPage.xaml.cpp
-// Implémentation de la classe ExploPage
+// LocalFileExploPage.xaml.cpp
+// Implémentation de la classe LocalFileExploPage
 //
 
 #include "pch.h"
 #include "File.h"
 #include "FileDataTemplateSelector.h"
-#include "ExploPage.xaml.h"
+#include "LocalFileExploPage.xaml.h"
 
 using namespace CubZHoloLensClient;
 
@@ -23,16 +23,16 @@ using namespace Windows::UI::Xaml::Navigation;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 //https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/resourcedictionary-and-xaml-resource-references
-ExploPage::ExploPage()
+LocalFileExploPage::LocalFileExploPage()
 {
-	this->files = ref new Platform::Collections::Vector<File^>();
+	this->_files = ref new Platform::Collections::Vector<File^>();
 
 	InitializeComponent();
 
-	this->files->Append(ref new File("TestFile", FileType::FILE));
-	this->files->Append(ref new File("TestDirectory", FileType::DIRECTORY));
+	this->_files->Append(ref new File("TestFile", FileType::FILE));
+	this->_files->Append(ref new File("TestDirectory", FileType::DIRECTORY));
 
-	this->FileView->ItemsSource = this->files;
+	this->FileView->ItemsSource = this->_files;
 	Windows::UI::Xaml::DataTemplate ^dTemplate = static_cast<DataTemplate^>(this->Resources->Lookup("DirectoryTemplate"));
 	Windows::UI::Xaml::DataTemplate ^fTemplate = static_cast<DataTemplate^>(this->Resources->Lookup("FileTemplate"));
 	
@@ -40,14 +40,14 @@ ExploPage::ExploPage()
 }
 
 
-void CubZHoloLensClient::ExploPage::Button_GoBack(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void CubZHoloLensClient::LocalFileExploPage::Button_GoBack(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	this->Frame->GoBack();
+	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
+		this->Frame->GoBack();
+	}));
 }
 
 
-void CubZHoloLensClient::ExploPage::FileView_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs^ e)
+void CubZHoloLensClient::LocalFileExploPage::FileView_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs^ e)
 {
-	/*File ^f = dynamic_cast<File^>(this->FileView->SelectedItem);
-	this->FileDetailsView->DataContext = f;*/
 }

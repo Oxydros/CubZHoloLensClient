@@ -6,7 +6,7 @@ Thus, you have to initialized the repo before using it, by using this commands
 
 ```git submodule init```
 
-```git submodule update```
+```git submodule update --remote --merge```
 
 Now you should have the folder libs/LibNetwork updated and containing all the source code from the master branch.
 

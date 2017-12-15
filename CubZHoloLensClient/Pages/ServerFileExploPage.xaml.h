@@ -1,22 +1,20 @@
 ﻿//
-// ExploPage.xaml.h
-// Déclaration de la classe ExploPage
+// ServerFileExploPage.xaml.h
+// Déclaration de la classe ServerFileExploPage
 //
 
 #pragma once
 
 #include "File.h"
-#include "ExploPage.g.h"
+#include "Pages\ServerFileExploPage.g.h"
 
 namespace CubZHoloLensClient
 {
 	/// <summary>
 	/// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
 	/// </summary>
-	//Insure it can't be seen in javascript
-	//cf: https://docs.microsoft.com/en-us/cpp/cppcx/ref-classes-and-structs-c-cx
-	//[Windows::Foundation::Metadata::WebHostHidden]
-	public ref class ExploPage sealed
+	[Windows::Foundation::Metadata::WebHostHidden]
+	public ref class ServerFileExploPage sealed
 	{
 	private:
 
@@ -25,7 +23,8 @@ namespace CubZHoloLensClient
 		Windows::Foundation::Collections::IVector<File^>	^files;
 
 	public:
-		ExploPage();
+		ServerFileExploPage();
+
 	private:
 		void Button_GoBack(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 

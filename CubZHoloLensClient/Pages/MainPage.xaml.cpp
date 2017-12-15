@@ -4,7 +4,9 @@
 //
 
 #include "pch.h"
-#include "ExploPage.xaml.h"
+#include "Pages\LocalFileExploPage.xaml.h"
+#include "Pages\ServerFileExploPage.xaml.h"
+#include "Pages\DeviceManagerPage.xaml.h"
 #include "AppView.h"
 #include "MainPage.xaml.h"
 
@@ -54,9 +56,23 @@ void CubZHoloLensClient::MainPage::Button_Launch3D(Platform::Object^ sender, Win
 }
 
 
-void CubZHoloLensClient::MainPage::Button_Explo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void CubZHoloLensClient::MainPage::Button_LocalFileExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	//ExploPage ^exploPage = ref new ExploPage();
+	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
+		this->Frame->Navigate(Windows::UI::Xaml::Interop::TypeName(LocalFileExploPage::typeid));
+	}));
+}
 
-	this->Frame->Navigate(Windows::UI::Xaml::Interop::TypeName(ExploPage::typeid));
+void CubZHoloLensClient::MainPage::Button_ServerFileExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
+		this->Frame->Navigate(Windows::UI::Xaml::Interop::TypeName(ServerFileExploPage::typeid));
+	}));
+}
+
+void CubZHoloLensClient::MainPage::Button_DeviceExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
+		this->Frame->Navigate(Windows::UI::Xaml::Interop::TypeName(DeviceManagerPage::typeid));
+	}));
 }

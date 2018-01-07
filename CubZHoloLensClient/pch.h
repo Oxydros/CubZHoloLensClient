@@ -8,6 +8,8 @@
 //Disable the generation of a XAML main file
 #define  DISABLE_XAML_GENERATED_MAIN
 
+#include "TCPClient.h"
+#include "TCPPacket.h"
 
 #include <collection.h>
 #include <ppltasks.h>

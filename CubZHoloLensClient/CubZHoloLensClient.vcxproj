@@ -184,13 +184,19 @@
     <ClInclude Include="Common\DirectXHelper.h" />
     <ClInclude Include="Common\HoloLensClientMain.h" />
     <ClInclude Include="Common\StepTimer.h" />
+    <ClInclude Include="ConnectionPage.xaml.h">
+      <DependentUpon>ConnectionPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="Content\ShaderStructures.h" />
     <ClInclude Include="Content\SpatialInputHandler.h" />
     <ClInclude Include="Content\SpinningCubeRenderer.h" />
+    <ClInclude Include="Network\TCPClient.h" />
     <ClInclude Include="Objects\DeviceTypeValueConverter.h" />
     <ClInclude Include="Objects\File.h" />
     <ClInclude Include="Objects\FileDataTemplateSelector.h" />
+    <ClInclude Include="Objects\HoloLensContext.h" />
     <ClInclude Include="Objects\UserDevice.h" />
+    <ClInclude Include="Objects\Utility.h" />
     <ClInclude Include="Pages\AddDevicePage.xaml.h">
       <DependentUpon>Pages\AddDevicePage.xaml</DependentUpon>
     </ClInclude>
@@ -200,11 +206,14 @@
     <ClInclude Include="Pages\LocalFileExploPage.xaml.h">
       <DependentUpon>Pages\LocalFileExploPage.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="Pages\MainPage.xaml.h">
-      <DependentUpon>Pages\MainPage.xaml</DependentUpon>
+    <ClInclude Include="Pages\HomePage.xaml.h">
+      <DependentUpon>Pages\HomePage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="Pages\ServerFileExploPage.xaml.h">
       <DependentUpon>Pages\ServerFileExploPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Pages\UserExploPage.xaml.h">
+      <DependentUpon>Pages\UserExploPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
@@ -240,11 +249,16 @@
     <ClCompile Include="Common\CameraResources.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp" />
     <ClCompile Include="Common\HoloLensClientMain.cpp" />
+    <ClCompile Include="ConnectionPage.xaml.cpp">
+      <DependentUpon>ConnectionPage.xaml</DependentUpon>
+    </ClCompile>
     <ClCompile Include="Content\SpatialInputHandler.cpp" />
     <ClCompile Include="Content\SpinningCubeRenderer.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Network\TCPClient.cpp" />
     <ClCompile Include="Objects\DeviceTypeValueConverter.cpp" />
     <ClCompile Include="Objects\File.cpp" />
+    <ClCompile Include="Objects\HoloLensContext.cpp" />
     <ClCompile Include="Objects\UserDevice.cpp" />
     <ClCompile Include="Pages\AddDevicePage.xaml.cpp">
       <DependentUpon>Pages\AddDevicePage.xaml</DependentUpon>
@@ -255,11 +269,14 @@
     <ClCompile Include="Pages\LocalFileExploPage.xaml.cpp">
       <DependentUpon>Pages\LocalFileExploPage.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="Pages\MainPage.xaml.cpp">
-      <DependentUpon>Pages\MainPage.xaml</DependentUpon>
+    <ClCompile Include="Pages\HomePage.xaml.cpp">
+      <DependentUpon>Pages\HomePage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="Pages\ServerFileExploPage.xaml.cpp">
       <DependentUpon>Pages\ServerFileExploPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Pages\UserExploPage.xaml.cpp">
+      <DependentUpon>Pages\UserExploPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -329,6 +346,9 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ConnectionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\AddDevicePage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -336,8 +356,11 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\LocalFileExploPage.xaml" />
-    <Page Include="Pages\MainPage.xaml" />
+    <Page Include="Pages\HomePage.xaml" />
     <Page Include="Pages\ServerFileExploPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\UserExploPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -20,6 +20,9 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{c4da1d88-7947-439b-94ea-5e71108e5078}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{d9604d9f-bfa1-4202-9b91-c99020f2ba54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -46,7 +49,6 @@
       <Filter>Content</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Pages\MainPage.xaml.cpp" />
     <ClCompile Include="Objects\File.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
@@ -58,6 +60,15 @@
     <ClCompile Include="Pages\DeviceManagerPage.xaml.cpp" />
     <ClCompile Include="Objects\DeviceTypeValueConverter.cpp">
       <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Pages\AddDevicePage.xaml.cpp" />
+    <ClCompile Include="Pages\HomePage.xaml.cpp" />
+    <ClCompile Include="ConnectionPage.xaml.cpp" />
+    <ClCompile Include="Objects\HoloLensContext.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\TCPClient.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +101,6 @@
     <ClInclude Include="Content\SpinningCubeRenderer.h">
       <Filter>Content</Filter>
     </ClInclude>
-    <ClInclude Include="Pages\MainPage.xaml.h" />
     <ClInclude Include="Objects\FileDataTemplateSelector.h">
       <Filter>Objects</Filter>
     </ClInclude>
@@ -105,6 +115,18 @@
     <ClInclude Include="Pages\DeviceManagerPage.xaml.h" />
     <ClInclude Include="Objects\DeviceTypeValueConverter.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Pages\AddDevicePage.xaml.h" />
+    <ClInclude Include="Pages\HomePage.xaml.h" />
+    <ClInclude Include="ConnectionPage.xaml.h" />
+    <ClInclude Include="Objects\HoloLensContext.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Utility.h">
+      <Filter>Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\TCPClient.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +176,6 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Pages\MainPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="Pages\ServerFileExploPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -167,6 +186,15 @@
       <Filter>Pages</Filter>
     </Page>
     <Page Include="Pages\AddDevicePage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="ConnectionPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="Pages\HomePage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="Pages\UserExploPage.xaml">
       <Filter>Pages</Filter>
     </Page>
   </ItemGroup>

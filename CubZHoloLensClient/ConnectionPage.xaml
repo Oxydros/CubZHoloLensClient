@@ -1,0 +1,20 @@
+﻿<Page
+    x:Class="CubZHoloLensClient.ConnectionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CubZHoloLensClient"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="360,390,0,0" VerticalAlignment="Top" Height="49" Width="118" Click="Button_Connect"/>
+        <TextBox x:Name="IPInput" HorizontalAlignment="Left" Margin="317,175,0,0" TextWrapping="Wrap" FontSize="22" Text="169.254.113.192" VerticalAlignment="Top" Width="195" Height="35" TextAlignment="Center"/>
+        <TextBox x:Name="PortInput" HorizontalAlignment="Left" Margin="317,238,0,0" TextWrapping="Wrap" FontSize="22" Text="4242" VerticalAlignment="Top" Width="195" Height="35" TextAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Left" Margin="258,181,0,0" TextWrapping="Wrap" FontSize="22" Text="IP: " VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="258,238,0,0" TextWrapping="Wrap" FontSize="22" Text="Port: " VerticalAlignment="Top"/>
+        <ProgressRing x:Name="ProgressRing" IsActive="True" IsEnabled="True" HorizontalAlignment="Left" Margin="392,323,0,0" VerticalAlignment="Top" Height="48" Width="53" RenderTransformOrigin="0.541,0.91"/>
+        <TextBlock x:Name="ErrorText" HorizontalAlignment="Left" Margin="317,294,0,0" TextWrapping="Wrap" Text="Couldn't connect !" VerticalAlignment="Top" FontSize="22" Width="195" Foreground="Red"/>
+
+    </Grid>
+</Page>

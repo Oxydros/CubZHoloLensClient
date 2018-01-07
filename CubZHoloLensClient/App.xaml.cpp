@@ -4,8 +4,7 @@
 //
 
 #include "pch.h"
-#include "MainPage.xaml.h"
-#include "LocalFileExploPage.xaml.h"
+#include "ConnectionPage.xaml.h"
 
 using namespace CubZHoloLensClient;
 
@@ -66,7 +65,7 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
                 // Quand la pile de navigation n'est pas restaurée, accédez à la première page,
                 // puis configurez la nouvelle page en transmettant les informations requises en tant que
                 // paramètre
-                rootFrame->Navigate(TypeName(MainPage::typeid), e->Arguments);
+                rootFrame->Navigate(TypeName(ConnectionPage::typeid), e->Arguments);
             }
             // Placez le frame dans la fenêtre active
             Window::Current->Content = rootFrame;
@@ -83,7 +82,7 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
                 // Quand la pile de navigation n'est pas restaurée, accédez à la première page,
                 // puis configurez la nouvelle page en transmettant les informations requises en tant que
                 // paramètre
-                rootFrame->Navigate(TypeName(MainPage::typeid), e->Arguments);
+                rootFrame->Navigate(TypeName(ConnectionPage::typeid), e->Arguments);
             }
             // Vérifiez que la fenêtre actuelle est active
             Window::Current->Activate();

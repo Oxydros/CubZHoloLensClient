@@ -194,5 +194,8 @@
     <Page Include="Pages\HomePage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="Pages\UserExploPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
 </Project>

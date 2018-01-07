@@ -7,8 +7,9 @@
 #include "Pages\LocalFileExploPage.xaml.h"
 #include "Pages\ServerFileExploPage.xaml.h"
 #include "Pages\DeviceManagerPage.xaml.h"
+#include "Pages\HomePage.xaml.h"
+#include "Pages\UserExploPage.xaml.h"
 #include "AppView.h"
-#include "HomePage.xaml.h"
 
 using namespace CubZHoloLensClient;
 
@@ -77,17 +78,13 @@ void CubZHoloLensClient::HomePage::Button_DeviceExplo(Platform::Object^ sender, 
 	}));
 }
 
+void CubZHoloLensClient::HomePage::Button_UserExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
+		this->Frame->Navigate(Windows::UI::Xaml::Interop::TypeName(UserExploPage::typeid));
+	}));
+}
+
 void CubZHoloLensClient::HomePage::Button_TestNetwork(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	Network::TCPClient	client{};
-	Network::TCPPacket	packet{};
-
-	client.setCallback([](Network::IConnection::SharedPtr co, Network::IPacket const &packet) {
-
-	});
-	client.connect("172.16.80.1", "4242");
-	client.sendPacket(packet);
-	packet.setType(Network::TCPPacket::Type::PacketTCP_Type_PING);
-	client.sendPacket(packet);
-	client.run(); //Block
 }

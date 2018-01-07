@@ -212,6 +212,9 @@
     <ClInclude Include="Pages\ServerFileExploPage.xaml.h">
       <DependentUpon>Pages\ServerFileExploPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="Pages\UserExploPage.xaml.h">
+      <DependentUpon>Pages\UserExploPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="Pages\ServerFileExploPage.xaml.cpp">
       <DependentUpon>Pages\ServerFileExploPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Pages\UserExploPage.xaml.cpp">
+      <DependentUpon>Pages\UserExploPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -352,6 +358,9 @@
     <Page Include="Pages\LocalFileExploPage.xaml" />
     <Page Include="Pages\HomePage.xaml" />
     <Page Include="Pages\ServerFileExploPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\UserExploPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

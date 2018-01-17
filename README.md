@@ -22,3 +22,4 @@ You should now see cubznetwork.lib and proto.lib inside the folder libs/bin.
 - [How to create an holographic DirectX project](https://developer.microsoft.com/en-us/windows/mixed-reality/creating_a_holographic_directx_project)
 - [Use PPL library to create parallel tasks](https://msdn.microsoft.com/en-us/library/dd492418.aspx)
 - [Coordinate system in Holographic DirectX environment](https://developer.microsoft.com/en-us/windows/mixed-reality/Coordinate_systems_in_DirectX.html)
+- [Stability of the holograms](https://developer.microsoft.com/en-us/windows/mixed-reality/hologram_stability)

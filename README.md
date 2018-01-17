@@ -1,4 +1,4 @@
-# Preparation of the repo
+# Repo initialization
 
 We are using the git submodule fonctionality to improve our use of internal libraries.
 
@@ -11,7 +11,9 @@ git submodule update --init --remote --merge
 
 Now you should have the folder libs/LibNetwork updated and containing all the source code from the master branch.
 
-Launch the bat script initRepo.bat.
+The LibNetwork project uses the Protobuf and the Boost libraries. Please refer to the [readme](https://gitlab.com/cubz/LibNetworks/blob/master/README.md) to view the instructions.
+
+When everything is in order, launch the bat script initRepo.bat. It should compile the LibNetworks withour errors.
 
 You should now see cubznetwork.lib and proto.lib inside the folder libs/bin.
 

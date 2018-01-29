@@ -86,6 +86,9 @@
     <ClCompile Include="3D\Scene\HolographicScene.cpp">
       <Filter>3D\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="3D\Objects\GazeRenderer.cpp">
+      <Filter>3D\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -150,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="3D\Scene\HolographicScene.h">
       <Filter>3D\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GazeRenderer.h">
+      <Filter>3D\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

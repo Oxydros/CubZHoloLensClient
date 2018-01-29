@@ -179,6 +179,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="3D\AppView.h" />
+    <ClInclude Include="3D\Objects\GazeRenderer.h" />
     <ClInclude Include="3D\Objects\ObjectRenderer.h" />
     <ClInclude Include="3D\Objects\SpinningCubeRenderer.h" />
     <ClInclude Include="3D\Resouces\CameraResources.h" />
@@ -245,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3D\AppView.cpp" />
+    <ClCompile Include="3D\Objects\GazeRenderer.cpp" />
     <ClCompile Include="3D\Objects\ObjectRenderer.cpp" />
     <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp" />
     <ClCompile Include="3D\Resouces\CameraResources.cpp" />

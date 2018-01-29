@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "HoloLensClientMain.h"
-#include "Common\DirectXHelper.h"
+#include "SceneRenderer.h"
+#include "3D\Utility\DirectXHelper.h"
 
 #include <windows.graphics.directx.direct3d11.interop.h>
 #include <Collection.h>
@@ -18,29 +18,21 @@ using namespace Windows::UI::Input::Spatial;
 using namespace std::placeholders;
 
 // Loads and initializes application assets when the application is loaded.
-HoloLensClientMain::HoloLensClientMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
+SceneRenderer::SceneRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
     m_deviceResources(deviceResources)
 {
     // Register to be notified if the device is lost or recreated.
-    m_deviceResources->RegisterDeviceNotify(this);
-}
+    m_deviceResources->RegisterDeviceNotify(this);}
 
-void HoloLensClientMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
+void SceneRenderer::SetHolographicSpace(HolographicSpace^ holographicSpace)
 {
     UnregisterHolographicEventHandlers();
 
+	_holoScene = std::make_unique<HolographicScene>(m_deviceResources);
+
     m_holographicSpace = holographicSpace;
 
-    //
-    // TODO: Add code here to initialize your holographic content.
-    //
-
-#ifdef DRAW_SAMPLE_CONTENT
-    // Initialize the sample hologram.
-    m_spinningCubeRenderer = std::make_unique<SpinningCubeRenderer>(m_deviceResources);
-
     m_spatialInputHandler = std::make_unique<SpatialInputHandler>();
-#endif
 
     // Use the default SpatialLocator to track the motion of the device.
     m_locator = SpatialLocator::GetDefault();
@@ -49,7 +41,7 @@ void HoloLensClientMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
     m_locatabilityChangedToken =
         m_locator->LocatabilityChanged +=
             ref new Windows::Foundation::TypedEventHandler<SpatialLocator^, Object^>(
-                std::bind(&HoloLensClientMain::OnLocatabilityChanged, this, std::placeholders::_1, std::placeholders::_2)
+                std::bind(&SceneRenderer::OnLocatabilityChanged, this, std::placeholders::_1, std::placeholders::_2)
                 );
 
     // Respond to camera added events by creating any resources that are specific
@@ -63,7 +55,7 @@ void HoloLensClientMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
     m_cameraAddedToken =
         m_holographicSpace->CameraAdded +=
             ref new Windows::Foundation::TypedEventHandler<HolographicSpace^, HolographicSpaceCameraAddedEventArgs^>(
-                std::bind(&HoloLensClientMain::OnCameraAdded, this, std::placeholders::_1, std::placeholders::_2)
+                std::bind(&SceneRenderer::OnCameraAdded, this, std::placeholders::_1, std::placeholders::_2)
                 );
 
     // Respond to camera removed events by releasing resources that were created for that
@@ -75,7 +67,7 @@ void HoloLensClientMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
     m_cameraRemovedToken =
         m_holographicSpace->CameraRemoved +=
             ref new Windows::Foundation::TypedEventHandler<HolographicSpace^, HolographicSpaceCameraRemovedEventArgs^>(
-                std::bind(&HoloLensClientMain::OnCameraRemoved, this, std::placeholders::_1, std::placeholders::_2)
+                std::bind(&SceneRenderer::OnCameraRemoved, this, std::placeholders::_1, std::placeholders::_2)
                 );
 
     // The simplest way to render world-locked holograms is to create a stationary reference frame
@@ -94,7 +86,7 @@ void HoloLensClientMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
     //   occurred.
 }
 
-void HoloLensClientMain::UnregisterHolographicEventHandlers()
+void SceneRenderer::UnregisterHolographicEventHandlers()
 {
     if (m_holographicSpace != nullptr)
     {
@@ -119,7 +111,7 @@ void HoloLensClientMain::UnregisterHolographicEventHandlers()
     }
 }
 
-HoloLensClientMain::~HoloLensClientMain()
+SceneRenderer::~SceneRenderer()
 {
     // Deregister device notification.
     m_deviceResources->RegisterDeviceNotify(nullptr);
@@ -128,7 +120,7 @@ HoloLensClientMain::~HoloLensClientMain()
 }
 
 // Updates the application state once per frame.
-HolographicFrame^ HoloLensClientMain::Update()
+HolographicFrame^ SceneRenderer::Update()
 {
     // Before doing the timer update, there is some work to do per-frame
     // to maintain holographic rendering. First, we will get information
@@ -151,19 +143,17 @@ HolographicFrame^ HoloLensClientMain::Update()
     // associated with the current frame. Later, this coordinate system is used for
     // for creating the stereo view matrices when rendering the sample content.
     SpatialCoordinateSystem^ currentCoordinateSystem = m_referenceFrame->CoordinateSystem;
-
-#ifdef DRAW_SAMPLE_CONTENT
-    // Check for new input state since the last frame.
-    SpatialInteractionSourceState^ pointerState = m_spatialInputHandler->CheckForInput();
-    if (pointerState != nullptr)
-    {
-        // When a Pressed gesture is detected, the sample hologram will be repositioned
-        // two meters in front of the user.
-        m_spinningCubeRenderer->PositionHologram(
-            pointerState->TryGetPointerPose(currentCoordinateSystem)
-            );
-    }
-#endif
+	
+	//// Check for new input state since the last frame.
+ //   SpatialInteractionSourceState^ pointerState = m_spatialInputHandler->CheckForInput();
+ //   if (pointerState != nullptr)
+ //   {
+ //       // When a Pressed gesture is detected, the sample hologram will be repositioned
+ //       // two meters in front of the user.
+ //       m_spinningCubeRenderer->PositionHologram(
+ //           pointerState->TryGetPointerPose(currentCoordinateSystem)
+ //           );
+ //   }
 
     m_timer.Tick([&] ()
     {
@@ -175,9 +165,7 @@ HolographicFrame^ HoloLensClientMain::Update()
         // run as many times as needed to get to the current step.
         //
 
-#ifdef DRAW_SAMPLE_CONTENT
-        m_spinningCubeRenderer->Update(m_timer);
-#endif
+		_holoScene->Update(m_timer);
     });
 
     // We complete the frame update by using information about our content positioning
@@ -185,7 +173,6 @@ HolographicFrame^ HoloLensClientMain::Update()
 
     for (auto cameraPose : prediction->CameraPoses)
     {
-#ifdef DRAW_SAMPLE_CONTENT
         // The HolographicCameraRenderingParameters class provides access to set
         // the image stabilization parameters.
         HolographicCameraRenderingParameters^ renderingParameters = holographicFrame->GetRenderingParameters(cameraPose);
@@ -198,11 +185,10 @@ HolographicFrame^ HoloLensClientMain::Update()
         // since that is the only hologram available for the user to focus on.
         // You can also set the relative velocity and facing of that content; the sample
         // hologram is at a fixed point so we only need to indicate its position.
-        renderingParameters->SetFocusPoint(
-            currentCoordinateSystem,
-            m_spinningCubeRenderer->GetPosition()
-            );
-#endif
+        //renderingParameters->SetFocusPoint(
+        //    currentCoordinateSystem,
+        //    m_spinningCubeRenderer->GetPosition()
+        //    );
     }
 
     // The holographic frame will be used to get up-to-date view and projection matrices and
@@ -213,7 +199,7 @@ HolographicFrame^ HoloLensClientMain::Update()
 // Renders the current frame to each holographic camera, according to the
 // current application and spatial positioning state. Returns true if the
 // frame was rendered to at least one camera.
-bool HoloLensClientMain::Render(Windows::Graphics::Holographic::HolographicFrame^ holographicFrame)
+bool SceneRenderer::Render(Windows::Graphics::Holographic::HolographicFrame^ holographicFrame)
 {
     // Don't try to render anything before the first Update.
     if (m_timer.GetFrameCount() == 0)
@@ -283,14 +269,12 @@ bool HoloLensClientMain::Render(Windows::Graphics::Holographic::HolographicFrame
             // Attach the view/projection constant buffer for this camera to the graphics pipeline.
             bool cameraActive = pCameraResources->AttachViewProjectionBuffer(m_deviceResources);
 
-#ifdef DRAW_SAMPLE_CONTENT
             // Only render world-locked content when positional tracking is active.
             if (cameraActive)
             {
                 // Draw the sample hologram.
-                m_spinningCubeRenderer->Render();
+                _holoScene->Render();
             }
-#endif
             atLeastOneCameraRendered = true;
         }
 
@@ -298,7 +282,7 @@ bool HoloLensClientMain::Render(Windows::Graphics::Holographic::HolographicFrame
     });
 }
 
-void HoloLensClientMain::SaveAppState()
+void SceneRenderer::SaveAppState()
 {
     //
     // TODO: Insert code here to save your app state.
@@ -308,7 +292,7 @@ void HoloLensClientMain::SaveAppState()
     //
 }
 
-void HoloLensClientMain::LoadAppState()
+void SceneRenderer::LoadAppState()
 {
     //
     // TODO: Insert code here to load your app state.
@@ -320,23 +304,19 @@ void HoloLensClientMain::LoadAppState()
 
 // Notifies classes that use Direct3D device resources that the device resources
 // need to be released before this method returns.
-void HoloLensClientMain::OnDeviceLost()
+void SceneRenderer::OnDeviceLost()
 {
-#ifdef DRAW_SAMPLE_CONTENT
-    m_spinningCubeRenderer->ReleaseDeviceDependentResources();
-#endif
+	_holoScene->OnDeviceLost();
 }
 
 // Notifies classes that use Direct3D device resources that the device resources
 // may now be recreated.
-void HoloLensClientMain::OnDeviceRestored()
+void SceneRenderer::OnDeviceRestored()
 {
-#ifdef DRAW_SAMPLE_CONTENT
-    m_spinningCubeRenderer->CreateDeviceDependentResources();
-#endif
+	_holoScene->OnDeviceRestored();
 }
 
-void HoloLensClientMain::OnLocatabilityChanged(SpatialLocator^ sender, Object^ args)
+void SceneRenderer::OnLocatabilityChanged(SpatialLocator^ sender, Object^ args)
 {
     switch (sender->Locatability)
     {
@@ -368,7 +348,7 @@ void HoloLensClientMain::OnLocatabilityChanged(SpatialLocator^ sender, Object^ a
     }
 }
 
-void HoloLensClientMain::OnCameraAdded(
+void SceneRenderer::OnCameraAdded(
     HolographicSpace^ sender,
     HolographicSpaceCameraAddedEventArgs^ args
     )
@@ -400,7 +380,7 @@ void HoloLensClientMain::OnCameraAdded(
     });
 }
 
-void HoloLensClientMain::OnCameraRemoved(
+void SceneRenderer::OnCameraRemoved(
     HolographicSpace^ sender,
     HolographicSpaceCameraRemovedEventArgs^ args
     )

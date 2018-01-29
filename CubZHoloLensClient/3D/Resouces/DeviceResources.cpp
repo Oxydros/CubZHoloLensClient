@@ -1,7 +1,7 @@
 ﻿
 #include "pch.h"
 #include "DeviceResources.h"
-#include "DirectXHelper.h"
+#include "3D\Utility\DirectXHelper.h"
 
 #include <Collection.h>
 #include <windows.graphics.directx.direct3d11.interop.h>

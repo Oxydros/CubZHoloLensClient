@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Common\DeviceResources.h"
-#include "HoloLensClientMain.h"
+#include "3D\Resouces\DeviceResources.h"
+#include "3D\Scene\SceneRenderer.h"
 
 namespace HoloLensClient
 {
@@ -32,7 +32,7 @@ namespace HoloLensClient
         void OnKeyPressed(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ args);
 
     private:
-        std::unique_ptr<HoloLensClientMain> m_main;
+        std::unique_ptr<SceneRenderer> m_main;
 
         std::shared_ptr<DX::DeviceResources>                m_deviceResources;
         bool                                                m_windowClosed  = false;

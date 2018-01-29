@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "CameraResources.h"
-#include "Common\DirectXHelper.h"
+#include "3D\Utility\DirectXHelper.h"
 #include "DeviceResources.h"
 #include <windows.graphics.directx.direct3d11.interop.h>
 

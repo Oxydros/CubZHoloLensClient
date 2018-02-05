@@ -8,6 +8,7 @@ namespace HoloLensClient
 	{
 	private:
 		Windows::Perception::Spatial::SpatialCoordinateSystem^	_coordinateSystem;
+		Windows::UI::Input::Spatial::SpatialPointerPose^		_pointerPose;
 		std::shared_ptr<DX::DeviceResources>					_deviceResources;
 		std::vector<std::unique_ptr<ObjectRenderer>>			_objects;
 	public:
@@ -18,10 +19,14 @@ namespace HoloLensClient
 		void Update(DX::StepTimer const& timer);
 		void Render();
 		void UpdateCoordinateSystem(Windows::Perception::Spatial::SpatialCoordinateSystem^ coordinateSystem);
+		void UpdatePointerPose(Windows::UI::Input::Spatial::SpatialPointerPose ^pointerPose);
 		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState);
 		void OnDeviceLost();
 		void OnDeviceRestored();
+
+	public:
 		Windows::Perception::Spatial::SpatialCoordinateSystem^ getCoordinateSystem() const;
+		Windows::UI::Input::Spatial::SpatialPointerPose^ getPointerPose() const;
 	};
 }
 

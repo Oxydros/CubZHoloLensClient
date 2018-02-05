@@ -182,8 +182,8 @@
     <ClInclude Include="3D\Objects\GazeRenderer.h" />
     <ClInclude Include="3D\Objects\ObjectRenderer.h" />
     <ClInclude Include="3D\Objects\SpinningCubeRenderer.h" />
-    <ClInclude Include="3D\Resouces\CameraResources.h" />
-    <ClInclude Include="3D\Resouces\DeviceResources.h" />
+    <ClInclude Include="3D\Resources\CameraResources.h" />
+    <ClInclude Include="3D\Resources\DeviceResources.h" />
     <ClInclude Include="3D\Scene\HolographicScene.h" />
     <ClInclude Include="3D\Scene\SceneRenderer.h" />
     <ClInclude Include="3D\Shaders\ShaderStructures.h" />
@@ -249,8 +249,8 @@
     <ClCompile Include="3D\Objects\GazeRenderer.cpp" />
     <ClCompile Include="3D\Objects\ObjectRenderer.cpp" />
     <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp" />
-    <ClCompile Include="3D\Resouces\CameraResources.cpp" />
-    <ClCompile Include="3D\Resouces\DeviceResources.cpp" />
+    <ClCompile Include="3D\Resources\CameraResources.cpp" />
+    <ClCompile Include="3D\Resources\DeviceResources.cpp" />
     <ClCompile Include="3D\Scene\HolographicScene.cpp" />
     <ClCompile Include="3D\Scene\SceneRenderer.cpp" />
     <ClCompile Include="3D\SpatialInputHandler.cpp" />

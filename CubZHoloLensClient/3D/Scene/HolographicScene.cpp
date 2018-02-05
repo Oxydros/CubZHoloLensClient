@@ -40,6 +40,11 @@ void HoloLensClient::HolographicScene::UpdateCoordinateSystem(Windows::Perceptio
 	_coordinateSystem = coordinateSystem;
 }
 
+void HoloLensClient::HolographicScene::UpdatePointerPose(Windows::UI::Input::Spatial::SpatialPointerPose ^ pointerPose)
+{
+	_pointerPose = pointerPose;
+}
+
 void HoloLensClient::HolographicScene::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState)
 {
 	std::for_each(_objects.begin(), _objects.end(),
@@ -70,4 +75,9 @@ void HolographicScene::OnDeviceRestored()
 Windows::Perception::Spatial::SpatialCoordinateSystem ^ HoloLensClient::HolographicScene::getCoordinateSystem() const
 {
 	return (_coordinateSystem);
+}
+
+Windows::UI::Input::Spatial::SpatialPointerPose ^ HoloLensClient::HolographicScene::getPointerPose() const
+{
+	return (_pointerPose);
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "3D\Resouces\DeviceResources.h"
+#include "3D\Resources\DeviceResources.h"
 #include "3D\Utility\StepTimer.h"
 #include "3D\SpatialInputHandler.h"
 #include "3D\Scene\HolographicScene.h"

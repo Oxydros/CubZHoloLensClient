@@ -143,7 +143,10 @@ HolographicFrame^ SceneRenderer::Update()
     // associated with the current frame. Later, this coordinate system is used for
     // for creating the stereo view matrices when rendering the sample content.
     SpatialCoordinateSystem^ currentCoordinateSystem = m_referenceFrame->CoordinateSystem;
+	SpatialPointerPose^ pointerPose = SpatialPointerPose::TryGetAtTimestamp(currentCoordinateSystem, prediction->Timestamp);
+
 	_holoScene->UpdateCoordinateSystem(currentCoordinateSystem);
+	_holoScene->UpdatePointerPose(pointerPose);
 
 	//// Check for new input state since the last frame.
     SpatialInteractionSourceState^ pointerState = m_spatialInputHandler->CheckForInput();

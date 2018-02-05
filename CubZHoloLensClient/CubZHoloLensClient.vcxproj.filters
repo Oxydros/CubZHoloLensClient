@@ -64,12 +64,6 @@
     <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp">
       <Filter>3D\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Resouces\CameraResources.cpp">
-      <Filter>3D\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Resouces\DeviceResources.cpp">
-      <Filter>3D\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="3D\AppView.cpp">
       <Filter>3D</Filter>
     </ClCompile>
@@ -88,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="3D\Objects\GazeRenderer.cpp">
       <Filter>3D\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Resources\CameraResources.cpp">
+      <Filter>3D\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Resources\DeviceResources.cpp">
+      <Filter>3D\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,12 +126,6 @@
     <ClInclude Include="3D\Objects\SpinningCubeRenderer.h">
       <Filter>3D\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Resouces\CameraResources.h">
-      <Filter>3D\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Resouces\DeviceResources.h">
-      <Filter>3D\Resources</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Utility\DirectXHelper.h">
       <Filter>3D\Utility</Filter>
     </ClInclude>
@@ -156,6 +150,12 @@
     </ClInclude>
     <ClInclude Include="3D\Objects\GazeRenderer.h">
       <Filter>3D\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Resources\CameraResources.h">
+      <Filter>3D\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Resources\DeviceResources.h">
+      <Filter>3D\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

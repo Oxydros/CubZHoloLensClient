@@ -27,6 +27,7 @@ You should now see cubznetwork.lib and proto.lib inside the folder libs/bin.
 - [Stability of the holograms](https://developer.microsoft.com/en-us/windows/mixed-reality/hologram_stability)
 - [Hologram collision](https://forums.hololens.com/discussion/6785/understand-when-a-user-clicked-gaze-on-particular-object-in-directx-newbie)
 - [Other link for collision](https://forums.hololens.com/discussion/8185/how-to-identify-if-a-hologram-is-in-user-gaze-view-in-directx-uwp-c-hololens-app)
+- [Gesture and motion inputs](https://developer.microsoft.com/en-us/windows/mixed-reality/gaze,_gestures,_and_motion_controllers_in_directx)
 
 # Render Holograms
 

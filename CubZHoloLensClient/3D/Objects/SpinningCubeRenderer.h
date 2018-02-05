@@ -11,11 +11,12 @@ namespace HoloLensClient
     class SpinningCubeRenderer : public ObjectRenderer
     {
     public:
-        SpinningCubeRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+        SpinningCubeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources, HolographicScene const *scene);
         void CreateDeviceDependentResources() override;
         void ReleaseDeviceDependentResources() override;
         void Update(const DX::StepTimer& timer) override;
         void Render() override;
+		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override;
 
         // Repositions the sample hologram.
         void PositionHologram(Windows::UI::Input::Spatial::SpatialPointerPose^ pointerPose);
@@ -37,7 +38,6 @@ namespace HoloLensClient
         // Variables used with the rendering loop.
         bool                                            m_loadingComplete = false;
         float                                           m_degreesPerSecond = 45.f;
-        Windows::Foundation::Numerics::float3           m_position = { 0.f, 0.f, -2.f };
 
         // If the current D3D Device supports VPRT, we can avoid using a geometry
         // shader just to set the render target array index.

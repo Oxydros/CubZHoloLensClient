@@ -6,18 +6,19 @@ namespace HoloLensClient
 	class GazeRenderer : public ObjectRenderer
 	{
 	public:
-		GazeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources);
+		GazeRenderer(std::shared_ptr<DX::DeviceResources> devicesResources, HolographicScene const *scene);
 		~GazeRenderer();
 
 	public:
-		virtual void Render() override;
+		void Render() override;
 
-		virtual void Update(DX::StepTimer const & timer) override;
+		void Update(DX::StepTimer const & timer) override;
 
-		virtual void CreateDeviceDependentResources() override;
+		void CreateDeviceDependentResources() override;
 
-		virtual void ReleaseDeviceDependentResources() override;
+		void ReleaseDeviceDependentResources() override;
 
+		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override;
 	};
 }
 

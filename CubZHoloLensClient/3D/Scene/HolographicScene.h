@@ -7,8 +7,9 @@ namespace HoloLensClient
 	class HolographicScene
 	{
 	private:
-		std::shared_ptr<DX::DeviceResources>			_deviceResources;
-		std::vector<std::unique_ptr<ObjectRenderer>>	_objects;
+		Windows::Perception::Spatial::SpatialCoordinateSystem^	_coordinateSystem;
+		std::shared_ptr<DX::DeviceResources>					_deviceResources;
+		std::vector<std::unique_ptr<ObjectRenderer>>			_objects;
 	public:
 		HolographicScene(std::shared_ptr<DX::DeviceResources> deviceResources);
 		~HolographicScene();
@@ -16,8 +17,11 @@ namespace HoloLensClient
 	public:
 		void Update(DX::StepTimer const& timer);
 		void Render();
+		void UpdateCoordinateSystem(Windows::Perception::Spatial::SpatialCoordinateSystem^ coordinateSystem);
+		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState);
 		void OnDeviceLost();
 		void OnDeviceRestored();
+		Windows::Perception::Spatial::SpatialCoordinateSystem^ getCoordinateSystem() const;
 	};
 }
 

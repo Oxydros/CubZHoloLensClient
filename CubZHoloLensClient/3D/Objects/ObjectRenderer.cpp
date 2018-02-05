@@ -3,8 +3,8 @@
 
 using namespace HoloLensClient;
 
-ObjectRenderer::ObjectRenderer(std::shared_ptr<DX::DeviceResources> deviceResources)
-	: _deviceResources(deviceResources), _pos(0, 0, 0)
+ObjectRenderer::ObjectRenderer(std::shared_ptr<DX::DeviceResources> deviceResources, HolographicScene const *scene)
+	: _scene(scene), _deviceResources(deviceResources), _pos(0, 0, 0)
 {
 }
 

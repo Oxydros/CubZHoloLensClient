@@ -1,13 +1,15 @@
 #include "pch.h"
 #include "HolographicScene.h"
 #include "3D\Objects\SpinningCubeRenderer.h"
+#include "3D\Objects\GazeRenderer.h"
 
 using namespace HoloLensClient;
 
 HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> deviceResources)
 	: _deviceResources(deviceResources)
 {
-	_objects.emplace_back(std::make_unique<SpinningCubeRenderer>(_deviceResources));
+	_objects.emplace_back(std::make_unique<SpinningCubeRenderer>(_deviceResources, this));
+	_objects.emplace_back(std::make_unique<GazeRenderer>(_deviceResources, this));
 }
 
 
@@ -33,6 +35,20 @@ void HolographicScene::Render()
 	});
 }
 
+void HoloLensClient::HolographicScene::UpdateCoordinateSystem(Windows::Perception::Spatial::SpatialCoordinateSystem ^coordinateSystem)
+{
+	_coordinateSystem = coordinateSystem;
+}
+
+void HoloLensClient::HolographicScene::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState)
+{
+	std::for_each(_objects.begin(), _objects.end(),
+		[&pointerState](auto &object)
+	{
+		object->Inputs(pointerState);
+	});
+}
+
 void HolographicScene::OnDeviceLost()
 {
 	std::for_each(_objects.begin(), _objects.end(),
@@ -49,4 +65,9 @@ void HolographicScene::OnDeviceRestored()
 	{
 		object->CreateDeviceDependentResources();
 	});
+}
+
+Windows::Perception::Spatial::SpatialCoordinateSystem ^ HoloLensClient::HolographicScene::getCoordinateSystem() const
+{
+	return (_coordinateSystem);
 }

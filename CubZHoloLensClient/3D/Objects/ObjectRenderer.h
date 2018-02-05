@@ -5,20 +5,24 @@
 
 namespace HoloLensClient
 {
+	class HolographicScene;
+
 	//Abstract class representing an object to be draw in
 	//the holographic space
 	class ObjectRenderer
 	{
 	protected:
-		std::shared_ptr<DX::DeviceResources>	_deviceResources;
-		Windows::Foundation::Numerics::float3	_pos;
+		HolographicScene const									*_scene;
+		std::shared_ptr<DX::DeviceResources>					_deviceResources;
+		Windows::Foundation::Numerics::float3					_pos;
 	public:
-		ObjectRenderer(std::shared_ptr<DX::DeviceResources> devicesResources);
+		ObjectRenderer(std::shared_ptr<DX::DeviceResources> devicesResources, HolographicScene const *scene);
 		virtual ~ObjectRenderer();
 
 	public:
 		virtual void Render() = 0;
 		virtual void Update(DX::StepTimer const &timer) = 0;
+		virtual void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) = 0;
 		virtual void CreateDeviceDependentResources() = 0;
 		virtual void ReleaseDeviceDependentResources() = 0;
 

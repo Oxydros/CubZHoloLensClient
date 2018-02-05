@@ -3,8 +3,8 @@
 
 using namespace HoloLensClient;
 
-GazeRenderer::GazeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources)
-	: ObjectRenderer(deviceResources)
+GazeRenderer::GazeRenderer(std::shared_ptr<DX::DeviceResources> devicesResources, HolographicScene const *scene)
+	: ObjectRenderer(devicesResources, scene)
 {
 }
 
@@ -25,5 +25,9 @@ void GazeRenderer::CreateDeviceDependentResources()
 }
 
 void GazeRenderer::ReleaseDeviceDependentResources()
+{
+}
+
+void HoloLensClient::GazeRenderer::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
 }

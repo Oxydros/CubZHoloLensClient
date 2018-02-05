@@ -143,17 +143,14 @@ HolographicFrame^ SceneRenderer::Update()
     // associated with the current frame. Later, this coordinate system is used for
     // for creating the stereo view matrices when rendering the sample content.
     SpatialCoordinateSystem^ currentCoordinateSystem = m_referenceFrame->CoordinateSystem;
-	
+	_holoScene->UpdateCoordinateSystem(currentCoordinateSystem);
+
 	//// Check for new input state since the last frame.
- //   SpatialInteractionSourceState^ pointerState = m_spatialInputHandler->CheckForInput();
- //   if (pointerState != nullptr)
- //   {
- //       // When a Pressed gesture is detected, the sample hologram will be repositioned
- //       // two meters in front of the user.
- //       m_spinningCubeRenderer->PositionHologram(
- //           pointerState->TryGetPointerPose(currentCoordinateSystem)
- //           );
- //   }
+    SpatialInteractionSourceState^ pointerState = m_spatialInputHandler->CheckForInput();
+    if (pointerState != nullptr)
+    {
+		_holoScene->Inputs(pointerState);
+    }
 
     m_timer.Tick([&] ()
     {

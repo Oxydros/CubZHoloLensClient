@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "SpinningCubeRenderer.h"
+#include "3D\Scene\HolographicScene.h"
 #include "3D\Utility\DirectXHelper.h"
 
 using namespace HoloLensClient;
@@ -9,10 +10,18 @@ using namespace Windows::Foundation::Numerics;
 using namespace Windows::UI::Input::Spatial;
 
 // Loads vertex and pixel shaders from files and instantiates the cube geometry.
-SpinningCubeRenderer::SpinningCubeRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources)
-	: ObjectRenderer(deviceResources)
+SpinningCubeRenderer::SpinningCubeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources, HolographicScene const *scene)
+	: ObjectRenderer(deviceResources, scene)
 {
+	setPosition({ 0.f, 0.f, -2.f });
 	CreateDeviceDependentResources();
+}
+
+void HoloLensClient::SpinningCubeRenderer::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
+{
+	PositionHologram(
+		pointerState->TryGetPointerPose(_scene->getCoordinateSystem())
+	);
 }
 
 // This function uses a SpatialPointerPose to position the world-locked hologram
@@ -47,7 +56,7 @@ void SpinningCubeRenderer::Update(const DX::StepTimer& timer)
 	const XMMATRIX modelRotation = XMMatrixRotationY(-radians);
 
 	// Position the cube.
-	const XMMATRIX modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&m_position));
+	const XMMATRIX modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&getPosition()));
 
 	// Multiply to get the transform matrix.
 	// Note that this transform does not enforce a particular coordinate system. The calling

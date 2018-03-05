@@ -61,9 +61,6 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="Pages\UserExploPage.xaml.cpp" />
-    <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp">
-      <Filter>3D\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="3D\AppView.cpp">
       <Filter>3D</Filter>
     </ClCompile>
@@ -80,14 +77,20 @@
     <ClCompile Include="3D\Scene\HolographicScene.cpp">
       <Filter>3D\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\GazeRenderer.cpp">
-      <Filter>3D\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Resources\CameraResources.cpp">
       <Filter>3D\Resources</Filter>
     </ClCompile>
     <ClCompile Include="3D\Resources\DeviceResources.cpp">
       <Filter>3D\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\CubeRenderer.cpp">
+      <Filter>3D\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\GazeRenderer.cpp">
+      <Filter>3D\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp">
+      <Filter>3D\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +126,6 @@
     <ClInclude Include="3D\Shaders\ShaderStructures.h">
       <Filter>3D\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\SpinningCubeRenderer.h">
-      <Filter>3D\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Utility\DirectXHelper.h">
       <Filter>3D\Utility</Filter>
     </ClInclude>
@@ -148,14 +148,20 @@
     <ClInclude Include="3D\Scene\HolographicScene.h">
       <Filter>3D\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\GazeRenderer.h">
-      <Filter>3D\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Resources\CameraResources.h">
       <Filter>3D\Resources</Filter>
     </ClInclude>
     <ClInclude Include="3D\Resources\DeviceResources.h">
       <Filter>3D\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\CubeRenderer.h">
+      <Filter>3D\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GazeRenderer.h">
+      <Filter>3D\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\SpinningCubeRenderer.h">
+      <Filter>3D\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -214,16 +220,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="3D\Shaders\GeometryShader.hlsl">
+    <FxCompile Include="3D\Shaders\BasicPixelShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\PixelShader.hlsl">
+    <FxCompile Include="3D\Shaders\BasicGeometryShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\VertexShader.hlsl">
+    <FxCompile Include="3D\Shaders\BasicVertexShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\VPRTVertexShader.hlsl">
+    <FxCompile Include="3D\Shaders\BasicVPRTVertexShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

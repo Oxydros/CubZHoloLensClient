@@ -22,4 +22,4 @@ namespace CubZHoloLensClient
 		}
 		WinNetwork::TCPClient ^getTCPClient();
 	};
-}	
+}

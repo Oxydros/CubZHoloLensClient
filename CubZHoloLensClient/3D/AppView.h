@@ -1,7 +1,11 @@
 #pragma once
 
+#include <Ogre.h>
 #include "3D\Resources\DeviceResources.h"
 #include "3D\Scene\SceneRenderer.h"
+
+#define LEFT_EYE	(0)
+#define RIGHT_EYE	(1)
 
 namespace HoloLensClient
 {
@@ -10,6 +14,7 @@ namespace HoloLensClient
     {
     public:
         AppView();
+		virtual ~AppView();
 
         // IFrameworkView methods.
         virtual void Initialize(Windows::ApplicationModel::Core::CoreApplicationView^ applicationView);

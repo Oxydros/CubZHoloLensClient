@@ -22,6 +22,10 @@ AppView::AppView()
 {
 }
 
+AppView::~AppView()
+{
+}
+
 
 // IFrameworkView methods
 

@@ -4,8 +4,11 @@
 
 namespace HoloLensClient
 {
-	class HolographicScene
+	class HolographicScene : public std::enable_shared_from_this<HolographicScene>
 	{
+	public:
+		typedef std::shared_ptr<HolographicScene>				SharedPtr;
+
 	private:
 		Windows::Perception::Spatial::SpatialCoordinateSystem^	_coordinateSystem;
 		Windows::UI::Input::Spatial::SpatialPointerPose^		_pointerPose;

@@ -5,14 +5,19 @@
 
 namespace HoloLensClient
 {
-	class GazeRenderer : public ObjectRenderer
+	class CubeRenderer : public ObjectRenderer
 	{
+	private:
+		DirectX::XMFLOAT3		const &_color;
+
 	public:
-		GazeRenderer(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> sharedScene);
-		~GazeRenderer();
+		CubeRenderer(std::shared_ptr<DX::DeviceResources> devicesResources,
+					 DirectX::XMFLOAT3 color = { 1.0f, 1.0f, 1.0f });
+		~CubeRenderer();
 
 	public:
 		void Update(DX::StepTimer const & timer) override;
+
 		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override;
 
 	private:

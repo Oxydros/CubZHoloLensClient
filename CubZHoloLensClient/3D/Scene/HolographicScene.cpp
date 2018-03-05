@@ -8,8 +8,6 @@ using namespace HoloLensClient;
 HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> deviceResources)
 	: _deviceResources(deviceResources)
 {
-	_objects.emplace_back(std::make_unique<SpinningCubeRenderer>(_deviceResources, this));
-	_objects.emplace_back(std::make_unique<GazeRenderer>(_deviceResources, this));
 }
 
 
@@ -59,7 +57,7 @@ void HolographicScene::OnDeviceLost()
 	std::for_each(_objects.begin(), _objects.end(),
 		[](auto &object)
 	{
-		object->ReleaseDeviceDependentResources();
+		object->Release();
 	});
 }
 
@@ -68,7 +66,7 @@ void HolographicScene::OnDeviceRestored()
 	std::for_each(_objects.begin(), _objects.end(),
 		[](auto &object)
 	{
-		object->CreateDeviceDependentResources();
+		object->Initialize();
 	});
 }
 

@@ -9,7 +9,7 @@
 #include "Pages\DeviceManagerPage.xaml.h"
 #include "Pages\HomePage.xaml.h"
 #include "Pages\UserExploPage.xaml.h"
-#include "AppView.h"
+#include "3D\AppView.h"
 
 using namespace CubZHoloLensClient;
 

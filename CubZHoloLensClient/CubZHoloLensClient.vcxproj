@@ -121,9 +121,11 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -131,9 +133,11 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -141,9 +145,11 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -151,9 +157,11 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -161,9 +169,11 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -171,25 +181,31 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Common\AppView.h" />
-    <ClInclude Include="Common\CameraResources.h" />
-    <ClInclude Include="Common\DeviceResources.h" />
-    <ClInclude Include="Common\DirectXHelper.h" />
-    <ClInclude Include="Common\HoloLensClientMain.h" />
-    <ClInclude Include="Common\StepTimer.h" />
-    <ClInclude Include="ConnectionPage.xaml.h">
-      <DependentUpon>ConnectionPage.xaml</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="Content\ShaderStructures.h" />
-    <ClInclude Include="Content\SpatialInputHandler.h" />
-    <ClInclude Include="Content\SpinningCubeRenderer.h" />
+    <ClInclude Include="3D\AppView.h" />
+    <ClInclude Include="3D\Entities\CubeEntity.h" />
+    <ClInclude Include="3D\Entities\Entity.h" />
+    <ClInclude Include="3D\Entities\GazeEntity.h" />
+    <ClInclude Include="3D\ObjectsRenderer\CubeRenderer.h" />
+    <ClInclude Include="3D\ObjectsRenderer\GazeRenderer.h" />
+    <ClInclude Include="3D\ObjectsRenderer\ObjectRenderer.h" />
+    <ClInclude Include="3D\ObjectsRenderer\SpinningCubeRenderer.h" />
+    <ClInclude Include="3D\Resources\CameraResources.h" />
+    <ClInclude Include="3D\Resources\DeviceResources.h" />
+    <ClInclude Include="3D\Scene\HolographicScene.h" />
+    <ClInclude Include="3D\Scene\SceneRenderer.h" />
+    <ClInclude Include="3D\Shaders\ShaderStructures.h" />
+    <ClInclude Include="3D\SpatialInputHandler.h" />
+    <ClInclude Include="3D\Utility\DirectXHelper.h" />
+    <ClInclude Include="3D\Utility\StepTimer.h" />
     <ClInclude Include="Network\TCPClient.h" />
     <ClInclude Include="Objects\DeviceTypeValueConverter.h" />
     <ClInclude Include="Objects\File.h" />
@@ -199,6 +215,9 @@
     <ClInclude Include="Objects\Utility.h" />
     <ClInclude Include="Pages\AddDevicePage.xaml.h">
       <DependentUpon>Pages\AddDevicePage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Pages\ConnectionPage.xaml.h">
+      <DependentUpon>Pages\ConnectionPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="Pages\DeviceManagerPage.xaml.h">
       <DependentUpon>Pages\DeviceManagerPage.xaml</DependentUpon>
@@ -242,18 +261,21 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="3D\AppView.cpp" />
+    <ClCompile Include="3D\Entities\CubeEntity.cpp" />
+    <ClCompile Include="3D\Entities\GazeEntity.cpp" />
+    <ClCompile Include="3D\ObjectsRenderer\CubeRenderer.cpp" />
+    <ClCompile Include="3D\ObjectsRenderer\GazeRenderer.cpp" />
+    <ClCompile Include="3D\ObjectsRenderer\ObjectRenderer.cpp" />
+    <ClCompile Include="3D\ObjectsRenderer\SpinningCubeRenderer.cpp" />
+    <ClCompile Include="3D\Resources\CameraResources.cpp" />
+    <ClCompile Include="3D\Resources\DeviceResources.cpp" />
+    <ClCompile Include="3D\Scene\HolographicScene.cpp" />
+    <ClCompile Include="3D\Scene\SceneRenderer.cpp" />
+    <ClCompile Include="3D\SpatialInputHandler.cpp" />
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="Common\AppView.cpp" />
-    <ClCompile Include="Common\CameraResources.cpp" />
-    <ClCompile Include="Common\DeviceResources.cpp" />
-    <ClCompile Include="Common\HoloLensClientMain.cpp" />
-    <ClCompile Include="ConnectionPage.xaml.cpp">
-      <DependentUpon>ConnectionPage.xaml</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="Content\SpatialInputHandler.cpp" />
-    <ClCompile Include="Content\SpinningCubeRenderer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Network\TCPClient.cpp" />
     <ClCompile Include="Objects\DeviceTypeValueConverter.cpp" />
@@ -262,6 +284,9 @@
     <ClCompile Include="Objects\UserDevice.cpp" />
     <ClCompile Include="Pages\AddDevicePage.xaml.cpp">
       <DependentUpon>Pages\AddDevicePage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Pages\ConnectionPage.xaml.cpp">
+      <DependentUpon>Pages\ConnectionPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="Pages\DeviceManagerPage.xaml.cpp">
       <DependentUpon>Pages\DeviceManagerPage.xaml</DependentUpon>
@@ -288,21 +313,38 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Content\GeometryShader.hlsl">
+    <Page Include="Pages\AddDevicePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ConnectionPage.xaml" />
+    <Page Include="Pages\DeviceManagerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\LocalFileExploPage.xaml" />
+    <Page Include="Pages\HomePage.xaml" />
+    <Page Include="Pages\ServerFileExploPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\UserExploPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="3D\Shaders\BasicGeometryShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Content\PixelShader.hlsl">
+    <FxCompile Include="3D\Shaders\BasicPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Pixel</ShaderType>
@@ -316,7 +358,7 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Content\VertexShader.hlsl">
+    <FxCompile Include="3D\Shaders\BasicVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Vertex</ShaderType>
@@ -330,7 +372,7 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Content\VPRTVertexShader.hlsl">
+    <FxCompile Include="3D\Shaders\BasicVPRTVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Vertex</ShaderType>
@@ -344,25 +386,6 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="ConnectionPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\AddDevicePage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\DeviceManagerPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\LocalFileExploPage.xaml" />
-    <Page Include="Pages\HomePage.xaml" />
-    <Page Include="Pages\ServerFileExploPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\UserExploPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

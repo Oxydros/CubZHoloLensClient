@@ -22,6 +22,10 @@ AppView::AppView()
 {
 }
 
+AppView::~AppView()
+{
+}
+
 
 // IFrameworkView methods
 
@@ -43,7 +47,7 @@ void AppView::Initialize(CoreApplicationView^ applicationView)
     // resources.
     m_deviceResources = std::make_shared<DX::DeviceResources>();
 
-    m_main = std::make_unique<HoloLensClientMain>(m_deviceResources);
+    m_main = std::make_unique<SceneRenderer>(m_deviceResources);
 }
 
 // Called when the CoreWindow object is created (or re-created).

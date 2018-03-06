@@ -1,18 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Common">
-      <UniqueIdentifier>6ec48509-00fe-498a-8f41-3f46cca07fde</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets">
       <UniqueIdentifier>943a3c60-dbb0-4a0b-ae4a-a88dba21ffbb</UniqueIdentifier>
       <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
-    </Filter>
-    <Filter Include="Content">
-      <UniqueIdentifier>{07d07289-94b2-47dd-870b-356fb54f74de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Content\Shaders">
-      <UniqueIdentifier>{a3ddf580-9126-4728-8ff1-fe1c6726723a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Pages">
       <UniqueIdentifier>{87668aff-b511-4460-8fb6-b0b058fb6b33}</UniqueIdentifier>
@@ -23,6 +14,27 @@
     <Filter Include="Network">
       <UniqueIdentifier>{d9604d9f-bfa1-4202-9b91-c99020f2ba54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3D">
+      <UniqueIdentifier>{68280fbf-52d1-4a74-8971-b74bd0ae9b83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Shaders">
+      <UniqueIdentifier>{e6a42cb6-4a53-4e02-8abb-4e67afc33660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Resources">
+      <UniqueIdentifier>{c3ba491b-4b0d-4f11-9607-127cfd9b4dbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Utility">
+      <UniqueIdentifier>{9081c58d-f90c-4295-aab3-0ff845d5edf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Scene">
+      <UniqueIdentifier>{7847453a-dde0-4640-bfdd-42a7a16b5f8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\ObjectsRenderer">
+      <UniqueIdentifier>{8765992a-e32b-43fb-9d43-3921e3c65f9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Entities">
+      <UniqueIdentifier>{053a8bb1-966e-4e82-9408-bd3b833773eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -30,24 +42,6 @@
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Common\AppView.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\CameraResources.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\DeviceResources.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\HoloLensClientMain.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Content\SpatialInputHandler.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
-    <ClCompile Include="Content\SpinningCubeRenderer.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Objects\File.cpp">
       <Filter>Objects</Filter>
@@ -63,44 +57,54 @@
     </ClCompile>
     <ClCompile Include="Pages\AddDevicePage.xaml.cpp" />
     <ClCompile Include="Pages\HomePage.xaml.cpp" />
-    <ClCompile Include="ConnectionPage.xaml.cpp" />
     <ClCompile Include="Objects\HoloLensContext.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="Network\TCPClient.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Pages\UserExploPage.xaml.cpp" />
+    <ClCompile Include="3D\AppView.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\SpatialInputHandler.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Pages\ConnectionPage.xaml.cpp" />
+    <ClCompile Include="3D\Scene\SceneRenderer.cpp">
+      <Filter>3D\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Scene\HolographicScene.cpp">
+      <Filter>3D\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Resources\CameraResources.cpp">
+      <Filter>3D\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Resources\DeviceResources.cpp">
+      <Filter>3D\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\ObjectsRenderer\CubeRenderer.cpp">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\ObjectsRenderer\GazeRenderer.cpp">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\ObjectsRenderer\ObjectRenderer.cpp">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\ObjectsRenderer\SpinningCubeRenderer.cpp">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GazeEntity.cpp">
+      <Filter>3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\CubeEntity.cpp">
+      <Filter>3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h" />
-    <ClInclude Include="Common\AppView.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\CameraResources.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\DeviceResources.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\DirectXHelper.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\HoloLensClientMain.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\StepTimer.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Content\ShaderStructures.h">
-      <Filter>Content</Filter>
-    </ClInclude>
-    <ClInclude Include="Content\SpatialInputHandler.h">
-      <Filter>Content</Filter>
-    </ClInclude>
-    <ClInclude Include="Content\SpinningCubeRenderer.h">
-      <Filter>Content</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\FileDataTemplateSelector.h">
       <Filter>Objects</Filter>
     </ClInclude>
@@ -118,7 +122,6 @@
     </ClInclude>
     <ClInclude Include="Pages\AddDevicePage.xaml.h" />
     <ClInclude Include="Pages\HomePage.xaml.h" />
-    <ClInclude Include="ConnectionPage.xaml.h" />
     <ClInclude Include="Objects\HoloLensContext.h">
       <Filter>Objects</Filter>
     </ClInclude>
@@ -127,6 +130,56 @@
     </ClInclude>
     <ClInclude Include="Network\TCPClient.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Pages\UserExploPage.xaml.h" />
+    <ClInclude Include="3D\Shaders\ShaderStructures.h">
+      <Filter>3D\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Utility\DirectXHelper.h">
+      <Filter>3D\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Utility\StepTimer.h">
+      <Filter>3D\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\AppView.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\SpatialInputHandler.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Pages\ConnectionPage.xaml.h" />
+    <ClInclude Include="3D\Scene\SceneRenderer.h">
+      <Filter>3D\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Scene\HolographicScene.h">
+      <Filter>3D\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Resources\CameraResources.h">
+      <Filter>3D\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Resources\DeviceResources.h">
+      <Filter>3D\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\ObjectsRenderer\CubeRenderer.h">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\ObjectsRenderer\GazeRenderer.h">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\ObjectsRenderer\ObjectRenderer.h">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\ObjectsRenderer\SpinningCubeRenderer.h">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Entity.h">
+      <Filter>3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GazeEntity.h">
+      <Filter>3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\CubeEntity.h">
+      <Filter>3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -162,20 +215,6 @@
     <None Include="CubZHoloLensClient_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Content\GeometryShader.hlsl">
-      <Filter>Content\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Content\PixelShader.hlsl">
-      <Filter>Content\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Content\VertexShader.hlsl">
-      <Filter>Content\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Content\VPRTVertexShader.hlsl">
-      <Filter>Content\Shaders</Filter>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Pages\ServerFileExploPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -188,14 +227,28 @@
     <Page Include="Pages\AddDevicePage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="ConnectionPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="Pages\HomePage.xaml">
       <Filter>Pages</Filter>
     </Page>
     <Page Include="Pages\UserExploPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="Pages\ConnectionPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="3D\Shaders\BasicPixelShader.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\BasicGeometryShader.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\BasicVertexShader.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\BasicVPRTVertexShader.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

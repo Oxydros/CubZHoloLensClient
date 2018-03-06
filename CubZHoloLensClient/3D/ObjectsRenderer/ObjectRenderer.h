@@ -9,17 +9,15 @@ using namespace Windows::Foundation::Numerics;
 
 namespace HoloLensClient
 {
-	class HolographicScene;
-
 	//Abstract class representing an object to be draw in
 	//the holographic space
 	class ObjectRenderer
 	{
 	protected:
-		std::wstring const								&_vertexShaderString;
-		std::wstring const								&_pixelShaderString;
-		std::wstring const								&_geometryShaderString;
-		std::wstring const								&_vprtVertexShaderString;
+		std::wstring 									_vertexShaderString;
+		std::wstring 									_pixelShaderString;
+		std::wstring 									_geometryShaderString;
+		std::wstring 									_vprtVertexShaderString;
 
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>       _inputLayout;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>            _vertexBuffer;
@@ -45,22 +43,21 @@ namespace HoloLensClient
 
 	public:
 		ObjectRenderer(std::shared_ptr<DX::DeviceResources> devicesResources,
-					   std::wstring const &vertexShaderString = L"ms-appx:///BasicVertexShader.cso",
-					   std::wstring const &pixelShaderString = L"ms-appx:///BasicPixelShader.cso",
-					   std::wstring const &geometryShaderString = L"ms-appx:///BasicGeometryShader.cso",
-					   std::wstring const &vprtVertexShaderString = L"ms-appx:///BasicVprtVertexShader.cso"
-			);
+			std::wstring const &vertexShaderString = L"ms-appx:///BasicVertexShader.cso",
+			std::wstring const &pixelShaderString = L"ms-appx:///BasicPixelShader.cso",
+			std::wstring const &geometryShaderString = L"ms-appx:///BasicGeometryShader.cso",
+			std::wstring const &vprtVertexShaderString = L"ms-appx:///BasicVprtVertexShader.cso"
+		);
 		virtual ~ObjectRenderer();
 
 	public:
-		virtual void Update(DX::StepTimer const &timer) = 0;
-		virtual void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) = 0;
-
-	public:
-		void		Initialize();
-		bool		isInitialize() const;
-		void		Release();
-		void		Render();
+		void									Initialize();
+		bool									isInitialized() const;
+		void									Release();
+		void									Render();
+		void									Update();
+		void									ApplyMatrix(DirectX::XMMATRIX const &m);
+		std::shared_ptr<DX::DeviceResources>	getDeviceResources();
 
 	private:
 		Concurrency::task<void>				InitializeShaders();

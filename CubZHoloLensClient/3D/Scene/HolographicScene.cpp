@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "HolographicScene.h"
-#include "3D\Objects\SpinningCubeRenderer.h"
-#include "3D\Objects\GazeRenderer.h"
+#include "3D\Entities\GazeEntity.h"
 
 using namespace HoloLensClient;
 
@@ -15,21 +14,37 @@ HolographicScene::~HolographicScene()
 {
 }
 
+void HolographicScene::Initialize()
+{
+	auto safe = shared_from_this();
+	auto gaze = std::make_unique<GazeEntity>(_deviceResources, safe);
+	_entities.emplace_back(std::move(gaze));
+}
+
 void HolographicScene::Update(DX::StepTimer const& timer)
 {
-	std::for_each(_objects.begin(), _objects.end(),
-		[&timer](auto &object)
+	std::for_each(_entities.begin(), _entities.end(),
+		[&timer](auto &entity)
 	{
-		object->Update(timer);
+		std::cout << "Updating " << entity.get() << std::endl;
+		entity->Update(timer);
 	});
+	std::for_each(_newEntities.begin(), _newEntities.end(),
+		[this](auto &entity)
+	{
+		TRACE("Adding new entity from pending list " << entity.get() << std::endl);
+		_entities.emplace_back(std::move(entity));
+	});
+	_newEntities.clear();
 }
 
 void HolographicScene::Render()
 {
-	std::for_each(_objects.begin(), _objects.end(),
-		[](auto &object)
+	std::for_each(_entities.begin(), _entities.end(),
+		[](auto &entity)
 	{
-		object->Render();
+		TRACE("Rendering " << entity.get() << std::endl);
+		entity->Render();
 	});
 }
 
@@ -45,29 +60,36 @@ void HoloLensClient::HolographicScene::UpdatePointerPose(Windows::UI::Input::Spa
 
 void HoloLensClient::HolographicScene::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState)
 {
-	std::for_each(_objects.begin(), _objects.end(),
-		[&pointerState](auto &object)
+	std::for_each(_entities.begin(), _entities.end(),
+		[&pointerState](auto &entity)
 	{
-		object->Inputs(pointerState);
+		TRACE("Entity = " << entity.get() << " " << std::endl);
+		entity->Inputs(pointerState);
 	});
 }
 
 void HolographicScene::OnDeviceLost()
 {
-	std::for_each(_objects.begin(), _objects.end(),
-		[](auto &object)
+	std::for_each(_entities.begin(), _entities.end(),
+		[](auto &entity)
 	{
-		object->Release();
+		entity->ReleaseMesh();
 	});
 }
 
 void HolographicScene::OnDeviceRestored()
 {
-	std::for_each(_objects.begin(), _objects.end(),
-		[](auto &object)
+	std::for_each(_entities.begin(), _entities.end(),
+		[](auto &entity)
 	{
-		object->Initialize();
+		entity->InitializeMesh();
 	});
+}
+
+void HoloLensClient::HolographicScene::addEntity(std::unique_ptr<Entity> e)
+{
+	TRACE("Adding new entity to pending list " << e.get() << std::endl);
+	_newEntities.emplace_back(std::move(e));
 }
 
 Windows::Perception::Spatial::SpatialCoordinateSystem ^ HoloLensClient::HolographicScene::getCoordinateSystem() const

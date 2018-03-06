@@ -121,80 +121,83 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\OgreMain\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(OGRE_HOME)\lib\Release;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;User32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib;OgreMainStatic.lib;RenderSystem_Direct3D11Static.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\OgreMain\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(OGRE_HOME)\lib\Release;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;User32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib;OgreMainStatic.lib;RenderSystem_Direct3D11Static.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\OgreMain\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(OGRE_HOME)\lib\Release;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;User32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib;OgreMainStatic.lib;RenderSystem_Direct3D11Static.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\OgreMain\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(OGRE_HOME)\lib\Release;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;User32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib;OgreMainStatic.lib;RenderSystem_Direct3D11Static.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\OgreMain\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(OGRE_HOME)\lib\Release;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;User32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib;OgreMainStatic.lib;RenderSystem_Direct3D11Static.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\OgreMain\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(OGRE_HOME)\lib\Release;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;User32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib;OgreMainStatic.lib;RenderSystem_Direct3D11Static.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="3D\AppView.h" />
-    <ClInclude Include="3D\Objects\CubeRenderer.h" />
-    <ClInclude Include="3D\Objects\GazeRenderer.h" />
-    <ClInclude Include="3D\Objects\ObjectRenderer.h" />
-    <ClInclude Include="3D\Objects\SpinningCubeRenderer.h" />
+    <ClInclude Include="3D\Entities\CubeEntity.h" />
+    <ClInclude Include="3D\Entities\Entity.h" />
+    <ClInclude Include="3D\Entities\GazeEntity.h" />
+    <ClInclude Include="3D\ObjectsRenderer\CubeRenderer.h" />
+    <ClInclude Include="3D\ObjectsRenderer\GazeRenderer.h" />
+    <ClInclude Include="3D\ObjectsRenderer\ObjectRenderer.h" />
+    <ClInclude Include="3D\ObjectsRenderer\SpinningCubeRenderer.h" />
     <ClInclude Include="3D\Resources\CameraResources.h" />
     <ClInclude Include="3D\Resources\DeviceResources.h" />
     <ClInclude Include="3D\Scene\HolographicScene.h" />
@@ -259,10 +262,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3D\AppView.cpp" />
-    <ClCompile Include="3D\Objects\CubeRenderer.cpp" />
-    <ClCompile Include="3D\Objects\GazeRenderer.cpp" />
-    <ClCompile Include="3D\Objects\ObjectRenderer.cpp" />
-    <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp" />
+    <ClCompile Include="3D\Entities\CubeEntity.cpp" />
+    <ClCompile Include="3D\Entities\GazeEntity.cpp" />
+    <ClCompile Include="3D\ObjectsRenderer\CubeRenderer.cpp" />
+    <ClCompile Include="3D\ObjectsRenderer\GazeRenderer.cpp" />
+    <ClCompile Include="3D\ObjectsRenderer\ObjectRenderer.cpp" />
+    <ClCompile Include="3D\ObjectsRenderer\SpinningCubeRenderer.cpp" />
     <ClCompile Include="3D\Resources\CameraResources.cpp" />
     <ClCompile Include="3D\Resources\DeviceResources.cpp" />
     <ClCompile Include="3D\Scene\HolographicScene.cpp" />

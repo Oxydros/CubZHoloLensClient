@@ -28,7 +28,8 @@ void SceneRenderer::SetHolographicSpace(HolographicSpace^ holographicSpace)
 {
     UnregisterHolographicEventHandlers();
 
-	_holoScene = std::make_unique<HolographicScene>(m_deviceResources);
+	_holoScene = std::make_shared<HolographicScene>(m_deviceResources);
+	_holoScene->Initialize();
 
     m_holographicSpace = holographicSpace;
 

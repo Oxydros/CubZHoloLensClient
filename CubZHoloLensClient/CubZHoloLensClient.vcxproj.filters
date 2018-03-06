@@ -20,9 +20,6 @@
     <Filter Include="3D\Shaders">
       <UniqueIdentifier>{e6a42cb6-4a53-4e02-8abb-4e67afc33660}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3D\Objects">
-      <UniqueIdentifier>{565782f9-7453-4b5d-b9b2-5631221e0326}</UniqueIdentifier>
-    </Filter>
     <Filter Include="3D\Resources">
       <UniqueIdentifier>{c3ba491b-4b0d-4f11-9607-127cfd9b4dbf}</UniqueIdentifier>
     </Filter>
@@ -31,6 +28,12 @@
     </Filter>
     <Filter Include="3D\Scene">
       <UniqueIdentifier>{7847453a-dde0-4640-bfdd-42a7a16b5f8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\ObjectsRenderer">
+      <UniqueIdentifier>{8765992a-e32b-43fb-9d43-3921e3c65f9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Entities">
+      <UniqueIdentifier>{053a8bb1-966e-4e82-9408-bd3b833773eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +71,6 @@
       <Filter>3D</Filter>
     </ClCompile>
     <ClCompile Include="Pages\ConnectionPage.xaml.cpp" />
-    <ClCompile Include="3D\Objects\ObjectRenderer.cpp">
-      <Filter>3D\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Scene\SceneRenderer.cpp">
       <Filter>3D\Scene</Filter>
     </ClCompile>
@@ -83,14 +83,23 @@
     <ClCompile Include="3D\Resources\DeviceResources.cpp">
       <Filter>3D\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\CubeRenderer.cpp">
-      <Filter>3D\Objects</Filter>
+    <ClCompile Include="3D\ObjectsRenderer\CubeRenderer.cpp">
+      <Filter>3D\ObjectsRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\GazeRenderer.cpp">
-      <Filter>3D\Objects</Filter>
+    <ClCompile Include="3D\ObjectsRenderer\GazeRenderer.cpp">
+      <Filter>3D\ObjectsRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp">
-      <Filter>3D\Objects</Filter>
+    <ClCompile Include="3D\ObjectsRenderer\ObjectRenderer.cpp">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\ObjectsRenderer\SpinningCubeRenderer.cpp">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GazeEntity.cpp">
+      <Filter>3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\CubeEntity.cpp">
+      <Filter>3D\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +148,6 @@
       <Filter>3D</Filter>
     </ClInclude>
     <ClInclude Include="Pages\ConnectionPage.xaml.h" />
-    <ClInclude Include="3D\Objects\ObjectRenderer.h">
-      <Filter>3D\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Scene\SceneRenderer.h">
       <Filter>3D\Scene</Filter>
     </ClInclude>
@@ -154,14 +160,26 @@
     <ClInclude Include="3D\Resources\DeviceResources.h">
       <Filter>3D\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\CubeRenderer.h">
-      <Filter>3D\Objects</Filter>
+    <ClInclude Include="3D\ObjectsRenderer\CubeRenderer.h">
+      <Filter>3D\ObjectsRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\GazeRenderer.h">
-      <Filter>3D\Objects</Filter>
+    <ClInclude Include="3D\ObjectsRenderer\GazeRenderer.h">
+      <Filter>3D\ObjectsRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\SpinningCubeRenderer.h">
-      <Filter>3D\Objects</Filter>
+    <ClInclude Include="3D\ObjectsRenderer\ObjectRenderer.h">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\ObjectsRenderer\SpinningCubeRenderer.h">
+      <Filter>3D\ObjectsRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Entity.h">
+      <Filter>3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GazeEntity.h">
+      <Filter>3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\CubeEntity.h">
+      <Filter>3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Ogre.h>
 #include "3D\Resources\DeviceResources.h"
 #include "3D\Scene\SceneRenderer.h"
 

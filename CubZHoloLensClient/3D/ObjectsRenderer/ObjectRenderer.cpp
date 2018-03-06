@@ -1,11 +1,12 @@
 #include "pch.h"
-#include "3D\Objects\ObjectRenderer.h"
+#include "3D\ObjectsRenderer\ObjectRenderer.h"
 
 using namespace HoloLensClient;
+using namespace DirectX;
 
 ObjectRenderer::ObjectRenderer(std::shared_ptr<DX::DeviceResources> deviceResources,
-	std::wstring const &vShader, std::wstring const &pShader, std::wstring const &gShader,
-	std::wstring const &vpVShader)
+			std::wstring const &vShader, std::wstring const &pShader, std::wstring const &gShader,
+			std::wstring const &vpVShader)
 	: _vertexShaderString(vShader), _pixelShaderString(pShader),
 	_geometryShaderString(gShader), _vprtVertexShaderString(vpVShader), _deviceResources(deviceResources), _pos(0, 0, 0), _angle(0, 0, 0)
 {
@@ -14,7 +15,7 @@ ObjectRenderer::ObjectRenderer(std::shared_ptr<DX::DeviceResources> deviceResour
 ObjectRenderer::~ObjectRenderer()
 {}
 
-bool ObjectRenderer::isInitialize() const
+bool ObjectRenderer::isInitialized() const
 {
 	return (_loadingComplete);
 }
@@ -35,7 +36,7 @@ Concurrency::task<void> ObjectRenderer::InitializeShaders()
 {
 	_usingVprtShaders = _deviceResources->GetDeviceSupportsVprt();
 
-	std::wstring vertexShaderFileName = _usingVprtShaders ? _vprtVertexShaderString : _vertexShaderString;
+	std::wstring const &vertexShaderFileName = _usingVprtShaders ? _vprtVertexShaderString : _vertexShaderString;
 
 	// Load shaders asynchronously.
 	Concurrency::task<std::vector<byte>> loadVSTask = DX::ReadDataAsync(vertexShaderFileName);
@@ -191,6 +192,37 @@ void ObjectRenderer::Render()
 		0,              // Base vertex location.
 		0               // Start instance location.
 	);
+}
+
+void ObjectRenderer::Update()
+{
+	if (!_loadingComplete)
+	{
+		return;
+	}
+
+	// Use the D3D device context to update Direct3D device-based resources.
+	const auto context = _deviceResources->GetD3DDeviceContext();
+
+	// Update the model transform buffer for the hologram.
+	context->UpdateSubresource(
+		_modelConstantBuffer.Get(),
+		0,
+		nullptr,
+		&_modelConstantBufferData,
+		0,
+		0
+	);
+}
+
+void HoloLensClient::ObjectRenderer::ApplyMatrix(DirectX::XMMATRIX const &m)
+{
+	XMStoreFloat4x4(&_modelConstantBufferData.model, m);
+}
+
+std::shared_ptr<DX::DeviceResources> HoloLensClient::ObjectRenderer::getDeviceResources()
+{
+	return (_deviceResources);
 }
 
 void ObjectRenderer::setPosition(Windows::Foundation::Numerics::float3 pos)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "3D\Objects\ObjectRenderer.h"
+#include "3D\Entities\Entity.h"
 
 namespace HoloLensClient
 {
@@ -13,12 +13,15 @@ namespace HoloLensClient
 		Windows::Perception::Spatial::SpatialCoordinateSystem^	_coordinateSystem;
 		Windows::UI::Input::Spatial::SpatialPointerPose^		_pointerPose;
 		std::shared_ptr<DX::DeviceResources>					_deviceResources;
-		std::vector<std::unique_ptr<ObjectRenderer>>			_objects;
+		std::vector<std::unique_ptr<Entity>>					_entities;
+		std::vector<std::unique_ptr<Entity>>					_newEntities;
+
 	public:
 		HolographicScene(std::shared_ptr<DX::DeviceResources> deviceResources);
 		~HolographicScene();
 
 	public:
+		void Initialize();
 		void Update(DX::StepTimer const& timer);
 		void Render();
 		void UpdateCoordinateSystem(Windows::Perception::Spatial::SpatialCoordinateSystem^ coordinateSystem);
@@ -26,6 +29,9 @@ namespace HoloLensClient
 		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState);
 		void OnDeviceLost();
 		void OnDeviceRestored();
+
+	public:
+		void addEntity(std::unique_ptr<Entity> e);
 
 	public:
 		Windows::Perception::Spatial::SpatialCoordinateSystem^ getCoordinateSystem() const;

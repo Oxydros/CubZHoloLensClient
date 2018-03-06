@@ -10,18 +10,18 @@ using namespace Windows::Foundation::Numerics;
 using namespace Windows::UI::Input::Spatial;
 
 // Loads vertex and pixel shaders from files and instantiates the cube geometry.
-SpinningCubeRenderer::SpinningCubeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources, std::shared_ptr<HolographicScene> sharedScene)
+SpinningCubeRenderer::SpinningCubeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources)
 	: ObjectRenderer(deviceResources)
 {
 	setPosition({ 0.f, 0.f, -2.f });
 }
-
-void HoloLensClient::SpinningCubeRenderer::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
-{
-	//PositionHologram(
-	//	pointerState->TryGetPointerPose(_scene->getCoordinateSystem())
-	//);
-}
+//
+//void HoloLensClient::SpinningCubeRenderer::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
+//{
+//	//PositionHologram(
+//	//	pointerState->TryGetPointerPose(_scene->getCoordinateSystem())
+//	//);
+//}
 
 // This function uses a SpatialPointerPose to position the world-locked hologram
 // two meters in front of the user's heading.
@@ -42,51 +42,51 @@ void SpinningCubeRenderer::PositionHologram(SpatialPointerPose^ pointerPose)
 		setPosition(gazeAtTwoMeters);
 	}
 }
-
-// Called once per frame. Rotates the cube, and calculates and sets the model matrix
-// relative to the position transform indicated by hologramPositionTransform.
-void SpinningCubeRenderer::Update(const DX::StepTimer& timer)
-{
-	//// Rotate the cube.
-	//// Convert degrees to radians, then convert seconds to rotation angle.
-	//const float    radiansPerSecond = XMConvertToRadians(m_degreesPerSecond);
-	//const double   totalRotation = timer.GetTotalSeconds() * radiansPerSecond;
-	//const float    radians = static_cast<float>(fmod(totalRotation, XM_2PI));
-	//const XMMATRIX modelRotation = XMMatrixRotationY(-radians);
-
-	//// Position the cube.
-	//const XMMATRIX modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&getPosition()));
-
-	//// Multiply to get the transform matrix.
-	//// Note that this transform does not enforce a particular coordinate system. The calling
-	//// class is responsible for rendering this content in a consistent manner.
-	//const XMMATRIX modelTransform = XMMatrixMultiply(modelRotation, modelTranslation);
-
-	//// The view and projection matrices are provided by the system; they are associated
-	//// with holographic cameras, and updated on a per-camera basis.
-	//// Here, we provide the model transform for the sample hologram. The model transform
-	//// matrix is transposed to prepare it for the shader.
-	//XMStoreFloat4x4(&m_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
-
-	//// Loading is asynchronous. Resources must be created before they can be updated.
-	//if (!m_loadingComplete)
-	//{
-	//	return;
-	//}
-
-	//// Use the D3D device context to update Direct3D device-based resources.
-	//const auto context = _deviceResources->GetD3DDeviceContext();
-
-	//// Update the model transform buffer for the hologram.
-	//context->UpdateSubresource(
-	//	m_modelConstantBuffer.Get(),
-	//	0,
-	//	nullptr,
-	//	&m_modelConstantBufferData,
-	//	0,
-	//	0
-	//);
-}
+//
+//// Called once per frame. Rotates the cube, and calculates and sets the model matrix
+//// relative to the position transform indicated by hologramPositionTransform.
+//void SpinningCubeRenderer::Update(const DX::StepTimer& timer)
+//{
+//	//// Rotate the cube.
+//	//// Convert degrees to radians, then convert seconds to rotation angle.
+//	//const float    radiansPerSecond = XMConvertToRadians(m_degreesPerSecond);
+//	//const double   totalRotation = timer.GetTotalSeconds() * radiansPerSecond;
+//	//const float    radians = static_cast<float>(fmod(totalRotation, XM_2PI));
+//	//const XMMATRIX modelRotation = XMMatrixRotationY(-radians);
+//
+//	//// Position the cube.
+//	//const XMMATRIX modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&getPosition()));
+//
+//	//// Multiply to get the transform matrix.
+//	//// Note that this transform does not enforce a particular coordinate system. The calling
+//	//// class is responsible for rendering this content in a consistent manner.
+//	//const XMMATRIX modelTransform = XMMatrixMultiply(modelRotation, modelTranslation);
+//
+//	//// The view and projection matrices are provided by the system; they are associated
+//	//// with holographic cameras, and updated on a per-camera basis.
+//	//// Here, we provide the model transform for the sample hologram. The model transform
+//	//// matrix is transposed to prepare it for the shader.
+//	//XMStoreFloat4x4(&m_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
+//
+//	//// Loading is asynchronous. Resources must be created before they can be updated.
+//	//if (!m_loadingComplete)
+//	//{
+//	//	return;
+//	//}
+//
+//	//// Use the D3D device context to update Direct3D device-based resources.
+//	//const auto context = _deviceResources->GetD3DDeviceContext();
+//
+//	//// Update the model transform buffer for the hologram.
+//	//context->UpdateSubresource(
+//	//	m_modelConstantBuffer.Get(),
+//	//	0,
+//	//	nullptr,
+//	//	&m_modelConstantBufferData,
+//	//	0,
+//	//	0
+//	//);
+//}
 
 void SpinningCubeRenderer::CreateMesh()
 {

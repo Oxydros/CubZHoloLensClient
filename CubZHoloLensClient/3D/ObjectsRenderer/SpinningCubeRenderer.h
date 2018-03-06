@@ -3,7 +3,7 @@
 #include "3D\Resources\DeviceResources.h"
 #include "3D\Utility\StepTimer.h"
 #include "3D\Shaders\ShaderStructures.h"
-#include "3D\Objects\ObjectRenderer.h"
+#include "3D\ObjectsRenderer\ObjectRenderer.h"
 
 namespace HoloLensClient
 {
@@ -11,12 +11,9 @@ namespace HoloLensClient
     class SpinningCubeRenderer : public ObjectRenderer
     {
     public:
-        SpinningCubeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources, std::shared_ptr<HolographicScene> sharedScene);
+        SpinningCubeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources);
 
 	public:
-        void Update(const DX::StepTimer& timer) override;
-		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override;
-
         // Repositions the sample hologram.
         void PositionHologram(Windows::UI::Input::Spatial::SpatialPointerPose^ pointerPose);
 

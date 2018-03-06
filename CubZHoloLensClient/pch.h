@@ -8,6 +8,10 @@
 //Disable the generation of a XAML main file
 #define  DISABLE_XAML_GENERATED_MAIN
 
+#define TRACE(x) \
+			std::stringstream s;  s << x;     \
+            ::OutputDebugStringA(s.str().c_str());
+
 #include "TCPClient.h"
 #include "TCPPacket.h"
 

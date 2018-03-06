@@ -38,7 +38,7 @@ namespace HoloLensClient
 		Windows::Foundation::EventRegistrationToken                     m_cameraRemovedToken;
 		Windows::Foundation::EventRegistrationToken                     m_locatabilityChangedToken;
 
-		std::unique_ptr<HolographicScene>								_holoScene;
+		std::shared_ptr<HolographicScene>								_holoScene;
 
     public:
 		SceneRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);

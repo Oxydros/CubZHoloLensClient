@@ -2,69 +2,34 @@
 
 #include "3D\Scene\HolographicScene.h"
 #include "3D\Utility\DirectXHelper.h"
-#include "CubeRenderer.h"
+#include "GazeRenderer.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-CubeRenderer::CubeRenderer(std::shared_ptr<DX::DeviceResources> devicesResources, DirectX::XMFLOAT3 color)
-	: ObjectRenderer(devicesResources), _color(color)
+GazeRenderer::GazeRenderer(std::shared_ptr<DX::DeviceResources> devicesResources)
+	: ObjectRenderer(devicesResources)
 {
 	setPosition({ 0.f, 0.f, -2.f });
 }
 
-CubeRenderer::~CubeRenderer()
+GazeRenderer::~GazeRenderer()
 {
 }
 
-void HoloLensClient::CubeRenderer::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
-{
-}
-
-void CubeRenderer::Update(DX::StepTimer const &timer)
-{
-	////Position of gaze
-	//const XMMATRIX modelTranslation = XMMatrixTranslationFromVector(DirectX::XMLoadFloat3(&getPosition()));
-	//
-	//// The view and projection matrices are provided by the system; they are associated
-	//// with holographic cameras, and updated on a per-camera basis.
-	//// Here, we provide the model transform for the sample hologram. The model transform
-	//// matrix is transposed to prepare it for the shader.
-	//XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTranslation));
-
-	//// Loading is asynchronous. Resources must be created before they can be updated.
-	//if (!_loadingComplete)
-	//{
-	//	return;
-	//}
-
-	//// Use the D3D device context to update Direct3D device-based resources.
-	//const auto context = _deviceResources->GetD3DDeviceContext();
-
-	//// Update the model transform buffer for the hologram.
-	//context->UpdateSubresource(
-	//	_modelConstantBuffer.Get(),
-	//	0,
-	//	nullptr,
-	//	&_modelConstantBufferData,
-	//	0,
-	//	0
-	//);
-}
-
-void CubeRenderer::CreateMesh()
+void GazeRenderer::CreateMesh()
 {
 	static const std::array<VertexPositionColor, 8> triangleVertices =
 	{ {
-		{ XMFLOAT3(-0.05f, -0.05f, -0.05f), _color },
-		{ XMFLOAT3(-0.05f, -0.05f,  0.05f), _color },
-		{ XMFLOAT3(-0.05f,  0.05f, -0.05f), _color },
-		{ XMFLOAT3(-0.05f,  0.05f,  0.05f), _color },
-		{ XMFLOAT3(0.05f, -0.05f, -0.05f), _color },
-		{ XMFLOAT3(0.05f, -0.05f,  0.05f), _color },
-		{ XMFLOAT3(0.05f,  0.05f, -0.05f), _color },
-		{ XMFLOAT3(0.05f,  0.05f,  0.05f), _color },
+		{ XMFLOAT3(-0.05f, -0.05f, -0.05f), XMFLOAT3(0.0f, 0.0f, 0.0f) },
+		{ XMFLOAT3(-0.05f, -0.05f,  0.05f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
+		{ XMFLOAT3(-0.05f,  0.05f, -0.05f), XMFLOAT3(0.0f, 1.0f, 0.0f) },
+		{ XMFLOAT3(-0.05f,  0.05f,  0.05f), XMFLOAT3(0.0f, 1.0f, 1.0f) },
+		{ XMFLOAT3(0.05f, -0.05f, -0.05f), XMFLOAT3(1.0f, 0.0f, 0.0f) },
+		{ XMFLOAT3(0.05f, -0.05f,  0.05f), XMFLOAT3(1.0f, 0.0f, 1.0f) },
+		{ XMFLOAT3(0.05f,  0.05f, -0.05f), XMFLOAT3(1.0f, 1.0f, 0.0f) },
+		{ XMFLOAT3(0.05f,  0.05f,  0.05f), XMFLOAT3(1.0f, 1.0f, 1.0f) },
 		} };
 
 	D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };

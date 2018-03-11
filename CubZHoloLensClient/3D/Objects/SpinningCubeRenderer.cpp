@@ -10,10 +10,10 @@ using namespace Windows::Foundation::Numerics;
 using namespace Windows::UI::Input::Spatial;
 
 // Loads vertex and pixel shaders from files and instantiates the cube geometry.
-SpinningCubeRenderer::SpinningCubeRenderer(std::shared_ptr<DX::DeviceResources> deviceResources)
-	: ObjectRenderer(deviceResources)
+SpinningCubeRenderer::SpinningCubeRenderer(std::shared_ptr<DX::DeviceResources> &deviceResources)
+	: SceneObject(deviceResources)
 {
-	setPosition({ 0.f, 0.f, -2.f });
+	SetPosition({ 0.f, 0.f, -2.f });
 }
 //
 //void HoloLensClient::SpinningCubeRenderer::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
@@ -39,7 +39,7 @@ void SpinningCubeRenderer::PositionHologram(SpatialPointerPose^ pointerPose)
 
 		// This will be used as the translation component of the hologram's
 		// model transform.
-		setPosition(gazeAtTwoMeters);
+		SetPosition(gazeAtTwoMeters);
 	}
 }
 //

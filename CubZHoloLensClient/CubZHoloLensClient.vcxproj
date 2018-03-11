@@ -194,10 +194,12 @@
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\Entity.h" />
     <ClInclude Include="3D\Entities\GazeEntity.h" />
-    <ClInclude Include="3D\ObjectsRenderer\CubeRenderer.h" />
-    <ClInclude Include="3D\ObjectsRenderer\GazeRenderer.h" />
-    <ClInclude Include="3D\ObjectsRenderer\ObjectRenderer.h" />
-    <ClInclude Include="3D\ObjectsRenderer\SpinningCubeRenderer.h" />
+    <ClInclude Include="3D\Entities\InteractableEntity.h" />
+    <ClInclude Include="3D\Objects\ColoredCube.h" />
+    <ClInclude Include="3D\Objects\GazeRenderer.h" />
+    <ClInclude Include="3D\Objects\IObject.h" />
+    <ClInclude Include="3D\Objects\SceneObject.h" />
+    <ClInclude Include="3D\Objects\SpinningCubeRenderer.h" />
     <ClInclude Include="3D\Resources\CameraResources.h" />
     <ClInclude Include="3D\Resources\DeviceResources.h" />
     <ClInclude Include="3D\Scene\HolographicScene.h" />
@@ -263,11 +265,13 @@
   <ItemGroup>
     <ClCompile Include="3D\AppView.cpp" />
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />
+    <ClCompile Include="3D\Entities\Entity.cpp" />
     <ClCompile Include="3D\Entities\GazeEntity.cpp" />
-    <ClCompile Include="3D\ObjectsRenderer\CubeRenderer.cpp" />
-    <ClCompile Include="3D\ObjectsRenderer\GazeRenderer.cpp" />
-    <ClCompile Include="3D\ObjectsRenderer\ObjectRenderer.cpp" />
-    <ClCompile Include="3D\ObjectsRenderer\SpinningCubeRenderer.cpp" />
+    <ClCompile Include="3D\Entities\InteractableEntity.cpp" />
+    <ClCompile Include="3D\Objects\ColoredCube.cpp" />
+    <ClCompile Include="3D\Objects\GazeRenderer.cpp" />
+    <ClCompile Include="3D\Objects\SceneObject.cpp" />
+    <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp" />
     <ClCompile Include="3D\Resources\CameraResources.cpp" />
     <ClCompile Include="3D\Resources\DeviceResources.cpp" />
     <ClCompile Include="3D\Scene\HolographicScene.cpp" />

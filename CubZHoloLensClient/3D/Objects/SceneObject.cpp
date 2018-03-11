@@ -1,26 +1,21 @@
 #include "pch.h"
-#include "3D\ObjectsRenderer\ObjectRenderer.h"
+#include "3D\Objects\SceneObject.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;
 
-ObjectRenderer::ObjectRenderer(std::shared_ptr<DX::DeviceResources> deviceResources,
+SceneObject::SceneObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
 			std::wstring const &vShader, std::wstring const &pShader, std::wstring const &gShader,
 			std::wstring const &vpVShader)
 	: _vertexShaderString(vShader), _pixelShaderString(pShader),
-	_geometryShaderString(gShader), _vprtVertexShaderString(vpVShader), _deviceResources(deviceResources), _pos(0, 0, 0), _angle(0, 0, 0)
+	_geometryShaderString(gShader), _vprtVertexShaderString(vpVShader), _deviceResources(deviceResources)
 {
 }
 
-ObjectRenderer::~ObjectRenderer()
+SceneObject::~SceneObject()
 {}
 
-bool ObjectRenderer::isInitialized() const
-{
-	return (_loadingComplete);
-}
-
-void ObjectRenderer::Initialize()
+void SceneObject::CreateDeviceDependentResources()
 {
 	Concurrency::task<void> initShadersTask = InitializeShaders();
 	Concurrency::task<void> createMeshTask = initShadersTask.then([this]()
@@ -32,7 +27,7 @@ void ObjectRenderer::Initialize()
 	});
 }
 
-Concurrency::task<void> ObjectRenderer::InitializeShaders()
+Concurrency::task<void> SceneObject::InitializeShaders()
 {
 	_usingVprtShaders = _deviceResources->GetDeviceSupportsVprt();
 
@@ -121,18 +116,46 @@ Concurrency::task<void> ObjectRenderer::InitializeShaders()
 	return _usingVprtShaders ? (createPSTask && createVSTask) : (createPSTask && createVSTask && createGSTask);
 }
 
+void SceneObject::SetPosition(Windows::Foundation::Numerics::float3 position)
+{
+	_position = position;
+	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
+}
+
+void HoloLensClient::SceneObject::SetRotation(Windows::Foundation::Numerics::float3 rotation)
+{
+	_rotation = rotation;
+	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
+}
+
+void HoloLensClient::SceneObject::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
+{
+	_boundingBox.Transform(boundingBox, DirectX::XMLoadFloat4x4(&_transform));
+}
+
 // Renders one frame using the vertex and pixel shaders.
 // On devices that do not support the D3D11_FEATURE_D3D11_OPTIONS3::
 // VPAndRTArrayIndexFromAnyShaderFeedingRasterizer optional feature,
 // a pass-through geometry shader is also used to set the render 
 // target array index.
-void ObjectRenderer::Render()
+void SceneObject::Render()
 {
 	// Only render when vertex and mesh are loaded
 	if (!_loadingComplete)
 		return;
 
 	const auto context = _deviceResources->GetD3DDeviceContext();
+
+	// Update the model transform buffer for the hologram.
+	context->UpdateSubresource(
+		_modelConstantBuffer.Get(),
+		0,
+		nullptr,
+		&_modelConstantBufferData,
+		0,
+		0
+	);
+
 	// Each vertex is one instance of the VertexPositionColor struct.
 	const UINT stride = sizeof(VertexPositionColor);
 	const UINT offset = 0;
@@ -194,63 +217,33 @@ void ObjectRenderer::Render()
 	);
 }
 
-void ObjectRenderer::Update()
+void SceneObject::Update()
 {
-	if (!_loadingComplete)
-	{
-		return;
-	}
+	// Multiply to get the transform matrix.
+	// Note that this transform does not enforce a particular coordinate system. The calling
+	// class is responsible for rendering this content in a consistent manner.
 
-	// Use the D3D device context to update Direct3D device-based resources.
-	const auto context = _deviceResources->GetD3DDeviceContext();
+	const XMMATRIX modelTransform = _modelRotation * _modelTranslation;
+	XMStoreFloat4x4(&_transform, modelTransform);
 
-	// Update the model transform buffer for the hologram.
-	context->UpdateSubresource(
-		_modelConstantBuffer.Get(),
-		0,
-		nullptr,
-		&_modelConstantBufferData,
-		0,
-		0
-	);
+	// The view and projection matrices are provided by the system; they are associated
+	// with holographic cameras, and updated on a per-camera basis.
+	// Here, we provide the model transform for the sample hologram. The model transform
+	// matrix is transposed to prepare it for the shader.
+	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
 }
 
-void HoloLensClient::ObjectRenderer::ApplyMatrix(DirectX::XMMATRIX const &m)
-{
-	XMStoreFloat4x4(&_modelConstantBufferData.model, m);
-}
-
-std::shared_ptr<DX::DeviceResources> HoloLensClient::ObjectRenderer::getDeviceResources()
+std::shared_ptr<DX::DeviceResources> SceneObject::getDeviceResources() const
 {
 	return (_deviceResources);
 }
 
-void ObjectRenderer::setPosition(Windows::Foundation::Numerics::float3 pos)
+void SceneObject::ApplyMatrix(DirectX::XMMATRIX const &modelTransform)
 {
-	_pos = pos;
+	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
 }
 
-void ObjectRenderer::Move(float3 vecPos)
-{
-	_pos += vecPos;
-}
-
-void ObjectRenderer::setRotation(float3 rot)
-{
-	_angle = rot;
-}
-
-void ObjectRenderer::Rotate(float3 vecRotate)
-{
-	_angle += vecRotate;
-}
-
-Windows::Foundation::Numerics::float3 ObjectRenderer::getPosition() const
-{
-	return (_pos);
-}
-
-void ObjectRenderer::Release()
+void SceneObject::ReleaseDeviceDependentResources()
 {
 	_loadingComplete = false;
 	_usingVprtShaders = false;

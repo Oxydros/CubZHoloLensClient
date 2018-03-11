@@ -29,11 +29,20 @@
     <Filter Include="3D\Scene">
       <UniqueIdentifier>{7847453a-dde0-4640-bfdd-42a7a16b5f8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3D\ObjectsRenderer">
-      <UniqueIdentifier>{8765992a-e32b-43fb-9d43-3921e3c65f9f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="3D\Entities">
       <UniqueIdentifier>{053a8bb1-966e-4e82-9408-bd3b833773eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects">
+      <UniqueIdentifier>{8765992a-e32b-43fb-9d43-3921e3c65f9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\Interfaces">
+      <UniqueIdentifier>{319a79c7-801b-4275-bf60-728619f789de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\BaseObjects">
+      <UniqueIdentifier>{1782f848-fc4f-4bdf-96f4-894aa4b12c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Entities\BaseEntities">
+      <UniqueIdentifier>{eda47c50-fa7e-40cc-8a9e-f04c7bb05258}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -83,23 +92,29 @@
     <ClCompile Include="3D\Resources\DeviceResources.cpp">
       <Filter>3D\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="3D\ObjectsRenderer\CubeRenderer.cpp">
-      <Filter>3D\ObjectsRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\ObjectsRenderer\GazeRenderer.cpp">
-      <Filter>3D\ObjectsRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\ObjectsRenderer\ObjectRenderer.cpp">
-      <Filter>3D\ObjectsRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\ObjectsRenderer\SpinningCubeRenderer.cpp">
-      <Filter>3D\ObjectsRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Entities\GazeEntity.cpp">
       <Filter>3D\Entities</Filter>
     </ClCompile>
     <ClCompile Include="3D\Entities\CubeEntity.cpp">
       <Filter>3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\GazeRenderer.cpp">
+      <Filter>3D\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp">
+      <Filter>3D\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\SceneObject.cpp">
+      <Filter>3D\Objects\BaseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\Entity.cpp">
+      <Filter>3D\Entities\BaseEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\InteractableEntity.cpp">
+      <Filter>3D\Entities\BaseEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\ColoredCube.cpp">
+      <Filter>3D\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,26 +175,32 @@
     <ClInclude Include="3D\Resources\DeviceResources.h">
       <Filter>3D\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="3D\ObjectsRenderer\CubeRenderer.h">
-      <Filter>3D\ObjectsRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\ObjectsRenderer\GazeRenderer.h">
-      <Filter>3D\ObjectsRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\ObjectsRenderer\ObjectRenderer.h">
-      <Filter>3D\ObjectsRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\ObjectsRenderer\SpinningCubeRenderer.h">
-      <Filter>3D\ObjectsRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Entities\Entity.h">
-      <Filter>3D\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Entities\GazeEntity.h">
       <Filter>3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="3D\Entities\CubeEntity.h">
       <Filter>3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GazeRenderer.h">
+      <Filter>3D\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\SpinningCubeRenderer.h">
+      <Filter>3D\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\IObject.h">
+      <Filter>3D\Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\SceneObject.h">
+      <Filter>3D\Objects\BaseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Entity.h">
+      <Filter>3D\Entities\BaseEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\InteractableEntity.h">
+      <Filter>3D\Entities\BaseEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\ColoredCube.h">
+      <Filter>3D\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

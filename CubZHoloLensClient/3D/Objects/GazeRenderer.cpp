@@ -8,10 +8,10 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-GazeRenderer::GazeRenderer(std::shared_ptr<DX::DeviceResources> devicesResources)
-	: ObjectRenderer(devicesResources)
+GazeRenderer::GazeRenderer(std::shared_ptr<DX::DeviceResources> &devicesResources)
+	: SceneObject(devicesResources)
 {
-	setPosition({ 0.f, 0.f, -2.f });
+	SetPosition({ 0.f, 0.f, -2.f });
 }
 
 GazeRenderer::~GazeRenderer()

@@ -36,6 +36,12 @@ void HolographicScene::Update(DX::StepTimer const& timer)
 		_entities.emplace_back(std::move(entity));
 	});
 	_newEntities.clear();
+	_entities.erase(
+		std::remove_if(_entities.begin(), _entities.end(),
+			[](auto &entity) {
+				return entity->isDead();
+			}),
+		_entities.end());
 }
 
 void HolographicScene::Render()

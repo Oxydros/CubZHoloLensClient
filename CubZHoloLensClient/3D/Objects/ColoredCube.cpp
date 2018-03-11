@@ -2,34 +2,42 @@
 
 #include "3D\Scene\HolographicScene.h"
 #include "3D\Utility\DirectXHelper.h"
-#include "3D\ObjectsRenderer\CubeRenderer.h"
+#include "3D\Objects\ColoredCube.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-CubeRenderer::CubeRenderer(std::shared_ptr<DX::DeviceResources> devicesResources, DirectX::XMFLOAT3 color)
-	: ObjectRenderer(devicesResources), _color(color)
+ColoredCube::ColoredCube(std::shared_ptr<DX::DeviceResources> &devicesResources,
+						 XMFLOAT3 color,
+						 XMFLOAT3 size)
+	: SceneObject(devicesResources), _color(color), _size(size)
 {
-	setPosition({ 0.f, 0.f, -2.f });
+	SetPosition({ 0.f, 0.f, -2.f });
 }
 
-CubeRenderer::~CubeRenderer()
+ColoredCube::~ColoredCube()
 {
 }
 
-void CubeRenderer::CreateMesh()
+void ColoredCube::CreateMesh()
 {
+	float halfWidth = _size.x * 0.5f;
+	float halfHeight = _size.y * 0.5f;
+	float halfDepth = _size.z * 0.5f;
+
+	_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(halfWidth, halfHeight, halfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+
 	static const std::array<VertexPositionColor, 8> triangleVertices =
 	{ {
-		{ XMFLOAT3(-0.05f, -0.05f, -0.05f), _color },
-		{ XMFLOAT3(-0.05f, -0.05f,  0.05f), _color },
-		{ XMFLOAT3(-0.05f,  0.05f, -0.05f), _color },
-		{ XMFLOAT3(-0.05f,  0.05f,  0.05f), _color },
-		{ XMFLOAT3(0.05f, -0.05f, -0.05f), _color },
-		{ XMFLOAT3(0.05f, -0.05f,  0.05f), _color },
-		{ XMFLOAT3(0.05f,  0.05f, -0.05f), _color },
-		{ XMFLOAT3(0.05f,  0.05f,  0.05f), _color },
+		{ XMFLOAT3(-halfWidth, -halfHeight, -halfDepth), _color },
+		{ XMFLOAT3(-halfWidth, -halfHeight, halfDepth), _color },
+		{ XMFLOAT3(-halfWidth,  halfHeight, -halfDepth), _color },
+		{ XMFLOAT3(-halfWidth,  halfHeight,  halfDepth), _color },
+		{ XMFLOAT3(halfWidth, -halfHeight, -halfDepth), _color },
+		{ XMFLOAT3(halfWidth, -halfHeight,  halfDepth), _color },
+		{ XMFLOAT3(halfWidth,  halfHeight, -halfDepth), _color },
+		{ XMFLOAT3(halfWidth,  halfHeight,  halfDepth), _color },
 		} };
 
 	D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };

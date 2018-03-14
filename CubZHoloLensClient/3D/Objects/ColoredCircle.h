@@ -9,7 +9,6 @@ namespace HoloLensClient
 	class ColoredCircle : public SceneObject
 	{
 	private:
-		Windows::Foundation::Numerics::float3           _color;
 		float											_radius;
 		int												_precision;
 		float											_radians;
@@ -18,7 +17,7 @@ namespace HoloLensClient
 		ColoredCircle(std::shared_ptr<DX::DeviceResources> &devicesResources,
 			float radius = 0.25f,
 			float radians = DirectX::XM_2PI,
-			Windows::Foundation::Numerics::float3 color = { 1.0f, 1.0f, 1.0f });
+			Windows::Foundation::Numerics::float4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
 		~ColoredCircle();
 
 	private:

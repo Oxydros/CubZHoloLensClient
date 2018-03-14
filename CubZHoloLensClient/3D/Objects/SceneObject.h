@@ -27,7 +27,7 @@ namespace HoloLensClient
 		Microsoft::WRL::ComPtr<ID3D11PixelShader>       _pixelShader;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>            _modelConstantBuffer;
 
-		ModelConstantBuffer                             _modelConstantBufferData;
+		ColorModelConstantBuffer                        _modelConstantBufferData;
 		uint32                                          _indexCount = 0;
 
 		bool                                            _loadingComplete = false;
@@ -39,6 +39,8 @@ namespace HoloLensClient
 		Windows::Foundation::Numerics::float3					_position = {0.0f, 0.0f, 0.0f};
 		Windows::Foundation::Numerics::float3					_rotation = { 0.0f, 0.0f, 0.0f };
 		Windows::Foundation::Numerics::float3					_scale = { 1.0f, 1.0f, 1.0f };
+		Windows::Foundation::Numerics::float4					_color = { 1.0f, 1.0f, 1.0f, 1.0f };
+
 
 		DirectX::XMMATRIX										_modelRotation;
 		DirectX::XMMATRIX										_modelTranslation;
@@ -48,7 +50,7 @@ namespace HoloLensClient
 
 	public:
 		SceneObject(std::shared_ptr<DX::DeviceResources> &devicesResources,
-			std::wstring const &vertexShaderString = L"ms-appx:///BasicVertexShader.cso",
+			std::wstring const &vertexShaderString = L"ms-appx:///BasicColorVertexShader.cso",
 			std::wstring const &pixelShaderString = L"ms-appx:///BasicPixelShader.cso",
 			std::wstring const &geometryShaderString = L"ms-appx:///BasicGeometryShader.cso",
 			std::wstring const &vprtVertexShaderString = L"ms-appx:///BasicVprtVertexShader.cso"
@@ -85,6 +87,8 @@ namespace HoloLensClient
 		Windows::Foundation::Numerics::float3 GetScale() const override { return (_scale); }
 
 		void GetBoundingBox(DirectX::BoundingOrientedBox &boundingBox) override;
+
+		void SetColor(Windows::Foundation::Numerics::float4 color) override { _color = color; }
 
 	public:
 		// Required for align of 16B for XMMAtrix

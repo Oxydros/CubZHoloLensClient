@@ -91,74 +91,74 @@ void SpinningCubeRenderer::PositionHologram(SpatialPointerPose^ pointerPose)
 void SpinningCubeRenderer::CreateMesh()
 {
 
-	// Load mesh vertices. Each vertex has a position and a color.
-	// Note that the cube size has changed from the default DirectX app
-	// template. Windows Holographic is scaled in meters, so to draw the
-	// cube at a comfortable size we made the cube width 0.2 m (20 cm).
-	static const std::array<VertexPositionColor, 8> cubeVertices =
-	{ {
-		{ XMFLOAT3(-0.1f, -0.1f, -0.1f), XMFLOAT3(0.0f, 0.0f, 0.0f) },
-		{ XMFLOAT3(-0.1f, -0.1f,  0.1f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
-		{ XMFLOAT3(-0.1f,  0.1f, -0.1f), XMFLOAT3(0.0f, 1.0f, 0.0f) },
-		{ XMFLOAT3(-0.1f,  0.1f,  0.1f), XMFLOAT3(0.0f, 1.0f, 1.0f) },
-		{ XMFLOAT3(0.1f, -0.1f, -0.1f), XMFLOAT3(1.0f, 0.0f, 0.0f) },
-		{ XMFLOAT3(0.1f, -0.1f,  0.1f), XMFLOAT3(1.0f, 0.0f, 1.0f) },
-		{ XMFLOAT3(0.1f,  0.1f, -0.1f), XMFLOAT3(1.0f, 1.0f, 0.0f) },
-		{ XMFLOAT3(0.1f,  0.1f,  0.1f), XMFLOAT3(1.0f, 1.0f, 1.0f) },
-		} };
+	//// Load mesh vertices. Each vertex has a position and a color.
+	//// Note that the cube size has changed from the default DirectX app
+	//// template. Windows Holographic is scaled in meters, so to draw the
+	//// cube at a comfortable size we made the cube width 0.2 m (20 cm).
+	//static const std::array<VertexPositionColor, 8> cubeVertices =
+	//{ {
+	//	{ XMFLOAT3(-0.1f, -0.1f, -0.1f), XMFLOAT3(0.0f, 0.0f, 0.0f) },
+	//	{ XMFLOAT3(-0.1f, -0.1f,  0.1f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
+	//	{ XMFLOAT3(-0.1f,  0.1f, -0.1f), XMFLOAT3(0.0f, 1.0f, 0.0f) },
+	//	{ XMFLOAT3(-0.1f,  0.1f,  0.1f), XMFLOAT3(0.0f, 1.0f, 1.0f) },
+	//	{ XMFLOAT3(0.1f, -0.1f, -0.1f), XMFLOAT3(1.0f, 0.0f, 0.0f) },
+	//	{ XMFLOAT3(0.1f, -0.1f,  0.1f), XMFLOAT3(1.0f, 0.0f, 1.0f) },
+	//	{ XMFLOAT3(0.1f,  0.1f, -0.1f), XMFLOAT3(1.0f, 1.0f, 0.0f) },
+	//	{ XMFLOAT3(0.1f,  0.1f,  0.1f), XMFLOAT3(1.0f, 1.0f, 1.0f) },
+	//	} };
 
-	D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
-	vertexBufferData.pSysMem = cubeVertices.data();
-	vertexBufferData.SysMemPitch = 0;
-	vertexBufferData.SysMemSlicePitch = 0;
-	const CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionColor) * static_cast<UINT>(cubeVertices.size()), D3D11_BIND_VERTEX_BUFFER);
-	DX::ThrowIfFailed(
-		_deviceResources->GetD3DDevice()->CreateBuffer(
-			&vertexBufferDesc,
-			&vertexBufferData,
-			&_vertexBuffer
-		)
-	);
+	//D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
+	//vertexBufferData.pSysMem = cubeVertices.data();
+	//vertexBufferData.SysMemPitch = 0;
+	//vertexBufferData.SysMemSlicePitch = 0;
+	//const CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionColor) * static_cast<UINT>(cubeVertices.size()), D3D11_BIND_VERTEX_BUFFER);
+	//DX::ThrowIfFailed(
+	//	_deviceResources->GetD3DDevice()->CreateBuffer(
+	//		&vertexBufferDesc,
+	//		&vertexBufferData,
+	//		&_vertexBuffer
+	//	)
+	//);
 
-	// Load mesh indices. Each trio of indices represents
-	// a triangle to be rendered on the screen.
-	// For example: 2,1,0 means that the vertices with indexes
-	// 2, 1, and 0 from the vertex buffer compose the
-	// first triangle of this mesh.
-	// Note that the winding order is clockwise by default.
-	constexpr std::array<unsigned short, 36> cubeIndices =
-	{ {
-			2,1,0, // -x
-			2,3,1,
+	//// Load mesh indices. Each trio of indices represents
+	//// a triangle to be rendered on the screen.
+	//// For example: 2,1,0 means that the vertices with indexes
+	//// 2, 1, and 0 from the vertex buffer compose the
+	//// first triangle of this mesh.
+	//// Note that the winding order is clockwise by default.
+	//constexpr std::array<unsigned short, 36> cubeIndices =
+	//{ {
+	//		2,1,0, // -x
+	//		2,3,1,
 
-			6,4,5, // +x
-			6,5,7,
+	//		6,4,5, // +x
+	//		6,5,7,
 
-			0,1,5, // -y
-			0,5,4,
+	//		0,1,5, // -y
+	//		0,5,4,
 
-			2,6,7, // +y
-			2,7,3,
+	//		2,6,7, // +y
+	//		2,7,3,
 
-			0,4,6, // -z
-			0,6,2,
+	//		0,4,6, // -z
+	//		0,6,2,
 
-			1,3,7, // +z
-			1,7,5,
-		} };
+	//		1,3,7, // +z
+	//		1,7,5,
+	//	} };
 
-	_indexCount = static_cast<unsigned int>(cubeIndices.size());
+	//_indexCount = static_cast<unsigned int>(cubeIndices.size());
 
-	D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
-	indexBufferData.pSysMem = cubeIndices.data();
-	indexBufferData.SysMemPitch = 0;
-	indexBufferData.SysMemSlicePitch = 0;
-	CD3D11_BUFFER_DESC indexBufferDesc(sizeof(unsigned short) * static_cast<UINT>(cubeIndices.size()), D3D11_BIND_INDEX_BUFFER);
-	DX::ThrowIfFailed(
-		_deviceResources->GetD3DDevice()->CreateBuffer(
-			&indexBufferDesc,
-			&indexBufferData,
-			&_indexBuffer
-		)
-	);
+	//D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
+	//indexBufferData.pSysMem = cubeIndices.data();
+	//indexBufferData.SysMemPitch = 0;
+	//indexBufferData.SysMemSlicePitch = 0;
+	//CD3D11_BUFFER_DESC indexBufferDesc(sizeof(unsigned short) * static_cast<UINT>(cubeIndices.size()), D3D11_BIND_INDEX_BUFFER);
+	//DX::ThrowIfFailed(
+	//	_deviceResources->GetD3DDevice()->CreateBuffer(
+	//		&indexBufferDesc,
+	//		&indexBufferData,
+	//		&_indexBuffer
+	//	)
+	//);
 }

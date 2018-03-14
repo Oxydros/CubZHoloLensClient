@@ -59,5 +59,8 @@ namespace HoloLensClient
 
 		// Get the BoundingBox of the mesh
 		virtual void GetBoundingBox(DirectX::BoundingOrientedBox &boundingBox) = 0;
+
+		// Set the color of the object
+		virtual void SetColor(Windows::Foundation::Numerics::float4 color) = 0;
 	};
 }

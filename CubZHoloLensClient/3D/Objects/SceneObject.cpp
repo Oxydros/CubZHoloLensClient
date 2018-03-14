@@ -57,10 +57,9 @@ Concurrency::task<void> SceneObject::InitializeShaders()
 			)
 		);
 
-		constexpr std::array<D3D11_INPUT_ELEMENT_DESC, 2> vertexDesc =
+		constexpr std::array<D3D11_INPUT_ELEMENT_DESC, 1> vertexDesc =
 		{ {
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR",    0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			} };
 
 		DX::ThrowIfFailed(
@@ -86,7 +85,7 @@ Concurrency::task<void> SceneObject::InitializeShaders()
 			)
 		);
 
-		const CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
+		const CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ColorModelConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
 		DX::ThrowIfFailed(
 			_deviceResources->GetD3DDevice()->CreateBuffer(
 				&constantBufferDesc,
@@ -157,7 +156,7 @@ void SceneObject::Render()
 	);
 
 	// Each vertex is one instance of the VertexPositionColor struct.
-	const UINT stride = sizeof(VertexPositionColor);
+	const UINT stride = sizeof(VertexPosition);
 	const UINT offset = 0;
 	context->IASetVertexBuffers(
 		0,
@@ -231,6 +230,8 @@ void SceneObject::Update()
 	// Here, we provide the model transform for the sample hologram. The model transform
 	// matrix is transposed to prepare it for the shader.
 	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
+
+	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
 }
 
 std::shared_ptr<DX::DeviceResources> SceneObject::getDeviceResources() const

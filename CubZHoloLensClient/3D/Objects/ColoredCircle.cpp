@@ -11,9 +11,10 @@ using namespace Windows::Foundation::Numerics;
 ColoredCircle::ColoredCircle(std::shared_ptr<DX::DeviceResources> &devicesResources,
 								float radius,
 								float radians,
-								Windows::Foundation::Numerics::float3 color)
-	: SceneObject(devicesResources), _color(color), _radius(radius), _precision(64), _radians(radians)
+								Windows::Foundation::Numerics::float4 color)
+	: SceneObject(devicesResources), _radius(radius), _precision(64), _radians(radians)
 {
+	SetColor(color);
 	SetPosition({ 0.0f, 0.0f, -2.0f });
 }
 
@@ -47,13 +48,12 @@ void ColoredCircle::CreateMesh()
 	std::vector<float3> triangleVertices = CreateCircle(0.0f, _radius, _precision, _radians);
 	//Add center vertex
 
-	std::vector<VertexPositionColor> colorTriangleVertices(triangleVertices.size());
+	std::vector<VertexPosition> colorTriangleVertices(triangleVertices.size());
 
 	XMFLOAT3 color(_color.x, _color.y, _color.z);
 
 	for (size_t i = 0; i < triangleVertices.size(); i++)
 	{
-		colorTriangleVertices[i].color = color;
 		colorTriangleVertices[i].pos = DirectX::XMFLOAT3(triangleVertices[i].x, triangleVertices[i].y, triangleVertices[i].z);
 	}
 
@@ -61,7 +61,7 @@ void ColoredCircle::CreateMesh()
 	vertexBufferData.pSysMem = colorTriangleVertices.data();
 	vertexBufferData.SysMemPitch = 0;
 	vertexBufferData.SysMemSlicePitch = 0;
-	const CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionColor) * static_cast<UINT>(colorTriangleVertices.size()), D3D11_BIND_VERTEX_BUFFER);
+	const CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPosition) * static_cast<UINT>(colorTriangleVertices.size()), D3D11_BIND_VERTEX_BUFFER);
 	DX::ThrowIfFailed(
 		_deviceResources->GetD3DDevice()->CreateBuffer(
 			&vertexBufferDesc,

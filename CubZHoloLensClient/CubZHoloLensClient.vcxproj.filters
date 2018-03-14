@@ -271,5 +271,8 @@
     <FxCompile Include="3D\Shaders\BasicVPRTVertexShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="3D\Shaders\BasicColorVertexShader.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

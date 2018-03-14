@@ -9,10 +9,11 @@ using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
 ColoredCube::ColoredCube(std::shared_ptr<DX::DeviceResources> &devicesResources,
-								Windows::Foundation::Numerics::float3 color,
+								Windows::Foundation::Numerics::float4 color,
 								Windows::Foundation::Numerics::float3 size)
-	: SceneObject(devicesResources), _color(color), _size(size)
+	: SceneObject(devicesResources), _size(size)
 {
+	SetColor(color);
 	SetPosition({ 0.f, 0.f, -2.f });
 }
 
@@ -29,23 +30,23 @@ void ColoredCube::CreateMesh()
 	XMFLOAT3 color(_color.x, _color.y, _color.z);
 	_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(halfWidth, halfHeight, halfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
-	const std::array<VertexPositionColor, 8> triangleVertices =
+	const std::array<VertexPosition, 8> triangleVertices =
 	{ {
-		{ XMFLOAT3(-halfWidth, -halfHeight, -halfDepth), color },
-		{ XMFLOAT3(-halfWidth, -halfHeight, halfDepth), color },
-		{ XMFLOAT3(-halfWidth,  halfHeight, -halfDepth), color },
-		{ XMFLOAT3(-halfWidth,  halfHeight,  halfDepth), color },
-		{ XMFLOAT3(halfWidth, -halfHeight, -halfDepth), color },
-		{ XMFLOAT3(halfWidth, -halfHeight,  halfDepth), color },
-		{ XMFLOAT3(halfWidth,  halfHeight, -halfDepth), color },
-		{ XMFLOAT3(halfWidth,  halfHeight,  halfDepth), color },
+		{ XMFLOAT3(-halfWidth, -halfHeight, -halfDepth) },
+		{ XMFLOAT3(-halfWidth, -halfHeight, halfDepth) },
+		{ XMFLOAT3(-halfWidth,  halfHeight, -halfDepth) },
+		{ XMFLOAT3(-halfWidth,  halfHeight,  halfDepth) },
+		{ XMFLOAT3(halfWidth, -halfHeight, -halfDepth) },
+		{ XMFLOAT3(halfWidth, -halfHeight,  halfDepth) },
+		{ XMFLOAT3(halfWidth,  halfHeight, -halfDepth) },
+		{ XMFLOAT3(halfWidth,  halfHeight,  halfDepth) },
 		} };
 
 	D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
 	vertexBufferData.pSysMem = triangleVertices.data();
 	vertexBufferData.SysMemPitch = 0;
 	vertexBufferData.SysMemSlicePitch = 0;
-	const CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionColor) * static_cast<UINT>(triangleVertices.size()), D3D11_BIND_VERTEX_BUFFER);
+	const CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPosition) * static_cast<UINT>(triangleVertices.size()), D3D11_BIND_VERTEX_BUFFER);
 	DX::ThrowIfFailed(
 		_deviceResources->GetD3DDevice()->CreateBuffer(
 			&vertexBufferDesc,

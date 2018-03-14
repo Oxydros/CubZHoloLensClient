@@ -8,13 +8,13 @@ namespace HoloLensClient
 	class ColoredCube : public SceneObject
 	{
 	private:
-		DirectX::XMFLOAT3			_color;
-		DirectX::XMFLOAT3			_size;
+		Windows::Foundation::Numerics::float3           _color;
+		Windows::Foundation::Numerics::float3           _size;
 
 	public:
 		ColoredCube(std::shared_ptr<DX::DeviceResources> &devicesResources,
-					DirectX::XMFLOAT3 color = { 1.0f, 1.0f, 1.0f },
-					DirectX::XMFLOAT3 size = { 0.1f, 0.1f, 0.1f });
+			Windows::Foundation::Numerics::float3 color = { 1.0f, 1.0f, 1.0f },
+					Windows::Foundation::Numerics::float3 = { 1.0f, 1.0f, 1.0f });
 		~ColoredCube();
 		
 	private:

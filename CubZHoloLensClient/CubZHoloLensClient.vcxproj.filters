@@ -92,14 +92,8 @@
     <ClCompile Include="3D\Resources\DeviceResources.cpp">
       <Filter>3D\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Entities\GazeEntity.cpp">
-      <Filter>3D\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Entities\CubeEntity.cpp">
       <Filter>3D\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Objects\GazeRenderer.cpp">
-      <Filter>3D\Objects</Filter>
     </ClCompile>
     <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp">
       <Filter>3D\Objects</Filter>
@@ -114,6 +108,12 @@
       <Filter>3D\Entities\BaseEntities</Filter>
     </ClCompile>
     <ClCompile Include="3D\Objects\ColoredCube.cpp">
+      <Filter>3D\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\CursorEntity.cpp">
+      <Filter>3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\ColoredCircle.cpp">
       <Filter>3D\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,14 +175,8 @@
     <ClInclude Include="3D\Resources\DeviceResources.h">
       <Filter>3D\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\GazeEntity.h">
-      <Filter>3D\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Entities\CubeEntity.h">
       <Filter>3D\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\GazeRenderer.h">
-      <Filter>3D\Objects</Filter>
     </ClInclude>
     <ClInclude Include="3D\Objects\SpinningCubeRenderer.h">
       <Filter>3D\Objects</Filter>
@@ -200,6 +194,12 @@
       <Filter>3D\Entities\BaseEntities</Filter>
     </ClInclude>
     <ClInclude Include="3D\Objects\ColoredCube.h">
+      <Filter>3D\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\CursorEntity.h">
+      <Filter>3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\ColoredCircle.h">
       <Filter>3D\Objects</Filter>
     </ClInclude>
   </ItemGroup>

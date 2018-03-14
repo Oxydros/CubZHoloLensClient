@@ -9,8 +9,8 @@ using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
 ColoredCube::ColoredCube(std::shared_ptr<DX::DeviceResources> &devicesResources,
-						 XMFLOAT3 color,
-						 XMFLOAT3 size)
+								Windows::Foundation::Numerics::float3 color,
+								Windows::Foundation::Numerics::float3 size)
 	: SceneObject(devicesResources), _color(color), _size(size)
 {
 	SetPosition({ 0.f, 0.f, -2.f });
@@ -26,18 +26,19 @@ void ColoredCube::CreateMesh()
 	float halfHeight = _size.y * 0.5f;
 	float halfDepth = _size.z * 0.5f;
 
+	XMFLOAT3 color(_color.x, _color.y, _color.z);
 	_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(halfWidth, halfHeight, halfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
-	static const std::array<VertexPositionColor, 8> triangleVertices =
+	const std::array<VertexPositionColor, 8> triangleVertices =
 	{ {
-		{ XMFLOAT3(-halfWidth, -halfHeight, -halfDepth), _color },
-		{ XMFLOAT3(-halfWidth, -halfHeight, halfDepth), _color },
-		{ XMFLOAT3(-halfWidth,  halfHeight, -halfDepth), _color },
-		{ XMFLOAT3(-halfWidth,  halfHeight,  halfDepth), _color },
-		{ XMFLOAT3(halfWidth, -halfHeight, -halfDepth), _color },
-		{ XMFLOAT3(halfWidth, -halfHeight,  halfDepth), _color },
-		{ XMFLOAT3(halfWidth,  halfHeight, -halfDepth), _color },
-		{ XMFLOAT3(halfWidth,  halfHeight,  halfDepth), _color },
+		{ XMFLOAT3(-halfWidth, -halfHeight, -halfDepth), color },
+		{ XMFLOAT3(-halfWidth, -halfHeight, halfDepth), color },
+		{ XMFLOAT3(-halfWidth,  halfHeight, -halfDepth), color },
+		{ XMFLOAT3(-halfWidth,  halfHeight,  halfDepth), color },
+		{ XMFLOAT3(halfWidth, -halfHeight, -halfDepth), color },
+		{ XMFLOAT3(halfWidth, -halfHeight,  halfDepth), color },
+		{ XMFLOAT3(halfWidth,  halfHeight, -halfDepth), color },
+		{ XMFLOAT3(halfWidth,  halfHeight,  halfDepth), color },
 		} };
 
 	D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "HolographicScene.h"
-#include "3D\Entities\GazeEntity.h"
+#include "3D\Entities\CursorEntity.h"
 
 using namespace HoloLensClient;
 
@@ -17,7 +17,7 @@ HolographicScene::~HolographicScene()
 void HolographicScene::Initialize()
 {
 	auto safe = shared_from_this();
-	auto gaze = std::make_unique<GazeEntity>(_deviceResources, safe);
+	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safe);
 	_entities.emplace_back(std::move(gaze));
 }
 

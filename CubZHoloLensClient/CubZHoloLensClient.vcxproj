@@ -193,10 +193,10 @@
     <ClInclude Include="3D\AppView.h" />
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\Entity.h" />
-    <ClInclude Include="3D\Entities\GazeEntity.h" />
+    <ClInclude Include="3D\Entities\CursorEntity.h" />
     <ClInclude Include="3D\Entities\InteractableEntity.h" />
     <ClInclude Include="3D\Objects\ColoredCube.h" />
-    <ClInclude Include="3D\Objects\GazeRenderer.h" />
+    <ClInclude Include="3D\Objects\ColoredCircle.h" />
     <ClInclude Include="3D\Objects\IObject.h" />
     <ClInclude Include="3D\Objects\SceneObject.h" />
     <ClInclude Include="3D\Objects\SpinningCubeRenderer.h" />
@@ -266,10 +266,10 @@
     <ClCompile Include="3D\AppView.cpp" />
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />
     <ClCompile Include="3D\Entities\Entity.cpp" />
-    <ClCompile Include="3D\Entities\GazeEntity.cpp" />
+    <ClCompile Include="3D\Entities\CursorEntity.cpp" />
     <ClCompile Include="3D\Entities\InteractableEntity.cpp" />
     <ClCompile Include="3D\Objects\ColoredCube.cpp" />
-    <ClCompile Include="3D\Objects\GazeRenderer.cpp" />
+    <ClCompile Include="3D\Objects\ColoredCircle.cpp" />
     <ClCompile Include="3D\Objects\SceneObject.cpp" />
     <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp" />
     <ClCompile Include="3D\Resources\CameraResources.cpp" />

@@ -10,6 +10,9 @@ namespace HoloLensClient
 	class IObject
 	{
 	public:
+		// Default destructor of the interface
+		virtual ~IObject() = default;
+
 		// Initializes the resources used by this object
 		virtual void CreateDeviceDependentResources() = 0;
 		// Releases the resources used by this object

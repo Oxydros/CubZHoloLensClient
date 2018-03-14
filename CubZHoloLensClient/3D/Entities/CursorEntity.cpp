@@ -1,26 +1,27 @@
 #include "pch.h"
 
-#include "3D\Entities\GazeEntity.h"
+#include "3D\Entities\CursorEntity.h"
 #include "3D\Entities\CubeEntity.h"
 #include "3D\Utility\DirectXHelper.h"
 #include "3D\Scene\HolographicScene.h"
+#include "3D\Objects\ColoredCircle.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-GazeEntity::GazeEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, std::shared_ptr<HolographicScene> &scene)
+CursorEntity::CursorEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, std::shared_ptr<HolographicScene> &scene)
 	: Entity(scene)
 {
-	setMesh(std::make_unique<GazeRenderer>(devicesResources));
+	setMesh(std::make_unique<ColoredCircle>(devicesResources, 0.0025f));
 	InitializeMesh();
 }
 
-GazeEntity::~GazeEntity()
+CursorEntity::~CursorEntity()
 {
 }
 
-void GazeEntity::DoUpdate(DX::StepTimer const & timer)
+void CursorEntity::DoUpdate(DX::StepTimer const & timer)
 {
 	DirectX::XMMATRIX translation;
 	DirectX::XMMATRIX rotation;
@@ -31,7 +32,7 @@ void GazeEntity::DoUpdate(DX::StepTimer const & timer)
 	getMesh()->SetRotation(rotation);
 }
 
-void GazeEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
+void CursorEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
 	auto pointerPose = pointerState->TryGetPointerPose(_scene->getCoordinateSystem());
 
@@ -44,7 +45,7 @@ void GazeEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceSta
 		const float3 headDirection = pointerPose->Head->ForwardDirection;
 
 		// The tag-along hologram follows a point 2.0m in front of the user's gaze direction.
-		const float3 gazeAtTwoMeters = headPosition + (2.0f * headDirection);
+		const float3 gazeAtTwoMeters = headPosition + (2.5f * headDirection);
 		
 		cube->SetPosition(gazeAtTwoMeters);
 		cube->SetRotation({ 0, 0, 0 });
@@ -52,7 +53,7 @@ void GazeEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceSta
 	}
 }
 
-void HoloLensClient::GazeEntity::getFaceRotationTranslationModel(DirectX::XMMATRIX &translation, DirectX::XMMATRIX &rotation, float distance,
+void CursorEntity::getFaceRotationTranslationModel(DirectX::XMMATRIX &translation, DirectX::XMMATRIX &rotation, float distance,
 									Windows::UI::Input::Spatial::SpatialPointerPose ^pointerPose)
 {
 	if (pointerPose != nullptr)

@@ -1,15 +1,14 @@
 #pragma once
 
 #include "3D\Entities\Entity.h"
-#include "3D\Objects\GazeRenderer.h"
 
 namespace HoloLensClient
 {
-	class GazeEntity : public Entity
+	class CursorEntity : public Entity
 	{
 	public:
-		GazeEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, std::shared_ptr<HolographicScene> &scene);
-		~GazeEntity();
+		CursorEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, std::shared_ptr<HolographicScene> &scene);
+		~CursorEntity();
 
 	public:
 		void DoUpdate(DX::StepTimer const &timer) override;

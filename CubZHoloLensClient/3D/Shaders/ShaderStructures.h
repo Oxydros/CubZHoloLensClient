@@ -17,4 +17,10 @@ namespace HoloLensClient
 	{
 		DirectX::XMFLOAT3 pos;
 	};
+
+	struct VertexPositionTexture
+	{
+		DirectX::XMFLOAT3 pos;
+		DirectX::XMFLOAT2 uv;
+	};
 }

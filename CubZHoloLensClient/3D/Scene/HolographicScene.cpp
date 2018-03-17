@@ -32,7 +32,7 @@ void HolographicScene::Update(DX::StepTimer const& timer)
 	std::for_each(_newEntities.begin(), _newEntities.end(),
 		[this](auto &entity)
 	{
-		TRACE("Adding new entity from pending list " << entity.get() << std::endl);
+		//TRACE("Adding new entity from pending list " << entity.get() << std::endl);
 		_entities.emplace_back(std::move(entity));
 	});
 	_newEntities.clear();
@@ -49,7 +49,7 @@ void HolographicScene::Render()
 	std::for_each(_entities.begin(), _entities.end(),
 		[](auto &entity)
 	{
-		TRACE("Rendering " << entity.get() << std::endl);
+		//TRACE("Rendering " << entity.get() << std::endl);
 		entity->Render();
 	});
 }
@@ -69,7 +69,7 @@ void HoloLensClient::HolographicScene::Inputs(Windows::UI::Input::Spatial::Spati
 	std::for_each(_entities.begin(), _entities.end(),
 		[&pointerState](auto &entity)
 	{
-		TRACE("Entity = " << entity.get() << " " << std::endl);
+		//TRACE("Entity = " << entity.get() << " " << std::endl);
 		entity->Inputs(pointerState);
 	});
 }
@@ -94,7 +94,7 @@ void HolographicScene::OnDeviceRestored()
 
 void HoloLensClient::HolographicScene::addEntity(std::unique_ptr<Entity> e)
 {
-	TRACE("Adding new entity to pending list " << e.get() << std::endl);
+	//TRACE("Adding new entity to pending list " << e.get() << std::endl);
 	_newEntities.emplace_back(std::move(e));
 }
 

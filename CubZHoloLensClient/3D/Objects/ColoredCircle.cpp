@@ -12,7 +12,7 @@ ColoredCircle::ColoredCircle(std::shared_ptr<DX::DeviceResources> &devicesResour
 								float radius,
 								float radians,
 								Windows::Foundation::Numerics::float4 color)
-	: SceneObject(devicesResources), _radius(radius), _precision(64), _radians(radians)
+	: ColoredObject(devicesResources), _radius(radius), _precision(64), _radians(radians)
 {
 	SetColor(color);
 	SetPosition({ 0.0f, 0.0f, -2.0f });

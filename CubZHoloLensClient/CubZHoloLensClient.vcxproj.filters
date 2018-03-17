@@ -95,12 +95,6 @@
     <ClCompile Include="3D\Entities\CubeEntity.cpp">
       <Filter>3D\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\SpinningCubeRenderer.cpp">
-      <Filter>3D\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Objects\SceneObject.cpp">
-      <Filter>3D\Objects\BaseObjects</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Entities\Entity.cpp">
       <Filter>3D\Entities\BaseEntities</Filter>
     </ClCompile>
@@ -114,6 +108,18 @@
       <Filter>3D\Entities</Filter>
     </ClCompile>
     <ClCompile Include="3D\Objects\ColoredCircle.cpp">
+      <Filter>3D\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\BaseObjects\ColoredObject.cpp">
+      <Filter>3D\Objects\BaseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Resources\Texture2D.cpp">
+      <Filter>3D\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Utility\DirectXHelper.cpp">
+      <Filter>3D\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\TexturedCube.cpp">
       <Filter>3D\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -178,15 +184,6 @@
     <ClInclude Include="3D\Entities\CubeEntity.h">
       <Filter>3D\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\SpinningCubeRenderer.h">
-      <Filter>3D\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\IObject.h">
-      <Filter>3D\Objects\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\SceneObject.h">
-      <Filter>3D\Objects\BaseObjects</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Entities\Entity.h">
       <Filter>3D\Entities\BaseEntities</Filter>
     </ClInclude>
@@ -200,6 +197,24 @@
       <Filter>3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="3D\Objects\ColoredCircle.h">
+      <Filter>3D\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\BaseObjects\ColoredObject.h">
+      <Filter>3D\Objects\BaseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Interfaces\IColoredObject.h">
+      <Filter>3D\Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Interfaces\IObject.h">
+      <Filter>3D\Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Interfaces\ITexturedObject.h">
+      <Filter>3D\Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Resources\Texture2D.h">
+      <Filter>3D\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\TexturedCube.h">
       <Filter>3D\Objects</Filter>
     </ClInclude>
   </ItemGroup>
@@ -259,19 +274,28 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="3D\Shaders\BasicPixelShader.hlsl">
+    <FxCompile Include="3D\Shaders\GeometryShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\BasicGeometryShader.hlsl">
+    <FxCompile Include="3D\Shaders\PixelShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\BasicVertexShader.hlsl">
+    <FxCompile Include="3D\Shaders\VertexShaderColor.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\BasicVPRTVertexShader.hlsl">
+    <FxCompile Include="3D\Shaders\VPRTVertexShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\BasicColorVertexShader.hlsl">
+    <FxCompile Include="3D\Shaders\GeometryShaderTexture.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\PixelShaderTexture.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\VertexShaderTexture.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\VPRTVertexShaderTexture.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "3D\Objects\SceneObject.h"
+#include "3D\Objects\BaseObjects\ColoredObject.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;
 
-SceneObject::SceneObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
+ColoredObject::ColoredObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
 			std::wstring const &vShader, std::wstring const &pShader, std::wstring const &gShader,
 			std::wstring const &vpVShader)
 	: _vertexShaderString(vShader), _pixelShaderString(pShader),
@@ -12,10 +12,10 @@ SceneObject::SceneObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
 {
 }
 
-SceneObject::~SceneObject()
+ColoredObject::~ColoredObject()
 {}
 
-void SceneObject::CreateDeviceDependentResources()
+void ColoredObject::CreateDeviceDependentResources()
 {
 	Concurrency::task<void> initShadersTask = InitializeShaders();
 	Concurrency::task<void> createMeshTask = initShadersTask.then([this]()
@@ -27,7 +27,7 @@ void SceneObject::CreateDeviceDependentResources()
 	});
 }
 
-Concurrency::task<void> SceneObject::InitializeShaders()
+Concurrency::task<void> ColoredObject::InitializeShaders()
 {
 	_usingVprtShaders = _deviceResources->GetDeviceSupportsVprt();
 
@@ -115,19 +115,19 @@ Concurrency::task<void> SceneObject::InitializeShaders()
 	return _usingVprtShaders ? (createPSTask && createVSTask) : (createPSTask && createVSTask && createGSTask);
 }
 
-void SceneObject::SetPosition(Windows::Foundation::Numerics::float3 position)
+void ColoredObject::SetPosition(Windows::Foundation::Numerics::float3 position)
 {
 	_position = position;
 	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
 }
 
-void HoloLensClient::SceneObject::SetRotation(Windows::Foundation::Numerics::float3 rotation)
+void ColoredObject::SetRotation(Windows::Foundation::Numerics::float3 rotation)
 {
 	_rotation = rotation;
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
 }
 
-void HoloLensClient::SceneObject::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
+void ColoredObject::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
 {
 	_boundingBox.Transform(boundingBox, DirectX::XMLoadFloat4x4(&_transform));
 }
@@ -137,7 +137,7 @@ void HoloLensClient::SceneObject::GetBoundingBox(DirectX::BoundingOrientedBox & 
 // VPAndRTArrayIndexFromAnyShaderFeedingRasterizer optional feature,
 // a pass-through geometry shader is also used to set the render 
 // target array index.
-void SceneObject::Render()
+void ColoredObject::Render()
 {
 	// Only render when vertex and mesh are loaded
 	if (!_loadingComplete)
@@ -216,7 +216,7 @@ void SceneObject::Render()
 	);
 }
 
-void SceneObject::Update()
+void ColoredObject::Update()
 {
 	// Multiply to get the transform matrix.
 	// Note that this transform does not enforce a particular coordinate system. The calling
@@ -234,17 +234,17 @@ void SceneObject::Update()
 	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
 }
 
-std::shared_ptr<DX::DeviceResources> SceneObject::getDeviceResources() const
+std::shared_ptr<DX::DeviceResources> ColoredObject::getDeviceResources() const
 {
 	return (_deviceResources);
 }
 
-void SceneObject::ApplyMatrix(DirectX::XMMATRIX const &modelTransform)
+void ColoredObject::ApplyMatrix(DirectX::XMMATRIX const &modelTransform)
 {
 	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
 }
 
-void SceneObject::ReleaseDeviceDependentResources()
+void ColoredObject::ReleaseDeviceDependentResources()
 {
 	_loadingComplete = false;
 	_usingVprtShaders = false;

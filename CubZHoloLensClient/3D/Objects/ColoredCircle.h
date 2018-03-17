@@ -2,11 +2,11 @@
 
 #include <DirectXMath.h>
 #include "3D\Shaders\ShaderStructures.h"
-#include "3D\Objects\SceneObject.h"
+#include "3D\Objects\BaseObjects\ColoredObject.h"
 
 namespace HoloLensClient
 {
-	class ColoredCircle : public SceneObject
+	class ColoredCircle : public ColoredObject
 	{
 	private:
 		float											_radius;

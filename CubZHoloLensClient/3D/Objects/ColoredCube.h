@@ -1,11 +1,11 @@
 #pragma once
 
 #include "3D\Shaders\ShaderStructures.h"
-#include "3D\Objects\SceneObject.h"
+#include "3D\Objects\BaseObjects\ColoredObject.h"
 
 namespace HoloLensClient
 {
-	class ColoredCube : public SceneObject
+	class ColoredCube : public ColoredObject
 	{
 	private:
 		Windows::Foundation::Numerics::float3           _size;

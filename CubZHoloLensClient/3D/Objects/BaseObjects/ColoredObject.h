@@ -3,7 +3,7 @@
 #include "3D\Shaders\ShaderStructures.h"
 #include "3D\Resources\DeviceResources.h"
 #include "3D\Utility\DirectXHelper.h"
-#include <3D\Objects\IObject.h>
+#include <3D\Objects\Interfaces\IColoredObject.h>
 
 using namespace Windows::Foundation::Numerics;
 
@@ -11,7 +11,7 @@ namespace HoloLensClient
 {
 	//Abstract class representing an object to be draw in
 	//the holographic space
-	class SceneObject : public virtual IObject
+	class ColoredObject : public IColoredObject
 	{
 	protected:
 		std::wstring 									_vertexShaderString;
@@ -49,13 +49,13 @@ namespace HoloLensClient
 		DirectX::BoundingOrientedBox							_boundingBox;
 
 	public:
-		SceneObject(std::shared_ptr<DX::DeviceResources> &devicesResources,
-			std::wstring const &vertexShaderString = L"ms-appx:///BasicColorVertexShader.cso",
-			std::wstring const &pixelShaderString = L"ms-appx:///BasicPixelShader.cso",
-			std::wstring const &geometryShaderString = L"ms-appx:///BasicGeometryShader.cso",
-			std::wstring const &vprtVertexShaderString = L"ms-appx:///BasicVprtVertexShader.cso"
+		ColoredObject(std::shared_ptr<DX::DeviceResources> &devicesResources,
+			std::wstring const &vertexShaderString = L"ms-appx:///VertexShaderColor.cso",
+			std::wstring const &pixelShaderString = L"ms-appx:///PixelShader.cso",
+			std::wstring const &geometryShaderString = L"ms-appx:///GeometryShader.cso",
+			std::wstring const &vprtVertexShaderString = L"ms-appx:///VPRTVertexShader.cso"
 		);
-		virtual ~SceneObject();
+		virtual ~ColoredObject();
 
 	public:
 		void									CreateDeviceDependentResources() override;
@@ -89,6 +89,7 @@ namespace HoloLensClient
 		void GetBoundingBox(DirectX::BoundingOrientedBox &boundingBox) override;
 
 		void SetColor(Windows::Foundation::Numerics::float4 color) override { _color = color; }
+		float4 GetColor() const override { return _color; }
 
 	public:
 		// Required for align of 16B for XMMAtrix

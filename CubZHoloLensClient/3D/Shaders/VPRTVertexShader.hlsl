@@ -2,7 +2,7 @@
 cbuffer ModelConstantBuffer : register(b0)
 {
     float4x4		model;
-	float4		color;
+	float4			color;
 };
 
 // A constant buffer that stores each set of view and projection matrices in column-major format.
@@ -19,13 +19,12 @@ struct VertexShaderInput
 };
 
 // Per-vertex data passed to the geometry shader.
-// Note that the render target array index will be set by the geometry shader
-// using the value of viewId.
+// Note that the render target array index is set here in the vertex shader.
 struct VertexShaderOutput
 {
     min16float4 pos     : SV_POSITION;
-    min16float4 color   : COLOR0;
-    uint        viewId  : TEXCOORD0;  // SV_InstanceID % 2
+    min16float3 color   : COLOR0;
+    uint        rtvId   : SV_RenderTargetArrayIndex; // SV_InstanceID % 2
 };
 
 // Simple shader to do vertex processing on the GPU.
@@ -50,9 +49,8 @@ VertexShaderOutput main(VertexShaderInput input)
     // Pass the color through without modification.
     output.color = (min16float4)color;
 
-    // Set the instance ID. The pass-through geometry shader will set the
-    // render target array index to whatever value is set here.
-    output.viewId = idx;
+    // Set the render target array index.
+    output.rtvId = idx;
 
     return output;
 }

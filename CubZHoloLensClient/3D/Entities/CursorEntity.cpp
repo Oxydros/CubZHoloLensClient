@@ -45,7 +45,7 @@ void CursorEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceS
 		const float3 headDirection = pointerPose->Head->ForwardDirection;
 
 		// The tag-along hologram follows a point 2.0m in front of the user's gaze direction.
-		const float3 gazeAtTwoMeters = headPosition + (2.5f * headDirection);
+		const float3 gazeAtTwoMeters = headPosition + (4.5f * headDirection);
 		
 		cube->SetPosition(gazeAtTwoMeters);
 		cube->SetRotation({ 0, 0, 0 });

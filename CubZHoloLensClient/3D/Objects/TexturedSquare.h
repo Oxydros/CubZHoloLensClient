@@ -5,7 +5,7 @@
 
 namespace HoloLensClient
 {
-	class TexturedCube : public ITexturedObject
+	class TexturedSquare : public ITexturedObject
 	{
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>       _inputLayout;
@@ -41,9 +41,9 @@ namespace HoloLensClient
 		std::shared_ptr<Texture2D>						_texture;
 
 	public:
-		TexturedCube(std::shared_ptr<DX::DeviceResources> &devicesResources,
+		TexturedSquare(std::shared_ptr<DX::DeviceResources> &devicesResources,
 						Windows::Foundation::Numerics::float3 size = { 1.0f, 1.0f, 1.0f });
-		virtual ~TexturedCube();
+		virtual ~TexturedSquare();
 
 	public:
 		virtual void CreateDeviceDependentResources() override;

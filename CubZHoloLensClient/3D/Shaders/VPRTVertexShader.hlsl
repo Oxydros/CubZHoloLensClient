@@ -23,7 +23,7 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
     min16float4 pos     : SV_POSITION;
-    min16float3 color   : COLOR0;
+    min16float4 color   : COLOR0;
     uint        rtvId   : SV_RenderTargetArrayIndex; // SV_InstanceID % 2
 };
 

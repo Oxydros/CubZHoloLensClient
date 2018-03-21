@@ -44,6 +44,9 @@
     <Filter Include="3D\Entities\BaseEntities">
       <UniqueIdentifier>{eda47c50-fa7e-40cc-8a9e-f04c7bb05258}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3D\Objects\TextRenderer">
+      <UniqueIdentifier>{ab7fdd8e-ee3a-49dd-a2e4-ca6445764cf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -119,7 +122,19 @@
     <ClCompile Include="3D\Utility\DirectXHelper.cpp">
       <Filter>3D\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\TexturedCube.cpp">
+    <ClCompile Include="3D\Objects\TextRenderer.cpp">
+      <Filter>3D\Objects\TextRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\DistanceFieldRenderer.cpp">
+      <Filter>3D\Objects\TextRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\TextQuad.cpp">
+      <Filter>3D\Objects\TextRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Utility\CFW1StateSaver.cpp">
+      <Filter>3D\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\TexturedSquare.cpp">
       <Filter>3D\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -214,7 +229,22 @@
     <ClInclude Include="3D\Resources\Texture2D.h">
       <Filter>3D\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\TexturedCube.h">
+    <ClInclude Include="3D\Objects\Interfaces\ITextObject.h">
+      <Filter>3D\Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\TextRenderer.h">
+      <Filter>3D\Objects\TextRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\DistanceFieldRenderer.h">
+      <Filter>3D\Objects\TextRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\TextQuad.h">
+      <Filter>3D\Objects\TextRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Utility\CFW1StateSaver.h">
+      <Filter>3D\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\TexturedSquare.h">
       <Filter>3D\Objects</Filter>
     </ClInclude>
   </ItemGroup>
@@ -243,12 +273,16 @@
     <Image Include="Assets\folderIcon.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\placeholder.dds">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CubZHoloLensClient_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Pages\ServerFileExploPage.xaml">
@@ -296,6 +330,15 @@
       <Filter>3D\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="3D\Shaders\VPRTVertexShaderTexture.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\UseDistanceFieldPixelShader.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\CreateDistanceFieldPixelShader.hlsl">
+      <Filter>3D\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\FullscreenQuadVertexShader.hlsl">
       <Filter>3D\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

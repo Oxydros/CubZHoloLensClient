@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <DirectXCollision.h>
 #include <3D\Resources\DeviceResources.h>
 #include <3D\Utility\StepTimer.h>

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "3D\Shaders\ShaderStructures.h"
-#include "3D\Resources\DeviceResources.h"
 #include "3D\Utility\DirectXHelper.h"
 #include <3D\Objects\Interfaces\IColoredObject.h>
 

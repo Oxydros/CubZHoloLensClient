@@ -27,7 +27,6 @@ void ColoredCube::CreateMesh()
 	float halfHeight = _size.y * 0.5f;
 	float halfDepth = _size.z * 0.5f;
 
-	XMFLOAT3 color(_color.x, _color.y, _color.z);
 	_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(halfWidth, halfHeight, halfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
 	const std::array<VertexPosition, 8> triangleVertices =

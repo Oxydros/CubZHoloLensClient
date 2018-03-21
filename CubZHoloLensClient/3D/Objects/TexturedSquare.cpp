@@ -1,20 +1,20 @@
 #include "pch.h"
-#include "TexturedCube.h"
+#include "TexturedSquare.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;
 
-HoloLensClient::TexturedCube::TexturedCube(std::shared_ptr<DX::DeviceResources> &devicesResources,
+HoloLensClient::TexturedSquare::TexturedSquare(std::shared_ptr<DX::DeviceResources> &devicesResources,
 										Windows::Foundation::Numerics::float3 size)
 	: _deviceResources(devicesResources), _size(size)
 {
 }
 
-HoloLensClient::TexturedCube::~TexturedCube()
+HoloLensClient::TexturedSquare::~TexturedSquare()
 {
 }
 
-void HoloLensClient::TexturedCube::CreateDeviceDependentResources()
+void HoloLensClient::TexturedSquare::CreateDeviceDependentResources()
 {
 	if (_loadingComplete)
 	{
@@ -109,6 +109,8 @@ void HoloLensClient::TexturedCube::CreateDeviceDependentResources()
 		float halfWidth = _size.x * 0.5f;
 		float halfHeight = _size.y * 0.5f;
 
+		_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(halfWidth, halfHeight, 0.1f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+
 		// Load mesh vertices. Each vertex has a position and a texture UV.
 		const std::array<VertexPositionTexture, 4> cubeVertices =
 		{
@@ -178,7 +180,7 @@ void HoloLensClient::TexturedCube::CreateDeviceDependentResources()
 	});
 }
 
-void HoloLensClient::TexturedCube::ReleaseDeviceDependentResources()
+void HoloLensClient::TexturedSquare::ReleaseDeviceDependentResources()
 {
 	_loadingComplete = false;
 	_usingVprtShaders = false;
@@ -191,7 +193,7 @@ void HoloLensClient::TexturedCube::ReleaseDeviceDependentResources()
 	_indexBuffer.Reset();
 }
 
-void HoloLensClient::TexturedCube::Update()
+void HoloLensClient::TexturedSquare::Update()
 {
 	// Multiply to get the transform matrix.
 	// Note that this transform does not enforce a particular coordinate system. The calling
@@ -209,7 +211,7 @@ void HoloLensClient::TexturedCube::Update()
 	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
 }
 
-void HoloLensClient::TexturedCube::Render()
+void HoloLensClient::TexturedSquare::Render()
 {
 	// Only render when vertex and mesh are loaded
 	if (!_loadingComplete)
@@ -271,10 +273,16 @@ void HoloLensClient::TexturedCube::Render()
 	}
 
 	// Set Texture Resource view
-	context->PSSetShaderResources(0, 1, _texture->getTextureView().GetAddressOf());
+	context->PSSetShaderResources(
+		0,
+		1,
+		_texture->getTextureView().GetAddressOf());
 
 	// Set Sampler
-	context->PSSetSamplers(0, 1, _samplerState.GetAddressOf());
+	context->PSSetSamplers(
+		0,
+		1,
+		_samplerState.GetAddressOf());
 
 	// Attach the pixel shader.
 	context->PSSetShader(
@@ -294,29 +302,29 @@ void HoloLensClient::TexturedCube::Render()
 	);
 }
 
-void HoloLensClient::TexturedCube::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
+void HoloLensClient::TexturedSquare::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
 {
 	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
 }
 
-void HoloLensClient::TexturedCube::SetPosition(Windows::Foundation::Numerics::float3 position)
+void HoloLensClient::TexturedSquare::SetPosition(Windows::Foundation::Numerics::float3 position)
 {
 	_position = position;
 	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
 }
 
-void HoloLensClient::TexturedCube::SetRotation(Windows::Foundation::Numerics::float3 rotation)
+void HoloLensClient::TexturedSquare::SetRotation(Windows::Foundation::Numerics::float3 rotation)
 {
 	_rotation = rotation;
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
 }
 
-void HoloLensClient::TexturedCube::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
+void HoloLensClient::TexturedSquare::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
 {
 	_boundingBox.Transform(boundingBox, DirectX::XMLoadFloat4x4(&_transform));
 }
 
-void HoloLensClient::TexturedCube::SetTexture(std::shared_ptr<Texture2D>& texture)
+void HoloLensClient::TexturedSquare::SetTexture(std::shared_ptr<Texture2D>& texture)
 {
 	_texture = texture;
 }

@@ -8,7 +8,7 @@
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
     <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.15063.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.10586.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -159,11 +159,15 @@
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -198,10 +202,14 @@
     <ClInclude Include="3D\Objects\BaseObjects\ColoredObject.h" />
     <ClInclude Include="3D\Objects\ColoredCube.h" />
     <ClInclude Include="3D\Objects\ColoredCircle.h" />
+    <ClInclude Include="3D\Objects\DistanceFieldRenderer.h" />
+    <ClInclude Include="3D\Objects\Interfaces\ITextObject.h" />
     <ClInclude Include="3D\Objects\Interfaces\IColoredObject.h" />
     <ClInclude Include="3D\Objects\Interfaces\IObject.h" />
     <ClInclude Include="3D\Objects\Interfaces\ITexturedObject.h" />
-    <ClInclude Include="3D\Objects\TexturedCube.h" />
+    <ClInclude Include="3D\Objects\TextQuad.h" />
+    <ClInclude Include="3D\Objects\TextRenderer.h" />
+    <ClInclude Include="3D\Objects\TexturedSquare.h" />
     <ClInclude Include="3D\Resources\Texture2D.h" />
     <ClInclude Include="3D\Resources\CameraResources.h" />
     <ClInclude Include="3D\Resources\DeviceResources.h" />
@@ -209,6 +217,7 @@
     <ClInclude Include="3D\Scene\SceneRenderer.h" />
     <ClInclude Include="3D\Shaders\ShaderStructures.h" />
     <ClInclude Include="3D\SpatialInputHandler.h" />
+    <ClInclude Include="3D\Utility\CFW1StateSaver.h" />
     <ClInclude Include="3D\Utility\DirectXHelper.h" />
     <ClInclude Include="3D\Utility\StepTimer.h" />
     <ClInclude Include="Network\TCPClient.h" />
@@ -254,10 +263,12 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="CubZHoloLensClient_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\folderIcon.png" />
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
+    <Image Include="Assets\placeholder.dds" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.scale-200.png" />
@@ -274,13 +285,17 @@
     <ClCompile Include="3D\Objects\BaseObjects\ColoredObject.cpp" />
     <ClCompile Include="3D\Objects\ColoredCube.cpp" />
     <ClCompile Include="3D\Objects\ColoredCircle.cpp" />
-    <ClCompile Include="3D\Objects\TexturedCube.cpp" />
+    <ClCompile Include="3D\Objects\DistanceFieldRenderer.cpp" />
+    <ClCompile Include="3D\Objects\TextQuad.cpp" />
+    <ClCompile Include="3D\Objects\TextRenderer.cpp" />
+    <ClCompile Include="3D\Objects\TexturedSquare.cpp" />
     <ClCompile Include="3D\Resources\CameraResources.cpp" />
     <ClCompile Include="3D\Resources\DeviceResources.cpp" />
     <ClCompile Include="3D\Resources\Texture2D.cpp" />
     <ClCompile Include="3D\Scene\HolographicScene.cpp" />
     <ClCompile Include="3D\Scene\SceneRenderer.cpp" />
     <ClCompile Include="3D\SpatialInputHandler.cpp" />
+    <ClCompile Include="3D\Utility\CFW1StateSaver.cpp" />
     <ClCompile Include="3D\Utility\DirectXHelper.cpp" />
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
@@ -339,6 +354,48 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="3D\Shaders\CreateDistanceFieldPixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\FullscreenQuadVertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\UseDistanceFieldPixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="3D\Shaders\VertexShaderColor.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
@@ -454,5 +511,12 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\directxtk_uwp.2017.12.13.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2017.12.13.1\build\native\directxtk_uwp.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\directxtk_uwp.2017.12.13.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2017.12.13.1\build\native\directxtk_uwp.targets'))" />
+  </Target>
 </Project>

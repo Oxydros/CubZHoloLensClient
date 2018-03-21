@@ -13,7 +13,7 @@
 
 #include <3D\Utility\DirectXHelper.h>
 #include <3D\Shaders\ShaderStructures.h>
-#include <3D\Objects\DistanceFieldRenderer.h>
+#include <3D\Objects\GUI\DistanceFieldRenderer.h>
 
 using namespace Concurrency;
 using namespace DirectX;

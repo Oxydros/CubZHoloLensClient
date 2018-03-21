@@ -1,7 +1,7 @@
 #pragma once
 
 #include <3D\Resources\Texture2D.h>
-#include <3D\Objects\Interfaces\IColoredObject.h>
+#include <3D\Objects\Mesh\Interfaces\IColoredObject.h>
 
 namespace HoloLensClient
 {

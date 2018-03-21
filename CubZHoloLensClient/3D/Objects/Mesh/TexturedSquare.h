@@ -1,7 +1,7 @@
 #pragma once
 
 #include <3D\Shaders\ShaderStructures.h>
-#include <3D\Objects\Interfaces\ITexturedObject.h>
+#include <3D\Objects\Mesh\Interfaces\ITexturedObject.h>
 
 namespace HoloLensClient
 {

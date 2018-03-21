@@ -12,7 +12,7 @@
 #include "pch.h"
 
 #include <3D\Utility\DirectXHelper.h>
-#include <3D\Objects\TextRenderer.h>
+#include <3D\Objects\GUI\TextRenderer.h>
 
 using namespace HoloLensClient;
 

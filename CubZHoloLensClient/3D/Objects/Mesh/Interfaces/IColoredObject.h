@@ -1,6 +1,6 @@
 #pragma once
 
-#include <3D\Objects\Interfaces\IObject.h>
+#include <3D\Objects\Mesh\Interfaces\IObject.h>
 
 using namespace Windows::Foundation::Numerics;
 

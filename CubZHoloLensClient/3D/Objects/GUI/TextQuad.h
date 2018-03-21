@@ -1,9 +1,9 @@
 #pragma once
 
 #include "3D\Shaders\ShaderStructures.h"
-#include <3D\Objects\Interfaces\ITextObject.h>
-#include <3D\Objects\DistanceFieldRenderer.h>
-#include <3D\Objects\TextRenderer.h>
+#include <3D\Objects\Mesh\Interfaces\ITextObject.h>
+#include <3D\Objects\GUI\DistanceFieldRenderer.h>
+#include <3D\Objects\GUI\TextRenderer.h>
 #include <3D\Resources\Texture2D.h>
 
 namespace HoloLensClient

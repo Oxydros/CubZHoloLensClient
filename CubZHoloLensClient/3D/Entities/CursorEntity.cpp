@@ -4,7 +4,7 @@
 #include "3D\Entities\CubeEntity.h"
 #include "3D\Utility\DirectXHelper.h"
 #include "3D\Scene\HolographicScene.h"
-#include "3D\Objects\ColoredCircle.h"
+#include "3D\Objects\Mesh\ColoredCircle.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;

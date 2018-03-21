@@ -35,17 +35,29 @@
     <Filter Include="3D\Objects">
       <UniqueIdentifier>{8765992a-e32b-43fb-9d43-3921e3c65f9f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3D\Objects\Interfaces">
-      <UniqueIdentifier>{319a79c7-801b-4275-bf60-728619f789de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3D\Objects\BaseObjects">
-      <UniqueIdentifier>{1782f848-fc4f-4bdf-96f4-894aa4b12c85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="3D\Entities\BaseEntities">
       <UniqueIdentifier>{eda47c50-fa7e-40cc-8a9e-f04c7bb05258}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3D\Objects\TextRenderer">
-      <UniqueIdentifier>{ab7fdd8e-ee3a-49dd-a2e4-ca6445764cf3}</UniqueIdentifier>
+    <Filter Include="3D\Objects\GUI">
+      <UniqueIdentifier>{98b9e288-2fbd-458e-b713-1d0ed4ebad8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\GUI\Interfaces">
+      <UniqueIdentifier>{e8820a7c-4d76-40d8-b3e3-9a3d43149dd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\Mesh">
+      <UniqueIdentifier>{10057d99-e656-4f37-ab6c-2932e6099c3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\Mesh\Interfaces">
+      <UniqueIdentifier>{31923ffb-f573-41cc-b8a4-4adaa92f9a85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Shaders\Vertex">
+      <UniqueIdentifier>{0960b119-b35a-4671-80ae-19742e743790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Shaders\Pixel">
+      <UniqueIdentifier>{7521ec9a-5159-4dc3-b3eb-f73f84c7eb49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Shaders\Geometry">
+      <UniqueIdentifier>{85cc630a-9d37-4cd9-87e8-9817cd027148}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -104,17 +116,8 @@
     <ClCompile Include="3D\Entities\InteractableEntity.cpp">
       <Filter>3D\Entities\BaseEntities</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\ColoredCube.cpp">
-      <Filter>3D\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Entities\CursorEntity.cpp">
       <Filter>3D\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Objects\ColoredCircle.cpp">
-      <Filter>3D\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Objects\BaseObjects\ColoredObject.cpp">
-      <Filter>3D\Objects\BaseObjects</Filter>
     </ClCompile>
     <ClCompile Include="3D\Resources\Texture2D.cpp">
       <Filter>3D\Resources</Filter>
@@ -122,20 +125,29 @@
     <ClCompile Include="3D\Utility\DirectXHelper.cpp">
       <Filter>3D\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\TextRenderer.cpp">
-      <Filter>3D\Objects\TextRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Objects\DistanceFieldRenderer.cpp">
-      <Filter>3D\Objects\TextRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Objects\TextQuad.cpp">
-      <Filter>3D\Objects\TextRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Utility\CFW1StateSaver.cpp">
       <Filter>3D\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\TexturedSquare.cpp">
-      <Filter>3D\Objects</Filter>
+    <ClCompile Include="3D\Objects\GUI\DistanceFieldRenderer.cpp">
+      <Filter>3D\Objects\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\GUI\TextQuad.cpp">
+      <Filter>3D\Objects\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\GUI\TextRenderer.cpp">
+      <Filter>3D\Objects\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\Mesh\ColoredCircle.cpp">
+      <Filter>3D\Objects\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\Mesh\ColoredCube.cpp">
+      <Filter>3D\Objects\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\Mesh\ColoredObject.cpp">
+      <Filter>3D\Objects\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\Mesh\TexturedSquare.cpp">
+      <Filter>3D\Objects\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,9 +180,6 @@
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="Pages\UserExploPage.xaml.h" />
-    <ClInclude Include="3D\Shaders\ShaderStructures.h">
-      <Filter>3D\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Utility\DirectXHelper.h">
       <Filter>3D\Utility</Filter>
     </ClInclude>
@@ -205,47 +214,50 @@
     <ClInclude Include="3D\Entities\InteractableEntity.h">
       <Filter>3D\Entities\BaseEntities</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\ColoredCube.h">
-      <Filter>3D\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Entities\CursorEntity.h">
       <Filter>3D\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\ColoredCircle.h">
-      <Filter>3D\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\BaseObjects\ColoredObject.h">
-      <Filter>3D\Objects\BaseObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\Interfaces\IColoredObject.h">
-      <Filter>3D\Objects\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\Interfaces\IObject.h">
-      <Filter>3D\Objects\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\Interfaces\ITexturedObject.h">
-      <Filter>3D\Objects\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="3D\Resources\Texture2D.h">
       <Filter>3D\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\Interfaces\ITextObject.h">
-      <Filter>3D\Objects\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\TextRenderer.h">
-      <Filter>3D\Objects\TextRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\DistanceFieldRenderer.h">
-      <Filter>3D\Objects\TextRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\TextQuad.h">
-      <Filter>3D\Objects\TextRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Utility\CFW1StateSaver.h">
       <Filter>3D\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\TexturedSquare.h">
-      <Filter>3D\Objects</Filter>
+    <ClInclude Include="3D\Objects\GUI\DistanceFieldRenderer.h">
+      <Filter>3D\Objects\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GUI\TextQuad.h">
+      <Filter>3D\Objects\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GUI\TextRenderer.h">
+      <Filter>3D\Objects\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\Interfaces\IColoredObject.h">
+      <Filter>3D\Objects\Mesh\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\Interfaces\IObject.h">
+      <Filter>3D\Objects\Mesh\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\Interfaces\ITextObject.h">
+      <Filter>3D\Objects\Mesh\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\Interfaces\ITexturedObject.h">
+      <Filter>3D\Objects\Mesh\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\ColoredCircle.h">
+      <Filter>3D\Objects\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\ColoredCube.h">
+      <Filter>3D\Objects\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\ColoredObject.h">
+      <Filter>3D\Objects\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\TexturedSquare.h">
+      <Filter>3D\Objects\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Shaders\ShaderStructures.h">
+      <Filter>3D\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,38 +320,41 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="3D\Shaders\GeometryShader.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Geometry\GeometryShader.hlsl">
+      <Filter>3D\Shaders\Geometry</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\PixelShader.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Geometry\GeometryShaderTexture.hlsl">
+      <Filter>3D\Shaders\Geometry</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\VertexShaderColor.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Pixel\CreateDistanceFieldPixelShader.hlsl">
+      <Filter>3D\Shaders\Pixel</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\VPRTVertexShader.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Pixel\PixelShader.hlsl">
+      <Filter>3D\Shaders\Pixel</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\GeometryShaderTexture.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Pixel\PixelShaderTexture.hlsl">
+      <Filter>3D\Shaders\Pixel</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\PixelShaderTexture.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Pixel\UseDistanceFieldPixelShader.hlsl">
+      <Filter>3D\Shaders\Pixel</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\VertexShaderTexture.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Vertex\BasicVertexShader.hlsl">
+      <Filter>3D\Shaders\Vertex</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\VPRTVertexShaderTexture.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Vertex\FullscreenQuadVertexShader.hlsl">
+      <Filter>3D\Shaders\Vertex</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\UseDistanceFieldPixelShader.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Vertex\VertexShaderColor.hlsl">
+      <Filter>3D\Shaders\Vertex</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\CreateDistanceFieldPixelShader.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Vertex\VertexShaderTexture.hlsl">
+      <Filter>3D\Shaders\Vertex</Filter>
     </FxCompile>
-    <FxCompile Include="3D\Shaders\FullscreenQuadVertexShader.hlsl">
-      <Filter>3D\Shaders</Filter>
+    <FxCompile Include="3D\Shaders\Vertex\VPRTVertexShader.hlsl">
+      <Filter>3D\Shaders\Vertex</Filter>
+    </FxCompile>
+    <FxCompile Include="3D\Shaders\Vertex\VPRTVertexShaderTexture.hlsl">
+      <Filter>3D\Shaders\Vertex</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

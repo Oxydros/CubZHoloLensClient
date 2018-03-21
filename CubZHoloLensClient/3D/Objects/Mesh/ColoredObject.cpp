@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "3D\Objects\BaseObjects\ColoredObject.h"
+#include "3D\Objects\Mesh\ColoredObject.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;

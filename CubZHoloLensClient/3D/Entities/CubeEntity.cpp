@@ -1,8 +1,8 @@
 #include "pch.h"
 
-#include <3D\Objects\ColoredCube.h>
-#include <3D\Objects\TexturedSquare.h>
-#include <3D\Objects\TextQuad.h>
+#include <3D\Objects\Mesh\ColoredCube.h>
+#include <3D\Objects\Mesh\TexturedSquare.h>
+#include <3D\Objects\GUI\TextQuad.h>
 
 #include "3D\Entities\CubeEntity.h"
 #include "3D\Scene\HolographicScene.h"

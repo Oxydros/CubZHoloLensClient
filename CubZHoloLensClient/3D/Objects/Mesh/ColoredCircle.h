@@ -2,7 +2,7 @@
 
 #include <DirectXMath.h>
 #include "3D\Shaders\ShaderStructures.h"
-#include "3D\Objects\BaseObjects\ColoredObject.h"
+#include "3D\Objects\Mesh\ColoredObject.h"
 
 namespace HoloLensClient
 {

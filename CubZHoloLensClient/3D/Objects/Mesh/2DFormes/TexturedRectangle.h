@@ -5,7 +5,7 @@
 
 namespace HoloLensClient
 {
-	class TexturedSquare : public ITexturedObject
+	class TexturedRectangle : public ITexturedObject
 	{
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>       _inputLayout;
@@ -29,7 +29,7 @@ namespace HoloLensClient
 		Windows::Foundation::Numerics::float3			_rotation = { 0.0f, 0.0f, 0.0f };
 		Windows::Foundation::Numerics::float3			_scale = { 1.0f, 1.0f, 1.0f };
 		Windows::Foundation::Numerics::float4			_color = { 0.0f, 0.0f, 0.0f, 0.0f };
-		Windows::Foundation::Numerics::float3           _size;
+		Windows::Foundation::Numerics::float2           _size;
 
 
 		DirectX::XMMATRIX								_modelRotation;
@@ -41,9 +41,9 @@ namespace HoloLensClient
 		std::shared_ptr<Texture2D>						_texture;
 
 	public:
-		TexturedSquare(std::shared_ptr<DX::DeviceResources> &devicesResources,
-						Windows::Foundation::Numerics::float3 size = { 1.0f, 1.0f, 1.0f });
-		virtual ~TexturedSquare();
+		TexturedRectangle(std::shared_ptr<DX::DeviceResources> &devicesResources,
+						Windows::Foundation::Numerics::float2 size = { 1.0f, 1.0f });
+		virtual ~TexturedRectangle();
 
 	public:
 		virtual void CreateDeviceDependentResources() override;

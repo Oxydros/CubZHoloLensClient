@@ -35,9 +35,6 @@
     <Filter Include="3D\Objects">
       <UniqueIdentifier>{8765992a-e32b-43fb-9d43-3921e3c65f9f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3D\Entities\BaseEntities">
-      <UniqueIdentifier>{eda47c50-fa7e-40cc-8a9e-f04c7bb05258}</UniqueIdentifier>
-    </Filter>
     <Filter Include="3D\Objects\GUI">
       <UniqueIdentifier>{98b9e288-2fbd-458e-b713-1d0ed4ebad8b}</UniqueIdentifier>
     </Filter>
@@ -58,6 +55,27 @@
     </Filter>
     <Filter Include="3D\Shaders\Geometry">
       <UniqueIdentifier>{85cc630a-9d37-4cd9-87e8-9817cd027148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\Common">
+      <UniqueIdentifier>{43dc58e2-87cd-4948-a1fd-5035ed5b7416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Entities\Common">
+      <UniqueIdentifier>{9291e61a-935f-4fa5-9d97-8ca44840dae9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Entities\GUI">
+      <UniqueIdentifier>{31a4359d-669d-49f3-8476-846914ba039e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\GUI\Text">
+      <UniqueIdentifier>{8b61348b-5ee9-4599-a8a5-8e34a9d951e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\Mesh\Common">
+      <UniqueIdentifier>{63db54ac-058c-403f-b1c9-cc57d06da471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\Mesh\2DFormes">
+      <UniqueIdentifier>{632d2dbf-7e10-43e0-97e4-df95a6b111a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Objects\Mesh\3DFormes">
+      <UniqueIdentifier>{c7f09666-56e7-4f7a-aec2-737951efe021}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -110,12 +128,6 @@
     <ClCompile Include="3D\Entities\CubeEntity.cpp">
       <Filter>3D\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Entities\Entity.cpp">
-      <Filter>3D\Entities\BaseEntities</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Entities\InteractableEntity.cpp">
-      <Filter>3D\Entities\BaseEntities</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Entities\CursorEntity.cpp">
       <Filter>3D\Entities</Filter>
     </ClCompile>
@@ -128,26 +140,41 @@
     <ClCompile Include="3D\Utility\CFW1StateSaver.cpp">
       <Filter>3D\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\GUI\DistanceFieldRenderer.cpp">
-      <Filter>3D\Objects\GUI</Filter>
+    <ClCompile Include="3D\Entities\Common\Entity.cpp">
+      <Filter>3D\Entities\Common</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\GUI\TextQuad.cpp">
-      <Filter>3D\Objects\GUI</Filter>
+    <ClCompile Include="3D\Entities\Common\InteractableEntity.cpp">
+      <Filter>3D\Entities\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\Button.cpp">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\GUI\DistanceFieldRenderer.cpp">
+      <Filter>3D\Objects\GUI\Text</Filter>
     </ClCompile>
     <ClCompile Include="3D\Objects\GUI\TextRenderer.cpp">
+      <Filter>3D\Objects\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\GUI\ButtonObject.cpp">
       <Filter>3D\Objects\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\Mesh\ColoredCircle.cpp">
-      <Filter>3D\Objects\Mesh</Filter>
+    <ClCompile Include="3D\Objects\Mesh\Common\ColoredObject.cpp">
+      <Filter>3D\Objects\Mesh\Common</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\Mesh\ColoredCube.cpp">
-      <Filter>3D\Objects\Mesh</Filter>
+    <ClCompile Include="3D\Objects\Mesh\2DFormes\ColoredCircle.cpp">
+      <Filter>3D\Objects\Mesh\2DFormes</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\Mesh\ColoredObject.cpp">
-      <Filter>3D\Objects\Mesh</Filter>
+    <ClCompile Include="3D\Objects\Mesh\3DFormes\ColoredCube.cpp">
+      <Filter>3D\Objects\Mesh\3DFormes</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Objects\Mesh\TexturedSquare.cpp">
-      <Filter>3D\Objects\Mesh</Filter>
+    <ClCompile Include="3D\Objects\Mesh\2DFormes\ColoredRectangle.cpp">
+      <Filter>3D\Objects\Mesh\2DFormes</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\Mesh\2DFormes\TexturedRectangle.cpp">
+      <Filter>3D\Objects\Mesh\2DFormes</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\GUI\TextObject.cpp">
+      <Filter>3D\Objects\GUI\Text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,12 +235,6 @@
     <ClInclude Include="3D\Entities\CubeEntity.h">
       <Filter>3D\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\Entity.h">
-      <Filter>3D\Entities\BaseEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Entities\InteractableEntity.h">
-      <Filter>3D\Entities\BaseEntities</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Entities\CursorEntity.h">
       <Filter>3D\Entities</Filter>
     </ClInclude>
@@ -223,41 +244,56 @@
     <ClInclude Include="3D\Utility\CFW1StateSaver.h">
       <Filter>3D\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\GUI\DistanceFieldRenderer.h">
-      <Filter>3D\Objects\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\GUI\TextQuad.h">
-      <Filter>3D\Objects\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\GUI\TextRenderer.h">
-      <Filter>3D\Objects\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Objects\Mesh\Interfaces\IColoredObject.h">
-      <Filter>3D\Objects\Mesh\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\Mesh\Interfaces\IObject.h">
-      <Filter>3D\Objects\Mesh\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\Mesh\Interfaces\ITextObject.h">
       <Filter>3D\Objects\Mesh\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="3D\Objects\Mesh\Interfaces\ITexturedObject.h">
       <Filter>3D\Objects\Mesh\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Objects\Mesh\ColoredCircle.h">
-      <Filter>3D\Objects\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\Mesh\ColoredCube.h">
-      <Filter>3D\Objects\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\Mesh\ColoredObject.h">
-      <Filter>3D\Objects\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Objects\Mesh\TexturedSquare.h">
-      <Filter>3D\Objects\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Shaders\ShaderStructures.h">
       <Filter>3D\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GUI\Interfaces\ITextObject.h">
+      <Filter>3D\Objects\GUI\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Common\IObject.h">
+      <Filter>3D\Objects\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Common\Entity.h">
+      <Filter>3D\Entities\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Common\InteractableEntity.h">
+      <Filter>3D\Entities\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\Button.h">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GUI\DistanceFieldRenderer.h">
+      <Filter>3D\Objects\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GUI\TextRenderer.h">
+      <Filter>3D\Objects\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GUI\ButtonObject.h">
+      <Filter>3D\Objects\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\Common\ColoredObject.h">
+      <Filter>3D\Objects\Mesh\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\2DFormes\ColoredCircle.h">
+      <Filter>3D\Objects\Mesh\2DFormes</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\3DFormes\ColoredCube.h">
+      <Filter>3D\Objects\Mesh\3DFormes</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\2DFormes\ColoredRectangle.h">
+      <Filter>3D\Objects\Mesh\2DFormes</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\2DFormes\TexturedRectangle.h">
+      <Filter>3D\Objects\Mesh\2DFormes</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\GUI\TextObject.h">
+      <Filter>3D\Objects\GUI\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

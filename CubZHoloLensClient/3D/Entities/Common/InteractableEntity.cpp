@@ -1,7 +1,6 @@
 #include <pch.h>
 #include <3D\Scene\HolographicScene.h>
-#include <3D\Entities\Entity.h>
-#include <3D\Entities\InteractableEntity.h>
+#include <3D\Entities\Common\InteractableEntity.h>
 
 using namespace HoloLensClient;
 using namespace DirectX;

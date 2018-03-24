@@ -1,20 +1,20 @@
 #include <pch.h>
-#include <3D\Objects\Mesh\TexturedSquare.h>
+#include <3D\Objects\Mesh\2DFormes\TexturedRectangle.h>
 
 using namespace HoloLensClient;
 using namespace DirectX;
 
-HoloLensClient::TexturedSquare::TexturedSquare(std::shared_ptr<DX::DeviceResources> &devicesResources,
-										Windows::Foundation::Numerics::float3 size)
+HoloLensClient::TexturedRectangle::TexturedRectangle(std::shared_ptr<DX::DeviceResources> &devicesResources,
+										Windows::Foundation::Numerics::float2 size)
 	: _deviceResources(devicesResources), _size(size)
 {
 }
 
-HoloLensClient::TexturedSquare::~TexturedSquare()
+HoloLensClient::TexturedRectangle::~TexturedRectangle()
 {
 }
 
-void HoloLensClient::TexturedSquare::CreateDeviceDependentResources()
+void HoloLensClient::TexturedRectangle::CreateDeviceDependentResources()
 {
 	if (_loadingComplete)
 	{
@@ -180,7 +180,7 @@ void HoloLensClient::TexturedSquare::CreateDeviceDependentResources()
 	});
 }
 
-void HoloLensClient::TexturedSquare::ReleaseDeviceDependentResources()
+void HoloLensClient::TexturedRectangle::ReleaseDeviceDependentResources()
 {
 	_loadingComplete = false;
 	_usingVprtShaders = false;
@@ -193,7 +193,7 @@ void HoloLensClient::TexturedSquare::ReleaseDeviceDependentResources()
 	_indexBuffer.Reset();
 }
 
-void HoloLensClient::TexturedSquare::Update()
+void HoloLensClient::TexturedRectangle::Update()
 {
 	// Multiply to get the transform matrix.
 	// Note that this transform does not enforce a particular coordinate system. The calling
@@ -211,7 +211,7 @@ void HoloLensClient::TexturedSquare::Update()
 	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
 }
 
-void HoloLensClient::TexturedSquare::Render()
+void HoloLensClient::TexturedRectangle::Render()
 {
 	// Only render when vertex and mesh are loaded
 	if (!_loadingComplete)
@@ -302,29 +302,29 @@ void HoloLensClient::TexturedSquare::Render()
 	);
 }
 
-void HoloLensClient::TexturedSquare::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
+void HoloLensClient::TexturedRectangle::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
 {
 	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
 }
 
-void HoloLensClient::TexturedSquare::SetPosition(Windows::Foundation::Numerics::float3 position)
+void HoloLensClient::TexturedRectangle::SetPosition(Windows::Foundation::Numerics::float3 position)
 {
 	_position = position;
 	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
 }
 
-void HoloLensClient::TexturedSquare::SetRotation(Windows::Foundation::Numerics::float3 rotation)
+void HoloLensClient::TexturedRectangle::SetRotation(Windows::Foundation::Numerics::float3 rotation)
 {
 	_rotation = rotation;
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
 }
 
-void HoloLensClient::TexturedSquare::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
+void HoloLensClient::TexturedRectangle::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
 {
 	_boundingBox.Transform(boundingBox, DirectX::XMLoadFloat4x4(&_transform));
 }
 
-void HoloLensClient::TexturedSquare::SetTexture(std::shared_ptr<Texture2D>& texture)
+void HoloLensClient::TexturedRectangle::SetTexture(std::shared_ptr<Texture2D>& texture)
 {
 	_texture = texture;
 }

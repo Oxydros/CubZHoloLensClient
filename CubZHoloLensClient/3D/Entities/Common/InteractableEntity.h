@@ -1,6 +1,6 @@
 #pragma once
 
-#include <3D\Entities\Entity.h>
+#include <3D\Entities\Common\Entity.h>
 
 namespace HoloLensClient
 {
@@ -14,6 +14,7 @@ namespace HoloLensClient
 
 		void Update(DX::StepTimer const &timer) override;
 		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override;
+		bool isFocused() const { return _focused; }
 
 	public:
 		virtual void OnAirTap() = 0;

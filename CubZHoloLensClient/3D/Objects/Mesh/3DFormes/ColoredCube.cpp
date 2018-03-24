@@ -2,7 +2,7 @@
 
 #include "3D\Scene\HolographicScene.h"
 #include "3D\Utility\DirectXHelper.h"
-#include "3D\Objects\Mesh\ColoredCube.h"
+#include "3D\Objects\Mesh\3DFormes\ColoredCube.h"
 
 using namespace HoloLensClient;
 using namespace DirectX;

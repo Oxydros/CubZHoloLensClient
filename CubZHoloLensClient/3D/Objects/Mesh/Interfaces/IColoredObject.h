@@ -1,13 +1,13 @@
 #pragma once
 
-#include <3D\Objects\Mesh\Interfaces\IObject.h>
+#include <3D\Objects\Common\IObject.h>
 
 using namespace Windows::Foundation::Numerics;
 
 namespace HoloLensClient
 {
 	// Define the properties of a colored object
-	class IColoredObject : public IObject
+	class IColoredObject : public virtual IObject
 	{
 	public:
 		virtual ~IColoredObject() = default;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "3D\Resources\DeviceResources.h"
-#include "3D\Objects\Mesh\Interfaces\IObject.h"
+#include "3D\Objects\Common\IObject.h"
 
 namespace HoloLensClient
 {

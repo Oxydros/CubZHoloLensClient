@@ -1,17 +1,17 @@
 #pragma once
 
 #include "3D\Shaders\ShaderStructures.h"
-#include <3D\Objects\Mesh\Interfaces\ITextObject.h>
+#include <3D\Objects\GUI\Interfaces\ITextObject.h>
 #include <3D\Objects\GUI\DistanceFieldRenderer.h>
 #include <3D\Objects\GUI\TextRenderer.h>
 #include <3D\Resources\Texture2D.h>
 
 namespace HoloLensClient
 {
-	class TextQuad : public ITextObject
+	class TextObject : public ITextObject
 	{
 	protected:
-		Platform::String								^_text;
+		std::wstring									_text;
 
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>       _inputLayout;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>            _vertexBuffer;
@@ -26,18 +26,20 @@ namespace HoloLensClient
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    _quadTextureView;
 		Microsoft::WRL::ComPtr<ID3D11SamplerState>          _quadTextureSamplerState;
 
-		ColorModelConstantBuffer                        _modelConstantBufferData;
-		uint32                                          _indexCount = 0;
+		ColorModelConstantBuffer							_modelConstantBufferData;
+		uint32												_indexCount = 0;
 
-		bool                                            _loadingComplete = false;
-		bool                                            _usingVprtShaders = false;
+		bool												_loadingComplete = false;
+		bool												_usingVprtShaders = false;
+		bool												_updateText = false;
 
 		std::shared_ptr<DX::DeviceResources>					_deviceResources;
 
 		Windows::Foundation::Numerics::float3					_position = { 0.0f, 0.0f, 0.0f };
 		Windows::Foundation::Numerics::float3					_rotation = { 0.0f, 0.0f, 0.0f };
 		Windows::Foundation::Numerics::float3					_scale = { 1.0f, 1.0f, 1.0f };
-		Windows::Foundation::Numerics::float4					_color = { 0.0f, 0.0f, 0.0f, 1.0f };
+		Windows::Foundation::Numerics::float4					_color = { 0.2f, 0.2f, 0.2f, 0.0f };
+		Windows::Foundation::Numerics::float2					_size;
 
 
 		DirectX::XMMATRIX										_modelRotation;
@@ -48,11 +50,11 @@ namespace HoloLensClient
 
 		std::unique_ptr<TextRenderer>							_textRenderer;
 		std::unique_ptr<DistanceFieldRenderer>					_distanceFieldRenderer;
-
-		std::shared_ptr<Texture2D>								_texture;
 	public:
-		TextQuad(std::shared_ptr<DX::DeviceResources> &deviceResources);
-		virtual ~TextQuad() = default;
+		TextObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
+					Windows::Foundation::Numerics::float2 size,
+					std::wstring const &text = L"Default text");
+		virtual ~TextObject() = default;
 
 	public:
 		virtual void CreateDeviceDependentResources() override;
@@ -74,8 +76,11 @@ namespace HoloLensClient
 		virtual void GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox) override;
 
 	public:
-		virtual Platform::String ^ getText() const override { return _text; };
-		virtual void setText(Platform::String ^ text) override { _text = text; }
+		virtual std::wstring const &getText() const override { return _text; };
+		virtual void setText(std::wstring const &text) override { 
+			_text = text; 
+			_updateText = true;
+		}
 
 	public:
 		// Required for align of 16B for XMMAtrix

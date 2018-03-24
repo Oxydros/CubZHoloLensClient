@@ -1,7 +1,7 @@
 #pragma once
 
 #include "3D\Shaders\ShaderStructures.h"
-#include "3D\Objects\Mesh\ColoredObject.h"
+#include "3D\Objects\Mesh\Common\ColoredObject.h"
 
 namespace HoloLensClient
 {

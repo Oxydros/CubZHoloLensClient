@@ -1,6 +1,6 @@
 #pragma once
 
-#include "3D\Entities\InteractableEntity.h"
+#include "3D\Entities\Common\InteractableEntity.h"
 
 namespace HoloLensClient
 {

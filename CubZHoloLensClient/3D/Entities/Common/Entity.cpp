@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "3D\Entities\Entity.h"
+#include "3D\Entities\Common\Entity.h"
 
 using namespace HoloLensClient;
 

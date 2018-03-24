@@ -5,7 +5,7 @@
 
 namespace HoloLensClient
 {
-	class ITexturedObject : public IColoredObject
+	class ITexturedObject : public virtual IColoredObject
 	{
 	public:
 		virtual ~ITexturedObject() = default;

@@ -1,24 +1,24 @@
 #include <pch.h>
 #include <3D\Utility\DirectXHelper.h>
-#include <3D\Objects\GUI\TextQuad.h>
+#include <3D\Objects\GUI\TextObject.h>
 #include <3D\Utility\CFW1StateSaver.h>
 
 using namespace HoloLensClient;
 using namespace DirectX;
 
-TextQuad::TextQuad(std::shared_ptr<DX::DeviceResources> &deviceResources)
-	: _deviceResources(deviceResources)
+TextObject::TextObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
+						Windows::Foundation::Numerics::float2 size,
+						std::wstring const &text)
+	: _deviceResources(deviceResources), _text(text), _size(size)
 {
 	constexpr unsigned int offscreenRenderTargetWidth = 2048;
 	_textRenderer = std::make_unique<TextRenderer>(_deviceResources, offscreenRenderTargetWidth, offscreenRenderTargetWidth);
 
 	constexpr unsigned int blurTargetWidth = 256;
 	_distanceFieldRenderer = std::make_unique<DistanceFieldRenderer>(_deviceResources, blurTargetWidth, blurTargetWidth);
-
-	_texture = std::make_shared<Texture2D>(deviceResources, "ms-appx:////Assets//folderIcon.png");
 }
 
-void HoloLensClient::TextQuad::CreateDeviceDependentResources()
+void HoloLensClient::TextObject::CreateDeviceDependentResources()
 {
 	/*FW1FontWrapper::CFW1StateSaver saver;
 	saver.saveCurrentState(_deviceResources->GetD3DDeviceContext());*/
@@ -26,7 +26,7 @@ void HoloLensClient::TextQuad::CreateDeviceDependentResources()
 	_textRenderer->CreateDeviceDependentResources();
 	//_distanceFieldRenderer->CreateDeviceDependentResources();
 
-	_textRenderer->RenderTextOffscreen(L"Hello world!");
+	_textRenderer->RenderTextOffscreen(_text);
 	_quadTextureView = _textRenderer->GetTexture();
 
 	//saver.restoreSavedState();
@@ -115,25 +115,25 @@ void HoloLensClient::TextQuad::CreateDeviceDependentResources()
 			);
 		});
 	}
-	
-	auto textureLoad = _texture->Load();
 
 	// Once all shaders are loaded, create the mesh.
-	Concurrency::task<void> shaderTaskGroup = _usingVprtShaders ? (createPSTask && createVSTask && textureLoad) : (createPSTask && createVSTask && createGSTask && textureLoad);
+	Concurrency::task<void> shaderTaskGroup = _usingVprtShaders ? (createPSTask && createVSTask) : (createPSTask && createVSTask && createGSTask);
 	Concurrency::task<void> finishLoadingTask = shaderTaskGroup.then([this]()
 	{
-		_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0, 0, 0), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+		float halfWidth = _size.x * 0.5f;
+		float halfHeight = _size.y * 0.5f;
 
+		_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(halfWidth, halfHeight, 0.1f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 		// Load mesh vertices. Each vertex has a position and a color.
 		// Note that the quad size has changed from the default DirectX app
 		// template. Windows Holographic is scaled in meters, so to draw the
 		// quad at a comfortable size we made the quad width 0.2 m (20 cm).
-		static const std::array<VertexPositionTexture, 4> quadVertices =
+		const std::array<VertexPositionTexture, 4> quadVertices =
 		{ {
-			{ XMFLOAT3(-0.2f,  0.2f, 0.f), XMFLOAT2(0.f, 0.f) },
-			{ XMFLOAT3(0.2f,  0.2f, 0.f), XMFLOAT2(1.f, 0.f) },
-			{ XMFLOAT3(0.2f, -0.2f, 0.f), XMFLOAT2(1.f, 1.f) },
-			{ XMFLOAT3(-0.2f, -0.2f, 0.f), XMFLOAT2(0.f, 1.f) },
+			{ XMFLOAT3(-halfWidth, halfHeight, 0.f), XMFLOAT2(0.f, 0.f) },
+			{ XMFLOAT3(halfWidth,  halfHeight, 0.f), XMFLOAT2(1.f, 0.f) },
+			{ XMFLOAT3(halfWidth, -halfHeight, 0.f), XMFLOAT2(1.f, 1.f) },
+			{ XMFLOAT3(-halfWidth, -halfHeight, 0.f), XMFLOAT2(0.f, 1.f) },
 		} };
 
 		D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
@@ -155,7 +155,7 @@ void HoloLensClient::TextQuad::CreateDeviceDependentResources()
 		// 2, 1, and 0 from the vertex buffer compose the
 		// first triangle of this mesh.
 		// Note that the winding order is clockwise by default.
-		constexpr std::array<unsigned short, 12> quadIndices =
+		static constexpr std::array<unsigned short, 12> quadIndices =
 		{ {
 				// -z
 				0,2,3,
@@ -218,8 +218,10 @@ void HoloLensClient::TextQuad::CreateDeviceDependentResources()
 	});
 }
 
-void HoloLensClient::TextQuad::ReleaseDeviceDependentResources()
+void HoloLensClient::TextObject::ReleaseDeviceDependentResources()
 {
+	_textRenderer->ReleaseDeviceDependentResources();
+	/*_distanceFieldRenderer->ReleaseDeviceDependentResources();*/
 	_loadingComplete = false;
 	_usingVprtShaders = false;
 
@@ -238,8 +240,14 @@ void HoloLensClient::TextQuad::ReleaseDeviceDependentResources()
 	_quadTextureSamplerState.Reset();
 }
 
-void HoloLensClient::TextQuad::Update()
+void HoloLensClient::TextObject::Update()
 {
+	if (_updateText)
+	{
+		_textRenderer->RenderTextOffscreen(_text);
+		_quadTextureView = _textRenderer->GetTexture();
+		_updateText = false;
+	}
 	// Multiply to get the transform matrix.
 	// Note that this transform does not enforce a particular coordinate system. The calling
 	// class is responsible for rendering this content in a consistent manner.
@@ -253,10 +261,10 @@ void HoloLensClient::TextQuad::Update()
 	// matrix is transposed to prepare it for the shader.
 	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
 
-	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
+	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, 0);
 }
 
-void HoloLensClient::TextQuad::Render()
+void HoloLensClient::TextObject::Render()
 {
 	//if (_distanceFieldRenderer->GetRenderCount() == 0)
 	//{
@@ -360,24 +368,24 @@ void HoloLensClient::TextQuad::Render()
 	);
 }
 
-void HoloLensClient::TextQuad::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
+void HoloLensClient::TextObject::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
 {
 	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
 }
 
-void HoloLensClient::TextQuad::SetPosition(Windows::Foundation::Numerics::float3 position)
+void HoloLensClient::TextObject::SetPosition(Windows::Foundation::Numerics::float3 position)
 {
 	_position = position;
 	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
 }
 
-void HoloLensClient::TextQuad::SetRotation(Windows::Foundation::Numerics::float3 rotation)
+void HoloLensClient::TextObject::SetRotation(Windows::Foundation::Numerics::float3 rotation)
 {
 	_rotation = rotation;
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
 }
 
-void HoloLensClient::TextQuad::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
+void HoloLensClient::TextObject::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
 {
 	_boundingBox.Transform(boundingBox, DirectX::XMLoadFloat4x4(&_transform));
 }

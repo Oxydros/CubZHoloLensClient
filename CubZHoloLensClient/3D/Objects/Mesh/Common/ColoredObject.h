@@ -69,6 +69,8 @@ namespace HoloLensClient
 		virtual void						CreateMesh() = 0;
 
 	public:
+		void Translate(Windows::Foundation::Numerics::float3 translation) override;
+
 		void SetPosition(Windows::Foundation::Numerics::float3 position) override;
 		void SetRotation(Windows::Foundation::Numerics::float3 rotation) override;
 		void SetScale(Windows::Foundation::Numerics::float3 scale) override { _scale = scale; }

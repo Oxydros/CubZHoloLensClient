@@ -307,6 +307,12 @@ void HoloLensClient::TexturedRectangle::ApplyMatrix(DirectX::XMMATRIX const & mo
 	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
 }
 
+void HoloLensClient::TexturedRectangle::Translate(Windows::Foundation::Numerics::float3 translation)
+{
+	_position += translation;
+	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_position));
+}
+
 void HoloLensClient::TexturedRectangle::SetPosition(Windows::Foundation::Numerics::float3 position)
 {
 	_position = position;

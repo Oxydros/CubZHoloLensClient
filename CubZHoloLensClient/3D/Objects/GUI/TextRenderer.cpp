@@ -16,15 +16,29 @@
 
 using namespace HoloLensClient;
 
-TextRenderer::TextRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources, unsigned int const& textureWidth, unsigned int const& textureHeight)
-	: m_deviceResources(deviceResources),
-	m_textureWidth(textureWidth),
-	m_textureHeight(textureHeight)
+TextRenderer::TextRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources, float x, float y)
+	: m_deviceResources(deviceResources), _x(x), _y(y)
 {
 }
 
-void TextRenderer::RenderTextOffscreen(const std::wstring& str)
+void TextRenderer::RenderTextOffscreen(const std::wstring& str, float fontSize)
 {
+	// This is where we format the text that will be written on the render target.
+	DX::ThrowIfFailed(
+		m_deviceResources->GetDWriteFactory()->CreateTextFormat(
+			L"Consolas",
+			NULL,
+			DWRITE_FONT_WEIGHT_NORMAL,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_NORMAL,
+			fontSize,
+			L"",
+			m_textFormat.ReleaseAndGetAddressOf()
+		)
+	);
+	DX::ThrowIfFailed(m_textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER));
+	DX::ThrowIfFailed(m_textFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER));
+
 	// Clear the off-screen render target.
 	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(m_renderTargetView.Get(), DirectX::Colors::Transparent);
 
@@ -37,8 +51,8 @@ void TextRenderer::RenderTextOffscreen(const std::wstring& str)
 		str.c_str(),
 		static_cast<UINT32>(str.length()),
 		m_textFormat.Get(),
-		(float)m_textureWidth,
-		(float)m_textureHeight,
+		TEXT_HD_SIZE * _x,
+		TEXT_HD_SIZE * _y,
 		&textLayout
 	);
 
@@ -48,8 +62,8 @@ void TextRenderer::RenderTextOffscreen(const std::wstring& str)
 
 	// In this example, we position the text in the center of the off-screen render target.
 	D2D1::Matrix3x2F screenTranslation = D2D1::Matrix3x2F::Translation(
-		m_textureWidth * 0.5f,
-		m_textureHeight * 0.5f + metrics.height * 0.5f
+		TEXT_HD_SIZE * _x * 0.5f,
+		TEXT_HD_SIZE * _y * 0.5f + metrics.height * 0.5f
 	);
 	m_whiteBrush->SetTransform(screenTranslation);
 
@@ -89,8 +103,8 @@ void TextRenderer::CreateDeviceDependentResources()
 	// Create the texture that will be used as the offscreen render target.
 	CD3D11_TEXTURE2D_DESC textureDesc(
 		DXGI_FORMAT_B8G8R8A8_UNORM,
-		m_textureWidth,
-		m_textureHeight,
+		(UINT)TEXT_HD_SIZE * _x,
+		(UINT)TEXT_HD_SIZE * _y,
 		1,
 		1,
 		D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET
@@ -116,20 +130,4 @@ void TextRenderer::CreateDeviceDependentResources()
 
 	// Create a solid color brush that will be used to render the text.
 	DX::ThrowIfFailed(m_d2dRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Cornsilk), &m_whiteBrush));
-
-	// This is where we format the text that will be written on the render target.
-	DX::ThrowIfFailed(
-		m_deviceResources->GetDWriteFactory()->CreateTextFormat(
-			L"Consolas",
-			NULL,
-			DWRITE_FONT_WEIGHT_NORMAL,
-			DWRITE_FONT_STYLE_NORMAL,
-			DWRITE_FONT_STRETCH_NORMAL,
-			400.0f,
-			L"",
-			m_textFormat.ReleaseAndGetAddressOf()
-		)
-	);
-	DX::ThrowIfFailed(m_textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER));
-	DX::ThrowIfFailed(m_textFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER));
 }

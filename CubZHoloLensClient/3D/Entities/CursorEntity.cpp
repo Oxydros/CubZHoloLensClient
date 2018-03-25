@@ -13,7 +13,7 @@ using namespace Windows::Foundation::Numerics;
 CursorEntity::CursorEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, std::shared_ptr<HolographicScene> &scene)
 	: Entity(scene)
 {
-	setMesh(std::make_unique<ColoredCircle>(devicesResources, 0.0025f));
+	addMesh(std::make_unique<ColoredCircle>(devicesResources, 0.0025f));
 	InitializeMesh();
 }
 
@@ -28,8 +28,10 @@ void CursorEntity::DoUpdate(DX::StepTimer const & timer)
 
 	getFaceRotationTranslationModel(translation, rotation, 2.0f, _scene->getPointerPose());
 
-	getMesh()->SetPosition(translation);
-	getMesh()->SetRotation(rotation);
+	//getMesh()->SetPosition(translation);
+	//getMesh()->SetRotation(rotation);
+	SetPosition(translation);
+	SetRotation(rotation);
 }
 
 void CursorEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
@@ -38,7 +40,7 @@ void CursorEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceS
 
 	if (pointerPose != nullptr)
 	{
-		auto cube = std::make_unique<CubeEntity>(getMesh()->getDeviceResources(), _scene);
+		auto cube = std::make_unique<CubeEntity>(_scene->getDeviceResources(), _scene);
 
 		// Get the gaze direction relative to the given coordinate system.
 		const float3 headPosition = pointerPose->Head->Position;

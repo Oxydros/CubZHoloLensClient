@@ -18,5 +18,8 @@ namespace HoloLensClient
 
 	public:
 		virtual void OnAirTap() = 0;
+
+	private:
+		void GetBiggestBoundingBox(DirectX::BoundingOrientedBox &boundingBox);
 	};
 }

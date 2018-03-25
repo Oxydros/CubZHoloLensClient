@@ -24,10 +24,10 @@ CubeEntity::CubeEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, s
 
 	/*auto cube = std::make_unique<TextObject>(devicesResources, float2(0.2f, 0.2f));*/
 
-	auto cube = std::make_unique<ButtonObject>(devicesResources, float2(0.4f, 0.4f));
+	auto cube = std::make_unique<ButtonObject>(devicesResources, float2(0.4f, 0.2f));
 
 	/*auto cube = std::make_unique<ColoredRectangle>(devicesResources, float2(0.5f, 0.25f));*/
-	setMesh(std::move(cube));
+	addMesh(std::move(cube));
 	InitializeMesh();
 }
 

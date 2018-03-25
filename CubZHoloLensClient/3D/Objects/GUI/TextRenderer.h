@@ -11,6 +11,8 @@
 
 #pragma once
 
+#define TEXT_HD_SIZE	(2048)
+
 #include <memory>
 #include <3D\Resources\DeviceResources.h>
 
@@ -18,17 +20,6 @@ namespace HoloLensClient
 {
 	class TextRenderer
 	{
-	public:
-		TextRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources, unsigned int const& textureWidth, unsigned int const& textureHeight);
-
-		void RenderTextOffscreen(const std::wstring& str);
-
-		void CreateDeviceDependentResources();
-		void ReleaseDeviceDependentResources();
-
-		ID3D11ShaderResourceView* GetTexture() const { return m_shaderResourceView.Get(); };
-		ID3D11SamplerState*       GetSampler() const { return m_pointSampler.Get(); };
-
 	private:
 		// Cached pointer to device resources.
 		const std::shared_ptr<DX::DeviceResources> m_deviceResources;
@@ -43,7 +34,18 @@ namespace HoloLensClient
 		Microsoft::WRL::ComPtr<IDWriteTextFormat>           m_textFormat;
 
 		// CPU-based variables for configuring the offscreen render target.
-		const unsigned int m_textureWidth;
-		const unsigned int m_textureHeight;
+		float												_x;
+		float												_y;
+
+	public:
+		TextRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources, float x, float y);
+
+		void RenderTextOffscreen(const std::wstring& str, float fontSize);
+
+		void CreateDeviceDependentResources();
+		void ReleaseDeviceDependentResources();
+
+		ID3D11ShaderResourceView* GetTexture() const { return m_shaderResourceView.Get(); };
+		ID3D11SamplerState*       GetSampler() const { return m_pointSampler.Get(); };
 	};
 }

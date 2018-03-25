@@ -8,14 +8,14 @@ using namespace DirectX;
 
 TextObject::TextObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
 						Windows::Foundation::Numerics::float2 size,
+						Windows::Foundation::Numerics::float4 color,
 						std::wstring const &text)
-	: _deviceResources(deviceResources), _text(text), _size(size)
+	: _deviceResources(deviceResources), _text(text), _color(color), _size(size)
 {
-	constexpr unsigned int offscreenRenderTargetWidth = 2048;
-	_textRenderer = std::make_unique<TextRenderer>(_deviceResources, offscreenRenderTargetWidth, offscreenRenderTargetWidth);
+	_textRenderer = std::make_unique<TextRenderer>(_deviceResources, _size.x, _size.y);
 
-	constexpr unsigned int blurTargetWidth = 256;
-	_distanceFieldRenderer = std::make_unique<DistanceFieldRenderer>(_deviceResources, blurTargetWidth, blurTargetWidth);
+	/*constexpr unsigned int blurTargetWidth = 256;
+	_distanceFieldRenderer = std::make_unique<DistanceFieldRenderer>(_deviceResources, blurTargetWidth, blurTargetWidth);*/
 }
 
 void HoloLensClient::TextObject::CreateDeviceDependentResources()
@@ -26,7 +26,7 @@ void HoloLensClient::TextObject::CreateDeviceDependentResources()
 	_textRenderer->CreateDeviceDependentResources();
 	//_distanceFieldRenderer->CreateDeviceDependentResources();
 
-	_textRenderer->RenderTextOffscreen(_text);
+	_textRenderer->RenderTextOffscreen(_text, 120.0f);
 	_quadTextureView = _textRenderer->GetTexture();
 
 	//saver.restoreSavedState();
@@ -244,7 +244,7 @@ void HoloLensClient::TextObject::Update()
 {
 	if (_updateText)
 	{
-		_textRenderer->RenderTextOffscreen(_text);
+		_textRenderer->RenderTextOffscreen(_text, 120.0f);
 		_quadTextureView = _textRenderer->GetTexture();
 		_updateText = false;
 	}
@@ -371,6 +371,12 @@ void HoloLensClient::TextObject::Render()
 void HoloLensClient::TextObject::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
 {
 	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
+}
+
+void HoloLensClient::TextObject::Translate(Windows::Foundation::Numerics::float3 translation)
+{
+	_position += translation;
+	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_position));
 }
 
 void HoloLensClient::TextObject::SetPosition(Windows::Foundation::Numerics::float3 position)

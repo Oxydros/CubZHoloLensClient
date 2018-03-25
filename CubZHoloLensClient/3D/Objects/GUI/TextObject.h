@@ -53,6 +53,7 @@ namespace HoloLensClient
 	public:
 		TextObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
 					Windows::Foundation::Numerics::float2 size,
+					Windows::Foundation::Numerics::float4 color = { 0.2f, 0.2f, 0.2f, 0.0f },
 					std::wstring const &text = L"Default text");
 		virtual ~TextObject() = default;
 
@@ -62,6 +63,7 @@ namespace HoloLensClient
 		virtual void Update() override;
 		virtual void Render() override;
 		virtual void ApplyMatrix(DirectX::XMMATRIX const & modelTransform) override;
+		virtual void Translate(Windows::Foundation::Numerics::float3 translation) override;
 		virtual void SetPosition(Windows::Foundation::Numerics::float3 pos) override;
 		virtual void SetRotation(Windows::Foundation::Numerics::float3 rot) override;
 		virtual void SetScale(Windows::Foundation::Numerics::float3 scale) override { _scale = scale; }

@@ -4,7 +4,7 @@
 
 using namespace HoloLensClient;
 
-HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> deviceResources)
+HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> &deviceResources)
 	: _deviceResources(deviceResources)
 {
 }
@@ -49,7 +49,6 @@ void HolographicScene::Render()
 	std::for_each(_entities.begin(), _entities.end(),
 		[](auto &entity)
 	{
-		//TRACE("Rendering " << entity.get() << std::endl);
 		entity->Render();
 	});
 }
@@ -92,7 +91,7 @@ void HolographicScene::OnDeviceRestored()
 	});
 }
 
-void HoloLensClient::HolographicScene::addEntity(std::unique_ptr<Entity> e)
+void HoloLensClient::HolographicScene::addEntity(IEntity::IEntityPtr e)
 {
 	//TRACE("Adding new entity to pending list " << e.get() << std::endl);
 	_newEntities.emplace_back(std::move(e));

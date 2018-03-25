@@ -3,47 +3,64 @@
 
 using namespace HoloLensClient;
 
-Entity::Entity(std::shared_ptr<HolographicScene> &scene) : _alive(true), _scene(scene)
+Entity::Entity(std::shared_ptr<HolographicScene> &scene) 
+	: _parent(nullptr), _alive(true), _scene(scene)
+{
+}
+
+HoloLensClient::Entity::~Entity()
 {
 }
 
 void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 {
 	DoUpdate(timer);
-	_mesh->Update();
+	std::for_each(_meshs.begin(), _meshs.end(),
+		[](auto &mesh)
+	{
+		mesh->Update();
+	});
 }
 
 void Entity::InitializeMesh()
 {
-	if (!_mesh)
-		throw std::runtime_error("The entity doesn't have any mesh attached to be initialized.");
-	_mesh->CreateDeviceDependentResources();
+	std::for_each(_meshs.begin(), _meshs.end(),
+		[](auto &mesh)
+	{
+		mesh->CreateDeviceDependentResources();
+	});
 }
 
 void Entity::ReleaseMesh()
 {
-	if (!_mesh)
-		throw std::runtime_error("The entity doesn't have any mesh attached to be released.");
-	_mesh->ReleaseDeviceDependentResources();
+	std::for_each(_meshs.begin(), _meshs.end(),
+		[](auto &mesh)
+	{
+		mesh->ReleaseDeviceDependentResources();
+	});
 }
 
 void Entity::Render()
 {
-	if (!_mesh)
-		throw std::runtime_error("The entity doesn't have any mesh attached to be render.");
-	_mesh->Render();
+	std::for_each(_meshs.begin(), _meshs.end(),
+		[](auto &mesh)
+	{
+		mesh->Render();
+	});
 }
 
 void HoloLensClient::Entity::kill()
 {
+	std::for_each(_childs.begin(), _childs.end(),
+		[](auto &child)
+	{
+		//Kill all the childs
+		//No need to remove the parent from them since all entities are deleted
+		//After the call to the update function
+		//So there should be no memory race
+		child->kill();
+	});
 	_alive = false;
-}
-
-Windows::Foundation::Numerics::float3 HoloLensClient::Entity::getPosition() const
-{
-	if (!_mesh)
-		throw std::runtime_error("Mesh is not defined");
-	return (_mesh->GetPosition());
 }
 
 bool HoloLensClient::Entity::isDead() const
@@ -51,45 +68,91 @@ bool HoloLensClient::Entity::isDead() const
 	return (!_alive);
 }
 
+void HoloLensClient::Entity::Move(Windows::Foundation::Numerics::float3 offset)
+{
+	_position += offset;
+}
+
 void HoloLensClient::Entity::SetPosition(Windows::Foundation::Numerics::float3 position)
 {
-	if (!_mesh)
-		throw std::runtime_error("Mesh is not defined");
-	_mesh->SetPosition(position);
+	_position = position;
 }
 
 void HoloLensClient::Entity::SetRotation(Windows::Foundation::Numerics::float3 rotation)
 {
-	if (!_mesh)
-		throw std::runtime_error("Mesh is not defined");
-	_mesh->SetRotation(rotation);
+	_rotation = rotation;
 }
 
 void HoloLensClient::Entity::SetPosition(DirectX::XMMATRIX positionMatrix)
 {
-	if (!_mesh)
-		throw std::runtime_error("Mesh is not defined");
-	_mesh->SetPosition(positionMatrix);
 }
 
 void HoloLensClient::Entity::SetRotation(DirectX::XMMATRIX rotationMatrix)
 {
-	if (!_mesh)
-		throw std::runtime_error("Mesh is not defined");
-	_mesh->SetRotation(rotationMatrix);
 }
 
-std::unique_ptr<IObject> const &Entity::getMesh() const
+void HoloLensClient::Entity::GetPosition(Windows::Foundation::Numerics::float3 & position)
 {
-	return (_mesh);
+	position = _position;
 }
 
-void Entity::setMesh(std::unique_ptr<IObject> mesh)
+void HoloLensClient::Entity::GetRotation(Windows::Foundation::Numerics::float3 & rotation)
 {
-	_mesh = std::move(mesh);
+	rotation = _rotation;
 }
 
-std::unique_ptr<IObject>& Entity::getMesh()
+void HoloLensClient::Entity::GetPosition(DirectX::XMMATRIX & positionMatrix)
 {
-	return (_mesh);
 }
+
+void HoloLensClient::Entity::GetRotation(DirectX::XMMATRIX & rotationMatrix)
+{
+}
+
+void HoloLensClient::Entity::SetParent(IEntity *parent)
+{
+	//Remove this entity from the childs entity of the previous parent
+	_parent->RemoveChild(this);
+	//Set the new parent
+	_parent = parent;
+}
+
+void HoloLensClient::Entity::AddChild(IEntity *child)
+{
+	auto found = std::find(_childs.begin(), _childs.end(), child);
+
+	if (found != _childs.end())
+		std::runtime_error("This entity is already a child of this entity");
+	_childs.push_back(child);
+	child->SetParent(this);
+}
+
+void HoloLensClient::Entity::RemoveChild(IEntity *child)
+{
+	_childs.erase(
+		std::remove_if(_childs.begin(), _childs.end(),
+			[&child](auto &c) {
+				return c == child;
+			}),
+		_childs.end());
+}
+
+IEntity *HoloLensClient::Entity::getParent() const
+{
+	return _parent;
+}
+
+void Entity::addMesh(IObject::IObjectPtr mesh)
+{
+	_meshs.push_back(std::move(mesh));
+}
+
+//std::unique_ptr<IObject> const &Entity::getMesh() const
+//{
+//	return (_mesh);
+//}
+
+//std::unique_ptr<IObject>& Entity::getMesh()
+//{
+//	return (_mesh);
+//}

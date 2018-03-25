@@ -115,6 +115,12 @@ Concurrency::task<void> ColoredObject::InitializeShaders()
 	return _usingVprtShaders ? (createPSTask && createVSTask) : (createPSTask && createVSTask && createGSTask);
 }
 
+void HoloLensClient::ColoredObject::Translate(Windows::Foundation::Numerics::float3 translation)
+{
+	_position += translation;
+	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_position));
+}
+
 void ColoredObject::SetPosition(Windows::Foundation::Numerics::float3 position)
 {
 	_position = position;

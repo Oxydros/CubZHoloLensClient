@@ -295,6 +295,9 @@
     <ClInclude Include="3D\Objects\GUI\TextObject.h">
       <Filter>3D\Objects\GUI\Text</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Entities\Common\IEntity.h">
+      <Filter>3D\Entities\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

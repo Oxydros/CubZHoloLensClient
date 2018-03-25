@@ -11,6 +11,8 @@ namespace HoloLensClient
 	class IObject
 	{
 	public:
+		typedef std::unique_ptr<IObject> IObjectPtr;
+	public:
 		// Default destructor of the interface
 		virtual ~IObject() = default;
 
@@ -28,6 +30,9 @@ namespace HoloLensClient
 		// Force apply the modelTransform to the model
 		// You shouldn't call the Update function when using this one
 		virtual void ApplyMatrix(DirectX::XMMATRIX const &modelTransform) = 0;
+
+		// Translate the object
+		virtual void Translate(Windows::Foundation::Numerics::float3 translation) = 0;
 
 		// Change the 3D position
 		virtual void SetPosition(Windows::Foundation::Numerics::float3 pos) = 0;

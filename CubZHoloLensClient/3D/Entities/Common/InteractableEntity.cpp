@@ -27,7 +27,7 @@ void InteractableEntity::Update(DX::StepTimer const &timer)
 		float distance = 0.0f;
 
 		DirectX::BoundingOrientedBox currentBoundingBox;
-		_mesh->GetBoundingBox(currentBoundingBox);
+		GetBiggestBoundingBox(currentBoundingBox);
 
 		_focused = currentBoundingBox.Intersects(XMLoadFloat3(&headPosition), XMLoadFloat3(&headDirection), distance);
 	}
@@ -44,4 +44,14 @@ void HoloLensClient::InteractableEntity::Inputs(Windows::UI::Input::Spatial::Spa
 			OnAirTap();
 		});
 	}
+}
+
+void HoloLensClient::InteractableEntity::GetBiggestBoundingBox(DirectX::BoundingOrientedBox &boundingBox)
+{
+	//TODO
+	std::for_each(_meshs.begin(), _meshs.end(),
+		[&boundingBox](auto &mesh)
+	{
+		mesh->GetBoundingBox(boundingBox);
+	});
 }

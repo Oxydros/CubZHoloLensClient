@@ -32,6 +32,7 @@ namespace HoloLensClient
 		void Update() override;
 		void Render() override;
 		void ApplyMatrix(DirectX::XMMATRIX const & modelTransform) override;
+		void Translate(Windows::Foundation::Numerics::float3 translation) override;
 		void SetPosition(Windows::Foundation::Numerics::float3 pos) override;
 		void SetRotation(Windows::Foundation::Numerics::float3 rot) override;
 		void SetScale(Windows::Foundation::Numerics::float3 scale) override;

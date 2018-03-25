@@ -196,6 +196,7 @@
   <ItemGroup>
     <ClInclude Include="3D\AppView.h" />
     <ClInclude Include="3D\Entities\Common\Entity.h" />
+    <ClInclude Include="3D\Entities\Common\IEntity.h" />
     <ClInclude Include="3D\Entities\Common\InteractableEntity.h" />
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\CursorEntity.h" />

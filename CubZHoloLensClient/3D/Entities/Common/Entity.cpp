@@ -14,39 +14,67 @@ HoloLensClient::Entity::~Entity()
 
 void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 {
-	DoUpdate(timer);
-	std::for_each(_meshs.begin(), _meshs.end(),
-		[](auto &mesh)
+	for (auto it = _childs.begin(); it != _childs.end(); ++it)
 	{
-		mesh->Update();
+		//(*it)->DoUpdate(timer);
+	}
+	std::for_each(_childs.begin(), _childs.end(),
+		[&timer](auto &child)
+	{
+		child->DoUpdate(timer);
 	});
+	DoUpdate(timer);
+	//std::for_each(_meshs.begin(), _meshs.end(),
+	//	[](auto &mesh)
+	//{
+	//	mesh->Update();
+	//});
+	if (!_useTranslationMatrix)
+		_mesh->SetPosition(_realPosition);
+	if (!_useRotationMatrix)
+		_mesh->SetRotation(_realRotation);
+	_useTranslationMatrix = _useRotationMatrix = false;
+	_mesh->Update();
+}
+
+void HoloLensClient::Entity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^ pointerState)
+{
+	std::for_each(_childs.begin(), _childs.end(),
+		[&pointerState](auto &child)
+	{
+		child->OnInputs(pointerState);
+	});
+	OnInputs(pointerState);
 }
 
 void Entity::InitializeMesh()
 {
-	std::for_each(_meshs.begin(), _meshs.end(),
-		[](auto &mesh)
-	{
-		mesh->CreateDeviceDependentResources();
-	});
+	//std::for_each(_meshs.begin(), _meshs.end(),
+	//	[](auto &mesh)
+	//{
+	//	mesh->CreateDeviceDependentResources();
+	//});
+	_mesh->CreateDeviceDependentResources();
 }
 
 void Entity::ReleaseMesh()
 {
-	std::for_each(_meshs.begin(), _meshs.end(),
+	/*std::for_each(_meshs.begin(), _meshs.end(),
 		[](auto &mesh)
 	{
 		mesh->ReleaseDeviceDependentResources();
-	});
+	});*/
+	_mesh->ReleaseDeviceDependentResources();
 }
 
 void Entity::Render()
 {
-	std::for_each(_meshs.begin(), _meshs.end(),
+	/*std::for_each(_meshs.begin(), _meshs.end(),
 		[](auto &mesh)
 	{
 		mesh->Render();
-	});
+	});*/
+	_mesh->Render();
 }
 
 void HoloLensClient::Entity::kill()
@@ -70,43 +98,72 @@ bool HoloLensClient::Entity::isDead() const
 
 void HoloLensClient::Entity::Move(Windows::Foundation::Numerics::float3 offset)
 {
-	_position += offset;
+	_relativePosition += offset;
+	UpdateReal();
 }
 
-void HoloLensClient::Entity::SetPosition(Windows::Foundation::Numerics::float3 position)
+void HoloLensClient::Entity::SetRelativePosition(Windows::Foundation::Numerics::float3 position)
 {
-	_position = position;
+	_relativePosition = position;
+	UpdateReal();
 }
 
-void HoloLensClient::Entity::SetRotation(Windows::Foundation::Numerics::float3 rotation)
+void HoloLensClient::Entity::SetRelativeRotation(Windows::Foundation::Numerics::float3 rotation)
 {
-	_rotation = rotation;
+	_relativeRotation = rotation;
+	UpdateReal();
 }
 
-void HoloLensClient::Entity::SetPosition(DirectX::XMMATRIX positionMatrix)
+void HoloLensClient::Entity::SetRealPosition(Windows::Foundation::Numerics::float3 position)
 {
+	_realPosition = position;
+	UpdateRelative();
 }
 
-void HoloLensClient::Entity::SetRotation(DirectX::XMMATRIX rotationMatrix)
+void HoloLensClient::Entity::SetRealRotation(Windows::Foundation::Numerics::float3 rotation)
 {
+	_realRotation = rotation;
+	UpdateRelative();
 }
 
-void HoloLensClient::Entity::GetPosition(Windows::Foundation::Numerics::float3 & position)
+void HoloLensClient::Entity::SetPosition(DirectX::XMMATRIX &positionMatrix)
 {
-	position = _position;
+	_useTranslationMatrix = true;
+	_mesh->SetPosition(positionMatrix);
 }
 
-void HoloLensClient::Entity::GetRotation(Windows::Foundation::Numerics::float3 & rotation)
+void HoloLensClient::Entity::SetRotation(DirectX::XMMATRIX &rotationMatrix)
 {
-	rotation = _rotation;
+	_useRotationMatrix = true;
+	_mesh->SetRotation(rotationMatrix);
 }
 
-void HoloLensClient::Entity::GetPosition(DirectX::XMMATRIX & positionMatrix)
+inline void HoloLensClient::Entity::UpdateReal()
 {
+	if (_parent != nullptr)
+	{
+		_realPosition = _parent->GetPosition() + _relativePosition;
+		_realRotation = _parent->GetRotation() + _relativeRotation;
+	}
+	else
+	{
+		_realPosition = _relativePosition;
+		_realRotation = _relativeRotation;
+	}
 }
 
-void HoloLensClient::Entity::GetRotation(DirectX::XMMATRIX & rotationMatrix)
+inline void HoloLensClient::Entity::UpdateRelative()
 {
+	if (_parent != nullptr)
+	{
+		_relativePosition = _realPosition - _parent->GetPosition();
+		_relativeRotation = _realRotation - _parent->GetRotation();
+	}
+	else
+	{
+		_relativePosition = _realPosition;
+		_relativeRotation = _realRotation;
+	}
 }
 
 void HoloLensClient::Entity::SetParent(IEntity *parent)
@@ -144,7 +201,9 @@ IEntity *HoloLensClient::Entity::getParent() const
 
 void Entity::addMesh(IObject::IObjectPtr mesh)
 {
-	_meshs.push_back(std::move(mesh));
+	_mesh = std::move(mesh);
+	_mesh->CreateDeviceDependentResources();
+	/*_meshs.push_back(std::move(mesh));*/
 }
 
 //std::unique_ptr<IObject> const &Entity::getMesh() const

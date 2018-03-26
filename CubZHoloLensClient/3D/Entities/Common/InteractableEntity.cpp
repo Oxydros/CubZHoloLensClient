@@ -11,9 +11,8 @@ InteractableEntity::InteractableEntity(std::shared_ptr<HolographicScene>& scene)
 {
 }
 
-void InteractableEntity::Update(DX::StepTimer const &timer)
+void InteractableEntity::DoUpdate(DX::StepTimer const &timer)
 {
-	Entity::Update(timer);
 	auto pointerPose = _scene->getPointerPose();
 
 	if (pointerPose != nullptr)
@@ -35,7 +34,7 @@ void InteractableEntity::Update(DX::StepTimer const &timer)
 		_focused = false;
 }
 
-void HoloLensClient::InteractableEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
+void HoloLensClient::InteractableEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
 	if (pointerState->IsPressed && _focused)
 	{
@@ -49,9 +48,10 @@ void HoloLensClient::InteractableEntity::Inputs(Windows::UI::Input::Spatial::Spa
 void HoloLensClient::InteractableEntity::GetBiggestBoundingBox(DirectX::BoundingOrientedBox &boundingBox)
 {
 	//TODO
-	std::for_each(_meshs.begin(), _meshs.end(),
-		[&boundingBox](auto &mesh)
-	{
-		mesh->GetBoundingBox(boundingBox);
-	});
+	//std::for_each(_meshs.begin(), _meshs.end(),
+	//	[&boundingBox](auto &mesh)
+	//{
+	//	mesh->GetBoundingBox(boundingBox);
+	//});
+	_mesh->GetBoundingBox(boundingBox);
 }

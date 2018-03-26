@@ -28,7 +28,6 @@ CubeEntity::CubeEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, s
 
 	/*auto cube = std::make_unique<ColoredRectangle>(devicesResources, float2(0.5f, 0.25f));*/
 	addMesh(std::move(cube));
-	InitializeMesh();
 }
 
 CubeEntity::~CubeEntity()

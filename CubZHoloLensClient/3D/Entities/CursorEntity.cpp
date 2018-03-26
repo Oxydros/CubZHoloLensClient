@@ -14,7 +14,6 @@ CursorEntity::CursorEntity(std::shared_ptr<DX::DeviceResources> &devicesResource
 	: Entity(scene)
 {
 	addMesh(std::make_unique<ColoredCircle>(devicesResources, 0.0025f));
-	InitializeMesh();
 }
 
 CursorEntity::~CursorEntity()
@@ -34,7 +33,7 @@ void CursorEntity::DoUpdate(DX::StepTimer const & timer)
 	SetRotation(rotation);
 }
 
-void CursorEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
+void CursorEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
 	auto pointerPose = pointerState->TryGetPointerPose(_scene->getCoordinateSystem());
 
@@ -49,8 +48,8 @@ void CursorEntity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceS
 		// The tag-along hologram follows a point 2.0m in front of the user's gaze direction.
 		const float3 gazeAtTwoMeters = headPosition + (4.5f * headDirection);
 		
-		cube->SetPosition(gazeAtTwoMeters);
-		cube->SetRotation({ 0, 0, 0 });
+		cube->SetRealPosition(gazeAtTwoMeters);
+		cube->SetRealRotation({ 0, 0, 0 });
 		_scene->addEntity(std::move(cube));
 	}
 }

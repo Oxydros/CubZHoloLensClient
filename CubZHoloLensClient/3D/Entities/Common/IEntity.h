@@ -27,10 +27,15 @@ namespace HoloLensClient
 
 	public:
 
+		// Initialize the mesh
 		virtual void InitializeMesh() = 0;
+		// Release the resources of the mesh
 		virtual void ReleaseMesh() = 0;
+		// Render the mesh
 		virtual void Render() = 0;
+		// Mark this entity for death
 		virtual void kill() = 0;
+		// Check if this entity is marked for death
 		virtual bool isDead() const = 0;
 
 		// Translate of the offset value
@@ -47,9 +52,9 @@ namespace HoloLensClient
 		virtual void SetRealRotation(Windows::Foundation::Numerics::float3 rotation) = 0;
 
 		// Set the real position matrix
-		virtual void SetPosition(DirectX::XMMATRIX &positionMatrix) = 0;
+		virtual void SetRealPosition(DirectX::XMMATRIX &positionMatrix) = 0;
 		// Set the real rotation matrix
-		virtual void SetRotation(DirectX::XMMATRIX &rotationMatrix) = 0;
+		virtual void SetRealRotation(DirectX::XMMATRIX &rotationMatrix) = 0;
 
 		// Return the real position
 		virtual Windows::Foundation::Numerics::float3 const &GetPosition() const = 0;
@@ -66,10 +71,26 @@ namespace HoloLensClient
 		// Return the real rotation matrix
 		virtual DirectX::XMMATRIX const &GetRotationMatrix() const = 0;
 
+		// Add a child entity
 		virtual void AddChild(IEntity *child) = 0;
+		// Remove a child entity
 		virtual void RemoveChild(IEntity *child) = 0;
 
+		// Set the parent of this entity
 		virtual void SetParent(IEntity *parent) = 0;
+		// Get the parent of this entity
 		virtual IEntity *getParent() const = 0;
+
+		// Define if the entity must follow the user gaze at each frame
+		virtual void setFollowGaze(bool followGaze, bool followOrient,
+								   Windows::Foundation::Numerics::float3 positionOffsets,
+								   Windows::Foundation::Numerics::float3 rotationOffsets) = 0;
+
+		// Place the entity in front of the user gaze
+		virtual void positionInFrontOfGaze(Windows::Foundation::Numerics::float3 offsets) = 0;
+
+		// Place the entity in front of the user gaze
+		// No use of offsets for now (vector Matrix)
+		virtual void rotateTowardGaze(Windows::Foundation::Numerics::float3 offsets) = 0;
 	};
 }

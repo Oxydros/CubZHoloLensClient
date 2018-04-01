@@ -36,6 +36,7 @@ namespace HoloLensClient
 
 	public:
 		void addEntity(IEntity::IEntityPtr e);
+		void addEntityInFront(IEntity::IEntityPtr e, float dist = 2.0f);
 
 	public:
 		Windows::Perception::Spatial::SpatialCoordinateSystem^ getCoordinateSystem() const;

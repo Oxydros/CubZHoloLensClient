@@ -201,6 +201,7 @@
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\CursorEntity.h" />
     <ClInclude Include="3D\Entities\GUI\Button.h" />
+    <ClInclude Include="3D\Entities\GUI\Panel.h" />
     <ClInclude Include="3D\Objects\Common\IObject.h" />
     <ClInclude Include="3D\Objects\GUI\ButtonObject.h" />
     <ClInclude Include="3D\Objects\GUI\DistanceFieldRenderer.h" />
@@ -287,6 +288,7 @@
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />
     <ClCompile Include="3D\Entities\CursorEntity.cpp" />
     <ClCompile Include="3D\Entities\GUI\Button.cpp" />
+    <ClCompile Include="3D\Entities\GUI\Panel.cpp" />
     <ClCompile Include="3D\Objects\GUI\ButtonObject.cpp" />
     <ClCompile Include="3D\Objects\GUI\DistanceFieldRenderer.cpp" />
     <ClCompile Include="3D\Objects\GUI\TextObject.cpp" />

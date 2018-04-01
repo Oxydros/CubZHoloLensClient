@@ -13,7 +13,7 @@ namespace HoloLensClient
 		InteractableEntity(std::shared_ptr<HolographicScene> &scene);
 
 		void DoUpdate(DX::StepTimer const &timer) override;
-		void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override;
+		void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override final;
 		bool isFocused() const { return _focused; }
 
 	public:

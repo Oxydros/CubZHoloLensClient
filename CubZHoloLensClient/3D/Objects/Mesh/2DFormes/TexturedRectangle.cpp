@@ -192,24 +192,24 @@ void HoloLensClient::TexturedRectangle::ReleaseDeviceDependentResources()
 	_vertexBuffer.Reset();
 	_indexBuffer.Reset();
 }
-
-void HoloLensClient::TexturedRectangle::Update()
-{
-	// Multiply to get the transform matrix.
-	// Note that this transform does not enforce a particular coordinate system. The calling
-	// class is responsible for rendering this content in a consistent manner.
-
-	const XMMATRIX modelTransform = _modelRotation * _modelTranslation;
-	XMStoreFloat4x4(&_transform, modelTransform);
-
-	// The view and projection matrices are provided by the system; they are associated
-	// with holographic cameras, and updated on a per-camera basis.
-	// Here, we provide the model transform for the sample hologram. The model transform
-	// matrix is transposed to prepare it for the shader.
-	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
-
-	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
-}
+//
+//void HoloLensClient::TexturedRectangle::Update()
+//{
+//	// Multiply to get the transform matrix.
+//	// Note that this transform does not enforce a particular coordinate system. The calling
+//	// class is responsible for rendering this content in a consistent manner.
+//
+//	if (!_useForcedTransform) _modelTransform = _modelRotation * _modelTranslation;
+//	XMStoreFloat4x4(&_transform, _modelTransform);
+//
+//	// The view and projection matrices are provided by the system; they are associated
+//	// with holographic cameras, and updated on a per-camera basis.
+//	// Here, we provide the model transform for the sample hologram. The model transform
+//	// matrix is transposed to prepare it for the shader.
+//	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(_modelTransform));
+//
+//	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
+//}
 
 void HoloLensClient::TexturedRectangle::Render()
 {
@@ -218,6 +218,8 @@ void HoloLensClient::TexturedRectangle::Render()
 		return;
 
 	const auto context = _deviceResources->GetD3DDeviceContext();
+
+	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
 
 	// Update the model transform buffer for the hologram.
 	context->UpdateSubresource(
@@ -302,28 +304,30 @@ void HoloLensClient::TexturedRectangle::Render()
 	);
 }
 
-void HoloLensClient::TexturedRectangle::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
+void HoloLensClient::TexturedRectangle::SetModelTransform(DirectX::XMMATRIX const & modelTransform)
 {
-	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
+	_modelTransform = modelTransform;
+	XMStoreFloat4x4(&_transform, _modelTransform);
+	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(_modelTransform));
 }
-
-void HoloLensClient::TexturedRectangle::Translate(Windows::Foundation::Numerics::float3 translation)
-{
-	_position += translation;
-	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_position));
-}
-
-void HoloLensClient::TexturedRectangle::SetPosition(Windows::Foundation::Numerics::float3 position)
-{
-	_position = position;
-	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
-}
-
-void HoloLensClient::TexturedRectangle::SetRotation(Windows::Foundation::Numerics::float3 rotation)
-{
-	_rotation = rotation;
-	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
-}
+//
+//void HoloLensClient::TexturedRectangle::Translate(Windows::Foundation::Numerics::float3 translation)
+//{
+//	_position += translation;
+//	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_position));
+//}
+//
+//void HoloLensClient::TexturedRectangle::SetPosition(Windows::Foundation::Numerics::float3 position)
+//{
+//	_position = position;
+//	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
+//}
+//
+//void HoloLensClient::TexturedRectangle::SetRotation(Windows::Foundation::Numerics::float3 rotation)
+//{
+//	_rotation = rotation;
+//	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
+//}
 
 void HoloLensClient::TexturedRectangle::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
 {

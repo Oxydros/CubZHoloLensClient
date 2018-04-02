@@ -14,14 +14,11 @@ namespace HoloLensClient
 		typedef std::unique_ptr<Entity>	EntityPtr;
 
 	protected:
-		/*std::vector<IObject::IObjectPtr>			_meshs;*/
 		IObject::IObjectPtr							_mesh;
 		std::vector<IEntity *>						_childs;
 		IEntity										*_parent;
 		bool										_alive;
 		std::shared_ptr<HolographicScene>			_scene;
-		bool										_useTranslationMatrix;
-		bool										_useRotationMatrix;
 
 		bool										_followGazePosition;
 		bool										_followGazeRotation;
@@ -32,6 +29,9 @@ namespace HoloLensClient
 		Windows::Foundation::Numerics::float3		_relativeRotation;
 		Windows::Foundation::Numerics::float3		_realPosition;
 		Windows::Foundation::Numerics::float3		_realRotation;
+
+		DirectX::XMMATRIX							_modelTranslation;
+		DirectX::XMMATRIX							_modelRotation;
 
 	public:
 		Entity(std::shared_ptr<HolographicScene> &scene);
@@ -63,8 +63,10 @@ namespace HoloLensClient
 		Windows::Foundation::Numerics::float3 const &GetRelativePosition() const override { return _relativePosition; };
 		Windows::Foundation::Numerics::float3 const &GetRelativeRotation() const override { return _relativeRotation; };
 
-		DirectX::XMMATRIX const &GetPositionMatrix() const override { return _mesh->getPositionMatrix(); };
-		DirectX::XMMATRIX const &GetRotationMatrix() const override { return _mesh->getRotationMatrix(); };
+		DirectX::XMMATRIX const &GetPositionMatrix() const override { return _modelRotation; };
+		DirectX::XMMATRIX const &GetRotationMatrix() const override { return _modelTranslation; };
+
+		DirectX::XMMATRIX const GetTransformMatrix() const override { return _modelRotation * _modelTranslation; };
 
 		void AddChild(IEntity *child) override;
 		void RemoveChild(IEntity *child) override;
@@ -92,7 +94,22 @@ namespace HoloLensClient
 		virtual void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) {};
 
 	private:
-		inline void UpdateReal();
-		inline void UpdateRelative();
+		/*inline void UpdateReal();*/
+		/*inline void UpdateRelative();*/
+
+	public:
+		// Required for align of 16B for XMMAtrix
+		// https://stackoverflow.com/questions/20104815/warning-c4316-object-allocated-on-the-heap-may-not-be-aligned-16
+		void* operator new(size_t i)
+		{
+			return _mm_malloc(i, 16);
+		}
+
+		// Required for align of 16B for XMMAtrix
+		// https://stackoverflow.com/questions/20104815/warning-c4316-object-allocated-on-the-heap-may-not-be-aligned-16
+		void operator delete(void* p)
+		{
+			_mm_free(p);
+		}
 	};
 }

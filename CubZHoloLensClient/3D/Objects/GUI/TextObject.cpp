@@ -240,29 +240,29 @@ void HoloLensClient::TextObject::ReleaseDeviceDependentResources()
 	_quadTextureSamplerState.Reset();
 }
 
-void HoloLensClient::TextObject::Update()
-{
-	if (_updateText)
-	{
-		_textRenderer->RenderTextOffscreen(_text, 120.0f);
-		_quadTextureView = _textRenderer->GetTexture();
-		_updateText = false;
-	}
-	// Multiply to get the transform matrix.
-	// Note that this transform does not enforce a particular coordinate system. The calling
-	// class is responsible for rendering this content in a consistent manner.
-
-	const XMMATRIX modelTransform = _modelRotation * _modelTranslation;
-	XMStoreFloat4x4(&_transform, modelTransform);
-
-	// The view and projection matrices are provided by the system; they are associated
-	// with holographic cameras, and updated on a per-camera basis.
-	// Here, we provide the model transform for the sample hologram. The model transform
-	// matrix is transposed to prepare it for the shader.
-	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
-
-	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, 0);
-}
+//void HoloLensClient::TextObject::Update()
+//{
+//	if (_updateText)
+//	{
+//		_textRenderer->RenderTextOffscreen(_text, 120.0f);
+//		_quadTextureView = _textRenderer->GetTexture();
+//		_updateText = false;
+//	}
+//	// Multiply to get the transform matrix.
+//	// Note that this transform does not enforce a particular coordinate system. The calling
+//	// class is responsible for rendering this content in a consistent manner.
+//
+//	if (!_useForcedTransform) _modelTransform = _modelRotation * _modelTranslation;
+//	XMStoreFloat4x4(&_transform, _modelTransform);
+//
+//	// The view and projection matrices are provided by the system; they are associated
+//	// with holographic cameras, and updated on a per-camera basis.
+//	// Here, we provide the model transform for the sample hologram. The model transform
+//	// matrix is transposed to prepare it for the shader.
+//	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(_modelTransform));
+//
+//	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, 0);
+//}
 
 void HoloLensClient::TextObject::Render()
 {
@@ -285,7 +285,16 @@ void HoloLensClient::TextObject::Render()
 		return;
 	}
 
+	if (_updateText)
+	{
+		_textRenderer->RenderTextOffscreen(_text, 120.0f);
+		_quadTextureView = _textRenderer->GetTexture();
+		_updateText = false;
+	}
+
 	const auto context = _deviceResources->GetD3DDeviceContext();
+
+	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, 0);
 
 	// Update the model transform buffer for the hologram.
 	context->UpdateSubresource(
@@ -368,27 +377,11 @@ void HoloLensClient::TextObject::Render()
 	);
 }
 
-void HoloLensClient::TextObject::ApplyMatrix(DirectX::XMMATRIX const & modelTransform)
+void HoloLensClient::TextObject::SetModelTransform(DirectX::XMMATRIX const & modelTransform)
 {
-	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
-}
-
-void HoloLensClient::TextObject::Translate(Windows::Foundation::Numerics::float3 translation)
-{
-	_position += translation;
-	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_position));
-}
-
-void HoloLensClient::TextObject::SetPosition(Windows::Foundation::Numerics::float3 position)
-{
-	_position = position;
-	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
-}
-
-void HoloLensClient::TextObject::SetRotation(Windows::Foundation::Numerics::float3 rotation)
-{
-	_rotation = rotation;
-	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
+	_modelTransform = modelTransform;
+	XMStoreFloat4x4(&_transform, _modelTransform);
+	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(_modelTransform));
 }
 
 void HoloLensClient::TextObject::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)

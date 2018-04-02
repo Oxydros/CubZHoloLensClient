@@ -115,24 +115,6 @@ Concurrency::task<void> ColoredObject::InitializeShaders()
 	return _usingVprtShaders ? (createPSTask && createVSTask) : (createPSTask && createVSTask && createGSTask);
 }
 
-void HoloLensClient::ColoredObject::Translate(Windows::Foundation::Numerics::float3 translation)
-{
-	_position += translation;
-	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_position));
-}
-
-void ColoredObject::SetPosition(Windows::Foundation::Numerics::float3 position)
-{
-	_position = position;
-	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&position));
-}
-
-void ColoredObject::SetRotation(Windows::Foundation::Numerics::float3 rotation)
-{
-	_rotation = rotation;
-	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rotation));
-}
-
 void ColoredObject::GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox)
 {
 	_boundingBox.Transform(boundingBox, DirectX::XMLoadFloat4x4(&_transform));
@@ -150,6 +132,8 @@ void ColoredObject::Render()
 		return;
 
 	const auto context = _deviceResources->GetD3DDeviceContext();
+
+	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
 
 	// Update the model transform buffer for the hologram.
 	context->UpdateSubresource(
@@ -222,32 +206,36 @@ void ColoredObject::Render()
 	);
 }
 
-void ColoredObject::Update()
-{
-	// Multiply to get the transform matrix.
-	// Note that this transform does not enforce a particular coordinate system. The calling
-	// class is responsible for rendering this content in a consistent manner.
-
-	const XMMATRIX modelTransform = _modelRotation * _modelTranslation;
-	XMStoreFloat4x4(&_transform, modelTransform);
-
-	// The view and projection matrices are provided by the system; they are associated
-	// with holographic cameras, and updated on a per-camera basis.
-	// Here, we provide the model transform for the sample hologram. The model transform
-	// matrix is transposed to prepare it for the shader.
-	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
-
-	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
-}
+//void ColoredObject::Update()
+//{
+//	// Multiply to get the transform matrix.
+//	// Note that this transform does not enforce a particular coordinate system. The calling
+//	// class is responsible for rendering this content in a consistent manner.
+//
+//	//if (!_useForcedTransform) _modelTransform = _modelRotation * _modelTranslation;
+//	XMStoreFloat4x4(&_transform, _modelTransform);
+//
+//	_useForcedTransform = false;
+//	// The view and projection matrices are provided by the system; they are associated
+//	// with holographic cameras, and updated on a per-camera basis.
+//	// Here, we provide the model transform for the sample hologram. The model transform
+//	// matrix is transposed to prepare it for the shader.
+//	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(_modelTransform));
+//
+//	_modelConstantBufferData.color = DirectX::XMFLOAT4(_color.x, _color.y, _color.z, _color.w);
+//}
 
 std::shared_ptr<DX::DeviceResources> ColoredObject::getDeviceResources() const
 {
 	return (_deviceResources);
 }
 
-void ColoredObject::ApplyMatrix(DirectX::XMMATRIX const &modelTransform)
+void ColoredObject::SetModelTransform(DirectX::XMMATRIX const &modelTransform)
 {
-	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(modelTransform));
+	_modelTransform = modelTransform;
+	XMStoreFloat4x4(&_transform, _modelTransform);
+	XMStoreFloat4x4(&_modelConstantBufferData.model, XMMatrixTranspose(_modelTransform));
+	/*_useForcedTransform = true;*/
 }
 
 void ColoredObject::ReleaseDeviceDependentResources()

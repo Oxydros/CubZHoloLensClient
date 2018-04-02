@@ -14,7 +14,7 @@ ColoredCube::ColoredCube(std::shared_ptr<DX::DeviceResources> &devicesResources,
 	: ColoredObject(devicesResources), _size(size)
 {
 	SetColor(color);
-	SetPosition({ 0.f, 0.f, -2.f });
+	/*SetPosition({ 0.f, 0.f, -2.f });*/
 }
 
 ColoredCube::~ColoredCube()

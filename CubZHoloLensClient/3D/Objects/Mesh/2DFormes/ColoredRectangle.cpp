@@ -14,7 +14,7 @@ ColoredRectangle::ColoredRectangle(std::shared_ptr<DX::DeviceResources> &devices
 	: ColoredObject(devicesResources), _size(size)
 {
 	SetColor(color);
-	SetPosition({ 0.0f, 0.0f, -2.0f });
+	/*SetPosition({ 0.0f, 0.0f, -2.0f });*/
 }
 
 ColoredRectangle::~ColoredRectangle()

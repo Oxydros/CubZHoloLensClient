@@ -23,38 +23,10 @@ CursorEntity::~CursorEntity()
 
 void CursorEntity::DoUpdate(DX::StepTimer const & timer)
 {
-	// Commented because setFollowGaze at true
-	//DirectX::XMMATRIX translation;
-	//DirectX::XMMATRIX rotation;
-
-	//getFaceRotationTranslationModel(translation, rotation, 2.0f, _scene->getPointerPose());
-
-	////getMesh()->SetPosition(translation);
-	////getMesh()->SetRotation(rotation);
-	//SetRealPosition(translation);
-	//SetRealRotation(rotation);
 }
 
 void CursorEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
-	//auto pointerPose = pointerState->TryGetPointerPose(_scene->getCoordinateSystem());
-
-	//if (pointerPose != nullptr)
-	//{
-	//	auto cube = std::make_unique<CubeEntity>(_scene->getDeviceResources(), _scene);
-
-	//	// Get the gaze direction relative to the given coordinate system.
-	//	const float3 headPosition = pointerPose->Head->Position;
-	//	const float3 headDirection = pointerPose->Head->ForwardDirection;
-
-	//	// The tag-along hologram follows a point 2.0m in front of the user's gaze direction.
-	//	const float3 gazeAtTwoMeters = headPosition + (4.5f * headDirection);
-	//	
-	//	cube->SetRealPosition(gazeAtTwoMeters);
-	//	cube->SetRealRotation({ 0, 0, 0 });
-	//	_scene->addEntity(std::move(cube));
-	//}
-
 	auto cube = std::make_unique<CubeEntity>(_scene->getDeviceResources(), _scene);
 	cube->positionInFrontOfGaze({ 0.0f, 0.0f, 4.5f });
 	_scene->addEntity(std::move(cube));

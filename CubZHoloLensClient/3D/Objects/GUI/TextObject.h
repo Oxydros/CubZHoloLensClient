@@ -35,15 +35,10 @@ namespace HoloLensClient
 
 		std::shared_ptr<DX::DeviceResources>					_deviceResources;
 
-		Windows::Foundation::Numerics::float3					_position = { 0.0f, 0.0f, 0.0f };
-		Windows::Foundation::Numerics::float3					_rotation = { 0.0f, 0.0f, 0.0f };
-		Windows::Foundation::Numerics::float3					_scale = { 1.0f, 1.0f, 1.0f };
 		Windows::Foundation::Numerics::float4					_color = { 0.2f, 0.2f, 0.2f, 0.0f };
 		Windows::Foundation::Numerics::float2					_size;
 
-
-		DirectX::XMMATRIX										_modelRotation;
-		DirectX::XMMATRIX										_modelTranslation;
+		DirectX::XMMATRIX										_modelTransform;
 
 		DirectX::XMFLOAT4X4										_transform;
 		DirectX::BoundingOrientedBox							_boundingBox;
@@ -60,20 +55,8 @@ namespace HoloLensClient
 	public:
 		virtual void CreateDeviceDependentResources() override;
 		virtual void ReleaseDeviceDependentResources() override;
-		virtual void Update() override;
 		virtual void Render() override;
-		virtual void ApplyMatrix(DirectX::XMMATRIX const & modelTransform) override;
-		virtual void Translate(Windows::Foundation::Numerics::float3 translation) override;
-		virtual void SetPosition(Windows::Foundation::Numerics::float3 pos) override;
-		virtual void SetRotation(Windows::Foundation::Numerics::float3 rot) override;
-		virtual void SetScale(Windows::Foundation::Numerics::float3 scale) override { _scale = scale; }
-		virtual Windows::Foundation::Numerics::float3 GetPosition() const override { return (_position); }
-		virtual Windows::Foundation::Numerics::float3 GetRotation() const override { return (_rotation); }
-		virtual Windows::Foundation::Numerics::float3 GetScale() const override { return (_scale); }
-		virtual void SetPosition(DirectX::XMMATRIX const &posMatrix) override { _modelTranslation = posMatrix; };
-		virtual void SetRotation(DirectX::XMMATRIX const &rotMatrix) override { _modelRotation = rotMatrix; }
-		virtual DirectX::XMMATRIX const &getPositionMatrix() const override { return(_modelTranslation); }
-		virtual DirectX::XMMATRIX const &getRotationMatrix() const override { return(_modelRotation); }
+		virtual void SetModelTransform(DirectX::XMMATRIX const & modelTransform) override;
 		virtual std::shared_ptr<DX::DeviceResources> getDeviceResources() const override { return _deviceResources; }
 		virtual void GetBoundingBox(DirectX::BoundingOrientedBox & boundingBox) override;
 

@@ -34,16 +34,9 @@ namespace HoloLensClient
 
 	protected:
 		std::shared_ptr<DX::DeviceResources>					_deviceResources;
-
-		Windows::Foundation::Numerics::float3					_position = {0.0f, 0.0f, 0.0f};
-		Windows::Foundation::Numerics::float3					_rotation = { 0.0f, 0.0f, 0.0f };
-		Windows::Foundation::Numerics::float3					_scale = { 1.0f, 1.0f, 1.0f };
 		Windows::Foundation::Numerics::float4					_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-
-		DirectX::XMMATRIX										_modelRotation;
-		DirectX::XMMATRIX										_modelTranslation;
-
+		DirectX::XMMATRIX										_modelTransform;
 		DirectX::XMFLOAT4X4										_transform;
 		DirectX::BoundingOrientedBox							_boundingBox;
 
@@ -60,35 +53,15 @@ namespace HoloLensClient
 		void									CreateDeviceDependentResources() override;
 		void									ReleaseDeviceDependentResources() override;
 		void									Render() override;
-		void									Update() override;
 		std::shared_ptr<DX::DeviceResources>	getDeviceResources() const override;
-		void									ApplyMatrix(DirectX::XMMATRIX const &m) override;
+		void									SetModelTransform(DirectX::XMMATRIX const &m) override;
 
 	private:
 		Concurrency::task<void>				InitializeShaders();
 		virtual void						CreateMesh() = 0;
 
 	public:
-		void Translate(Windows::Foundation::Numerics::float3 translation) override;
-
-		void SetPosition(Windows::Foundation::Numerics::float3 position) override;
-		void SetRotation(Windows::Foundation::Numerics::float3 rotation) override;
-		void SetScale(Windows::Foundation::Numerics::float3 scale) override { _scale = scale; }
-
-		void SetPosition(DirectX::XMMATRIX const &posMatrix) override { _modelTranslation = posMatrix; };
-
-		void SetRotation(DirectX::XMMATRIX const &rotMatrix) override { _modelRotation = rotMatrix; }
-
-		DirectX::XMMATRIX const &getPositionMatrix() const override { return(_modelTranslation); }
-
-		DirectX::XMMATRIX const &getRotationMatrix() const override { return(_modelRotation); }
-
-		Windows::Foundation::Numerics::float3 GetPosition() const override { return (_position); }
-		Windows::Foundation::Numerics::float3 GetRotation() const override { return (_rotation); }
-		Windows::Foundation::Numerics::float3 GetScale() const override { return (_scale); }
-
 		void GetBoundingBox(DirectX::BoundingOrientedBox &boundingBox) override;
-
 		void SetColor(Windows::Foundation::Numerics::float4 color) override { _color = color; }
 		float4 GetColor() const override { return _color; }
 

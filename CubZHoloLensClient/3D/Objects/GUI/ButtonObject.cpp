@@ -22,11 +22,11 @@ void HoloLensClient::ButtonObject::ReleaseDeviceDependentResources()
 	//_backgroundMesh->ReleaseDeviceDependentResources();
 }
 
-void HoloLensClient::ButtonObject::Update()
-{
-	_textMesh->Update();
-	//_backgroundMesh->Update();
-}
+//void HoloLensClient::ButtonObject::Update()
+//{
+//	_textMesh->Update();
+//	//_backgroundMesh->Update();
+//}
 
 void HoloLensClient::ButtonObject::Render()
 {
@@ -34,70 +34,10 @@ void HoloLensClient::ButtonObject::Render()
 	//_backgroundMesh->Render();
 }
 
-void HoloLensClient::ButtonObject::ApplyMatrix(DirectX::XMMATRIX const &modelTransform)
+void HoloLensClient::ButtonObject::SetModelTransform(DirectX::XMMATRIX const &modelTransform)
 {
 	//_backgroundMesh->ApplyMatrix(modelTransform);
-	_textMesh->ApplyMatrix(modelTransform);
-}
-
-void HoloLensClient::ButtonObject::Translate(Windows::Foundation::Numerics::float3 translation)
-{
-	_textMesh->Translate(translation);
-}
-
-void HoloLensClient::ButtonObject::SetPosition(Windows::Foundation::Numerics::float3 pos)
-{
-	/*_backgroundMesh->SetPosition(pos);*/
-	_textMesh->SetPosition(pos);
-}
-
-void HoloLensClient::ButtonObject::SetRotation(Windows::Foundation::Numerics::float3 rot)
-{
-	/*_backgroundMesh->SetRotation(rot);*/
-	_textMesh->SetRotation(rot);
-}
-
-void HoloLensClient::ButtonObject::SetScale(Windows::Foundation::Numerics::float3 scale)
-{
-	/*_backgroundMesh->SetScale(scale);*/
-	_textMesh->SetScale(scale);
-}
-
-Windows::Foundation::Numerics::float3 HoloLensClient::ButtonObject::GetPosition() const
-{
-	return (_textMesh->GetPosition());
-}
-
-Windows::Foundation::Numerics::float3 HoloLensClient::ButtonObject::GetRotation() const
-{
-	return (_textMesh->GetRotation());
-}
-
-Windows::Foundation::Numerics::float3 HoloLensClient::ButtonObject::GetScale() const
-{
-	return (_textMesh->GetScale());
-}
-
-void HoloLensClient::ButtonObject::SetPosition(DirectX::XMMATRIX const & posMatrix)
-{
-	//_backgroundMesh->SetPosition(posMatrix);
-	_textMesh->SetPosition(posMatrix);
-}
-
-void HoloLensClient::ButtonObject::SetRotation(DirectX::XMMATRIX const & rotMatrix)
-{
-	//_backgroundMesh->SetRotation(rotMatrix);
-	_textMesh->SetRotation(rotMatrix);
-}
-
-DirectX::XMMATRIX const & HoloLensClient::ButtonObject::getPositionMatrix() const
-{
-	return (_textMesh->getPositionMatrix());
-}
-
-DirectX::XMMATRIX const & HoloLensClient::ButtonObject::getRotationMatrix() const
-{
-	return (_textMesh->getRotationMatrix());
+	_textMesh->SetModelTransform(modelTransform);
 }
 
 std::shared_ptr<DX::DeviceResources> HoloLensClient::ButtonObject::getDeviceResources() const

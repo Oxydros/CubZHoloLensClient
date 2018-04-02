@@ -15,7 +15,7 @@ ColoredCircle::ColoredCircle(std::shared_ptr<DX::DeviceResources> &devicesResour
 	: ColoredObject(devicesResources), _radius(radius), _precision(64), _radians(radians)
 {
 	SetColor(color);
-	SetPosition({ 0.0f, 0.0f, -2.0f });
+	/*SetPosition({ 0.0f, 0.0f, -2.0f });*/
 }
 
 ColoredCircle::~ColoredCircle()

@@ -71,6 +71,8 @@ namespace HoloLensClient
 		// Return the real rotation matrix
 		virtual DirectX::XMMATRIX const &GetRotationMatrix() const = 0;
 
+		virtual DirectX::XMMATRIX const GetTransformMatrix() const = 0;
+
 		// Add a child entity
 		virtual void AddChild(IEntity *child) = 0;
 		// Remove a child entity

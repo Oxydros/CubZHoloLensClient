@@ -22,10 +22,10 @@ void HolographicScene::Initialize()
 	addEntity(std::move(gaze));
 	auto button1 = std::make_unique<Button>(_deviceResources, safe);
 	auto button2 = std::make_unique<Button>(_deviceResources, safe);
-	button1->setFollowGaze(true, false, { 0.0f, 0.0f, 4.5f });
+	button1->setFollowGaze(true, false, { -0.2f, 0.0f, 4.5f });
 	button1->AddChild(button2.get());
 	button2->SetRelativePosition({-0.5f, 0.0f, 0.0f});
-	TRACE("Button 1 is " << button1.get() << " Button 2 is " << button2.get() << std::endl);
+	//TRACE("Button 1 is " << button1.get() << " Button 2 is " << button2.get() << std::endl);
 	addEntity(std::move(button1));
 	addEntity(std::move(button2));
 }

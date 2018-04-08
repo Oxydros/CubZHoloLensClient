@@ -158,14 +158,6 @@ HolographicFrame^ SceneRenderer::Update()
 
     m_timer.Tick([&] ()
     {
-        //
-        // TODO: Update scene objects.
-        //
-        // Put time-based updates here. By default this code will run once per frame,
-        // but if you change the StepTimer to use a fixed time step this code will
-        // run as many times as needed to get to the current step.
-        //
-
 		_holoScene->Update(m_timer);
     });
 

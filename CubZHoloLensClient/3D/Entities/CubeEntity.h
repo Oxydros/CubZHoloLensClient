@@ -1,6 +1,6 @@
 #pragma once
 
-#include "3D\Entities\InteractableEntity.h"
+#include "3D\Entities\Common\InteractableEntity.h"
 
 namespace HoloLensClient
 {
@@ -13,5 +13,7 @@ namespace HoloLensClient
 	public:
 		void DoUpdate(DX::StepTimer const &timer) override;
 		void OnAirTap() override;
+
+		std::string const GetLabel() const override { return "Cube"; }
 	};
 }

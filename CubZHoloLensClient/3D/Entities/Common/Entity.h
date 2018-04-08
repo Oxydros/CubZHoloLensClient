@@ -87,6 +87,12 @@ namespace HoloLensClient
 		void rotateTowardGaze(Windows::Foundation::Numerics::float3 offsets) override;
 
 	protected:
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Adds a mesh. </summary>
+		///
+		/// <param name="mesh">	The mesh. </param>
+		///-------------------------------------------------------------------------------------------------
 		void addMesh(IObject::IObjectPtr mesh);
 
 	public:
@@ -98,15 +104,30 @@ namespace HoloLensClient
 		/*inline void UpdateRelative();*/
 
 	public:
-		// Required for align of 16B for XMMAtrix
-		// https://stackoverflow.com/questions/20104815/warning-c4316-object-allocated-on-the-heap-may-not-be-aligned-16
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>
+		/// 	Required for align of 16B for XMMAtrix
+		/// 	https://stackoverflow.com/questions/20104815/warning-c4316-object-allocated-on-the-heap-may-not-be-aligned-16.
+		/// </summary>
+		///
+		/// <param name="i">	Zero-based index of the. </param>
+		///-------------------------------------------------------------------------------------------------
 		void* operator new(size_t i)
 		{
 			return _mm_malloc(i, 16);
 		}
 
-		// Required for align of 16B for XMMAtrix
-		// https://stackoverflow.com/questions/20104815/warning-c4316-object-allocated-on-the-heap-may-not-be-aligned-16
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>
+		/// 	Required for align of 16B for XMMAtrix
+		/// 	https://stackoverflow.com/questions/20104815/warning-c4316-object-allocated-on-the-heap-may-not-be-aligned-16.
+		/// </summary>
+		///
+		/// <param name="p">	[in,out] If non-null, the p to delete. </param>
+		///
+		/// <returns>	The result of the operation. </returns>
+		///-------------------------------------------------------------------------------------------------
 		void operator delete(void* p)
 		{
 			_mm_free(p);

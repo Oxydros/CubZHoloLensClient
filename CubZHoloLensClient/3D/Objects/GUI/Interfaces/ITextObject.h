@@ -12,5 +12,11 @@ namespace HoloLensClient
 	public:
 		virtual std::wstring const &getText() const = 0;
 		virtual void setText(std::wstring const &text) = 0;
+
+		virtual float const getFontSize() const = 0;
+		virtual void setFontSize(float font) = 0;
+
+		virtual void setColor(Windows::Foundation::Numerics::float4) = 0;
+		virtual Windows::Foundation::Numerics::float4 getColor() const = 0;
 	};
 }

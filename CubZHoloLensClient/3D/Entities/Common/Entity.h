@@ -16,22 +16,22 @@ namespace HoloLensClient
 	protected:
 		IObject::IObjectPtr							_mesh;
 		std::vector<IEntity *>						_childs;
-		IEntity										*_parent;
-		bool										_alive;
-		std::shared_ptr<HolographicScene>			_scene;
+		IEntity										*_parent = nullptr;
+		bool										_alive = true;
+		std::shared_ptr<HolographicScene>			_scene = nullptr;
 
-		bool										_followGazePosition;
-		bool										_followGazeRotation;
-		Windows::Foundation::Numerics::float3		_positionOffsetFromGaze;
-		Windows::Foundation::Numerics::float3		_rotationOffsetFromGaze;
+		bool										_followGazePosition = false;
+		bool										_followGazeRotation = false;
+		Windows::Foundation::Numerics::float3		_positionOffsetFromGaze = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_rotationOffsetFromGaze = { 0, 0, 0 };
 
-		Windows::Foundation::Numerics::float3		_relativePosition;
-		Windows::Foundation::Numerics::float3		_relativeRotation;
-		Windows::Foundation::Numerics::float3		_realPosition;
-		Windows::Foundation::Numerics::float3		_realRotation;
+		Windows::Foundation::Numerics::float3		_relativePosition = { 0, 0, 0 };;
+		Windows::Foundation::Numerics::float3		_relativeRotation = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_realPosition = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_realRotation = { 0, 0, 0 };
 
-		DirectX::XMMATRIX							_modelTranslation;
-		DirectX::XMMATRIX							_modelRotation;
+		DirectX::XMMATRIX							_modelTranslation = {};
+		DirectX::XMMATRIX							_modelRotation = {};
 
 	public:
 		Entity(std::shared_ptr<HolographicScene> &scene);
@@ -66,7 +66,7 @@ namespace HoloLensClient
 		DirectX::XMMATRIX const &GetPositionMatrix() const override { return _modelRotation; };
 		DirectX::XMMATRIX const &GetRotationMatrix() const override { return _modelTranslation; };
 
-		DirectX::XMMATRIX const GetTransformMatrix() const override { return _modelRotation * _modelTranslation; };
+		DirectX::XMMATRIX const GetTransformMatrix() const override;
 
 		void AddChild(IEntity *child) override;
 		void RemoveChild(IEntity *child) override;

@@ -21,4 +21,3 @@ namespace HoloLensClient
 		void CreateMesh() override;
 	};
 }
-

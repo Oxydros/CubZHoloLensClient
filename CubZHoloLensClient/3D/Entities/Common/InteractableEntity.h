@@ -18,8 +18,11 @@ namespace HoloLensClient
 
 	public:
 		virtual void OnAirTap() = 0;
+		virtual void OnGetFocus() = 0;
+		virtual void OnLostFocus() = 0;
 
 	private:
 		void GetBiggestBoundingBox(DirectX::BoundingOrientedBox &boundingBox);
+		void setFocus(bool);
 	};
 }

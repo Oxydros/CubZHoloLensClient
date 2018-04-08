@@ -17,6 +17,39 @@ HoloLensClient::Entity::~Entity()
 {
 }
 
+std::ostream& operator<<(std::ostream& stream, const DirectX::XMMATRIX& matrix) {
+	DirectX::XMFLOAT4X4 fView;
+	DirectX::XMStoreFloat4x4(&fView, matrix);
+	for (int i = 0; i < 4; i++)
+	{
+		stream << "[";
+		for (int j = 0; j < 4; j++)
+		{
+			stream << " " << fView.m[i][j];
+		}
+		stream << "]";
+	}
+	return (stream);
+}
+
+std::ostream& operator<<(std::ostream& stream, const float3 a) {
+	stream << "(" << a.x << ", " << a.y << ", " << a.z << ")";
+	return (stream);
+}
+
+DirectX::XMMATRIX const Entity::GetTransformMatrix() const
+{
+	DirectX::XMMATRIX localTransform = _modelRotation * _modelTranslation;
+	DirectX::XMMATRIX finalTransform = _parent != nullptr ? localTransform * _parent->GetTransformMatrix() : localTransform;
+
+	//TRACE("For " << GetLabel() << " Rotation " << _realRotation << " " <<  _modelRotation << std::endl);
+	//TRACE("For " << GetLabel() << " Translation " << _realPosition << " " << _modelTranslation << std::endl);
+	//TRACE("For " << GetLabel() << " Local " << localTransform << std::endl);
+	//TRACE("For " << GetLabel() << " Final " << finalTransform << std::endl);
+	return (finalTransform);
+
+}
+
 void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 {
 	std::for_each(_childs.begin(), _childs.end(),
@@ -26,15 +59,14 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	});
 
 	//Update position and orient if needed
-	if (_followGazePosition)
-		positionInFrontOfGaze(_positionOffsetFromGaze);
 	if (_followGazeRotation)
 		rotateTowardGaze(_rotationOffsetFromGaze);
+	if (_followGazePosition)
+		positionInFrontOfGaze(_positionOffsetFromGaze);
 
 	DoUpdate(timer);
 
-	if (_parent != nullptr) _mesh->SetModelTransform(_parent->GetTransformMatrix() * GetTransformMatrix());
-	else _mesh->SetModelTransform(GetTransformMatrix());
+	_mesh->SetModelTransform(GetTransformMatrix());
 
 	/*TRACE("For " << this << " Real position is (" << _realPosition.x << ", " << _realPosition.y << ", " << _realPosition.z 
 		  << ") Relative is (" << _relativePosition.x << ", " << _relativePosition.y << ", " << _relativePosition.z << ")"
@@ -213,11 +245,19 @@ void HoloLensClient::Entity::positionInFrontOfGaze(Windows::Foundation::Numerics
 	if (pointerPose != nullptr)
 	{
 		// Get the gaze direction relative to the given coordinate system.
-		const Windows::Foundation::Numerics::float3 headPosition = pointerPose->Head->Position;
+		Windows::Foundation::Numerics::float3 headPosition = pointerPose->Head->Position;
+
+		// Add offset x, y
+		headPosition.x += offsets.x;
+		headPosition.y += offsets.y;
+
 		const Windows::Foundation::Numerics::float3 headDirection = pointerPose->Head->ForwardDirection;
 
 		// The tag-along hologram follows a point 2.0m in front of the user's gaze direction.
 		const Windows::Foundation::Numerics::float3 gazeAtTwoMeters = headPosition + (offsets.z * headDirection);
+
+		//TRACE("For " << this << " translation of (" << gazeAtTwoMeters.x << ", " << gazeAtTwoMeters.y << ", " << gazeAtTwoMeters.z
+		//		<< ") "<< std::endl);
 
 		SetRealPosition(gazeAtTwoMeters);
 	}
@@ -255,7 +295,18 @@ void HoloLensClient::Entity::rotateTowardGaze(Windows::Foundation::Numerics::flo
 		// are always at a 90-degree angle from one another.
 		XMVECTOR yAxisRotation = XMVector3Normalize(XMVector3Cross(facingNormal, xAxisRotation));
 
+		float3 x, y, z;
+		XMStoreFloat3(&x, xAxisRotation);
+		XMStoreFloat3(&y, yAxisRotation);
+		XMStoreFloat3(&z, facingNormal);
+
 		// Construct the 4x4 rotation matrix.
+		//TRACE("For " << this << " rotation of "
+		//	<< "("<< x.x << ", " << x.y << ", " << x.z << ") "
+		//	<< "(" << y.x << ", " << y.y << ", " << y.z << ") "
+		//	<< "(" << z.x << ", " << z.y << ", " << z.z << ") "
+		//	<< std::endl);
+
 
 		// Rotate the quad to face the user.
 		auto rotation = XMMATRIX(

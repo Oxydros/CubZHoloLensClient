@@ -34,5 +34,11 @@ namespace HoloLensClient
 	public:
 		std::wstring const & getText() const override;
 		void setText(std::wstring const & text) override;
+
+		float const getFontSize() const override;
+		void setFontSize(float font) override;
+
+		void setColor(Windows::Foundation::Numerics::float4) override;
+		Windows::Foundation::Numerics::float4 getColor() const override;
 	};
 }

@@ -304,6 +304,9 @@
     <ClInclude Include="3D\Entities\GUI\Panel.h">
       <Filter>3D\Entities\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\GUIEntity.h">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

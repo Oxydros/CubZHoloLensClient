@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "HolographicScene.h"
 #include "3D\Entities\CursorEntity.h"
+#include "3D\Entities\CubeEntity.h"
 #include "3D\Entities\GUI\Button.h"
+#include "3D\Entities\GUI\Panel.h"
 
 using namespace HoloLensClient;
 
@@ -20,12 +22,27 @@ void HolographicScene::Initialize()
 	auto safe = shared_from_this();
 	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safe);
 	addEntity(std::move(gaze));
-	auto button1 = std::make_unique<Button>(_deviceResources, safe);
-	auto button2 = std::make_unique<Button>(_deviceResources, safe);
-	button1->setFollowGaze(true, false, { -0.2f, 0.0f, 4.5f });
-	button1->AddChild(button2.get());
-	button2->SetRelativePosition({-0.5f, 0.0f, 0.0f});
-	//TRACE("Button 1 is " << button1.get() << " Button 2 is " << button2.get() << std::endl);
+
+	auto panel = std::make_unique<Panel>(_deviceResources, safe, float2(0.45f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
+	/*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/
+	panel->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
+
+	auto button1 = std::make_unique<Button>(_deviceResources, safe,
+		[]() {
+			TRACE("Got click on button" << std::endl);
+		},
+		float2(0.15f, 0.1f));
+	button1->SetRelativePosition({-0.1f, 0.1f, 0.1f});
+	button1->setLabel(L"Button 1");
+
+	auto button2 = std::make_unique<Button>(_deviceResources, safe, nullptr, float2(0.15f, 0.1f));
+	button2->SetRelativePosition({ -0.1f, -0.1f, 0.1f });
+	button2->setLabel(L"Button 2");
+
+	panel->AddChild(button1.get());
+	panel->AddChild(button2.get());
+
+	addEntity(std::move(panel));
 	addEntity(std::move(button1));
 	addEntity(std::move(button2));
 }

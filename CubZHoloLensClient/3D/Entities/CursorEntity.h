@@ -14,6 +14,8 @@ namespace HoloLensClient
 		void DoUpdate(DX::StepTimer const &timer) override;
 		void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override;
 
+		std::string const GetLabel() const override { return "Cursor"; }
+
 	private:
 		void getFaceRotationTranslationModel(DirectX::XMMATRIX &translation, DirectX::XMMATRIX &rotation, float distance,
 												Windows::UI::Input::Spatial::SpatialPointerPose ^pointerPose);

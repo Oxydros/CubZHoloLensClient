@@ -26,7 +26,7 @@ void HoloLensClient::TextObject::CreateDeviceDependentResources()
 	_textRenderer->CreateDeviceDependentResources();
 	//_distanceFieldRenderer->CreateDeviceDependentResources();
 
-	_textRenderer->RenderTextOffscreen(_text, 120.0f);
+	_textRenderer->RenderTextOffscreen(_text, _fontSize);
 	_quadTextureView = _textRenderer->GetTexture();
 
 	//saver.restoreSavedState();
@@ -287,7 +287,7 @@ void HoloLensClient::TextObject::Render()
 
 	if (_updateText)
 	{
-		_textRenderer->RenderTextOffscreen(_text, 120.0f);
+		_textRenderer->RenderTextOffscreen(_text, _fontSize);
 		_quadTextureView = _textRenderer->GetTexture();
 		_updateText = false;
 	}

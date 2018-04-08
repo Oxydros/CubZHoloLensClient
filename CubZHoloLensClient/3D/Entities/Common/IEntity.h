@@ -27,6 +27,9 @@ namespace HoloLensClient
 
 	public:
 
+		// Return the entity name
+		virtual std::string const GetLabel() const = 0;
+
 		// Initialize the mesh
 		virtual void InitializeMesh() = 0;
 		// Release the resources of the mesh

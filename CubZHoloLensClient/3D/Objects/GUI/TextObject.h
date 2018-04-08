@@ -12,6 +12,7 @@ namespace HoloLensClient
 	{
 	protected:
 		std::wstring									_text;
+		float											_fontSize = 60.0f;
 
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>       _inputLayout;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>            _vertexBuffer;
@@ -66,6 +67,12 @@ namespace HoloLensClient
 			_text = text; 
 			_updateText = true;
 		}
+
+		virtual float const getFontSize() const override { return _fontSize; }
+		virtual void setFontSize(float font) override  { _fontSize = font; }
+
+		virtual void setColor(Windows::Foundation::Numerics::float4 color) override { _color = color; };
+		virtual Windows::Foundation::Numerics::float4 getColor() const override { return (_color); }
 
 	public:
 		// Required for align of 16B for XMMAtrix

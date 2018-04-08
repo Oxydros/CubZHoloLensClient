@@ -22,12 +22,6 @@ void HoloLensClient::ButtonObject::ReleaseDeviceDependentResources()
 	//_backgroundMesh->ReleaseDeviceDependentResources();
 }
 
-//void HoloLensClient::ButtonObject::Update()
-//{
-//	_textMesh->Update();
-//	//_backgroundMesh->Update();
-//}
-
 void HoloLensClient::ButtonObject::Render()
 {
 	_textMesh->Render();
@@ -58,4 +52,25 @@ std::wstring const & HoloLensClient::ButtonObject::getText() const
 void HoloLensClient::ButtonObject::setText(std::wstring const & text)
 {
 	_textMesh->setText(text);
+}
+
+float const HoloLensClient::ButtonObject::getFontSize() const
+{
+	return _textMesh->getFontSize();
+}
+
+void HoloLensClient::ButtonObject::setFontSize(float font)
+{
+	_textMesh->setFontSize(font);
+}
+
+void HoloLensClient::ButtonObject::setColor(Windows::Foundation::Numerics::float4 color)
+{
+	_color = color;
+	_textMesh->setColor(color);
+}
+
+Windows::Foundation::Numerics::float4 HoloLensClient::ButtonObject::getColor() const
+{
+	return _color;
 }

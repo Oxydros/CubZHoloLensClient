@@ -6,6 +6,8 @@
 #include <3D\Objects\GUI\TextObject.h>
 #include <3D\Objects\GUI\ButtonObject.h>
 
+#include <3D\Objects\Mesh\3DFormes\OBJMesh.h>
+
 #include "3D\Entities\CubeEntity.h"
 #include "3D\Scene\HolographicScene.h"
 
@@ -20,13 +22,27 @@ CubeEntity::CubeEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, s
 	//auto cube = std::make_unique<TexturedRectangle>(devicesResources, float2(0.1f, 0.1f));
 	//cube->SetTexture(texture);
 
-	auto cube = std::make_unique<ColoredCube>(devicesResources, float4(0.2f, 0.3f, 0.5f, 1.0f), float3(0.1f, 0.1f, 0.1f));
+	/*auto cube = std::make_unique<ColoredCube>(devicesResources, float4(0.2f, 0.3f, 0.5f, 1.0f), float3(0.1f, 0.1f, 0.1f));*/
 
 	/*auto cube = std::make_unique<TextObject>(devicesResources, float2(0.2f, 0.2f));*/
 
 	/*auto cube = std::make_unique<ButtonObject>(devicesResources, float2(0.4f, 0.2f));*/
 
 	/*auto cube = std::make_unique<ColoredRectangle>(devicesResources, float2(0.5f, 0.25f));*/
+
+	Windows::Storage::StorageFolder^ installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
+
+	auto path = installedLocation->Path;
+
+	std::wstring fooW(path->Begin());
+	std::string fooA(fooW.begin(), fooW.end());
+
+	fooA += "//Assets//Models//Cube.obj";
+
+	TRACE("Got install path " << fooA << std::endl);
+
+	auto cube = std::make_unique<OBJMesh>(devicesResources, fooA);
+
 	addMesh(std::move(cube));
 }
 

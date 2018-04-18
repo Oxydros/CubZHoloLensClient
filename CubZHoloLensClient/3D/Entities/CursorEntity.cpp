@@ -27,6 +27,8 @@ void CursorEntity::DoUpdate(DX::StepTimer const & timer)
 
 void CursorEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
+	if (pointerState == nullptr)
+		return;
 	auto cube = std::make_unique<CubeEntity>(_scene->getDeviceResources(), _scene);
 	cube->positionInFrontOfGaze({ 0.0f, 0.0f, 4.5f });
 	_scene->addEntity(std::move(cube));

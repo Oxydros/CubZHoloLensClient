@@ -16,8 +16,7 @@ OBJMesh::OBJMesh(std::shared_ptr<DX::DeviceResources> &devicesResources,
 	SetColor(color);
 
 	std::string err;
-	bool ret = tinyobj::LoadObj(&_attrib, &_shapes, &_materials, &err,
-		meshFile.c_str());
+	bool ret = tinyobj::LoadObj(&_attrib, &_shapes, &_materials, &err, meshFile.c_str());
 	if (!err.empty())
 		TRACE("Error while loading " << meshFile << ": " << err);
 	if (!ret)
@@ -33,10 +32,9 @@ OBJMesh::~OBJMesh()
 
 void OBJMesh::CreateMesh()
 {
-	int s = 0;
-
 	std::vector<VertexPosition> triangleVertices;
 
+	//Load triangle vertices
 	for (size_t i = 0; i < _attrib.vertices.size() / 3; i++)
 	{
 		VertexPosition v;
@@ -63,10 +61,11 @@ void OBJMesh::CreateMesh()
 
 	std::vector<unsigned short> indices;
 
-	for (size_t f = 0; f < _shapes[s].mesh.indices.size() / 3; f++) {
-		tinyobj::index_t idx0 = _shapes[s].mesh.indices[3 * f + 0];
-		tinyobj::index_t idx1 = _shapes[s].mesh.indices[3 * f + 1];
-		tinyobj::index_t idx2 = _shapes[s].mesh.indices[3 * f + 2];
+	//Load vertex indices
+	for (size_t f = 0; f < _shapes[0].mesh.indices.size() / 3; f++) {
+		tinyobj::index_t idx0 = _shapes[0].mesh.indices[3 * f + 0];
+		tinyobj::index_t idx1 = _shapes[0].mesh.indices[3 * f + 1];
+		tinyobj::index_t idx2 = _shapes[0].mesh.indices[3 * f + 2];
 
 		indices.push_back(idx0.vertex_index);
 		indices.push_back(idx1.vertex_index);

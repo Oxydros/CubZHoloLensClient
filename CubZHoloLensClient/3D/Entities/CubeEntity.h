@@ -12,7 +12,7 @@ namespace HoloLensClient
 
 	public:
 		void DoUpdate(DX::StepTimer const &timer) override;
-		void OnAirTap() override;
+		bool OnAirTap() override;
 
 		std::string const GetLabel() const override { return "Cube"; }
 	};

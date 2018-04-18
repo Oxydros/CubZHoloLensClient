@@ -83,6 +83,9 @@
     <Filter Include="Assets\Models">
       <UniqueIdentifier>{65ed6351-9e62-42e3-8016-33666bdfbc09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{423774a4-dac3-42e9-a95d-2e21066f42ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -331,6 +334,9 @@
     <ClInclude Include="3D\Loaders\tiny_obj_loader.h">
       <Filter>3D\Loaders</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Utility.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -430,8 +436,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="Assets\Models\Cube.obj">
+    <Text Include="Assets\Models\Cube.obj">
       <Filter>Assets\Models</Filter>
-    </Object>
+    </Text>
   </ItemGroup>
 </Project>

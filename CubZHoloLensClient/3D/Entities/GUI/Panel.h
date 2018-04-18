@@ -23,7 +23,7 @@ namespace HoloLensClient
 		virtual void DoUpdate(DX::StepTimer const & timer) override;
 
 		// Inherited via GUIEntity
-		virtual void OnAirTap() override final {};
+		virtual bool OnAirTap() override final { return false; };
 
 		std::string const GetLabel() const override { return "Panel"; }
 	};

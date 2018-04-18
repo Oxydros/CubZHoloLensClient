@@ -76,7 +76,7 @@ namespace HoloLensClient
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Inputs the given pointer state. </summary>
 		///
-		/// <param name="pointerState">	State of the pointer. </param>
+		/// <param name="pointerState">	State of the pointer. Null if no input is detected </param>
 		///-------------------------------------------------------------------------------------------------
 		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState);
 		/// <summary>	Executes the device lost action. </summary>

@@ -21,31 +21,36 @@ HolographicScene::~HolographicScene()
 void HolographicScene::Initialize()
 {
 	auto safe = shared_from_this();
+
+	//Declare gaze
 	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safe);
 	addEntity(std::move(gaze));
 
-	//auto panel = std::make_unique<Panel>(_deviceResources, safe, float2(0.45f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
-	///*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/
-	//panel->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
+	//Declare main menu
+	auto panel = std::make_unique<Panel>(_deviceResources, safe, float2(0.45f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
+	/*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/
+	panel->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
 
-	//auto button1 = std::make_unique<Button>(_deviceResources, safe,
-	//	[]() {
-	//		TRACE("Got click on button" << std::endl);
-	//	},
-	//	float2(0.15f, 0.1f));
-	//button1->SetRelativePosition({-0.1f, 0.1f, 0.1f});
-	//button1->setLabel(L"Button 1");
+	auto button1 = std::make_unique<Button>(_deviceResources, safe,
+		[]() {
+		},
+		float2(0.15f, 0.1f));
+	button1->SetRelativePosition({-0.1f, 0.1f, 0.1f});
+	button1->setLabel(L"Test 1");
 
-	//auto button2 = std::make_unique<Button>(_deviceResources, safe, nullptr, float2(0.15f, 0.1f));
-	//button2->SetRelativePosition({ -0.1f, -0.1f, 0.1f });
-	//button2->setLabel(L"Button 2");
+	auto button2 = std::make_unique<Button>(_deviceResources, safe,
+		[]() {
+		},
+		float2(0.15f, 0.1f));
+	button2->SetRelativePosition({ -0.1f, -0.1f, 0.1f });
+	button2->setLabel(L"Leave 3D");
 
-	//panel->AddChild(button1.get());
-	//panel->AddChild(button2.get());
+	panel->AddChild(button1.get());
+	panel->AddChild(button2.get());
 
-	//addEntity(std::move(panel));
-	//addEntity(std::move(button1));
-	//addEntity(std::move(button2));
+	addEntity(std::move(panel));
+	addEntity(std::move(button1));
+	addEntity(std::move(button2));
 }
 
 void HolographicScene::Update(DX::StepTimer const& timer)

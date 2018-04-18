@@ -13,7 +13,7 @@ namespace HoloLensClient
 		std::vector<tinyobj::shape_t>		_shapes;
 		std::vector<tinyobj::material_t>	_materials;
 
-		std::string			_meshFile;
+		std::string							_meshFile;
 	public:
 		OBJMesh(std::shared_ptr<DX::DeviceResources> &devicesResources,
 				std::string const &meshFile,

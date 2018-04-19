@@ -98,6 +98,10 @@ void AppView::Run()
 
             HolographicFrame^ holographicFrame = m_main->Update();
 
+			//Check if scene is dead (return to xaml wanted by the user)
+			if (!m_main->isAlive())
+				CoreWindow::GetForCurrentThread()->Close();
+
             if (m_main->Render(holographicFrame))
             {
                 // The holographic frame has an API that presents the swap chain for each

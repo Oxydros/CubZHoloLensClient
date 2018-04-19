@@ -36,7 +36,7 @@ namespace HoloLensClient
         void OnKeyPressed(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ args);
 
     private:
-        std::unique_ptr<SceneRenderer> m_main;
+        std::unique_ptr<SceneRenderer>						m_main;
 
         std::shared_ptr<DX::DeviceResources>                m_deviceResources;
         bool                                                m_windowClosed  = false;
@@ -50,6 +50,7 @@ namespace HoloLensClient
     ref class AppViewSource sealed : Windows::ApplicationModel::Core::IFrameworkViewSource
     {
     public:
+		AppViewSource(){}
         virtual Windows::ApplicationModel::Core::IFrameworkView^ CreateView();
     };
 }

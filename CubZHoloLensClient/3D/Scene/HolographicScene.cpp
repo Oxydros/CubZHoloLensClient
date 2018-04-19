@@ -20,26 +20,27 @@ HolographicScene::~HolographicScene()
 
 void HolographicScene::Initialize()
 {
-	auto safe = shared_from_this();
+	auto safeScene = shared_from_this();
 
 	//Declare gaze
-	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safe);
+	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safeScene);
 	addEntity(std::move(gaze));
 
 	//Declare main menu
-	auto panel = std::make_unique<Panel>(_deviceResources, safe, float2(0.45f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
+	auto panel = std::make_unique<Panel>(_deviceResources, safeScene, float2(0.45f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
 	/*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/
 	panel->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
 
-	auto button1 = std::make_unique<Button>(_deviceResources, safe,
+	auto button1 = std::make_unique<Button>(_deviceResources, safeScene,
 		[]() {
 		},
 		float2(0.15f, 0.1f));
 	button1->SetRelativePosition({-0.1f, 0.1f, 0.1f});
 	button1->setLabel(L"Test 1");
 
-	auto button2 = std::make_unique<Button>(_deviceResources, safe,
-		[]() {
+	auto button2 = std::make_unique<Button>(_deviceResources, safeScene,
+		[safeScene]() {
+			safeScene->kill();
 		},
 		float2(0.15f, 0.1f));
 	button2->SetRelativePosition({ -0.1f, -0.1f, 0.1f });

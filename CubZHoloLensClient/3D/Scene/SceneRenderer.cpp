@@ -156,6 +156,7 @@ HolographicFrame^ SceneRenderer::Update()
     m_timer.Tick([&] ()
     {
 		_holoScene->Update(m_timer);
+		_alive = _holoScene->isAlive();
     });
 
     // We complete the frame update by using information about our content positioning

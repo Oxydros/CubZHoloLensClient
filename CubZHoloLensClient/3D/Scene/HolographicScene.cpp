@@ -26,6 +26,11 @@ void HolographicScene::Initialize()
 	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safeScene);
 	addEntity(std::move(gaze));
 
+	//Declare basic cube for test purposes
+	auto cube = std::make_unique<CubeEntity>(_deviceResources, safeScene);
+	cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
+	addEntity(std::move(cube));
+
 	//Declare main menu
 	auto panel = std::make_unique<Panel>(_deviceResources, safeScene, float2(0.45f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
 	/*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/

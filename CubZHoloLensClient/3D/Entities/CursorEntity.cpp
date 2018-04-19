@@ -29,9 +29,9 @@ void CursorEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourc
 {
 	if (pointerState == nullptr)
 		return;
-	auto cube = std::make_unique<CubeEntity>(_scene->getDeviceResources(), _scene);
-	cube->positionInFrontOfGaze({ 0.0f, 0.0f, 4.5f });
-	_scene->addEntity(std::move(cube));
+	//auto cube = std::make_unique<CubeEntity>(_scene->getDeviceResources(), _scene);
+	//cube->positionInFrontOfGaze({ 0.0f, 0.0f, 4.5f });
+	//_scene->addEntity(std::move(cube));
 }
 
 void CursorEntity::getFaceRotationTranslationModel(DirectX::XMMATRIX &translation, DirectX::XMMATRIX &rotation, float distance,

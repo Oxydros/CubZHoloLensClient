@@ -24,6 +24,7 @@ namespace HoloLensClient
 		typedef std::shared_ptr<HolographicScene>				SharedPtr;
 
 	private:
+		bool													_alive{ true };
 		/// <summary>	The coordinate system. </summary>
 		Windows::Perception::Spatial::SpatialCoordinateSystem^	_coordinateSystem;
 		/// <summary>	The pointer pose. </summary>
@@ -76,13 +77,16 @@ namespace HoloLensClient
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Inputs the given pointer state. </summary>
 		///
-		/// <param name="pointerState">	State of the pointer. </param>
+		/// <param name="pointerState">	State of the pointer. Null if no input is detected </param>
 		///-------------------------------------------------------------------------------------------------
 		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState);
 		/// <summary>	Executes the device lost action. </summary>
 		void OnDeviceLost();
 		/// <summary>	Executes the device restored action. </summary>
 		void OnDeviceRestored();
+
+		bool isAlive() const { return _alive; };
+		void kill() { _alive = false; }
 
 	public:
 

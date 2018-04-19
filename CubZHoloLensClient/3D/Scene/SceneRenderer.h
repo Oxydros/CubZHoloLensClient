@@ -31,6 +31,8 @@ namespace HoloLensClient
 		///-------------------------------------------------------------------------------------------------
 		void UnregisterHolographicEventHandlers();
 
+		bool															_alive{ true };
+
 		/// <summary>	Listens for the Pressed spatial input event. </summary>
 		std::shared_ptr<SpatialInputHandler>                            m_spatialInputHandler;
 
@@ -107,6 +109,8 @@ namespace HoloLensClient
         virtual void OnDeviceLost();
         /// <summary>	Executes the device restored action. </summary>
         virtual void OnDeviceRestored();
+
+		bool	isAlive() const { return _alive; }
 
     private:
 

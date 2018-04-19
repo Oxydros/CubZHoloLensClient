@@ -203,6 +203,8 @@
     <ClInclude Include="3D\Entities\GUI\Button.h" />
     <ClInclude Include="3D\Entities\GUI\GUIEntity.h" />
     <ClInclude Include="3D\Entities\GUI\Panel.h" />
+    <ClInclude Include="3D\Loaders\OBJLoader.h" />
+    <ClInclude Include="3D\Loaders\tiny_obj_loader.h" />
     <ClInclude Include="3D\Objects\Common\IObject.h" />
     <ClInclude Include="3D\Objects\GUI\ButtonObject.h" />
     <ClInclude Include="3D\Objects\GUI\DistanceFieldRenderer.h" />
@@ -213,6 +215,7 @@
     <ClInclude Include="3D\Objects\Mesh\2DFormes\ColoredRectangle.h" />
     <ClInclude Include="3D\Objects\Mesh\2DFormes\TexturedRectangle.h" />
     <ClInclude Include="3D\Objects\Mesh\3DFormes\ColoredCube.h" />
+    <ClInclude Include="3D\Objects\Mesh\3DFormes\OBJMesh.h" />
     <ClInclude Include="3D\Objects\Mesh\Common\ColoredObject.h" />
     <ClInclude Include="3D\Objects\Mesh\Interfaces\IColoredObject.h" />
     <ClInclude Include="3D\Objects\Mesh\Interfaces\ITexturedObject.h" />
@@ -258,6 +261,7 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -290,6 +294,8 @@
     <ClCompile Include="3D\Entities\CursorEntity.cpp" />
     <ClCompile Include="3D\Entities\GUI\Button.cpp" />
     <ClCompile Include="3D\Entities\GUI\Panel.cpp" />
+    <ClCompile Include="3D\Loaders\OBJLoader.cpp" />
+    <ClCompile Include="3D\Loaders\tiny_obj_loader.cpp" />
     <ClCompile Include="3D\Objects\GUI\ButtonObject.cpp" />
     <ClCompile Include="3D\Objects\GUI\DistanceFieldRenderer.cpp" />
     <ClCompile Include="3D\Objects\GUI\TextObject.cpp" />
@@ -298,6 +304,7 @@
     <ClCompile Include="3D\Objects\Mesh\2DFormes\ColoredRectangle.cpp" />
     <ClCompile Include="3D\Objects\Mesh\2DFormes\TexturedRectangle.cpp" />
     <ClCompile Include="3D\Objects\Mesh\3DFormes\ColoredCube.cpp" />
+    <ClCompile Include="3D\Objects\Mesh\3DFormes\OBJMesh.cpp" />
     <ClCompile Include="3D\Objects\Mesh\Common\ColoredObject.cpp" />
     <ClCompile Include="3D\Resources\CameraResources.cpp" />
     <ClCompile Include="3D\Resources\DeviceResources.cpp" />
@@ -532,6 +539,17 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Models\Cube.obj">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

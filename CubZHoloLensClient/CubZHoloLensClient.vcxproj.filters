@@ -77,6 +77,15 @@
     <Filter Include="3D\Objects\Mesh\3DFormes">
       <UniqueIdentifier>{c7f09666-56e7-4f7a-aec2-737951efe021}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3D\Loaders">
+      <UniqueIdentifier>{0bd6ea63-9efa-4b90-8a87-4ca389de1f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Models">
+      <UniqueIdentifier>{65ed6351-9e62-42e3-8016-33666bdfbc09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{423774a4-dac3-42e9-a95d-2e21066f42ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -178,6 +187,15 @@
     </ClCompile>
     <ClCompile Include="3D\Entities\GUI\Panel.cpp">
       <Filter>3D\Entities\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Loaders\OBJLoader.cpp">
+      <Filter>3D\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Objects\Mesh\3DFormes\OBJMesh.cpp">
+      <Filter>3D\Objects\Mesh\3DFormes</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Loaders\tiny_obj_loader.cpp">
+      <Filter>3D\Loaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +325,18 @@
     <ClInclude Include="3D\Entities\GUI\GUIEntity.h">
       <Filter>3D\Entities\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Loaders\OBJLoader.h">
+      <Filter>3D\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Objects\Mesh\3DFormes\OBJMesh.h">
+      <Filter>3D\Objects\Mesh\3DFormes</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Loaders\tiny_obj_loader.h">
+      <Filter>3D\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Utility.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -404,5 +434,10 @@
     <FxCompile Include="3D\Shaders\Vertex\VPRTVertexShaderTexture.hlsl">
       <Filter>3D\Shaders\Vertex</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Models\Cube.obj">
+      <Filter>Assets\Models</Filter>
+    </Text>
   </ItemGroup>
 </Project>

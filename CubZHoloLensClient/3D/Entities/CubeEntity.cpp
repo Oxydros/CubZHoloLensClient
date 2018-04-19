@@ -6,6 +6,8 @@
 #include <3D\Objects\GUI\TextObject.h>
 #include <3D\Objects\GUI\ButtonObject.h>
 
+#include <3D\Objects\Mesh\3DFormes\OBJMesh.h>
+
 #include "3D\Entities\CubeEntity.h"
 #include "3D\Scene\HolographicScene.h"
 
@@ -27,6 +29,7 @@ CubeEntity::CubeEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, s
 	/*auto cube = std::make_unique<ButtonObject>(devicesResources, float2(0.4f, 0.2f));*/
 
 	/*auto cube = std::make_unique<ColoredRectangle>(devicesResources, float2(0.5f, 0.25f));*/
+
 	addMesh(std::move(cube));
 }
 
@@ -36,12 +39,46 @@ CubeEntity::~CubeEntity()
 
 void CubeEntity::DoUpdate(DX::StepTimer const & timer)
 {
+	InteractableEntity::DoUpdate(timer);
 }
 
-void HoloLensClient::CubeEntity::OnAirTap()
+bool HoloLensClient::CubeEntity::OnAirTap()
 {
 	TRACE("Got input on " << this << std::endl;);
-	//getMesh()->SetColor({ 0.1f, 0.8f, 0.1f, 1.0f });
-	kill();
-	/*dynamic_cast<TextObject *>(getMesh().get())->setText(L"TEST");*/
+	//Retrieve Colored cube mesh
+	auto coloredMesh = dynamic_cast<ColoredCube*>(_mesh.get());
+
+	float4 actualColor = coloredMesh->GetColor();
+
+	if (_selected)
+	{
+		actualColor.x -= 0.1f;
+		actualColor.y -= 0.1f;
+		actualColor.z -= 0.1f;
+		coloredMesh->SetColor(actualColor);
+		_selected = false;
+		this->setFollowGaze(false, false);
+	}
+	else {
+		actualColor.x += 0.1f;
+		actualColor.y += 0.1f;
+		actualColor.z += 0.1f;
+		coloredMesh->SetColor(actualColor);
+		_selected = true;
+		//Distance should min between 2meters and distance of a wall / real object
+		this->setFollowGaze(true, false, {0, 0, 2.0f});
+	}
+	return true;
+}
+
+bool HoloLensClient::CubeEntity::OnGetFocus()
+{
+	TRACE("Got Focus on " << this << std::endl;);
+	return true;
+}
+
+bool HoloLensClient::CubeEntity::OnLostFocus()
+{
+	TRACE("Lost focus on " << this << std::endl;);
+	return true;
 }

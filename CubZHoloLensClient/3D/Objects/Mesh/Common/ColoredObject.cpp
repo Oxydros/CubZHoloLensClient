@@ -21,10 +21,10 @@ void ColoredObject::CreateDeviceDependentResources()
 	Concurrency::task<void> createMeshTask = initShadersTask.then([this]()
 	{
 		CreateMesh();
-	}).then([this]()
+	}, Concurrency::task_continuation_context::use_arbitrary()).then([this]()
 	{
 		_loadingComplete = true;
-	});
+	}, Concurrency::task_continuation_context::use_arbitrary());
 }
 
 Concurrency::task<void> ColoredObject::InitializeShaders()

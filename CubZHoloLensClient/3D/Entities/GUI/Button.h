@@ -23,13 +23,13 @@ namespace HoloLensClient
 		void setCallback(std::function<void()> &callback) { _callback = callback; }
 		void OnLabelChanged() override;
 
-		void OnGetFocus() override;
-		void OnLostFocus() override;
+		bool OnGetFocus() override;
+		bool OnLostFocus() override;
 
 	public:
 		// Inherited via InteractableEntity
 		void DoUpdate(DX::StepTimer const & timer) override { InteractableEntity::DoUpdate(timer); };
-		void OnAirTap() override;
+		bool OnAirTap() override;
 
 		std::string const GetLabel() const override { return "Button"; }
 	};

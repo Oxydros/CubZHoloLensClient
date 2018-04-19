@@ -32,6 +32,24 @@ namespace DX
             });
     }
 
+	// Function that reads from a text file asynchronously.
+	inline Concurrency::task<std::string> ReadTextFileAsync(const std::wstring& filename)
+	{
+		using namespace Windows::Storage;
+		using namespace Concurrency;
+
+		auto s = Platform::StringReference(filename.c_str());
+
+		return create_task(PathIO::ReadTextAsync(s)).then(
+			[](Platform::String ^text) -> std::string
+		{
+			TRACE("GOT IT !" << std::endl);
+			std::wstring fooW(text->Begin());
+			std::string fooA(fooW.begin(), fooW.end());
+			return fooA;
+		});
+	}
+
     // Converts a length in device-independent pixels (DIPs) to a length in physical pixels.
     inline float ConvertDipsToPixels(float dips, float dpi)
     {

@@ -8,9 +8,12 @@ namespace HoloLensClient
 	{
 	protected:
 		bool				_focused{ false };
+		bool				_disableMultipleClick{ true };
+		bool				_clicked{ false };
 
 	public:
-		InteractableEntity(std::shared_ptr<HolographicScene> &scene);
+		InteractableEntity(std::shared_ptr<HolographicScene> &scene,
+			bool disableMultipleClick = true);
 
 		void DoUpdate(DX::StepTimer const &timer) override;
 		void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override final;
@@ -26,11 +29,11 @@ namespace HoloLensClient
 
 	public:
 		/// <summary>	Executes the air tap action. </summary>
-		virtual void OnAirTap() = 0;
+		virtual bool OnAirTap() = 0;
 		/// <summary>	Executes the get focus action. </summary>
-		virtual void OnGetFocus() {}
+		virtual bool OnGetFocus() { return false; }
 		/// <summary>	Executes the lost focus action. </summary>
-		virtual void OnLostFocus() {}
+		virtual bool OnLostFocus() { return false; }
 
 	private:
 

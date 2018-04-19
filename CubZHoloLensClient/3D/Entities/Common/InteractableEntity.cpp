@@ -6,8 +6,8 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-InteractableEntity::InteractableEntity(std::shared_ptr<HolographicScene>& scene) 
-	: Entity(scene)
+InteractableEntity::InteractableEntity(std::shared_ptr<HolographicScene>& scene, bool disableMultipleClick)
+	: Entity(scene), _disableMultipleClick(disableMultipleClick)
 {
 }
 
@@ -36,13 +36,20 @@ void InteractableEntity::DoUpdate(DX::StepTimer const &timer)
 
 void HoloLensClient::InteractableEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
-	if (pointerState->IsPressed && _focused)
+	if (pointerState != nullptr && pointerState->IsPressed && _focused)
 	{
+		// Prevent multiple click
+		// Check if it was already clicked and cancel if it was the case
+		if (_disableMultipleClick && _clicked)
+			return;
+		_clicked = true;
 		Concurrency::task<void> callbackTask = Concurrency::create_task([this]()
 		{
 			OnAirTap();
 		});
 	}
+	else
+		_clicked = false;
 }
 
 void HoloLensClient::InteractableEntity::GetBiggestBoundingBox(DirectX::BoundingOrientedBox &boundingBox)

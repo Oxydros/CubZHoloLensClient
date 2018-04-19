@@ -22,19 +22,22 @@ void HoloLensClient::Button::OnLabelChanged()
 	button->setText(getLabel());
 }
 
-void HoloLensClient::Button::OnGetFocus()
+bool HoloLensClient::Button::OnGetFocus()
 {
 	auto button = dynamic_cast<ButtonObject*>(_mesh.get());
 	button->setColor(FOCUS_COLOR);
+	return (true);
 }
 
-void HoloLensClient::Button::OnLostFocus()
+bool HoloLensClient::Button::OnLostFocus()
 {
 	auto button = dynamic_cast<ButtonObject*>(_mesh.get());
 	button->setColor(DEFAULT_COLOR);
+	return (true);
 }
 
-void HoloLensClient::Button::OnAirTap()
+bool HoloLensClient::Button::OnAirTap()
 {
 	if (_callback) _callback();
+	return (true);
 }

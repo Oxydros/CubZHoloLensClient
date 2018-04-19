@@ -21,8 +21,8 @@ namespace HoloLensClient
 		/// <summary>	Executes the label changed action. </summary>
 		virtual void OnLabelChanged() {}
 		
-		void OnGetFocus() override {}
-		void OnLostFocus() override {}
+		bool OnGetFocus() override { return false; }
+		bool OnLostFocus() override { return false; }
 
 	public:
 

@@ -41,19 +41,40 @@ HomePage::HomePage()
 // TODO: Look on the thread problems
 void CubZHoloLensClient::HomePage::Button_Launch3D(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	int xamlViewId = ::ApplicationView::GetForCurrentView()->Id;
+
+	TRACE("XAML View id " << xamlViewId << std::endl);
+
 	HoloLensClient::AppViewSource^ appViewSource = ref new HoloLensClient::AppViewSource();
 	::CoreApplicationView^ newView = ::CoreApplication::CreateNewView(appViewSource);
-	int newViewId = 0;
 
+	int spaceViewId;
+
+	TRACE("Dispatching 3D view thread" << std::endl);
 	::IAsyncAction ^a = newView->Dispatcher->RunAsync(::CoreDispatcherPriority::Normal, ref new DispatchedHandler(
-		[this, newViewId]() mutable {
+		[&spaceViewId]() {
 		ApplicationView ^newV = ::ApplicationView::GetForCurrentView();
-		newViewId = newV->Id;
+		spaceViewId = newV->Id;
+
+		TRACE("3D View id " << spaceViewId << std::endl);
 		CoreWindow ^thW = CoreWindow::GetForCurrentThread();
+
 		thW->Activate();
-		ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId);
+		auto task = concurrency::create_task(ApplicationViewSwitcher::TryShowAsStandaloneAsync(spaceViewId))
+			.then([](bool result) {
+		});
 	}
 	));
+
+	//auto task = concurrency::create_task(a);
+
+	//task.then([spaceViewId]() {
+	//	TRACE("GOT HERE " << ::CoreApplication::Views->Size << std::endl);
+	//	CoreApplicationView ^view = ::CoreApplication::Views->GetAt(0);
+	//	int id = ApplicationView::GetApplicationViewIdForWindow(view->CoreWindow);
+	//	TRACE("Got id " << id << " need " << spaceViewId << std::endl);
+	//	ApplicationViewSwitcher::TryShowAsStandaloneAsync(spaceViewId);
+	//});
 }
 
 

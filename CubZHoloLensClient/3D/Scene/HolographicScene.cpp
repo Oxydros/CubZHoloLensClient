@@ -2,8 +2,7 @@
 #include "HolographicScene.h"
 #include "3D\Entities\CursorEntity.h"
 #include "3D\Entities\CubeEntity.h"
-#include "3D\Entities\GUI\Button.h"
-#include "3D\Entities\GUI\Panel.h"
+#include "3D\Entities\GUI\MainMenu.h"
 #include "3D\Loaders\OBJLoader.h"
 
 using namespace HoloLensClient;
@@ -20,7 +19,9 @@ HolographicScene::~HolographicScene()
 
 void HolographicScene::Initialize()
 {
-	auto safeScene = shared_from_this();
+	auto safeScene{ shared_from_this() };
+
+	_root = std::make_unique<EntityRoot>(safeScene);
 
 	//Declare gaze
 	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safeScene);
@@ -31,64 +32,20 @@ void HolographicScene::Initialize()
 	cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
 	addEntity(std::move(cube));
 
-	//Declare main menu
-	auto panel = std::make_unique<Panel>(_deviceResources, safeScene, float2(0.45f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
-	/*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/
-	panel->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
+	auto mainMenu = std::make_unique<MainMenu>(_deviceResources, safeScene);
 
-	auto button1 = std::make_unique<Button>(_deviceResources, safeScene,
-		[]() {
-		},
-		float2(0.15f, 0.1f));
-	button1->SetRelativePosition({-0.1f, 0.1f, 0.1f});
-	button1->setLabel(L"Test 1");
-
-	auto button2 = std::make_unique<Button>(_deviceResources, safeScene,
-		[safeScene]() {
-			safeScene->kill();
-		},
-		float2(0.15f, 0.1f));
-	button2->SetRelativePosition({ -0.1f, -0.1f, 0.1f });
-	button2->setLabel(L"Leave 3D");
-
-	panel->AddChild(button1.get());
-	panel->AddChild(button2.get());
-
-	addEntity(std::move(panel));
-	addEntity(std::move(button1));
-	addEntity(std::move(button2));
+	mainMenu->InitializeMenu();
+	addEntity(std::move(mainMenu));
 }
 
 void HolographicScene::Update(DX::StepTimer const& timer)
 {
-	std::for_each(_entities.begin(), _entities.end(),
-		[&timer](auto &entity)
-	{
-		std::cout << "Updating " << entity.get() << std::endl;
-		entity->Update(timer);
-	});
-	std::for_each(_newEntities.begin(), _newEntities.end(),
-		[this](auto &entity)
-	{
-		//TRACE("Adding new entity from pending list " << entity.get() << std::endl);
-		_entities.emplace_back(std::move(entity));
-	});
-	_newEntities.clear();
-	_entities.erase(
-		std::remove_if(_entities.begin(), _entities.end(),
-			[](auto &entity) {
-				return entity->isDead();
-			}),
-		_entities.end());
+	_root->Update(timer);
 }
 
 void HolographicScene::Render()
 {
-	std::for_each(_entities.begin(), _entities.end(),
-		[](auto &entity)
-	{
-		entity->Render();
-	});
+	_root->Render();
 }
 
 void HoloLensClient::HolographicScene::UpdateCoordinateSystem(Windows::Perception::Spatial::SpatialCoordinateSystem ^coordinateSystem)
@@ -103,36 +60,25 @@ void HoloLensClient::HolographicScene::UpdatePointerPose(Windows::UI::Input::Spa
 
 void HoloLensClient::HolographicScene::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState)
 {
-	std::for_each(_entities.begin(), _entities.end(),
-		[&pointerState](auto &entity)
-	{
-		//TRACE("Entity = " << entity.get() << " " << std::endl);
-		entity->Inputs(pointerState);
-	});
+	_root->Inputs(pointerState);
 }
 
 void HolographicScene::OnDeviceLost()
 {
-	std::for_each(_entities.begin(), _entities.end(),
-		[](auto &entity)
-	{
-		entity->ReleaseMesh();
-	});
+	_root->ReleaseMesh();
 }
 
 void HolographicScene::OnDeviceRestored()
 {
-	std::for_each(_entities.begin(), _entities.end(),
-		[](auto &entity)
-	{
-		entity->InitializeMesh();
-	});
+	_root->InitializeMesh();
 }
 
 void HoloLensClient::HolographicScene::addEntity(IEntity::IEntityPtr e)
 {
 	//TRACE("Adding new entity to pending list " << e.get() << std::endl);
-	_newEntities.emplace_back(std::move(e));
+	if (_root == nullptr)
+		std::runtime_error("The root entity is not allocated yet !");
+	_root->AddChild(std::move(e));
 }
 
 void HoloLensClient::HolographicScene::addEntityInFront(IEntity::IEntityPtr e, float dist)

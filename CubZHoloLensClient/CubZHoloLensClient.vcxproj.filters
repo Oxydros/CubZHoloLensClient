@@ -197,6 +197,12 @@
     <ClCompile Include="3D\Loaders\tiny_obj_loader.cpp">
       <Filter>3D\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\MainMenu.cpp">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\ModificationMenu.cpp">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -336,6 +342,15 @@
     </ClInclude>
     <ClInclude Include="Utility\Utility.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\MainMenu.h">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\ModificationMenu.h">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Common\EntityRoot.h">
+      <Filter>3D\Entities\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

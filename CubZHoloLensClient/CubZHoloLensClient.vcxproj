@@ -196,12 +196,15 @@
   <ItemGroup>
     <ClInclude Include="3D\AppView.h" />
     <ClInclude Include="3D\Entities\Common\Entity.h" />
+    <ClInclude Include="3D\Entities\Common\EntityRoot.h" />
     <ClInclude Include="3D\Entities\Common\IEntity.h" />
     <ClInclude Include="3D\Entities\Common\InteractableEntity.h" />
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\CursorEntity.h" />
     <ClInclude Include="3D\Entities\GUI\Button.h" />
     <ClInclude Include="3D\Entities\GUI\GUIEntity.h" />
+    <ClInclude Include="3D\Entities\GUI\MainMenu.h" />
+    <ClInclude Include="3D\Entities\GUI\ModificationMenu.h" />
     <ClInclude Include="3D\Entities\GUI\Panel.h" />
     <ClInclude Include="3D\Loaders\OBJLoader.h" />
     <ClInclude Include="3D\Loaders\tiny_obj_loader.h" />
@@ -293,6 +296,8 @@
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />
     <ClCompile Include="3D\Entities\CursorEntity.cpp" />
     <ClCompile Include="3D\Entities\GUI\Button.cpp" />
+    <ClCompile Include="3D\Entities\GUI\MainMenu.cpp" />
+    <ClCompile Include="3D\Entities\GUI\ModificationMenu.cpp" />
     <ClCompile Include="3D\Entities\GUI\Panel.cpp" />
     <ClCompile Include="3D\Loaders\OBJLoader.cpp" />
     <ClCompile Include="3D\Loaders\tiny_obj_loader.cpp" />

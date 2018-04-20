@@ -189,7 +189,7 @@ namespace HoloLensClient
 		///
 		/// <param name="child">	[in,out] If non-null, the child. </param>
 		///-------------------------------------------------------------------------------------------------
-		virtual void AddChild(IEntity *child) = 0;
+		virtual void AddChild(IEntity::IEntityPtr child) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Remove a child entity. </summary>

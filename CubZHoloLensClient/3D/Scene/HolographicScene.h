@@ -6,7 +6,7 @@
 #pragma once
 
 #include <3D\Resources\DeviceResources.h>
-#include "3D\Entities\Common\IEntity.h"
+#include "3D\Entities\Common\EntityRoot.h"
 
 
 ///-------------------------------------------------------------------------------------------------
@@ -31,10 +31,8 @@ namespace HoloLensClient
 		Windows::UI::Input::Spatial::SpatialPointerPose^		_pointerPose;
 		/// <summary>	The device resources. </summary>
 		std::shared_ptr<DX::DeviceResources>					_deviceResources;
-		/// <summary>	The entities. </summary>
-		std::vector<IEntity::IEntityPtr>						_entities;
-		/// <summary>	The new entities. </summary>
-		std::vector<IEntity::IEntityPtr>						_newEntities;
+		/// <summary>	Root node. </summary>
+		std::unique_ptr<EntityRoot>								_root;
 
 	public:
 

@@ -14,8 +14,9 @@ namespace HoloLensClient
 		typedef std::unique_ptr<Entity>	EntityPtr;
 
 	protected:
-		IObject::IObjectPtr							_mesh;
-		std::vector<IEntity *>						_childs;
+		IObject::IObjectPtr							_mesh{ nullptr };
+		std::vector<IEntity::IEntityPtr>			_newChilds;
+		std::vector<IEntity::IEntityPtr>			_childs;
 		IEntity										*_parent = nullptr;
 		bool										_alive = true;
 		std::shared_ptr<HolographicScene>			_scene = nullptr;
@@ -68,7 +69,7 @@ namespace HoloLensClient
 
 		DirectX::XMMATRIX const GetTransformMatrix() const override;
 
-		void AddChild(IEntity *child) override;
+		void AddChild(IEntity::IEntityPtr child) override;
 		void RemoveChild(IEntity *child) override;
 		void SetParent(IEntity *parent) override;
 		IEntity *getParent() const override;

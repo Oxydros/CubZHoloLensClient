@@ -15,6 +15,11 @@ Entity::Entity(std::shared_ptr<HolographicScene> &scene)
 
 HoloLensClient::Entity::~Entity()
 {
+	// Delete all childs
+	_childs.clear();
+
+	if (_mesh)
+		_mesh->ReleaseDeviceDependentResources();
 }
 
 std::ostream& operator<<(std::ostream& stream, const DirectX::XMMATRIX& matrix) {
@@ -52,11 +57,14 @@ DirectX::XMMATRIX const Entity::GetTransformMatrix() const
 
 void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 {
-	std::for_each(_childs.begin(), _childs.end(),
-		[&timer](auto &child)
+	//Add new entities created at the previous call to update
+	std::for_each(_newChilds.begin(), _newChilds.end(),
+		[this](auto &child)
 	{
-		child->DoUpdate(timer);
+		//TRACE("Adding new entity from pending list " << entity.get() << std::endl);
+		_childs.emplace_back(std::move(child));
 	});
+	_newChilds.clear();
 
 	//Update position and orient if needed
 	if (_followGazeRotation)
@@ -64,9 +72,27 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	if (_followGazePosition)
 		positionInFrontOfGaze(_positionOffsetFromGaze);
 
+	//Update childs
+	std::for_each(_childs.begin(), _childs.end(),
+		[&timer](auto &child)
+	{
+		child->Update(timer);
+	});
+
 	DoUpdate(timer);
 
-	_mesh->SetModelTransform(GetTransformMatrix());
+	if(_mesh)
+		_mesh->SetModelTransform(GetTransformMatrix());
+
+	// If child is delete, remove the unique_ptr from the child list
+	// This will delete its instance
+	_childs.erase(
+		std::remove_if(_childs.begin(), _childs.end(),
+			[](auto &child) {
+				return child->isDead();
+			}),
+		_childs.end()
+	);
 
 	/*TRACE("For " << this << " Real position is (" << _realPosition.x << ", " << _realPosition.y << ", " << _realPosition.z 
 		  << ") Relative is (" << _relativePosition.x << ", " << _relativePosition.y << ", " << _relativePosition.z << ")"
@@ -78,38 +104,60 @@ void HoloLensClient::Entity::Inputs(Windows::UI::Input::Spatial::SpatialInteract
 	std::for_each(_childs.begin(), _childs.end(),
 		[&pointerState](auto &child)
 	{
-		child->OnInputs(pointerState);
+		child->Inputs(pointerState);
 	});
 	OnInputs(pointerState);
 }
 
 void Entity::InitializeMesh()
 {
-	_mesh->CreateDeviceDependentResources();
+	std::for_each(_childs.begin(), _childs.end(),
+		[](auto &child)
+	{
+		child->InitializeMesh();
+	});
+
+	if (_mesh)
+		_mesh->CreateDeviceDependentResources();
 }
 
 void Entity::ReleaseMesh()
 {
-	_mesh->ReleaseDeviceDependentResources();
+	std::for_each(_childs.begin(), _childs.end(),
+		[](auto &child)
+	{
+		child->ReleaseMesh();
+	});
+
+	if (_mesh)
+		_mesh->ReleaseDeviceDependentResources();
 }
 
 void Entity::Render()
 {
-	_mesh->Render();
+	std::for_each(_childs.begin(), _childs.end(),
+		[](auto &child)
+	{
+		child->Render();
+	});
+
+	if (_mesh)
+		_mesh->Render();
 }
 
 void HoloLensClient::Entity::kill()
 {
-	std::for_each(_childs.begin(), _childs.end(),
-		[](auto &child)
-	{
-		//Kill all the childs
-		//No need to remove the parent from them since all entities are deleted
-		//After the call to the update function
-		//So there should be no memory race
-		child->kill();
-	});
 	_alive = false;
+	//std::for_each(_childs.begin(), _childs.end(),
+	//	[](auto &child)
+	//{
+	//	//Kill all the childs
+	//	//No need to remove the parent from them since all entities are deleted
+	//	//After the call to the update function
+	//	//So there should be no memory race
+	//	child->kill();
+	//});
+	//if (_parent != nullptr) _parent->RemoveChild(this);
 }
 
 bool HoloLensClient::Entity::isDead() const
@@ -137,7 +185,7 @@ void HoloLensClient::Entity::SetRelativeRotation(Windows::Foundation::Numerics::
 
 void HoloLensClient::Entity::SetRealPosition(Windows::Foundation::Numerics::float3 position)
 {
-	if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");
+	/*if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");*/
 	_realPosition = position;
 	_relativePosition = _realPosition;
 	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_relativePosition));
@@ -146,7 +194,7 @@ void HoloLensClient::Entity::SetRealPosition(Windows::Foundation::Numerics::floa
 
 void HoloLensClient::Entity::SetRealRotation(Windows::Foundation::Numerics::float3 rotation)
 {
-	if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");
+	/*if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");*/
 	_realRotation = rotation;
 	_relativeRotation = _realRotation;
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
@@ -155,14 +203,14 @@ void HoloLensClient::Entity::SetRealRotation(Windows::Foundation::Numerics::floa
 
 void HoloLensClient::Entity::SetRealPosition(DirectX::XMMATRIX &positionMatrix)
 {
-	if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");
+	/*if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");*/
 	//_useTranslationMatrix = true;
 	_modelTranslation = positionMatrix;
 }
 
 void HoloLensClient::Entity::SetRealRotation(DirectX::XMMATRIX &rotationMatrix)
 {
-	if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");
+	/*if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");*/
 	//_useRotationMatrix = true;
 	_modelRotation = rotationMatrix;
 }
@@ -207,14 +255,14 @@ void HoloLensClient::Entity::SetParent(IEntity *parent)
 	_parent = parent;
 }
 
-void HoloLensClient::Entity::AddChild(IEntity *child)
+void HoloLensClient::Entity::AddChild(IEntity::IEntityPtr child)
 {
-	auto found = std::find(_childs.begin(), _childs.end(), child);
+	//auto found = std::find(_childs.begin(), _childs.end(), child);
 
-	if (found != _childs.end())
-		std::runtime_error("This entity is already a child of this entity");
-	_childs.push_back(child);
+	//if (found != _childs.end())
+	//	std::runtime_error("This entity is already a child of this entity");
 	child->SetParent(this);
+	_newChilds.push_back(std::move(child));
 }
 
 void HoloLensClient::Entity::RemoveChild(IEntity *child)
@@ -222,7 +270,7 @@ void HoloLensClient::Entity::RemoveChild(IEntity *child)
 	_childs.erase(
 		std::remove_if(_childs.begin(), _childs.end(),
 			[&child](auto &c) {
-				return c == child;
+				return c.get() == child;
 			}),
 		_childs.end());
 }

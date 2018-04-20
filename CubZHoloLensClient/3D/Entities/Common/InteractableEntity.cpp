@@ -36,6 +36,7 @@ void InteractableEntity::DoUpdate(DX::StepTimer const &timer)
 
 void HoloLensClient::InteractableEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
+	/*TRACE("Process onInputs on " << GetLabel() << std::endl);*/
 	if (pointerState != nullptr && pointerState->IsPressed && _focused)
 	{
 		// Prevent multiple click

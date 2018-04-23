@@ -14,7 +14,7 @@ namespace HoloLensClient
 		std::wstring		_label;
 
 	public:
-		GUIEntity(std::shared_ptr<HolographicScene> &scene) : InteractableEntity(scene) {}
+		GUIEntity(std::shared_ptr<HolographicScene> scene) : InteractableEntity(scene) {}
 		virtual ~GUIEntity() = default;
 
 	public:

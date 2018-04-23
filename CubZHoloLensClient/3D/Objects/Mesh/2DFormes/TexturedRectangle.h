@@ -36,7 +36,7 @@ namespace HoloLensClient
 		std::shared_ptr<Texture2D>						_texture;
 
 	public:
-		TexturedRectangle(std::shared_ptr<DX::DeviceResources> &devicesResources,
+		TexturedRectangle(std::shared_ptr<DX::DeviceResources> devicesResources,
 						Windows::Foundation::Numerics::float2 size = { 1.0f, 1.0f });
 		virtual ~TexturedRectangle();
 

@@ -6,7 +6,7 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-InteractableEntity::InteractableEntity(std::shared_ptr<HolographicScene>& scene, bool disableMultipleClick)
+InteractableEntity::InteractableEntity(std::shared_ptr<HolographicScene> scene, bool disableMultipleClick)
 	: Entity(scene), _disableMultipleClick(disableMultipleClick)
 {
 }
@@ -61,7 +61,8 @@ void HoloLensClient::InteractableEntity::GetBiggestBoundingBox(DirectX::Bounding
 	//{
 	//	mesh->GetBoundingBox(boundingBox);
 	//});
-	_mesh->GetBoundingBox(boundingBox);
+	if (_mesh)
+		_mesh->GetBoundingBox(boundingBox);
 }
 
 void HoloLensClient::InteractableEntity::setFocus(bool newFocus)

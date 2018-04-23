@@ -1,4 +1,5 @@
 #pragma once
+
 #include <3D\Entities\GUI\Panel.h>
 #include <3D\Entities\GUI\Button.h>
 
@@ -6,19 +7,21 @@ using namespace Windows::Foundation::Numerics;
 
 namespace HoloLensClient
 {
-	class ModificationMenu
+	class ModificationMenu : public Entity
 	{
 	private:
-		std::unique_ptr<Panel>					_background;
+		std::shared_ptr<DX::DeviceResources>	_devicesResources;
 
-		std::unique_ptr<Button>					_button1;
-		std::unique_ptr<Button>					_button2;
 	public:
-		ModificationMenu();
+		ModificationMenu(std::shared_ptr<DX::DeviceResources> devicesResources,
+			std::shared_ptr<HolographicScene> scene);
 		virtual ~ModificationMenu();
 
 	public:
-		void InitializeMenu(std::shared_ptr<DX::DeviceResources> &devicesResources,
-							std::shared_ptr<HolographicScene> &scene);
+		void InitializeMenu();
+
+		// Inherited via Entity
+		std::string const GetLabel() const override { return "ModificationMenu"; };
+		void DoUpdate(DX::StepTimer const & timer) override {};
 	};
 }

@@ -5,8 +5,8 @@
 Windows::Foundation::Numerics::float4 HoloLensClient::Button::DEFAULT_COLOR = { 0.243f, 0.815f, 0.854f, 1.0f };
 Windows::Foundation::Numerics::float4 HoloLensClient::Button::FOCUS_COLOR = { 0.443f, 0.515f, 0.454f, 1.0f };
 
-HoloLensClient::Button::Button(std::shared_ptr<DX::DeviceResources> &devicesResources, 
-							   std::shared_ptr<HolographicScene>& scene,
+HoloLensClient::Button::Button(std::shared_ptr<DX::DeviceResources> devicesResources, 
+							   std::shared_ptr<HolographicScene> scene,
 							   std::function<void()> const &callback,
 							   Windows::Foundation::Numerics::float2 size)
 	: GUIEntity(scene), _callback(callback)

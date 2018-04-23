@@ -32,10 +32,11 @@ void HolographicScene::Initialize()
 	cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
 	addEntity(std::move(cube));
 
-	auto mainMenu = std::make_unique<MainMenu>(_deviceResources, safeScene);
+	//auto mainMenu = std::make_unique<MainMenu>(_deviceResources, safeScene);
+	//mainMenu->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
 
-	mainMenu->InitializeMenu();
-	addEntity(std::move(mainMenu));
+	//mainMenu->InitializeMenu();
+	//addEntity(std::move(mainMenu));
 }
 
 void HolographicScene::Update(DX::StepTimer const& timer)

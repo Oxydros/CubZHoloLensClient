@@ -12,7 +12,7 @@ namespace HoloLensClient
 		Windows::Foundation::Numerics::float2	_size;
 
 	public:
-		ColoredRectangle(std::shared_ptr<DX::DeviceResources> &devicesResources,
+		ColoredRectangle(std::shared_ptr<DX::DeviceResources> devicesResources,
 			Windows::Foundation::Numerics::float2 size,
 			Windows::Foundation::Numerics::float4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
 		~ColoredRectangle();

@@ -13,14 +13,14 @@ namespace HoloLensClient
 		float4					_color;
 
 	public:
-		Panel(std::shared_ptr<DX::DeviceResources> &devicesResources,
-			  std::shared_ptr<HolographicScene> &scene,
+		Panel(std::shared_ptr<DX::DeviceResources> devicesResources,
+			  std::shared_ptr<HolographicScene> scene,
 			  float2 size, float4 color);
 		virtual ~Panel() = default;
 
 	public:
 		// Inherited via Entity
-		virtual void DoUpdate(DX::StepTimer const & timer) override;
+		virtual void DoUpdate(DX::StepTimer const & timer) override { GUIEntity::DoUpdate(timer); }
 
 		// Inherited via GUIEntity
 		virtual bool OnAirTap() override final { return false; };

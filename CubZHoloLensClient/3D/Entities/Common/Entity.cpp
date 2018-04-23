@@ -6,7 +6,7 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-Entity::Entity(std::shared_ptr<HolographicScene> &scene) 
+Entity::Entity(std::shared_ptr<HolographicScene> scene) 
 	: _parent(nullptr), _alive(true), _scene(scene)
 {
 	SetRealRotation({ 0, 0, 0 });
@@ -61,7 +61,7 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	std::for_each(_newChilds.begin(), _newChilds.end(),
 		[this](auto &child)
 	{
-		//TRACE("Adding new entity from pending list " << entity.get() << std::endl);
+		TRACE("Adding new child from pending list " << child->GetLabel() << std::endl);
 		_childs.emplace_back(std::move(child));
 	});
 	_newChilds.clear();
@@ -76,6 +76,7 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	std::for_each(_childs.begin(), _childs.end(),
 		[&timer](auto &child)
 	{
+		TRACE("Updating child " << child->GetLabel() << std::endl);
 		child->Update(timer);
 	});
 
@@ -89,6 +90,8 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	_childs.erase(
 		std::remove_if(_childs.begin(), _childs.end(),
 			[](auto &child) {
+				if (child->isDead())
+					TRACE("Killing child " << child->GetLabel() << std::endl);
 				return child->isDead();
 			}),
 		_childs.end()
@@ -114,6 +117,7 @@ void Entity::InitializeMesh()
 	std::for_each(_childs.begin(), _childs.end(),
 		[](auto &child)
 	{
+		TRACE("Init mesh of " << child->GetLabel() << std::endl);
 		child->InitializeMesh();
 	});
 
@@ -126,6 +130,7 @@ void Entity::ReleaseMesh()
 	std::for_each(_childs.begin(), _childs.end(),
 		[](auto &child)
 	{
+		TRACE("Release mesh of " << child->GetLabel() << std::endl);
 		child->ReleaseMesh();
 	});
 
@@ -138,6 +143,7 @@ void Entity::Render()
 	std::for_each(_childs.begin(), _childs.end(),
 		[](auto &child)
 	{
+		TRACE("Render mesh of " << child->GetLabel() << std::endl);
 		child->Render();
 	});
 

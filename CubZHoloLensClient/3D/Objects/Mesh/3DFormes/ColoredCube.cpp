@@ -8,7 +8,7 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-ColoredCube::ColoredCube(std::shared_ptr<DX::DeviceResources> &devicesResources,
+ColoredCube::ColoredCube(std::shared_ptr<DX::DeviceResources> devicesResources,
 								Windows::Foundation::Numerics::float4 color,
 								Windows::Foundation::Numerics::float3 size)
 	: ColoredObject(devicesResources), _size(size)

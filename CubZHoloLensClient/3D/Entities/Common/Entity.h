@@ -35,7 +35,7 @@ namespace HoloLensClient
 		DirectX::XMMATRIX							_modelRotation = {};
 
 	public:
-		Entity(std::shared_ptr<HolographicScene> &scene);
+		Entity(std::shared_ptr<HolographicScene> scene);
 		virtual ~Entity();
 
 	public:

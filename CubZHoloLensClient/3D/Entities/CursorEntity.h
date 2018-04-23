@@ -7,7 +7,7 @@ namespace HoloLensClient
 	class CursorEntity : public Entity
 	{
 	public:
-		CursorEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, std::shared_ptr<HolographicScene> &scene);
+		CursorEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene);
 		~CursorEntity();
 
 	protected:

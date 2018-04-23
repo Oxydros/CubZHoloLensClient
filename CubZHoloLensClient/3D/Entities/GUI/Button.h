@@ -14,7 +14,7 @@ namespace HoloLensClient
 		std::function<void()>			_callback = nullptr;
 
 	public:
-		Button(std::shared_ptr<DX::DeviceResources> &devicesResources, std::shared_ptr<HolographicScene> &scene,
+		Button(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene,
 			   std::function<void()> const &callback = {},
 			   Windows::Foundation::Numerics::float2 size = { 0.2f, 0.2f });
 		virtual ~Button() = default;
@@ -28,7 +28,7 @@ namespace HoloLensClient
 
 	public:
 		// Inherited via InteractableEntity
-		void DoUpdate(DX::StepTimer const & timer) override { InteractableEntity::DoUpdate(timer); };
+		void DoUpdate(DX::StepTimer const & timer) override { GUIEntity::DoUpdate(timer); };
 		bool OnAirTap() override;
 
 		std::string const GetLabel() const override { return "Button"; }

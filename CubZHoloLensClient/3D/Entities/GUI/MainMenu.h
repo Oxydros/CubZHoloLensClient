@@ -13,8 +13,8 @@ namespace HoloLensClient
 		std::shared_ptr<DX::DeviceResources>	_devicesResources;
 
 	public:
-		MainMenu(std::shared_ptr<DX::DeviceResources> &devicesResources,
-				 std::shared_ptr<HolographicScene> &scene);
+		MainMenu(std::shared_ptr<DX::DeviceResources> devicesResources,
+				 std::shared_ptr<HolographicScene> scene);
 		virtual ~MainMenu();
 
 	public:

@@ -4,7 +4,7 @@
 using namespace HoloLensClient;
 using namespace DirectX;
 
-ColoredObject::ColoredObject(std::shared_ptr<DX::DeviceResources> &deviceResources,
+ColoredObject::ColoredObject(std::shared_ptr<DX::DeviceResources> deviceResources,
 			std::wstring const &vShader, std::wstring const &pShader, std::wstring const &gShader,
 			std::wstring const &vpVShader)
 	: _vertexShaderString(vShader), _pixelShaderString(pShader),

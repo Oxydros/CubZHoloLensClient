@@ -12,7 +12,7 @@ namespace HoloLensClient
 		bool				_clicked{ false };
 
 	public:
-		InteractableEntity(std::shared_ptr<HolographicScene> &scene,
+		InteractableEntity(std::shared_ptr<HolographicScene> scene,
 			bool disableMultipleClick = true);
 
 		void DoUpdate(DX::StepTimer const &timer) override;

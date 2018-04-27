@@ -48,13 +48,11 @@ void CubZHoloLensClient::HomePage::Button_Launch3D(Platform::Object^ sender, Win
 	HoloLensClient::AppViewSource^ appViewSource = ref new HoloLensClient::AppViewSource();
 	::CoreApplicationView^ newView = ::CoreApplication::CreateNewView(appViewSource);
 
-	int spaceViewId;
-
 	TRACE("Dispatching 3D view thread" << std::endl);
 	::IAsyncAction ^a = newView->Dispatcher->RunAsync(::CoreDispatcherPriority::Normal, ref new DispatchedHandler(
-		[&spaceViewId]() {
+		[]() {
 		ApplicationView ^newV = ::ApplicationView::GetForCurrentView();
-		spaceViewId = newV->Id;
+		int spaceViewId = newV->Id;
 
 		TRACE("3D View id " << spaceViewId << std::endl);
 		CoreWindow ^thW = CoreWindow::GetForCurrentThread();

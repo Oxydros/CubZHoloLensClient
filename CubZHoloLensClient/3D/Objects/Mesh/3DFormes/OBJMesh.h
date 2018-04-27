@@ -15,7 +15,7 @@ namespace HoloLensClient
 
 		std::string							_meshFile;
 	public:
-		OBJMesh(std::shared_ptr<DX::DeviceResources> &devicesResources,
+		OBJMesh(std::shared_ptr<DX::DeviceResources> devicesResources,
 				std::string const &meshFile,
 				Windows::Foundation::Numerics::float4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
 		~OBJMesh();

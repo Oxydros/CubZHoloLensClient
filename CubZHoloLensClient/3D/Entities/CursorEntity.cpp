@@ -10,7 +10,7 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-CursorEntity::CursorEntity(std::shared_ptr<DX::DeviceResources> &devicesResources, std::shared_ptr<HolographicScene> &scene)
+CursorEntity::CursorEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene)
 	: Entity(scene)
 {
 	addMesh(std::make_unique<ColoredCircle>(devicesResources, 0.0025f));

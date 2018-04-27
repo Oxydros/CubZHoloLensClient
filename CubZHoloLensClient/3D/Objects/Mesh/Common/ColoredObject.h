@@ -13,20 +13,20 @@ namespace HoloLensClient
 	class ColoredObject : public IColoredObject
 	{
 	protected:
-		std::wstring 									_vertexShaderString;
-		std::wstring 									_pixelShaderString;
-		std::wstring 									_geometryShaderString;
-		std::wstring 									_vprtVertexShaderString;
+		std::wstring 									_vertexShaderString{};
+		std::wstring 									_pixelShaderString{};
+		std::wstring 									_geometryShaderString{};
+		std::wstring 									_vprtVertexShaderString{};
 
-		Microsoft::WRL::ComPtr<ID3D11InputLayout>       _inputLayout;
-		Microsoft::WRL::ComPtr<ID3D11Buffer>            _vertexBuffer;
-		Microsoft::WRL::ComPtr<ID3D11Buffer>            _indexBuffer;
-		Microsoft::WRL::ComPtr<ID3D11VertexShader>      _vertexShader;
-		Microsoft::WRL::ComPtr<ID3D11GeometryShader>    _geometryShader;
-		Microsoft::WRL::ComPtr<ID3D11PixelShader>       _pixelShader;
-		Microsoft::WRL::ComPtr<ID3D11Buffer>            _modelConstantBuffer;
+		Microsoft::WRL::ComPtr<ID3D11InputLayout>       _inputLayout{};
+		Microsoft::WRL::ComPtr<ID3D11Buffer>            _vertexBuffer{};
+		Microsoft::WRL::ComPtr<ID3D11Buffer>            _indexBuffer{};
+		Microsoft::WRL::ComPtr<ID3D11VertexShader>      _vertexShader{};
+		Microsoft::WRL::ComPtr<ID3D11GeometryShader>    _geometryShader{};
+		Microsoft::WRL::ComPtr<ID3D11PixelShader>       _pixelShader{};
+		Microsoft::WRL::ComPtr<ID3D11Buffer>            _modelConstantBuffer{};
 
-		ColorModelConstantBuffer                        _modelConstantBufferData;
+		ColorModelConstantBuffer                        _modelConstantBufferData{};
 		uint32                                          _indexCount = 0;
 
 		bool                                            _loadingComplete = false;
@@ -41,7 +41,7 @@ namespace HoloLensClient
 		DirectX::BoundingOrientedBox							_boundingBox;
 
 	public:
-		ColoredObject(std::shared_ptr<DX::DeviceResources> &devicesResources,
+		ColoredObject(std::shared_ptr<DX::DeviceResources> devicesResources,
 			std::wstring const &vertexShaderString = L"ms-appx:///VertexShaderColor.cso",
 			std::wstring const &pixelShaderString = L"ms-appx:///PixelShader.cso",
 			std::wstring const &geometryShaderString = L"ms-appx:///GeometryShader.cso",

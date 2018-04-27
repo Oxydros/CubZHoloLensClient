@@ -8,7 +8,7 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-ColoredCircle::ColoredCircle(std::shared_ptr<DX::DeviceResources> &devicesResources,
+ColoredCircle::ColoredCircle(std::shared_ptr<DX::DeviceResources> devicesResources,
 								float radius,
 								float radians,
 								Windows::Foundation::Numerics::float4 color)

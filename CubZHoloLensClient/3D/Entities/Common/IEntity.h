@@ -20,6 +20,7 @@ namespace HoloLensClient
 	{
 	public:
 		typedef std::unique_ptr<IEntity> IEntityPtr;
+
 	public:
 		/// <summary>	Destructor. </summary>
 		virtual ~IEntity() = default;
@@ -72,12 +73,36 @@ namespace HoloLensClient
 
 		/// <summary>	Initialize the mesh. </summary>
 		virtual void InitializeMesh() = 0;
+
 		/// <summary>	Release the resources of the mesh. </summary>
 		virtual void ReleaseMesh() = 0;
+
 		/// <summary>	Render the mesh. </summary>
 		virtual void Render() = 0;
+
 		/// <summary>	Mark this entity for death. </summary>
 		virtual void kill() = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Sets a visible. </summary>
+		///
+		/// <param name="visibility">	True to visibility. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void setVisible(bool visibility) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Query if this object is visible. </summary>
+		///
+		/// <returns>	True if visible, false if not. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual bool isVisible() const = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Query if this object is root. </summary>
+		///
+		/// <returns>	True if root, false if not. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual bool isRoot() const = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Check if this entity is marked for death. </summary>
@@ -92,6 +117,13 @@ namespace HoloLensClient
 		/// <param name="offset">	The offset. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void Move(Windows::Foundation::Numerics::float3 offset) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Rotates the given offset. </summary>
+		///
+		/// <param name="offset">	The offset. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void Rotate(Windows::Foundation::Numerics::float3 offset) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the relative position. </summary>
@@ -140,14 +172,14 @@ namespace HoloLensClient
 		///
 		/// <returns>	The position. </returns>
 		///-------------------------------------------------------------------------------------------------
-		virtual Windows::Foundation::Numerics::float3 const &GetPosition() const = 0;
+		virtual Windows::Foundation::Numerics::float3 const GetRealPosition() const = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Return the real rotation. </summary>
 		///
 		/// <returns>	The rotation. </returns>
 		///-------------------------------------------------------------------------------------------------
-		virtual Windows::Foundation::Numerics::float3 const &GetRotation() const = 0;
+		virtual Windows::Foundation::Numerics::float3 const GetRealRotation() const = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Return the relative position to its parent. </summary>
@@ -189,7 +221,7 @@ namespace HoloLensClient
 		///
 		/// <param name="child">	[in,out] If non-null, the child. </param>
 		///-------------------------------------------------------------------------------------------------
-		virtual void AddChild(IEntity *child) = 0;
+		virtual void AddChild(IEntity::IEntityPtr child) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Remove a child entity. </summary>
@@ -239,5 +271,40 @@ namespace HoloLensClient
 		/// <param name="offsets">	The offsets. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void rotateTowardGaze(Windows::Foundation::Numerics::float3 offsets) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Query if this object is in gaze. </summary>
+		///
+		/// <returns>	True if in gaze, false if not. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual bool isInGaze() const = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Query if this object is focused. </summary>
+		///
+		/// <returns>	True if focused, false if not. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual bool isFocused() const = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Sets the focus. </summary>
+		///
+		/// <param name="focused">	True if focused. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void setFocus(bool focused) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Gets in gaze entities. </summary>
+		///
+		/// <param name="entities">	[in,out] [in,out] If non-null, the entities. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void getInGazeEntities(std::vector<IEntity*> &entities) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Gets nearest in gaze entity. </summary>
+		///
+		/// <returns>	Null if it fails, else the nearest in gaze entity. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual std::pair<IEntity*, float> getNearestInGazeEntity() = 0;
 	};
 }

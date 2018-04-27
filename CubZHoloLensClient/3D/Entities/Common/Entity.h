@@ -14,11 +14,16 @@ namespace HoloLensClient
 		typedef std::unique_ptr<Entity>	EntityPtr;
 
 	protected:
-		IObject::IObjectPtr							_mesh;
-		std::vector<IEntity *>						_childs;
+		IObject::IObjectPtr							_mesh{ nullptr };
+		std::vector<IEntity::IEntityPtr>			_newChilds;
+		std::vector<IEntity::IEntityPtr>			_childs;
 		IEntity										*_parent = nullptr;
 		bool										_alive = true;
 		std::shared_ptr<HolographicScene>			_scene = nullptr;
+		bool										_visible{ true };
+		bool										_focused{ false };
+		bool										_inGaze{ false };
+		bool										_isRoot{ false };
 
 		bool										_followGazePosition = false;
 		bool										_followGazeRotation = false;
@@ -27,14 +32,13 @@ namespace HoloLensClient
 
 		Windows::Foundation::Numerics::float3		_relativePosition = { 0, 0, 0 };;
 		Windows::Foundation::Numerics::float3		_relativeRotation = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_realPosition = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_realRotation = { 0, 0, 0 };
 
 		DirectX::XMMATRIX							_modelTranslation = {};
 		DirectX::XMMATRIX							_modelRotation = {};
+		float										_distance{ 0 };
 
 	public:
-		Entity(std::shared_ptr<HolographicScene> &scene);
+		Entity(std::shared_ptr<HolographicScene> scene);
 		virtual ~Entity();
 
 	public:
@@ -45,8 +49,12 @@ namespace HoloLensClient
 		void Render() override;
 		void kill() override;
 		bool isDead() const override;
+		void setVisible(bool visibility);
+		bool isVisible() const override { return (_visible); }
+		bool isRoot() const override { return (_isRoot); }
 
 		void Move(Windows::Foundation::Numerics::float3 offset) override;
+		void Rotate(Windows::Foundation::Numerics::float3 offset) override;
 
 		void SetRealPosition(Windows::Foundation::Numerics::float3 position) override;
 		void SetRealRotation(Windows::Foundation::Numerics::float3 rotation) override;
@@ -57,8 +65,8 @@ namespace HoloLensClient
 		void SetRealPosition(DirectX::XMMATRIX &positionMatrix) override;
 		void SetRealRotation(DirectX::XMMATRIX &rotationMatrix) override;
 
-		Windows::Foundation::Numerics::float3 const &GetPosition() const override { return _realPosition; };
-		Windows::Foundation::Numerics::float3 const &GetRotation() const override { return _realRotation; };
+		Windows::Foundation::Numerics::float3 const GetRealPosition() const override;
+		Windows::Foundation::Numerics::float3 const GetRealRotation() const override;
 
 		Windows::Foundation::Numerics::float3 const &GetRelativePosition() const override { return _relativePosition; };
 		Windows::Foundation::Numerics::float3 const &GetRelativeRotation() const override { return _relativeRotation; };
@@ -68,7 +76,7 @@ namespace HoloLensClient
 
 		DirectX::XMMATRIX const GetTransformMatrix() const override;
 
-		void AddChild(IEntity *child) override;
+		void AddChild(IEntity::IEntityPtr child) override;
 		void RemoveChild(IEntity *child) override;
 		void SetParent(IEntity *parent) override;
 		IEntity *getParent() const override;
@@ -86,6 +94,20 @@ namespace HoloLensClient
 		void positionInFrontOfGaze(Windows::Foundation::Numerics::float3 offsets) override;
 		void rotateTowardGaze(Windows::Foundation::Numerics::float3 offsets) override;
 
+		bool isInGaze() const override { return (_inGaze); };
+		bool isFocused() const override { return (_focused); };
+
+		void setFocus(bool focused) override;
+
+		void getInGazeEntities(std::vector<IEntity*> &entities) override final;
+		std::pair<IEntity*, float> getNearestInGazeEntity() override final;
+
+	public:
+		/// <summary>	Executes the get focus action. </summary>
+		virtual bool OnGetFocus() { return false; }
+		/// <summary>	Executes the lost focus action. </summary>
+		virtual bool OnLostFocus() { return false; }
+
 	protected:
 
 		///-------------------------------------------------------------------------------------------------
@@ -94,6 +116,7 @@ namespace HoloLensClient
 		/// <param name="mesh">	The mesh. </param>
 		///-------------------------------------------------------------------------------------------------
 		void addMesh(IObject::IObjectPtr mesh);
+		void updateInGaze();
 
 	public:
 		virtual void DoUpdate(DX::StepTimer const &timer) = 0;
@@ -134,3 +157,6 @@ namespace HoloLensClient
 		}
 	};
 }
+
+std::ostream& operator<<(std::ostream& stream, const DirectX::XMMATRIX& matrix);
+std::ostream& operator<<(std::ostream& stream, const Windows::Foundation::Numerics::float3 a);

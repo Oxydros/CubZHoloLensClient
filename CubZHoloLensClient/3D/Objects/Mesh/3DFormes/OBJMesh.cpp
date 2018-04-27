@@ -8,7 +8,7 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-OBJMesh::OBJMesh(std::shared_ptr<DX::DeviceResources> &devicesResources,
+OBJMesh::OBJMesh(std::shared_ptr<DX::DeviceResources> devicesResources,
 				 std::string const &meshFile,
 				 Windows::Foundation::Numerics::float4 color)
 	: ColoredObject(devicesResources), _meshFile(meshFile)

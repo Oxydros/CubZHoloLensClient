@@ -4,7 +4,7 @@
 using namespace HoloLensClient;
 using namespace DirectX;
 
-HoloLensClient::TexturedRectangle::TexturedRectangle(std::shared_ptr<DX::DeviceResources> &devicesResources,
+HoloLensClient::TexturedRectangle::TexturedRectangle(std::shared_ptr<DX::DeviceResources> devicesResources,
 										Windows::Foundation::Numerics::float2 size)
 	: _deviceResources(devicesResources), _size(size)
 {

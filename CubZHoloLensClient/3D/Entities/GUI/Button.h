@@ -20,6 +20,7 @@ namespace HoloLensClient
 		virtual ~Button() = default;
 
 	public:
+		void DoUpdate(DX::StepTimer const &timer) override {};
 		void setCallback(std::function<void()> &callback) { _callback = callback; }
 		void OnLabelChanged() override;
 
@@ -27,8 +28,6 @@ namespace HoloLensClient
 		bool OnLostFocus() override;
 
 	public:
-		// Inherited via InteractableEntity
-		void DoUpdate(DX::StepTimer const & timer) override { GUIEntity::DoUpdate(timer); };
 		bool OnAirTap() override;
 
 		std::string const GetLabel() const override { return "Button"; }

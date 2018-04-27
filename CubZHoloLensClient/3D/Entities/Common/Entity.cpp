@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "3D\Utility\Collision.h"
 #include "3D\Entities\Common\Entity.h"
 #include <3D\Scene\HolographicScene.h>
 
@@ -37,7 +38,8 @@ std::ostream& operator<<(std::ostream& stream, const DirectX::XMMATRIX& matrix) 
 	return (stream);
 }
 
-std::ostream& operator<<(std::ostream& stream, const float3 a) {
+std::ostream& operator<<(std::ostream& stream, const Windows::Foundation::Numerics::float3 a)
+{
 	stream << "(" << a.x << ", " << a.y << ", " << a.z << ")";
 	return (stream);
 }
@@ -61,7 +63,7 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	std::for_each(_newChilds.begin(), _newChilds.end(),
 		[this](auto &child)
 	{
-		TRACE("Adding new child from pending list " << child->GetLabel() << std::endl);
+		TRACE("Adding new child from pending list " << child->GetLabel() << " " << child.get() << std::endl);
 		_childs.emplace_back(std::move(child));
 	});
 	_newChilds.clear();
@@ -76,10 +78,11 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	std::for_each(_childs.begin(), _childs.end(),
 		[&timer](auto &child)
 	{
-		TRACE("Updating child " << child->GetLabel() << std::endl);
+		/*TRACE("Updating child " << child->GetLabel() << std::endl);*/
 		child->Update(timer);
 	});
 
+	updateInGaze();
 	DoUpdate(timer);
 
 	if(_mesh)
@@ -143,11 +146,12 @@ void Entity::Render()
 	std::for_each(_childs.begin(), _childs.end(),
 		[](auto &child)
 	{
-		TRACE("Render mesh of " << child->GetLabel() << std::endl);
+		/*TRACE("Render mesh of " << child->GetLabel() << std::endl);*/
 		child->Render();
 	});
 
-	if (_mesh)
+	// Don't render if entity is not supposed to be visible
+	if (_visible && _mesh)
 		_mesh->Render();
 }
 
@@ -171,10 +175,26 @@ bool HoloLensClient::Entity::isDead() const
 	return (!_alive);
 }
 
+void HoloLensClient::Entity::setVisible(bool visibility)
+{
+	_visible = visibility;
+	std::for_each(_childs.begin(), _childs.end(),
+		[&visibility](auto &child)
+	{
+		child->setVisible(visibility);
+	});
+}
+
 void HoloLensClient::Entity::Move(Windows::Foundation::Numerics::float3 offset)
 {
 	_relativePosition += offset;
 	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_relativePosition));
+}
+
+void HoloLensClient::Entity::Rotate(Windows::Foundation::Numerics::float3 offset)
+{
+	_relativeRotation += offset;
+	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
 }
 
 void HoloLensClient::Entity::SetRelativePosition(Windows::Foundation::Numerics::float3 position)
@@ -191,67 +211,53 @@ void HoloLensClient::Entity::SetRelativeRotation(Windows::Foundation::Numerics::
 
 void HoloLensClient::Entity::SetRealPosition(Windows::Foundation::Numerics::float3 position)
 {
-	/*if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");*/
-	_realPosition = position;
-	_relativePosition = _realPosition;
+	if (_parent == nullptr)
+		return SetRelativePosition(position);
+	_relativePosition = position - _parent->GetRealPosition();
 	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_relativePosition));
-	/*UpdateRelative();*/
 }
 
 void HoloLensClient::Entity::SetRealRotation(Windows::Foundation::Numerics::float3 rotation)
 {
-	/*if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");*/
-	_realRotation = rotation;
-	_relativeRotation = _realRotation;
+	if (_parent == nullptr)
+		return SetRelativeRotation(rotation);
+	_relativeRotation = rotation - _parent->GetRealRotation();
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
-	/*UpdateRelative();*/
 }
 
 void HoloLensClient::Entity::SetRealPosition(DirectX::XMMATRIX &positionMatrix)
 {
-	/*if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");*/
-	//_useTranslationMatrix = true;
+	/*TRACE("WARNING: Use of setRealPosition Matrix for "  << std::endl);*/
+	if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");
 	_modelTranslation = positionMatrix;
 }
 
 void HoloLensClient::Entity::SetRealRotation(DirectX::XMMATRIX &rotationMatrix)
 {
-	/*if (_parent != nullptr) throw std::runtime_error("Can't update real position because it is a Child entity");*/
-	//_useRotationMatrix = true;
+	/*TRACE("WARNING: Use of setRealRotation Matrix for "  << std::endl);*/
+	if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");
 	_modelRotation = rotationMatrix;
 }
 
-//inline void HoloLensClient::Entity::UpdateReal()
-//{
-//	if (_parent != nullptr)
-//	{
-//		_realPosition = _parent->GetPosition() + _relativePosition;
-//		_realRotation = _parent->GetRotation() + _relativeRotation;
-//	}
-//	else
-//	{
-//		_realPosition = _relativePosition;
-//		_realRotation = _relativeRotation;
-//	}
-//	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_realPosition));
-//	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_realRotation));
-//}
+Windows::Foundation::Numerics::float3 const HoloLensClient::Entity::GetRealPosition() const
+{
+	float3 parentReal = { 0, 0, 0 };
 
-//inline void HoloLensClient::Entity::UpdateRelative()
-//{
-//	//if (_parent != nullptr)
-//	//{
-//	//	_relativePosition = _realPosition - _parent->GetPosition();
-//	//	_relativeRotation = _realRotation - _parent->GetRotation();
-//	//}
-//	//else
-//	//{
-//	_relativePosition = _realPosition;
-//	_relativeRotation = _realRotation;
-//	//}
-//	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_relativePosition));
-//	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
-//}
+	//Real position is the sum of all relative positions starting from the root node
+	if (_parent)
+		parentReal = _parent->GetRealPosition();
+	return (parentReal + _relativePosition);
+}
+
+Windows::Foundation::Numerics::float3 const HoloLensClient::Entity::GetRealRotation() const
+{
+	float3 parentReal = { 0, 0, 0 };
+
+	//Real rotation is the sum of all relative rotations starting from the root node
+	if (_parent)
+		parentReal = _parent->GetRealRotation();
+	return (parentReal + _relativeRotation);
+}
 
 void HoloLensClient::Entity::SetParent(IEntity *parent)
 {
@@ -268,6 +274,8 @@ void HoloLensClient::Entity::AddChild(IEntity::IEntityPtr child)
 	//if (found != _childs.end())
 	//	std::runtime_error("This entity is already a child of this entity");
 	child->SetParent(this);
+	//Child has same visibility as parent
+	child->setVisible(_visible);
 	_newChilds.push_back(std::move(child));
 }
 
@@ -290,6 +298,74 @@ void Entity::addMesh(IObject::IObjectPtr mesh)
 {
 	_mesh = std::move(mesh);
 	_mesh->CreateDeviceDependentResources();
+}
+
+void HoloLensClient::Entity::updateInGaze()
+{
+	//Don't calcul gaze if no mesh in entity, or not visible,
+	// or if entity is the cursor
+	if (_mesh == nullptr || !_visible || this == _scene->getCursor())
+	{
+		_inGaze = false;
+		_distance = -1;
+		return;
+	}
+
+	auto pointerPose = _scene->getPointerPose();
+
+	if (pointerPose != nullptr)
+	{
+		// Get the gaze direction relative to the given coordinate system.
+		const float3 position = pointerPose->Head->Position;
+		const float3 direction = pointerPose->Head->ForwardDirection;
+
+		XMFLOAT3 headPosition = XMFLOAT3(position.x, position.y, position.z);
+		XMFLOAT3 headDirection = XMFLOAT3(direction.x, direction.y, direction.z);
+		float distance = 0.0f;
+
+		DirectX::BoundingOrientedBox currentBoundingBox;
+		_mesh->GetBoundingBox(currentBoundingBox);
+
+		float3 extents{ currentBoundingBox.Extents.x, currentBoundingBox.Extents.y, currentBoundingBox.Extents.z };
+		float3 B1 = GetRealPosition() - extents;
+		float3 B2 = GetRealPosition() + extents;
+
+		float3 Hit;
+		float3 L1{ headPosition.x, headPosition.y, headPosition.z };
+		float3 L2{ headDirection.x, headDirection.y, headDirection.z };
+
+		bool check = CheckLineBox(B1, B2, L1, L1 + (L2 * 6.0f), Hit);
+
+		XMVECTOR originVec = DirectX::XMLoadFloat3(&headPosition);
+		XMVECTOR hitVec = DirectX::XMLoadFloat3(&XMFLOAT3(Hit.x, Hit.y, Hit.z));
+		XMVECTOR distanceV = XMVector3Length(XMVectorSubtract(originVec, hitVec));
+		DirectX::XMStoreFloat(&_distance, distanceV);
+
+		/*TRACE("In Gaze " << GetLabel() << " " << _inGaze << " " << _distance << std::endl);*/
+		_inGaze = currentBoundingBox.Intersects(DirectX::XMLoadFloat3(&headPosition), DirectX::XMLoadFloat3(&headDirection), distance);
+	}
+	else
+	{
+		_inGaze = false;
+		_distance = -1;
+	}
+}
+
+std::pair<IEntity*, float> HoloLensClient::Entity::getNearestInGazeEntity()
+{
+	auto pair = std::make_pair(static_cast<IEntity*>(this), _distance);
+
+	std::for_each(_childs.begin(), _childs.end(),
+		[&pair](auto &child)
+	{
+		auto newDistance = child->getNearestInGazeEntity();
+		if (newDistance.first->isInGaze() && (pair.second < 0 || newDistance.second < pair.second))
+		{
+			pair = newDistance;
+		}
+	});
+
+	return (pair);
 }
 
 void HoloLensClient::Entity::positionInFrontOfGaze(Windows::Foundation::Numerics::float3 offsets)
@@ -372,3 +448,68 @@ void HoloLensClient::Entity::rotateTowardGaze(Windows::Foundation::Numerics::flo
 		SetRealRotation(rotation);
 	}
 }
+
+void HoloLensClient::Entity::setFocus(bool newFocus)
+{
+	auto oldFocus = _focused;
+
+	_focused = newFocus;
+	if (_focused != oldFocus)
+	{
+		Concurrency::task<void> callbackTask = Concurrency::create_task([this]()
+		{
+			if (_focused) {
+				TRACE("Got Focus on " << GetLabel() << std::endl);
+				OnGetFocus();
+			}
+			else {
+				TRACE("Lost Focus on " << GetLabel() << std::endl);
+				OnLostFocus();
+			}
+		});
+	}
+}
+
+void HoloLensClient::Entity::getInGazeEntities(std::vector<IEntity*>& entities)
+{
+	std::for_each(_childs.begin(), _childs.end(),
+		[&entities](auto &child)
+	{
+		child->getInGazeEntities(entities);
+	});
+	if (isInGaze())
+		entities.push_back(this);
+}
+
+
+//inline void HoloLensClient::Entity::UpdateReal()
+//{
+//	if (_parent != nullptr)
+//	{
+//		_realPosition = _parent->GetPosition() + _relativePosition;
+//		_realRotation = _parent->GetRotation() + _relativeRotation;
+//	}
+//	else
+//	{
+//		_realPosition = _relativePosition;
+//		_realRotation = _relativeRotation;
+//	}
+//	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_realPosition));
+//	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_realRotation));
+//}
+
+//inline void HoloLensClient::Entity::UpdateRelative()
+//{
+//	//if (_parent != nullptr)
+//	//{
+//	//	_relativePosition = _realPosition - _parent->GetPosition();
+//	//	_relativeRotation = _realRotation - _parent->GetRotation();
+//	//}
+//	//else
+//	//{
+//	_relativePosition = _realPosition;
+//	_relativeRotation = _realRotation;
+//	//}
+//	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_relativePosition));
+//	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
+//}

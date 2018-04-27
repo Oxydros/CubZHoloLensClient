@@ -195,6 +195,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="3D\AppView.h" />
+    <ClInclude Include="3D\Entities\Common\EditableEntity.h" />
     <ClInclude Include="3D\Entities\Common\Entity.h" />
     <ClInclude Include="3D\Entities\Common\EntityRoot.h" />
     <ClInclude Include="3D\Entities\Common\IEntity.h" />
@@ -230,6 +231,7 @@
     <ClInclude Include="3D\Shaders\ShaderStructures.h" />
     <ClInclude Include="3D\SpatialInputHandler.h" />
     <ClInclude Include="3D\Utility\CFW1StateSaver.h" />
+    <ClInclude Include="3D\Utility\Collision.h" />
     <ClInclude Include="3D\Utility\DirectXHelper.h" />
     <ClInclude Include="3D\Utility\StepTimer.h" />
     <ClInclude Include="Network\TCPClient.h" />
@@ -291,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3D\AppView.cpp" />
+    <ClCompile Include="3D\Entities\Common\EditableEntity.cpp" />
     <ClCompile Include="3D\Entities\Common\Entity.cpp" />
     <ClCompile Include="3D\Entities\Common\InteractableEntity.cpp" />
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />

@@ -2,7 +2,6 @@
 #include "HolographicScene.h"
 #include "3D\Entities\CursorEntity.h"
 #include "3D\Entities\CubeEntity.h"
-#include "3D\Entities\GUI\MainMenu.h"
 #include "3D\Loaders\OBJLoader.h"
 
 using namespace HoloLensClient;
@@ -25,6 +24,7 @@ void HolographicScene::Initialize()
 
 	//Declare gaze
 	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safeScene);
+	_cursor = gaze.get();
 	addEntity(std::move(gaze));
 
 	//Declare basic cube for test purposes
@@ -32,16 +32,42 @@ void HolographicScene::Initialize()
 	cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
 	addEntity(std::move(cube));
 
-	//auto mainMenu = std::make_unique<MainMenu>(_deviceResources, safeScene);
-	//mainMenu->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
+	auto mainMenu = std::make_unique<MainMenu>(_deviceResources, safeScene);
+	mainMenu->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
 
-	//mainMenu->InitializeMenu();
-	//addEntity(std::move(mainMenu));
+	mainMenu->InitializeMenu();
+	_mainMenu = mainMenu.get();
+
+	addEntity(std::move(mainMenu));
+
+	auto modificationMenu = std::make_unique<ModificationMenu>(_deviceResources, safeScene);
+	modificationMenu->InitializeMenu();
+	_modifMenu = modificationMenu.get();
+
+	addEntity(std::move(modificationMenu));
 }
 
 void HolographicScene::Update(DX::StepTimer const& timer)
 {
 	_root->Update(timer);
+
+	auto pair = _root->getNearestInGazeEntity();
+
+	//Focus only nearest entity in gaze direction
+	if (pair.second >= 0)
+	{
+		/*TRACE("Nearest entity is " << pair.first << " " << pair.first->GetLabel() << " " << pair.second << std::endl);*/
+		if (_previousEntityFocused != nullptr && _previousEntityFocused != pair.first)
+			_previousEntityFocused->setFocus(false);
+		pair.first->setFocus(true);
+		_previousEntityFocused = pair.first;
+	}
+	else if (_previousEntityFocused != nullptr)
+	{
+		//No entity found in gaze, remove focus from actual entity
+		_previousEntityFocused->setFocus(false);
+		_previousEntityFocused = nullptr;
+	}
 }
 
 void HolographicScene::Render()

@@ -19,9 +19,8 @@ namespace HoloLensClient
 		virtual ~Panel() = default;
 
 	public:
-		// Inherited via Entity
-		virtual void DoUpdate(DX::StepTimer const & timer) override { GUIEntity::DoUpdate(timer); }
 
+		void DoUpdate(DX::StepTimer const &timer) override {};
 		// Inherited via GUIEntity
 		virtual bool OnAirTap() override final { return false; };
 

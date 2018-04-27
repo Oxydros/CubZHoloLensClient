@@ -1,10 +1,10 @@
 #pragma once
 
-#include "3D\Entities\Common\InteractableEntity.h"
+#include "3D\Entities\Common\EditableEntity.h"
 
 namespace HoloLensClient
 {
-	class CubeEntity : public InteractableEntity
+	class CubeEntity : public EditableEntity
 	{
 	private:
 		bool					_selected{ false };
@@ -18,6 +18,10 @@ namespace HoloLensClient
 		bool OnAirTap() override;
 		bool OnGetFocus() override;
 		bool OnLostFocus() override;
+
+		void OnMoveClick() override;
+		void OnRotateLeftClick() override;
+		void OnRotateRightClick() override;
 
 		std::string const GetLabel() const override { return "Cube"; }
 	};

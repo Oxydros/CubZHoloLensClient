@@ -7,6 +7,8 @@
 
 #include <3D\Resources\DeviceResources.h>
 #include "3D\Entities\Common\EntityRoot.h"
+#include "3D\Entities\GUI\MainMenu.h"
+#include "3D\Entities\GUI\ModificationMenu.h"
 
 
 ///-------------------------------------------------------------------------------------------------
@@ -33,6 +35,13 @@ namespace HoloLensClient
 		std::shared_ptr<DX::DeviceResources>					_deviceResources;
 		/// <summary>	Root node. </summary>
 		std::unique_ptr<EntityRoot>								_root;
+
+		/// <summary>	The modif menu. </summary>
+		ModificationMenu										*_modifMenu{ nullptr };
+		/// <summary>	The main menu. </summary>
+		MainMenu												*_mainMenu{ nullptr };
+		IEntity													*_cursor{ nullptr };
+		IEntity													*_previousEntityFocused{ nullptr };
 
 	public:
 
@@ -83,7 +92,13 @@ namespace HoloLensClient
 		/// <summary>	Executes the device restored action. </summary>
 		void OnDeviceRestored();
 
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Query if this object is alive. </summary>
+		///
+		/// <returns>	True if alive, false if not. </returns>
+		///-------------------------------------------------------------------------------------------------
 		bool isAlive() const { return _alive; };
+		/// <summary>	Kills this object. </summary>
 		void kill() { _alive = false; }
 
 	public:
@@ -96,6 +111,10 @@ namespace HoloLensClient
 		std::shared_ptr<DX::DeviceResources> getDeviceResources() const { return (_deviceResources); };
 
 	public:
+
+		ModificationMenu * getModificationMenu() const { return _modifMenu; }
+		MainMenu * getMainMenu() const { return _mainMenu; }
+		IEntity *getCursor() const { return _cursor; }
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Adds an entity. </summary>

@@ -80,6 +80,22 @@ namespace HoloLensClient
 		virtual void kill() = 0;
 
 		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Sets a visible. </summary>
+		///
+		/// <param name="visibility">	True to visibility. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void setVisible(bool visibility) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Query if this object is visible. </summary>
+		///
+		/// <returns>	True if visible, false if not. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual bool isVisible() const = 0;
+
+		virtual bool isRoot() const = 0;
+
+		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Check if this entity is marked for death. </summary>
 		///
 		/// <returns>	True if dead, false if not. </returns>
@@ -92,6 +108,8 @@ namespace HoloLensClient
 		/// <param name="offset">	The offset. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void Move(Windows::Foundation::Numerics::float3 offset) = 0;
+
+		virtual void Rotate(Windows::Foundation::Numerics::float3 offset) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the relative position. </summary>
@@ -140,14 +158,14 @@ namespace HoloLensClient
 		///
 		/// <returns>	The position. </returns>
 		///-------------------------------------------------------------------------------------------------
-		virtual Windows::Foundation::Numerics::float3 const &GetPosition() const = 0;
+		virtual Windows::Foundation::Numerics::float3 const GetRealPosition() const = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Return the real rotation. </summary>
 		///
 		/// <returns>	The rotation. </returns>
 		///-------------------------------------------------------------------------------------------------
-		virtual Windows::Foundation::Numerics::float3 const &GetRotation() const = 0;
+		virtual Windows::Foundation::Numerics::float3 const GetRealRotation() const = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Return the relative position to its parent. </summary>
@@ -239,5 +257,25 @@ namespace HoloLensClient
 		/// <param name="offsets">	The offsets. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void rotateTowardGaze(Windows::Foundation::Numerics::float3 offsets) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Query if this object is in gaze. </summary>
+		///
+		/// <returns>	True if in gaze, false if not. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual bool isInGaze() const = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Query if this object is focused. </summary>
+		///
+		/// <returns>	True if focused, false if not. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual bool isFocused() const = 0;
+
+		virtual void setFocus(bool focused) = 0;
+
+		virtual void getInGazeEntities(std::vector<IEntity*> &entities) = 0;
+
+		virtual std::pair<IEntity*, float> getNearestInGazeEntity() = 0;
 	};
 }

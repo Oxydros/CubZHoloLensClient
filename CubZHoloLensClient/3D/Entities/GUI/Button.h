@@ -21,7 +21,7 @@ namespace HoloLensClient
 
 	public:
 		void DoUpdate(DX::StepTimer const &timer) override {};
-		void setCallback(std::function<void()> &callback) { _callback = callback; }
+		void setCallback(std::function<void()> callback) { _callback = callback; }
 		void OnLabelChanged() override;
 
 		bool OnGetFocus() override;

@@ -13,9 +13,9 @@ InteractableEntity::InteractableEntity(std::shared_ptr<HolographicScene> scene, 
 
 void HoloLensClient::InteractableEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
-	/*TRACE("Process onInputs on " << GetLabel() << std::endl);*/
 	if (pointerState != nullptr && pointerState->IsPressed && _focused)
 	{
+		TRACE("Process onInputs on " << GetLabel() << std::endl);
 		// Prevent multiple click
 		// Check if it was already clicked and cancel if it was the case
 		if (_disableMultipleClick && _clicked)

@@ -72,7 +72,7 @@ bool HoloLensClient::CubeEntity::OnGetFocus()
 bool HoloLensClient::CubeEntity::OnLostFocus()
 {
 	/*TRACE("Lost focus on " << this << std::endl);*/
-	_scene->getModificationMenu()->DetachEntity();
+	/*_scene->getModificationMenu()->DetachEntity();*/
 	return true;
 }
 
@@ -93,10 +93,11 @@ void HoloLensClient::CubeEntity::OnMoveClick()
 void HoloLensClient::CubeEntity::OnRotateLeftClick()
 {
 	TRACE("Rotate left" << std::endl);
-	Rotate({0, -20, 0});
+	Rotate({ 0, 20, 0 });
 }
 
 void HoloLensClient::CubeEntity::OnRotateRightClick()
 {
 	TRACE("Rotate Right" << std::endl);
+	Rotate({ 0, -20, 0 });
 }

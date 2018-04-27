@@ -12,9 +12,9 @@ namespace HoloLensClient
 	{
 	private:
 		std::shared_ptr<DX::DeviceResources>	_devicesResources;
-		std::function<void()>					_callbackMove{ nullptr };
-		std::function<void()>					_callbackRotateL{ nullptr };
-		std::function<void()>					_callbackRotateR{ nullptr };
+		Button									*_move{ nullptr };
+		Button									*_rotateLeft{ nullptr };
+		Button									*_rotateRight{ nullptr };
 		EditableEntity							*_attachedEntity{ nullptr };
 
 	public:

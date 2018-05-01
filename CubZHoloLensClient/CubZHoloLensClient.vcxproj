@@ -239,6 +239,8 @@
     <ClInclude Include="Objects\File.h" />
     <ClInclude Include="Objects\FileDataTemplateSelector.h" />
     <ClInclude Include="Objects\HoloLensContext.h" />
+    <ClInclude Include="Objects\User.h" />
+    <ClInclude Include="Objects\UserDataTemplateSelector.h" />
     <ClInclude Include="Objects\UserDevice.h" />
     <ClInclude Include="Objects\Utility.h" />
     <ClInclude Include="Pages\AddDevicePage.xaml.h">
@@ -330,6 +332,7 @@
     <ClCompile Include="Objects\DeviceTypeValueConverter.cpp" />
     <ClCompile Include="Objects\File.cpp" />
     <ClCompile Include="Objects\HoloLensContext.cpp" />
+    <ClCompile Include="Objects\User.cpp" />
     <ClCompile Include="Objects\UserDevice.cpp" />
     <ClCompile Include="Pages\AddDevicePage.xaml.cpp">
       <DependentUpon>Pages\AddDevicePage.xaml</DependentUpon>

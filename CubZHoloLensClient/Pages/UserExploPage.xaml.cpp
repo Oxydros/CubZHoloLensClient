@@ -4,6 +4,7 @@
 //
 
 #include "pch.h"
+#include "UserDataTemplateSelector.h"
 #include "UserExploPage.xaml.h"
 
 using namespace CubZHoloLensClient;
@@ -23,7 +24,19 @@ using namespace Windows::UI::Xaml::Navigation;
 
 UserExploPage::UserExploPage()
 {
+	this->users = ref new Platform::Collections::Vector<User^>();
+
 	InitializeComponent();
+
+	this->users->Append(ref new User("Louis", UserRank::ADMIN));
+	this->users->Append(ref new User("Eric", UserRank::GUEST));
+
+	this->UserView->ItemsSource = this->users;
+
+	Windows::UI::Xaml::DataTemplate ^adminTemplate = static_cast<DataTemplate^>(this->Resources->Lookup("AdminTemplate"));
+	Windows::UI::Xaml::DataTemplate ^guestTemplate = static_cast<DataTemplate^>(this->Resources->Lookup("GuestTemplate"));
+
+	this->UserView->ItemTemplateSelector = ref new UserDataTemplateSelector(adminTemplate, guestTemplate);
 }
 
 
@@ -32,4 +45,8 @@ void CubZHoloLensClient::UserExploPage::Button_Back(Platform::Object^ sender, Wi
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
 		this->Frame->GoBack();
 	}));
+}
+
+void CubZHoloLensClient::UserExploPage::UserView_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs^ e)
+{
 }

@@ -18,7 +18,8 @@ namespace CubZHoloLensClient
 	public ref class AddDevicePage sealed
 	{
 	private:
-		DeviceManagerPage	^_manager;
+		Platform::Collections::Vector<Platform::String^>	^_deviceTypes;
+		DeviceManagerPage									^_manager;
 
 	public:
 		AddDevicePage();

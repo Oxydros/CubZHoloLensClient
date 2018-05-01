@@ -31,7 +31,7 @@
             <TextBlock Height="30" TextWrapping="Wrap" Text="File details" VerticalAlignment="Top" FontSize="20" Margin="129,10,-132.667,-20"/>
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="File name:" VerticalAlignment="Top" Width="99" Margin="10,71,-47,-90" FontSize="18"/>
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="File type:" VerticalAlignment="Top" Width="99" Margin="10,115,-45.667,-134" FontSize="18"/>
-            <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="{Binding Type}" VerticalAlignment="Top" Width="212" Margin="129,110,-277.667,-127.667" FontSize="18"/>
+            <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="{Binding TypeName}" VerticalAlignment="Top" Width="212" Margin="129,110,-277.667,-127.667" FontSize="18"/>
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="212" Margin="129,71,-277.667,-88.667" FontSize="18"/>
             <Button HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="46" Margin="115,234,-96.333,-238">
                 <SymbolIcon Symbol="Upload"/>

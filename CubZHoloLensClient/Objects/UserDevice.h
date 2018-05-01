@@ -29,5 +29,10 @@ namespace CubZHoloLensClient
 		{
 			DeviceType get();
 		}
+
+		property Platform::String ^TypeName
+		{
+			Platform::String ^get();
+		}
 	};
 }

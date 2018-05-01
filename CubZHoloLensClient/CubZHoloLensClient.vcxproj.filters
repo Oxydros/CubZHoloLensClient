@@ -8,9 +8,6 @@
     <Filter Include="Pages">
       <UniqueIdentifier>{87668aff-b511-4460-8fb6-b0b058fb6b33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects">
-      <UniqueIdentifier>{c4da1d88-7947-439b-94ea-5e71108e5078}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Network">
       <UniqueIdentifier>{d9604d9f-bfa1-4202-9b91-c99020f2ba54}</UniqueIdentifier>
     </Filter>
@@ -85,6 +82,9 @@
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{423774a4-dac3-42e9-a95d-2e21066f42ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{c4da1d88-7947-439b-94ea-5e71108e5078}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="3D\Entities\Common\EditableEntity.cpp">
       <Filter>3D\Entities\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\User.cpp">
+      <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -360,6 +363,12 @@
     </ClInclude>
     <ClInclude Include="3D\Utility\Collision.h">
       <Filter>3D\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\User.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\UserDataTemplateSelector.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

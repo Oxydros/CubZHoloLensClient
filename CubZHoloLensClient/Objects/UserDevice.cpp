@@ -17,3 +17,8 @@ DeviceType UserDevice::Type::get()
 {
 	return (_type);
 }
+
+Platform::String ^UserDevice::TypeName::get()
+{
+	return (_type ==  DeviceType::UNKNOWN ? "Unknown" : (_type == DeviceType::PHONE ? "Phone" : "Computer"));
+}

@@ -17,3 +17,8 @@ FileType File::Type::get()
 {
 	return (_type);
 }
+
+Platform::String ^File::TypeName::get()
+{
+	return (_type == FileType::UNKNOWN ? "Unknown" : (_type == FileType::DIRECTORY ? "Directory" : "File"));
+}

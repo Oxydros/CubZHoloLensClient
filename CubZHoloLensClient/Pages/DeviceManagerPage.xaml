@@ -28,7 +28,7 @@
             <TextBlock Height="30" TextWrapping="Wrap" Text="Device details" VerticalAlignment="Top" FontSize="20" Margin="129,10,-132.667,-20"/>
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="Device name:" VerticalAlignment="Top" Width="119" Margin="10,71,-66.333,-90" FontSize="18"/>
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="Device type:" VerticalAlignment="Top" Width="119" Margin="10,115,-65.667,-134" FontSize="18"/>
-            <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="{Binding Type}" VerticalAlignment="Top" Width="181" Margin="160,110,-277.667,-127.667" FontSize="18"/>
+            <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="{Binding TypeName}" VerticalAlignment="Top" Width="181" Margin="160,110,-277.667,-127.667" FontSize="18"/>
             <TextBlock HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="181" Margin="160,71,-277.667,-88.667" FontSize="18"/>
             <Button HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="55" Margin="74,206,-63.667,-218">
                 <SymbolIcon Symbol="Delete" HorizontalAlignment="Left" Margin="-0.333,0,0,0" Width="20"/>

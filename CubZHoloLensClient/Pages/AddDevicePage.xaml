@@ -12,6 +12,6 @@
         <Button x:Name="ConfirmButton" Content="Confirm" HorizontalAlignment="Left" Margin="537,361,0,0" VerticalAlignment="Top" Click="Button_Confirm" Height="65" Width="156" FontSize="23"/>
         <TextBlock HorizontalAlignment="Left" Margin="153,105,0,0" TextWrapping="Wrap" Text="Device name:" VerticalAlignment="Top" FontSize="25" Height="45" Width="156"/>
         <TextBox x:Name="DeviceNameInput" HorizontalAlignment="Left" Margin="334,105,0,0" TextWrapping="Wrap" Text="Enter device name" VerticalAlignment="Top" Width="285" FontSize="25"/>
-        <ComboBox HorizontalAlignment="Left" Margin="334,203,0,0" VerticalAlignment="Top" Width="285"/>
+        <ComboBox x:Name="ComboBoxDevice" ItemsSource="{Binding DeviceType}" SelectedValuePath="ToString" HorizontalAlignment="Left" Margin="334,203,0,0" VerticalAlignment="Top" Width="285"/>
     </Grid>
 </Page>

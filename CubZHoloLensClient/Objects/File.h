@@ -31,6 +31,11 @@ namespace CubZHoloLensClient
 		{
 			FileType get();
 		}
+
+		property Platform::String ^TypeName
+		{
+			Platform::String ^get();
+		}
 	};
 
 }

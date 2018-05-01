@@ -2,7 +2,6 @@
 // AddDevicePage.xaml.cpp
 // Implémentation de la classe AddDevicePage
 //
-
 #include "pch.h"
 #include "AddDevicePage.xaml.h"
 
@@ -24,6 +23,13 @@ using namespace Windows::UI::Xaml::Navigation;
 AddDevicePage::AddDevicePage()
 {
 	InitializeComponent();
+
+	_deviceTypes = ref new Platform::Collections::Vector<Platform::String^>();
+
+	_deviceTypes->Append("Phone");
+	_deviceTypes->Append("Computer");
+
+	this->ComboBoxDevice->ItemsSource = _deviceTypes;
 }
 
 void AddDevicePage::Button_Cancel(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -35,7 +41,7 @@ void AddDevicePage::Button_Cancel(Platform::Object^ sender, Windows::UI::Xaml::R
 
 void AddDevicePage::Button_Confirm(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	_manager->Devices->Append(ref new UserDevice(this->DeviceNameInput->Text, DeviceType::PHONE));
+	_manager->Devices->Append(ref new UserDevice(this->DeviceNameInput->Text, static_cast<DeviceType>(this->ComboBoxDevice->SelectedIndex)));
 
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
 		this->Frame->GoBack();

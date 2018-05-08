@@ -33,8 +33,9 @@ ConnectionPage::ConnectionPage()
 
 void CubZHoloLensClient::ConnectionPage::OnLoggedIn()
 {
-	TRACE("LOGGED IN" << std::endl)
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
+		//Unregister for event
+		CubZHoloLensClient::HoloLensContext::Instance()->onLoggedIn -= _onLoggedInToken;
 		this->Frame->Navigate(Windows::UI::Xaml::Interop::TypeName(HomePage::typeid), this);
 	}));
 }
@@ -46,7 +47,8 @@ void CubZHoloLensClient::ConnectionPage::Button_Connect(Platform::Object^ sender
 	WinNetwork::TCPClient ^client = CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient();
 
 	CubZHoloLensClient::HoloLensContext::Instance()->setUsername(this->UsernameInput->Text);
-	CubZHoloLensClient::HoloLensContext::Instance()->onLoggedIn += ref new ConnectionEvent(this, &ConnectionPage::OnLoggedIn);
+	//Register for event
+	_onLoggedInToken = CubZHoloLensClient::HoloLensContext::Instance()->onLoggedIn += ref new ConnectionEvent(this, &ConnectionPage::OnLoggedIn);
 
 	try {
 		client->connect(this->IPInput->Text, this->PortInput->Text);

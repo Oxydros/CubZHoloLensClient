@@ -203,10 +203,12 @@
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\CursorEntity.h" />
     <ClInclude Include="3D\Entities\GUI\Button.h" />
+    <ClInclude Include="3D\Entities\GUI\EntityMenu.h" />
     <ClInclude Include="3D\Entities\GUI\GUIEntity.h" />
     <ClInclude Include="3D\Entities\GUI\MainMenu.h" />
     <ClInclude Include="3D\Entities\GUI\ModificationMenu.h" />
     <ClInclude Include="3D\Entities\GUI\Panel.h" />
+    <ClInclude Include="3D\Entities\ObjEntity.h" />
     <ClInclude Include="3D\Loaders\OBJLoader.h" />
     <ClInclude Include="3D\Loaders\tiny_obj_loader.h" />
     <ClInclude Include="3D\Objects\Common\IObject.h" />
@@ -301,9 +303,11 @@
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />
     <ClCompile Include="3D\Entities\CursorEntity.cpp" />
     <ClCompile Include="3D\Entities\GUI\Button.cpp" />
+    <ClCompile Include="3D\Entities\GUI\EntityMenu.cpp" />
     <ClCompile Include="3D\Entities\GUI\MainMenu.cpp" />
     <ClCompile Include="3D\Entities\GUI\ModificationMenu.cpp" />
     <ClCompile Include="3D\Entities\GUI\Panel.cpp" />
+    <ClCompile Include="3D\Entities\ObjEntity.cpp" />
     <ClCompile Include="3D\Loaders\OBJLoader.cpp" />
     <ClCompile Include="3D\Loaders\tiny_obj_loader.cpp" />
     <ClCompile Include="3D\Objects\GUI\ButtonObject.cpp" />
@@ -554,6 +558,29 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Assets\Models\Cube.obj">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Models\House.obj">
+      <DeploymentContent>true</DeploymentContent>
+      <FileType>Document</FileType>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Models\Sphere.obj">
+      <DeploymentContent>true</DeploymentContent>
+      <FileType>Document</FileType>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Models\Special.obj">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
       <FileType>Document</FileType>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>

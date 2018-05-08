@@ -112,6 +112,8 @@ namespace HoloLensClient
 
 		bool	isAlive() const { return _alive; }
 
+		void OnListFile(Windows::Foundation::Collections::IVector<Platform::String^>^fileList);
+
     private:
 
         ///-------------------------------------------------------------------------------------------------

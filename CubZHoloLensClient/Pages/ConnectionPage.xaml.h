@@ -15,6 +15,9 @@ namespace CubZHoloLensClient
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class ConnectionPage sealed
 	{
+	private:
+		Windows::Foundation::EventRegistrationToken	_onLoggedInToken{};
+
 	public:
 		ConnectionPage();
 

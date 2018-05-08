@@ -101,3 +101,9 @@ void HoloLensClient::CubeEntity::OnRotateRightClick()
 	TRACE("Rotate Right" << std::endl);
 	Rotate({ 0, -20, 0 });
 }
+
+void HoloLensClient::CubeEntity::OnKillClick()
+{
+	_scene->getModificationMenu()->DetachEntity();
+	kill();
+}

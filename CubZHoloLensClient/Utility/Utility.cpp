@@ -15,3 +15,14 @@ Platform::String ^ Utility::stringToPlatformString(const std::string & input)
 
 	return (ref new Platform::String(w_chars));
 }
+
+std::string	Utility::GetRealInstallPath()
+{
+	Windows::Storage::StorageFolder^ installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
+
+	auto path = installedLocation->Path;
+
+	std::wstring fooW(path->Begin());
+	std::string fooA(fooW.begin(), fooW.end());
+	return (fooA);
+}

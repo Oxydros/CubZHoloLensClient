@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "AppView.h"
-
+#include <Objects\HoloLensContext.h>
 #include <ppltasks.h>
 
 using namespace HoloLensClient;
@@ -47,7 +47,7 @@ void AppView::Initialize(CoreApplicationView^ applicationView)
     // resources.
     m_deviceResources = std::make_shared<DX::DeviceResources>();
 
-    m_main = std::make_unique<SceneRenderer>(m_deviceResources);
+	_sceneRenderer = std::make_unique<SceneRenderer>(m_deviceResources);
 }
 
 // Called when the CoreWindow object is created (or re-created).
@@ -77,7 +77,7 @@ void AppView::SetWindow(CoreWindow^ window)
     m_deviceResources->SetHolographicSpace(m_holographicSpace);
 
     // The main class uses the holographic space for updates and rendering.
-    m_main->SetHolographicSpace(m_holographicSpace);
+	_sceneRenderer->SetHolographicSpace(m_holographicSpace);
 }
 
 // The Load method can be used to initialize scene resources or to load a
@@ -96,13 +96,13 @@ void AppView::Run()
         {
             CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
-            HolographicFrame^ holographicFrame = m_main->Update();
+            HolographicFrame^ holographicFrame = _sceneRenderer->Update();
 
 			//Check if scene is dead (return to xaml wanted by the user)
-			if (!m_main->isAlive())
+			if (!_sceneRenderer->isAlive())
 				CoreWindow::GetForCurrentThread()->Close();
 
-            if (m_main->Render(holographicFrame))
+            if (_sceneRenderer->Render(holographicFrame))
             {
                 // The holographic frame has an API that presents the swap chain for each
                 // holographic camera.
@@ -147,9 +147,9 @@ void AppView::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
     {
         m_deviceResources->Trim();
 
-        if (m_main != nullptr)
+        if (_sceneRenderer != nullptr)
         {
-            m_main->SaveAppState();
+			_sceneRenderer->SaveAppState();
         }
 
         //
@@ -166,9 +166,9 @@ void AppView::OnResuming(Platform::Object^ sender, Platform::Object^ args)
     // and state are persisted when resuming from suspend. Note that this event
     // does not occur if the app was previously terminated.
 
-    if (m_main != nullptr)
+    if (_sceneRenderer != nullptr)
     {
-        m_main->LoadAppState();
+		_sceneRenderer->LoadAppState();
     }
 
     //

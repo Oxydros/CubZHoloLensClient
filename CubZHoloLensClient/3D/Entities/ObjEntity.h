@@ -4,14 +4,15 @@
 
 namespace HoloLensClient
 {
-	class CubeEntity : public EditableEntity
+	class ObjEntity : public EditableEntity
 	{
 	private:
 		bool					_selected{ false };
 
 	public:
-		CubeEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene);
-		~CubeEntity();
+		ObjEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene,
+				  std::string const&fileName);
+		~ObjEntity();
 
 	public:
 		void DoUpdate(DX::StepTimer const &timer) override;
@@ -24,6 +25,6 @@ namespace HoloLensClient
 		void OnRotateRightClick() override;
 		void OnKillClick() override;
 
-		std::string const GetLabel() const override { return "Cube"; }
+		std::string const GetLabel() const override { return "ObjEntity"; }
 	};
 }

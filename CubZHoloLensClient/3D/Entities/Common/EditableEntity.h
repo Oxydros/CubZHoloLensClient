@@ -15,5 +15,6 @@ namespace HoloLensClient
 		virtual void OnRotateLeftClick() = 0;
 		virtual void OnRotateRightClick() = 0;
 		virtual void OnMoveClick() = 0;
+		virtual void OnKillClick() = 0;
 	};
 }

@@ -209,6 +209,15 @@
     <ClCompile Include="Objects\User.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\Utility.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\EntityMenu.cpp">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\ObjEntity.cpp">
+      <Filter>3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -370,6 +379,12 @@
     <ClInclude Include="Objects\UserDataTemplateSelector.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\EntityMenu.h">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\ObjEntity.h">
+      <Filter>3D\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -472,5 +487,16 @@
     <Text Include="Assets\Models\Cube.obj">
       <Filter>Assets\Models</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Assets\Models\House.obj">
+      <Filter>Assets\Models</Filter>
+    </Object>
+    <Object Include="Assets\Models\Sphere.obj">
+      <Filter>Assets\Models</Filter>
+    </Object>
+    <Object Include="Assets\Models\Special.obj">
+      <Filter>Assets\Models</Filter>
+    </Object>
   </ItemGroup>
 </Project>

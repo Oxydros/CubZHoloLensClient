@@ -15,6 +15,7 @@ namespace HoloLensClient
 		Button									*_move{ nullptr };
 		Button									*_rotateLeft{ nullptr };
 		Button									*_rotateRight{ nullptr };
+		Button									*_kill{ nullptr };
 		EditableEntity							*_attachedEntity{ nullptr };
 
 	public:

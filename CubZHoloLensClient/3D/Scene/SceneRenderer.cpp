@@ -307,6 +307,10 @@ void SceneRenderer::OnDeviceRestored()
 	_holoScene->OnDeviceRestored();
 }
 
+void HoloLensClient::SceneRenderer::OnListFile(Windows::Foundation::Collections::IVector<Platform::String^>^ fileList)
+{
+}
+
 void SceneRenderer::OnLocatabilityChanged(SpatialLocator^ sender, Object^ args)
 {
     switch (sender->Locatability)

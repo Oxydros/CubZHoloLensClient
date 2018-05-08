@@ -12,8 +12,10 @@
 			{std::stringstream s;  s << x;     \
             ::OutputDebugStringA(s.str().c_str());}
 
-#include "TCPClient.h"
-#include "TCPPacket.h"
+#include <TCPClient.h>
+#include <TCPPacket.h>
+
+#include "Utility\Utility.h"
 
 #include <collection.h>
 #include <ppltasks.h>

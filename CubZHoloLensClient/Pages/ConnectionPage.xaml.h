@@ -15,11 +15,12 @@ namespace CubZHoloLensClient
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class ConnectionPage sealed
 	{
-	private:
-		Windows::Foundation::IAsyncAction	^_asyncConnect;
-
 	public:
 		ConnectionPage();
+
+	public:
+		void OnLoggedIn();
+
 	private:
 		void Button_Connect(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 

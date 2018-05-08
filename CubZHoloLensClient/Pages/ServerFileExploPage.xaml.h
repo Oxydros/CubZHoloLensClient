@@ -22,8 +22,12 @@ namespace CubZHoloLensClient
 		//https://stackoverflow.com/questions/36106829/uwp-listview-different-item-template-for-first-and-last-item
 		Windows::Foundation::Collections::IVector<File^>	^files;
 
+		Windows::Foundation::EventRegistrationToken			_listFileToken;
+
 	public:
 		ServerFileExploPage();
+
+		void OnListFile(Windows::Foundation::Collections::IVector<Platform::String^>^fileList);
 
 	private:
 		void Button_GoBack(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
@@ -40,7 +44,11 @@ namespace CubZHoloLensClient
 				return this->files;
 			}
 		};
+
 	private:
 		void FileView_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs^ e);
+
+	protected:
+		virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs ^e) override;
 	};
 }

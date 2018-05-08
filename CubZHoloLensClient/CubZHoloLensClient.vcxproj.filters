@@ -209,6 +209,9 @@
     <ClCompile Include="Objects\User.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\Utility.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

@@ -4,6 +4,7 @@
 //
 
 #include "pch.h"
+#include <Utility\Utility.h>
 #include "Pages\LocalFileExploPage.xaml.h"
 #include "Pages\ServerFileExploPage.xaml.h"
 #include "Pages\DeviceManagerPage.xaml.h"
@@ -78,9 +79,31 @@ void CubZHoloLensClient::HomePage::Button_Launch3D(Platform::Object^ sender, Win
 
 void CubZHoloLensClient::HomePage::Button_LocalFileExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
+	/*this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
 		this->Frame->Navigate(Windows::UI::Xaml::Interop::TypeName(LocalFileExploPage::typeid));
-	}));
+	}));*/
+
+	Windows::Storage::Pickers::FileOpenPicker^ openPicker = ref new Windows::Storage::Pickers::FileOpenPicker();
+	openPicker->ViewMode = Windows::Storage::Pickers::PickerViewMode::List;
+	openPicker->SuggestedStartLocation = Windows::Storage::Pickers::PickerLocationId::DocumentsLibrary;
+	openPicker->FileTypeFilter->Append("*");
+
+	concurrency::create_task(openPicker->PickMultipleFilesAsync()).then([this](IVectorView<Windows::Storage::StorageFile^>^ files)
+	{
+		if (files->Size > 0)
+		{
+			String^ output = "Picked files:\n";
+			std::for_each(begin(files), end(files), [this, &output](Windows::Storage::StorageFile ^file)
+			{
+				output += file->Name + "\n";
+			});
+			TRACE("Got " << Utility::platformStringToString(output) << std::endl);
+		}
+		else
+		{
+			TRACE("Operation canceled" << std::endl);
+		}
+	});
 }
 
 void CubZHoloLensClient::HomePage::Button_ServerFileExplo(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)

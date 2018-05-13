@@ -4,8 +4,8 @@
 //
 
 #include "pch.h"
-#include "UserDataTemplateSelector.h"
-#include "UserExploPage.xaml.h"
+#include "Objects\UserDataTemplateSelector.h"
+#include "Pages\UserExploPage.xaml.h"
 
 using namespace CubZHoloLensClient;
 

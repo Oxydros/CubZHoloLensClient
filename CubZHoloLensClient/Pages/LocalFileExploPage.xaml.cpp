@@ -4,9 +4,9 @@
 //
 
 #include "pch.h"
-#include "File.h"
-#include "FileDataTemplateSelector.h"
-#include "LocalFileExploPage.xaml.h"
+#include "Objects\File.h"
+#include "Objects\FileDataTemplateSelector.h"
+#include "Pages\LocalFileExploPage.xaml.h"
 
 using namespace CubZHoloLensClient;
 

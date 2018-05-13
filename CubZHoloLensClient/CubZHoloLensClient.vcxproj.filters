@@ -489,13 +489,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="Assets\Models\House.obj">
-      <Filter>Assets\Models</Filter>
-    </Object>
     <Object Include="Assets\Models\Sphere.obj">
-      <Filter>Assets\Models</Filter>
-    </Object>
-    <Object Include="Assets\Models\Special.obj">
       <Filter>Assets\Models</Filter>
     </Object>
   </ItemGroup>

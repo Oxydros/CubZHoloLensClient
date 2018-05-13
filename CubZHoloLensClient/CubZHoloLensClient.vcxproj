@@ -100,22 +100,22 @@
     <PackageCertificateKeyFile>CubZHoloLensClient_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(ProjectDir)\Objects\;$(ProjectDir)\Pages\;$(ProjectDir)\Common\;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT);$(ProjectDir)..\libs\LibNetwork\lib_src\include\</IncludePath>
+    <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
@@ -126,7 +126,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-x32-1_67.lib;libboost_regex-vc141-mt-x32-1_67.lib;libboost_system-vc141-mt-x32-1_67.lib;libboost_serialization-vc141-mt-x32-1_67.lib;libboost_date_time-vc141-mt-x32-1_67.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -138,7 +138,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-x32-1_67.lib;libboost_regex-vc141-mt-x32-1_67.lib;libboost_system-vc141-mt-x32-1_67.lib;libboost_serialization-vc141-mt-x32-1_67.lib;libboost_date_time-vc141-mt-x32-1_67.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -150,7 +150,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-x32-1_67.lib;libboost_regex-vc141-mt-x32-1_67.lib;libboost_system-vc141-mt-x32-1_67.lib;libboost_serialization-vc141-mt-x32-1_67.lib;libboost_date_time-vc141-mt-x32-1_67.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,7 +163,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-x32-1_67.lib;libboost_regex-vc141-mt-x32-1_67.lib;libboost_system-vc141-mt-x32-1_67.lib;libboost_serialization-vc141-mt-x32-1_67.lib;libboost_date_time-vc141-mt-x32-1_67.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -178,7 +178,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-x32-1_67.lib;libboost_regex-vc141-mt-x32-1_67.lib;libboost_system-vc141-mt-x32-1_67.lib;libboost_serialization-vc141-mt-x32-1_67.lib;libboost_date_time-vc141-mt-x32-1_67.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -190,7 +190,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-1_65_1.lib;libboost_regex-vc141-mt-1_65_1.lib;libboost_system-vc141-mt-1_65_1.lib;libboost_serialization-vc141-mt-1_65_1.lib;libboost_date_time-vc141-mt-1_65_1.lib;libprotobuf.lib</AdditionalDependencies>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);Kernel32.lib;proto.lib;cubznetworks.lib;libboost_timer-vc141-mt-x32-1_67.lib;libboost_regex-vc141-mt-x32-1_67.lib;libboost_system-vc141-mt-x32-1_67.lib;libboost_serialization-vc141-mt-x32-1_67.lib;libboost_date_time-vc141-mt-x32-1_67.lib;libprotobuf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -568,36 +568,19 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Assets\Models\House.obj">
-      <DeploymentContent>true</DeploymentContent>
-      <FileType>Document</FileType>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="Assets\Models\Sphere.obj">
       <DeploymentContent>true</DeploymentContent>
       <FileType>Document</FileType>
     </Text>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="Assets\Models\Special.obj">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-      <FileType>Document</FileType>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </Text>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\directxtk_uwp.2017.12.13.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2017.12.13.1\build\native\directxtk_uwp.targets')" />
+    <Import Project="..\packages\directxtk_uwp.2018.4.23.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2018.4.23.1\build\native\directxtk_uwp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\directxtk_uwp.2017.12.13.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2017.12.13.1\build\native\directxtk_uwp.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtk_uwp.2018.4.23.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2018.4.23.1\build\native\directxtk_uwp.targets'))" />
   </Target>
 </Project>

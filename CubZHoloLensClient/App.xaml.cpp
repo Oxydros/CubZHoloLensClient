@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "Pages\HomePage.xaml.h"
 //Working only 3D for now, no need for a connection to a server
-#include "ConnectionPage.xaml.h"
+#include "Pages\ConnectionPage.xaml.h"
 
 using namespace CubZHoloLensClient;
 

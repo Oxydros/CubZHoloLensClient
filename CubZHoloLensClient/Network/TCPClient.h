@@ -1,7 +1,7 @@
 #pragma once
 
-#include <TCPClient.h>
-#include <TCPPacket.h>
+#include <libnetwork\TCPClient.h>
+#include <libnetwork\TCPPacket.h>
 #include "boost\thread.hpp"
 #include "Utility\Utility.h"
 
@@ -38,10 +38,10 @@ namespace CubZHoloLensClient
 			void listServerFiles(Platform::String ^path);
 
 		private:
-			void handlePacket(Network::IConnection::SharedPtr co, Network::IPacket const &packet);
+			void handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet);
 
-			void handleAuthPacket(Network::IConnection::SharedPtr co, Network::TCPPacket const &packet);
-			void handleFileListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket const &packet);
+			void handleAuthPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
+			void handleFileListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
 		};
 	}
 }

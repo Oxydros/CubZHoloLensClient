@@ -7,16 +7,6 @@
 
 #include "HomePage.g.h"
 
-class Observer : public Network::PacketObserver
-{
-	virtual void handlePacket(Network::IConnection::SharedPtr from, Network::IPacket const &packet)
-	{
-		auto tcpPacket = static_cast<Network::TCPPacket const &>(packet);
-
-		std::cout << "Received " << tcpPacket << std::endl;
-	}
-};
-
 namespace CubZHoloLensClient
 {
 	/// <summary>

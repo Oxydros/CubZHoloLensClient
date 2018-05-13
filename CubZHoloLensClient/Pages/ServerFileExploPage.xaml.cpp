@@ -5,8 +5,8 @@
 
 #include "pch.h"
 #include <Objects\HoloLensContext.h>
-#include "FileDataTemplateSelector.h"
-#include "ServerFileExploPage.xaml.h"
+#include "Objects\FileDataTemplateSelector.h"
+#include "Pages\ServerFileExploPage.xaml.h"
 
 using namespace CubZHoloLensClient;
 

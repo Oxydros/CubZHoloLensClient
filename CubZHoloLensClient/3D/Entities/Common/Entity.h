@@ -30,11 +30,13 @@ namespace HoloLensClient
 		Windows::Foundation::Numerics::float3		_positionOffsetFromGaze = { 0, 0, 0 };
 		Windows::Foundation::Numerics::float3		_rotationOffsetFromGaze = { 0, 0, 0 };
 
-		Windows::Foundation::Numerics::float3		_relativePosition = { 0, 0, 0 };;
+		Windows::Foundation::Numerics::float3		_relativePosition = { 0, 0, 0 };
 		Windows::Foundation::Numerics::float3		_relativeRotation = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_scaling = { 0, 0, 0 };
 
 		DirectX::XMMATRIX							_modelTranslation = {};
 		DirectX::XMMATRIX							_modelRotation = {};
+		DirectX::XMMATRIX							_modelScaling = {};
 		float										_distance{ 0 };
 
 	public:
@@ -44,6 +46,7 @@ namespace HoloLensClient
 	public:
 		void Update(DX::StepTimer const &timer) override final;
 		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override final;
+
 		void InitializeMesh() override;
 		void ReleaseMesh() override;
 		void Render() override;
@@ -55,6 +58,9 @@ namespace HoloLensClient
 
 		void Move(Windows::Foundation::Numerics::float3 offset) override;
 		void Rotate(Windows::Foundation::Numerics::float3 offset) override;
+		void Scale(Windows::Foundation::Numerics::float3 offset) override;
+
+		void SetScale(Windows::Foundation::Numerics::float3 scale) override;
 
 		void SetRealPosition(Windows::Foundation::Numerics::float3 position) override;
 		void SetRealRotation(Windows::Foundation::Numerics::float3 rotation) override;

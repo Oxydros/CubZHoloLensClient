@@ -12,6 +12,7 @@ Entity::Entity(std::shared_ptr<HolographicScene> scene)
 {
 	SetRealRotation({ 0, 0, 0 });
 	SetRealPosition({ 0, 0, 0 });
+	_modelScaling = XMMatrixIdentity();
 }
 
 HoloLensClient::Entity::~Entity()
@@ -23,30 +24,9 @@ HoloLensClient::Entity::~Entity()
 		_mesh->ReleaseDeviceDependentResources();
 }
 
-std::ostream& operator<<(std::ostream& stream, const DirectX::XMMATRIX& matrix) {
-	DirectX::XMFLOAT4X4 fView;
-	DirectX::XMStoreFloat4x4(&fView, matrix);
-	for (int i = 0; i < 4; i++)
-	{
-		stream << "[";
-		for (int j = 0; j < 4; j++)
-		{
-			stream << " " << fView.m[i][j];
-		}
-		stream << "]";
-	}
-	return (stream);
-}
-
-std::ostream& operator<<(std::ostream& stream, const Windows::Foundation::Numerics::float3 a)
-{
-	stream << "(" << a.x << ", " << a.y << ", " << a.z << ")";
-	return (stream);
-}
-
 DirectX::XMMATRIX const Entity::GetTransformMatrix() const
 {
-	DirectX::XMMATRIX localTransform = _modelRotation * _modelTranslation;
+	DirectX::XMMATRIX localTransform = _modelScaling * _modelRotation * _modelTranslation;
 	DirectX::XMMATRIX finalTransform = _parent != nullptr ? localTransform * _parent->GetTransformMatrix() : localTransform;
 
 	//TRACE("For " << GetLabel() << " Rotation " << _realRotation << " " <<  _modelRotation << std::endl);
@@ -195,6 +175,18 @@ void HoloLensClient::Entity::Rotate(Windows::Foundation::Numerics::float3 offset
 {
 	_relativeRotation += offset;
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
+}
+
+void HoloLensClient::Entity::Scale(Windows::Foundation::Numerics::float3 offset)
+{
+	_scaling += offset;
+	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
+}
+
+void HoloLensClient::Entity::SetScale(Windows::Foundation::Numerics::float3 scale)
+{
+	_scaling = scale;
+	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
 }
 
 void HoloLensClient::Entity::SetRelativePosition(Windows::Foundation::Numerics::float3 position)
@@ -513,3 +505,29 @@ void HoloLensClient::Entity::getInGazeEntities(std::vector<IEntity*>& entities)
 //	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_relativePosition));
 //	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
 //}
+
+
+// UTILITIES DISPLAY FUNCTIONS
+
+std::ostream& operator<<(std::ostream& stream, const DirectX::XMMATRIX& matrix) {
+	DirectX::XMFLOAT4X4 fView;
+	DirectX::XMStoreFloat4x4(&fView, matrix);
+	for (int i = 0; i < 4; i++)
+	{
+		stream << "[";
+		for (int j = 0; j < 4; j++)
+		{
+			stream << " " << fView.m[i][j];
+		}
+		stream << "]";
+	}
+	return (stream);
+}
+
+std::ostream& operator<<(std::ostream& stream, const Windows::Foundation::Numerics::float3 a)
+{
+	stream << "(" << a.x << ", " << a.y << ", " << a.z << ")";
+	return (stream);
+}
+
+// -- END OF UTILITIES FUNCTIONS

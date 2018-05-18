@@ -44,66 +44,7 @@ void CubeEntity::DoUpdate(DX::StepTimer const & timer)
 
 bool HoloLensClient::CubeEntity::OnAirTap()
 {
+	EditableEntity::OnAirTap();
 	TRACE("Got input on " << this << std::endl;);
-	//Retrieve Colored cube mesh
-	auto coloredMesh = dynamic_cast<ColoredCube*>(_mesh.get());
-
-	float4 actualColor = coloredMesh->GetColor();
-
-	if (_selected)
-	{
-		actualColor.x -= 0.1f;
-		actualColor.y -= 0.1f;
-		actualColor.z -= 0.1f;
-		coloredMesh->SetColor(actualColor);
-		_selected = false;
-		this->setFollowGaze(false, false);
-	}
 	return true;
-}
-
-bool HoloLensClient::CubeEntity::OnGetFocus()
-{
-	/*TRACE("Got Focus on " << this << std::endl);*/
-	_scene->getModificationMenu()->AttachEntity(this);
-	return true;
-}
-
-bool HoloLensClient::CubeEntity::OnLostFocus()
-{
-	/*TRACE("Lost focus on " << this << std::endl);*/
-	/*_scene->getModificationMenu()->DetachEntity();*/
-	return true;
-}
-
-void HoloLensClient::CubeEntity::OnMoveClick()
-{
-	auto coloredMesh = dynamic_cast<ColoredCube*>(_mesh.get());
-
-	float4 actualColor = coloredMesh->GetColor();
-	actualColor.x += 0.1f;
-	actualColor.y += 0.1f;
-	actualColor.z += 0.1f;
-	coloredMesh->SetColor(actualColor);
-	_selected = true;
-	//Distance should min between 2meters and distance of a wall / real object
-	this->setFollowGaze(true, false, { 0, 0, 2.0f });
-}
-
-void HoloLensClient::CubeEntity::OnRotateLeftClick()
-{
-	TRACE("Rotate left" << std::endl);
-	Rotate({ 0, 20, 0 });
-}
-
-void HoloLensClient::CubeEntity::OnRotateRightClick()
-{
-	TRACE("Rotate Right" << std::endl);
-	Rotate({ 0, -20, 0 });
-}
-
-void HoloLensClient::CubeEntity::OnKillClick()
-{
-	_scene->getModificationMenu()->DetachEntity();
-	kill();
 }

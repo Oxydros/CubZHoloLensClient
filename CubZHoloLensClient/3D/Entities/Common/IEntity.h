@@ -119,11 +119,25 @@ namespace HoloLensClient
 		virtual void Move(Windows::Foundation::Numerics::float3 offset) = 0;
 
 		///-------------------------------------------------------------------------------------------------
-		/// <summary>	Rotates the given offset. </summary>
+		/// <summary>	Rotates using the given offset. </summary>
 		///
 		/// <param name="offset">	The offset. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void Rotate(Windows::Foundation::Numerics::float3 offset) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Scale using the given offset. Add up the previous scale and this one </summary>
+		///
+		/// <param name="offset">	The offset. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void Scale(Windows::Foundation::Numerics::float3 offset) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the scale to the specified vector, erase the previous one </summary>
+		///
+		/// <param name="scale">	The scaling vector. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetScale(Windows::Foundation::Numerics::float3 scale) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the relative position. </summary>

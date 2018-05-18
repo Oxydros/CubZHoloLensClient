@@ -72,7 +72,7 @@ void CubZHoloLensClient::ServerFileExploPage::OnNavigatedTo(Windows::UI::Xaml::N
 	_listFileToken = CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->ListFileEvent += ref new CubZHoloLensClient::WinNetwork::FileListEvent(this,
 		&CubZHoloLensClient::ServerFileExploPage::OnListFile);
 
-	//Update file scene every 3 seconds
+	//Update file scene every 5 seconds
 	_timeSpanListFile.Duration = 50000000;
 
 	_threadPoolTimerListFiles = Windows::System::Threading::ThreadPoolTimer::CreatePeriodicTimer(

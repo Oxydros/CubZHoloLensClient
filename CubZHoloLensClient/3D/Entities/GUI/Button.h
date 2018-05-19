@@ -30,6 +30,6 @@ namespace HoloLensClient
 	public:
 		bool OnAirTap() override;
 
-		std::string const GetLabel() const override { return "Button"; }
+		std::string const GetLabel() const override { return std::string(_label.begin(), _label.end()); }
 	};
 }

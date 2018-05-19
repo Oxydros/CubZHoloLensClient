@@ -83,6 +83,12 @@ namespace HoloLensClient
 		/// <summary>	Mark this entity for death. </summary>
 		virtual void kill() = 0;
 
+		/// <summary>	Return true is this entity is ignored in the gaze calculation. </summary>
+		virtual bool IgnoreInGaze() const = 0;
+
+		/// <summary>	Set the ignore in gaze property </summary>
+		virtual void SetIgnoreInGaze(bool ignore) = 0;
+
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Sets a visible. </summary>
 		///

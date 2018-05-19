@@ -24,6 +24,7 @@ namespace HoloLensClient
 		bool										_focused{ false };
 		bool										_inGaze{ false };
 		bool										_isRoot{ false };
+		bool										_ignoreInGaze{ false };
 
 		bool										_followGazePosition = false;
 		bool										_followGazeRotation = false;
@@ -55,6 +56,8 @@ namespace HoloLensClient
 		void setVisible(bool visibility);
 		bool isVisible() const override { return (_visible); }
 		bool isRoot() const override { return (_isRoot); }
+		bool IgnoreInGaze() const { return (_ignoreInGaze); }
+		void SetIgnoreInGaze(bool ignore) { _ignoreInGaze = ignore; }
 
 		void Move(Windows::Foundation::Numerics::float3 offset) override;
 		void Rotate(Windows::Foundation::Numerics::float3 offset) override;

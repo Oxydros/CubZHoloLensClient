@@ -296,7 +296,7 @@ void HoloLensClient::Entity::updateInGaze()
 {
 	//Don't calcul gaze if no mesh in entity, or not visible,
 	// or if entity is the cursor
-	if (_mesh == nullptr || !_visible || this == _scene->getCursor())
+	if (_mesh == nullptr || !_visible || this == _scene->getCursor() || IgnoreInGaze())
 	{
 		_inGaze = false;
 		_distance = -1;
@@ -319,22 +319,33 @@ void HoloLensClient::Entity::updateInGaze()
 		_mesh->GetBoundingBox(currentBoundingBox);
 
 		float3 extents{ currentBoundingBox.Extents.x, currentBoundingBox.Extents.y, currentBoundingBox.Extents.z };
-		float3 B1 = GetRealPosition() - extents;
-		float3 B2 = GetRealPosition() + extents;
+		float3 B1 = (GetRealPosition() - extents);
+		float3 B2 = (GetRealPosition() + extents);
 
 		float3 Hit;
 		float3 L1{ headPosition.x, headPosition.y, headPosition.z };
 		float3 L2{ headDirection.x, headDirection.y, headDirection.z };
 
-		bool check = CheckLineBox(B1, B2, L1, L1 + (L2 * 6.0f), Hit);
-
-		XMVECTOR originVec = DirectX::XMLoadFloat3(&headPosition);
+		bool check = CheckLineBox(B1, B2, L1, (L1 + (L2 * 6.0f)), Hit, 0.1f);
+		
+		XMVECTOR originVec = DirectX::XMLoadFloat3(&(headPosition));
 		XMVECTOR hitVec = DirectX::XMLoadFloat3(&XMFLOAT3(Hit.x, Hit.y, Hit.z));
 		XMVECTOR distanceV = XMVector3Length(XMVectorSubtract(originVec, hitVec));
 		DirectX::XMStoreFloat(&_distance, distanceV);
 
 		/*TRACE("In Gaze " << GetLabel() << " " << _inGaze << " " << _distance << std::endl);*/
 		_inGaze = currentBoundingBox.Intersects(DirectX::XMLoadFloat3(&headPosition), DirectX::XMLoadFloat3(&headDirection), distance);
+
+		if (_inGaze)
+		{
+			//TRACE(this->GetLabel() << " in gaze " << _inGaze << " dist " << _distance << " hit " << Hit << " " << check << std::endl);
+			//TRACE("User position " << L1 << " direction " << L2 << std::endl);
+			//TRACE("Box extend is " << extents << std::endl);
+			//TRACE("Real position is " << GetRealPosition() << std::endl);
+		}		
+		
+		if (check != _inGaze)
+			_inGaze = false;
 	}
 	else
 	{

@@ -17,6 +17,7 @@ void HoloLensClient::ModificationMenu::InitializeMenu()
 {
 	auto _background = std::make_unique<Panel>(_devicesResources, _scene, float2(0.35f, 0.07f), float4(0.7f, 0.1f, 0.2f, 0.6f));
 	_background->SetRelativePosition({ 0.0f, 0.0f, 0.0f });
+	_background->SetIgnoreInGaze(true);
 
 	auto _button1 = std::make_unique<Button>(_devicesResources, _scene, nullptr, float2(0.045f, 0.07f));
 	_button1->SetRelativePosition({ -0.14f, 0.0f, 0.01f });

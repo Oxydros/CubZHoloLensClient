@@ -71,8 +71,8 @@ namespace HoloLensClient
 		void SetRelativePosition(Windows::Foundation::Numerics::float3 position) override;
 		void SetRelativeRotation(Windows::Foundation::Numerics::float3 rotation) override;
 
-		void SetRealPosition(DirectX::XMMATRIX &positionMatrix) override;
-		void SetRealRotation(DirectX::XMMATRIX &rotationMatrix) override;
+		void SetModelPosition(DirectX::XMMATRIX &positionMatrix) override;
+		void SetModelRotation(DirectX::XMMATRIX &rotationMatrix) override;
 
 		Windows::Foundation::Numerics::float3 const GetRealPosition() const override;
 		Windows::Foundation::Numerics::float3 const GetRealRotation() const override;

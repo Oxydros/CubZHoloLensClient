@@ -217,17 +217,17 @@ void HoloLensClient::Entity::SetRealRotation(Windows::Foundation::Numerics::floa
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
 }
 
-void HoloLensClient::Entity::SetRealPosition(DirectX::XMMATRIX &positionMatrix)
+void HoloLensClient::Entity::SetModelPosition(DirectX::XMMATRIX &positionMatrix)
 {
 	/*TRACE("WARNING: Use of setRealPosition Matrix for "  << std::endl);*/
-	if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");
+	/*if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");*/
 	_modelTranslation = positionMatrix;
 }
 
-void HoloLensClient::Entity::SetRealRotation(DirectX::XMMATRIX &rotationMatrix)
+void HoloLensClient::Entity::SetModelRotation(DirectX::XMMATRIX &rotationMatrix)
 {
 	/*TRACE("WARNING: Use of setRealRotation Matrix for "  << std::endl);*/
-	if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");
+	/*if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");*/
 	_modelRotation = rotationMatrix;
 }
 
@@ -332,20 +332,20 @@ void HoloLensClient::Entity::updateInGaze()
 		XMVECTOR hitVec = DirectX::XMLoadFloat3(&XMFLOAT3(Hit.x, Hit.y, Hit.z));
 		XMVECTOR distanceV = XMVector3Length(XMVectorSubtract(originVec, hitVec));
 		DirectX::XMStoreFloat(&_distance, distanceV);
-
+		
 		/*TRACE("In Gaze " << GetLabel() << " " << _inGaze << " " << _distance << std::endl);*/
 		_inGaze = currentBoundingBox.Intersects(DirectX::XMLoadFloat3(&headPosition), DirectX::XMLoadFloat3(&headDirection), distance);
 
-		if (_inGaze)
-		{
-			//TRACE(this->GetLabel() << " in gaze " << _inGaze << " dist " << _distance << " hit " << Hit << " " << check << std::endl);
-			//TRACE("User position " << L1 << " direction " << L2 << std::endl);
-			//TRACE("Box extend is " << extents << std::endl);
-			//TRACE("Real position is " << GetRealPosition() << std::endl);
-		}		
+		//if (_inGaze)
+		//{
+		//	TRACE(this->GetLabel() << " in gaze " << _inGaze << " dist " << _distance << " hit " << Hit << " " << check << std::endl);
+		//	TRACE("User position " << L1 << " direction " << L2 << std::endl);
+		//	TRACE("Box extend is " << extents << std::endl);
+		//	TRACE("Real position is " << GetRealPosition() << std::endl);
+		//}
 		
-		if (check != _inGaze)
-			_inGaze = false;
+		/*if (check != _inGaze)
+			_inGaze = false;*/
 	}
 	else
 	{
@@ -404,16 +404,20 @@ void HoloLensClient::Entity::rotateTowardGaze(Windows::Foundation::Numerics::flo
 	{
 		// Get the gaze direction relative to the given coordinate system.
 		const float3 headPosition = pointerPose->Head->Position;
-		const float3 headDirection = pointerPose->Head->ForwardDirection;
+		const float3 realPos = GetRealPosition();
+		const float3 headDirection = realPos - headPosition;
+		/*const float3 headDirection = pointerPose->Head->ForwardDirection;*/
 
-		const float3 gazeAtTwoMeters = headPosition + (1.0f * headDirection);
+		/*TRACE(GetLabel() << " GAZE ROT POS " << headPosition << " DIR " << headDirection << " " << pointerPose->Head->ForwardDirection << std::endl);
+
+		const float3 gazeAtTwoMeters = headPosition + (1.0f * headDirection);*/
 
 		// Lerp the position, to keep the hologram comfortably stable.
 		//auto lerpedPosition = lerp(getPosition(), gazeAtTwoMeters, dtime * c_lerpRate);
 
 		// Create a direction normal from the hologram's position to the origin of person space.
 		// This is the z-axis rotation.
-		XMVECTOR facingNormal = XMVector3Normalize(-XMLoadFloat3(&gazeAtTwoMeters));
+		XMVECTOR facingNormal = XMVector3Normalize(-XMLoadFloat3(&headDirection));
 
 		// Rotate the x-axis around the y-axis.
 		// This is a 90-degree angle from the normal, in the xz-plane.
@@ -448,7 +452,7 @@ void HoloLensClient::Entity::rotateTowardGaze(Windows::Foundation::Numerics::flo
 			facingNormal,
 			XMVectorSet(0.f, 0.f, 0.f, 1.f)
 		);
-		SetRealRotation(rotation);
+		SetModelRotation(rotation);
 	}
 }
 

@@ -178,14 +178,14 @@ namespace HoloLensClient
 		///
 		/// <param name="positionMatrix">	[in,out] The position matrix. </param>
 		///-------------------------------------------------------------------------------------------------
-		virtual void SetRealPosition(DirectX::XMMATRIX &positionMatrix) = 0;
+		virtual void SetModelPosition(DirectX::XMMATRIX &positionMatrix) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the real rotation matrix. </summary>
 		///
 		/// <param name="rotationMatrix">	[in,out] The rotation matrix. </param>
 		///-------------------------------------------------------------------------------------------------
-		virtual void SetRealRotation(DirectX::XMMATRIX &rotationMatrix) = 0;
+		virtual void SetModelRotation(DirectX::XMMATRIX &rotationMatrix) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Return the real position. </summary>

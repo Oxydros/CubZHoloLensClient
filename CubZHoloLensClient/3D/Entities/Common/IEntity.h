@@ -146,11 +146,42 @@ namespace HoloLensClient
 		virtual void SetScale(Windows::Foundation::Numerics::float3 scale) = 0;
 
 		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Get the real size of the object. </summary>
+		///-------------------------------------------------------------------------------------------------
+		virtual Windows::Foundation::Numerics::float3 GetSize() const = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the real size of the object. </summary>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetSize(Windows::Foundation::Numerics::float3 originalSize) = 0;
+
+		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the relative position. </summary>
 		///
 		/// <param name="position">	The position. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void SetRelativePosition(Windows::Foundation::Numerics::float3 position) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the relative X position. </summary>
+		///
+		/// <param name="position">	The position. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetRelativeX(float x) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the relative Y position. </summary>
+		///
+		/// <param name="position">	The position. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetRelativeY(float y) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the relative Z position. </summary>
+		///
+		/// <param name="position">	The position. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetRelativeZ(float z) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the relative rotation. </summary>

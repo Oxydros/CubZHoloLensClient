@@ -9,12 +9,12 @@ using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
 ColoredCube::ColoredCube(std::shared_ptr<DX::DeviceResources> devicesResources,
-								Windows::Foundation::Numerics::float4 color,
-								Windows::Foundation::Numerics::float3 size)
+								Windows::Foundation::Numerics::float3 size,
+								Windows::Foundation::Numerics::float4 color
+								)
 	: ColoredObject(devicesResources), _size(size)
 {
 	SetColor(color);
-	/*SetPosition({ 0.f, 0.f, -2.f });*/
 }
 
 ColoredCube::~ColoredCube()

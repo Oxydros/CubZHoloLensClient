@@ -189,6 +189,14 @@ void HoloLensClient::Entity::SetScale(Windows::Foundation::Numerics::float3 scal
 	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
 }
 
+Windows::Foundation::Numerics::float3 HoloLensClient::Entity::GetSize() const
+{
+	return (Windows::Foundation::Numerics::float3(
+		_originalSize.x * _scaling.x,
+		_originalSize.y * _scaling.y,
+		_originalSize.z * _scaling.z));
+}
+
 void HoloLensClient::Entity::SetRelativePosition(Windows::Foundation::Numerics::float3 position)
 {
 	_relativePosition = position;
@@ -344,6 +352,7 @@ void HoloLensClient::Entity::updateInGaze()
 		//	TRACE("Real position is " << GetRealPosition() << std::endl);
 		//}
 		
+		//check is false when its colliding sometime because the extents dont reflex the orientation of the box
 		/*if (check != _inGaze)
 			_inGaze = false;*/
 	}

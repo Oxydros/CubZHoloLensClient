@@ -12,6 +12,7 @@ HoloLensClient::Button::Button(std::shared_ptr<DX::DeviceResources> devicesResou
 	: GUIEntity(scene), _callback(callback)
 {
 	_color = DEFAULT_COLOR;
+	SetSize({ size.x, size.y, 0.0f });
 	auto buttonMesh = std::make_unique<ButtonObject>(devicesResources, size, _color);
 	addMesh(std::move(buttonMesh));
 }

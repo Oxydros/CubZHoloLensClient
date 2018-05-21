@@ -17,25 +17,20 @@ void HoloLensClient::ModificationMenu::InitializeMenu()
 {
 	auto _background = std::make_unique<Panel>(_devicesResources, _scene, float2(0.35f, 0.07f), float4(0.7f, 0.1f, 0.2f, 0.6f));
 	_background->SetRelativePosition({ 0.0f, 0.0f, 0.0f });
-	_background->SetIgnoreInGaze(true);
 
 	auto _button1 = std::make_unique<Button>(_devicesResources, _scene, nullptr, float2(0.045f, 0.07f));
-	_button1->SetRelativePosition({ -0.14f, 0.0f, 0.01f });
 	_button1->setLabel(L"RotL");
 	_button1->disableMultipleClick(false);
 
 	auto _button3 = std::make_unique<Button>(_devicesResources, _scene, nullptr, float2(0.045f, 0.07f));
-	_button3->SetRelativePosition({ -0.058f, 0.0f, 0.01f });
 	_button3->setLabel(L"RotR");
 	_button3->disableMultipleClick(false);
 
 	auto _button4 = std::make_unique<Button>(_devicesResources, _scene, nullptr, float2(0.045f, 0.07f));
-	_button4->SetRelativePosition({ -0.01f, 0.0f, 0.01f });
 	_button4->setLabel(L"Kill");
 	_button4->disableMultipleClick(false);
 
 	auto _button2 = std::make_unique<Button>(_devicesResources, _scene, nullptr, float2(0.09f, 0.07f));
-	_button2->SetRelativePosition({ 0.08f, 0.0f, 0.01f });
 	_button2->setLabel(L"Move");
 
 	_move = _button2.get();
@@ -43,10 +38,10 @@ void HoloLensClient::ModificationMenu::InitializeMenu()
 	_rotateRight = _button3.get();
 	_kill = _button4.get();
 
-	_background->AddChild(std::move(_button1));
-	_background->AddChild(std::move(_button2));
-	_background->AddChild(std::move(_button3));
-	_background->AddChild(std::move(_button4));
+	_background->AddGUIEntity(std::move(_button1), { -0.14f, 0.0f });
+	_background->AddGUIEntity(std::move(_button2), { 0.08f, 0.0f });
+	_background->AddGUIEntity(std::move(_button3), { -0.058f, 0.0f });
+	_background->AddGUIEntity(std::move(_button4), { -0.01f, 0.0f });
 
 	AddChild(std::move(_background));
 }

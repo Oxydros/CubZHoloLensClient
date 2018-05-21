@@ -23,7 +23,8 @@ CubeEntity::CubeEntity(std::shared_ptr<DX::DeviceResources> devicesResources, st
 	//auto cube = std::make_unique<TexturedRectangle>(devicesResources, float2(0.1f, 0.1f));
 	//cube->SetTexture(texture);
 
-	auto cube = std::make_unique<ColoredCube>(devicesResources, float4(0.2f, 0.3f, 0.5f, 1.0f), float3(0.1f, 0.1f, 0.1f));
+	auto cube = std::make_unique<ColoredCube>(devicesResources, float3(0.1f, 0.1f, 0.1f), float4(0.2f, 0.3f, 0.5f, 1.0f));
+	SetSize({ 0.1f, 0.1f, 0.1f });
 
 	/*auto cube = std::make_unique<TextObject>(devicesResources, float2(0.2f, 0.2f));*/
 

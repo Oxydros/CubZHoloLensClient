@@ -57,6 +57,7 @@ void WinNetwork::TCPClient::connect(Platform::String ^ip, Platform::String ^port
 
 void CubZHoloLensClient::WinNetwork::TCPClient::disconnect()
 {
+	TRACE(&_user << std::endl);
 	_client.disconnect();
 }
 
@@ -78,6 +79,17 @@ void CubZHoloLensClient::WinNetwork::TCPClient::listServerFiles(Platform::String
 	packet->getTCPPacket().mutable_listfilemessage()->release_pathtolist();
 }
 
+void CubZHoloLensClient::WinNetwork::TCPClient::listServerUsers()
+{
+	auto packet = std::make_shared<Network::TCPPacket>();
+
+	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_LIST_USER);
+
+	_client.sendPacket(packet);
+
+	packet->getTCPPacket().mutable_listfilemessage()->release_pathtolist();
+}
+
 void CubZHoloLensClient::WinNetwork::TCPClient::handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
 {
 	auto tcpPacket = std::static_pointer_cast<Network::TCPPacket>(packet);
@@ -87,6 +99,8 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handlePacket(Network::IConnectio
 		return handleAuthPacket(co, tcpPacket);
 	else if (tcpPacket->getPacketType() == Network::TCPPacket::Type::PacketTCP_Type_LIST_FILE)
 		return handleFileListPacket(co, tcpPacket);
+	else if (tcpPacket->getPacketType() == Network::TCPPacket::Type::PacketTCP_Type_LIST_USER)
+		return handleUserListPacket(co, tcpPacket);
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleAuthPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
@@ -117,4 +131,17 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleFileListPacket(Network::IC
 		result->Append(Utility::stringToPlatformString(file.file().name()));
 	}
 	ListFileEvent(result);
+}
+
+void CubZHoloLensClient::WinNetwork::TCPClient::handleUserListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
+{
+	TRACE("Handling user list message" << std::endl);
+	auto listUserPacket = packet->getTCPPacket().listusermessage();
+	auto userList = listUserPacket.list();
+	auto result = ref new Platform::Collections::Vector<Platform::String^>();
+	for (auto &user : userList)
+	{
+		result->Append(Utility::stringToPlatformString(user.user().username()));
+	}
+	ListUserEvent(result);
 }

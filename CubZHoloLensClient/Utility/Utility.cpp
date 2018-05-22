@@ -1,4 +1,7 @@
 #include <pch.h>
+#define generic test
+#include <boost\filesystem.hpp>
+#undef generic
 #include <Utility\Utility.h>
 
 std::string Utility::platformStringToString(Platform::String^ ps) {
@@ -25,4 +28,11 @@ std::string	Utility::GetRealInstallPath()
 	std::wstring fooW(path->Begin());
 	std::string fooA(fooW.begin(), fooW.end());
 	return (fooA);
+}
+
+std::string Utility::GetDirectory(std::string const & path)
+{
+	boost::filesystem::path p(path);
+	boost::filesystem::path dir = p.parent_path();
+	return dir.string() + "\\";
 }

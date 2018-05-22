@@ -16,7 +16,7 @@ OBJMesh::OBJMesh(std::shared_ptr<DX::DeviceResources> devicesResources,
 	SetColor(color);
 
 	std::string err;
-	bool ret = tinyobj::LoadObj(&_attrib, &_shapes, &_materials, &err, meshFile.c_str());
+	bool ret = tinyobj::LoadObj(&_attrib, &_shapes, &_materials, &err, meshFile.c_str(), Utility::GetDirectory(meshFile).c_str(), true);
 	if (!err.empty())
 		TRACE("Error while loading " << meshFile << ": " << err);
 	if (!ret)
@@ -24,6 +24,10 @@ OBJMesh::OBJMesh(std::shared_ptr<DX::DeviceResources> devicesResources,
 	TRACE("Mesh file loaded !");
 	if (_shapes.size() != 1)
 		throw std::runtime_error("OBJ file contain multiple shape, not supported right now");
+	for (size_t i = 0; i < _materials.size(); i++)
+	{
+		TRACE("Material: " << _materials[i].name << " " << _materials[i].diffuse_texname << std::endl);
+	}
 }
 
 OBJMesh::~OBJMesh()
@@ -63,7 +67,7 @@ void OBJMesh::CreateMesh()
 
 	//Load vertex indices
 	for (size_t f = 0; f < _shapes[0].mesh.indices.size() / 3; f++) {
-		tinyobj::index_t idx0 = _shapes[0].mesh.indices[3 * f + 0];
+		tinyobj::index_t idx0 = _shapes[0].mesh.indices[3 * f];
 		tinyobj::index_t idx1 = _shapes[0].mesh.indices[3 * f + 1];
 		tinyobj::index_t idx2 = _shapes[0].mesh.indices[3 * f + 2];
 

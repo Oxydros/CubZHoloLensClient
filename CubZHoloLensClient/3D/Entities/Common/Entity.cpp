@@ -12,6 +12,7 @@ Entity::Entity(std::shared_ptr<HolographicScene> scene)
 {
 	SetRealRotation({ 0, 0, 0 });
 	SetRealPosition({ 0, 0, 0 });
+	_modelScaling = XMMatrixIdentity();
 }
 
 HoloLensClient::Entity::~Entity()
@@ -23,30 +24,9 @@ HoloLensClient::Entity::~Entity()
 		_mesh->ReleaseDeviceDependentResources();
 }
 
-std::ostream& operator<<(std::ostream& stream, const DirectX::XMMATRIX& matrix) {
-	DirectX::XMFLOAT4X4 fView;
-	DirectX::XMStoreFloat4x4(&fView, matrix);
-	for (int i = 0; i < 4; i++)
-	{
-		stream << "[";
-		for (int j = 0; j < 4; j++)
-		{
-			stream << " " << fView.m[i][j];
-		}
-		stream << "]";
-	}
-	return (stream);
-}
-
-std::ostream& operator<<(std::ostream& stream, const Windows::Foundation::Numerics::float3 a)
-{
-	stream << "(" << a.x << ", " << a.y << ", " << a.z << ")";
-	return (stream);
-}
-
 DirectX::XMMATRIX const Entity::GetTransformMatrix() const
 {
-	DirectX::XMMATRIX localTransform = _modelRotation * _modelTranslation;
+	DirectX::XMMATRIX localTransform = _modelScaling * _modelRotation * _modelTranslation;
 	DirectX::XMMATRIX finalTransform = _parent != nullptr ? localTransform * _parent->GetTransformMatrix() : localTransform;
 
 	//TRACE("For " << GetLabel() << " Rotation " << _realRotation << " " <<  _modelRotation << std::endl);
@@ -197,6 +177,26 @@ void HoloLensClient::Entity::Rotate(Windows::Foundation::Numerics::float3 offset
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
 }
 
+void HoloLensClient::Entity::Scale(Windows::Foundation::Numerics::float3 offset)
+{
+	_scaling += offset;
+	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
+}
+
+void HoloLensClient::Entity::SetScale(Windows::Foundation::Numerics::float3 scale)
+{
+	_scaling = scale;
+	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
+}
+
+Windows::Foundation::Numerics::float3 HoloLensClient::Entity::GetSize() const
+{
+	return (Windows::Foundation::Numerics::float3(
+		_originalSize.x * _scaling.x,
+		_originalSize.y * _scaling.y,
+		_originalSize.z * _scaling.z));
+}
+
 void HoloLensClient::Entity::SetRelativePosition(Windows::Foundation::Numerics::float3 position)
 {
 	_relativePosition = position;
@@ -225,17 +225,17 @@ void HoloLensClient::Entity::SetRealRotation(Windows::Foundation::Numerics::floa
 	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
 }
 
-void HoloLensClient::Entity::SetRealPosition(DirectX::XMMATRIX &positionMatrix)
+void HoloLensClient::Entity::SetModelPosition(DirectX::XMMATRIX &positionMatrix)
 {
 	/*TRACE("WARNING: Use of setRealPosition Matrix for "  << std::endl);*/
-	if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");
+	/*if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");*/
 	_modelTranslation = positionMatrix;
 }
 
-void HoloLensClient::Entity::SetRealRotation(DirectX::XMMATRIX &rotationMatrix)
+void HoloLensClient::Entity::SetModelRotation(DirectX::XMMATRIX &rotationMatrix)
 {
 	/*TRACE("WARNING: Use of setRealRotation Matrix for "  << std::endl);*/
-	if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");
+	/*if (_parent != nullptr && !_parent->isRoot()) throw std::runtime_error("Can't update real position because it is a Child entity");*/
 	_modelRotation = rotationMatrix;
 }
 
@@ -304,7 +304,7 @@ void HoloLensClient::Entity::updateInGaze()
 {
 	//Don't calcul gaze if no mesh in entity, or not visible,
 	// or if entity is the cursor
-	if (_mesh == nullptr || !_visible || this == _scene->getCursor())
+	if (_mesh == nullptr || !_visible || this == _scene->getCursor() || IgnoreInGaze())
 	{
 		_inGaze = false;
 		_distance = -1;
@@ -327,22 +327,34 @@ void HoloLensClient::Entity::updateInGaze()
 		_mesh->GetBoundingBox(currentBoundingBox);
 
 		float3 extents{ currentBoundingBox.Extents.x, currentBoundingBox.Extents.y, currentBoundingBox.Extents.z };
-		float3 B1 = GetRealPosition() - extents;
-		float3 B2 = GetRealPosition() + extents;
+		float3 B1 = (GetRealPosition() - extents);
+		float3 B2 = (GetRealPosition() + extents);
 
 		float3 Hit;
 		float3 L1{ headPosition.x, headPosition.y, headPosition.z };
 		float3 L2{ headDirection.x, headDirection.y, headDirection.z };
 
-		bool check = CheckLineBox(B1, B2, L1, L1 + (L2 * 6.0f), Hit);
-
-		XMVECTOR originVec = DirectX::XMLoadFloat3(&headPosition);
+		bool check = CheckLineBox(B1, B2, L1, (L1 + (L2 * 6.0f)), Hit, 0.1f);
+		
+		XMVECTOR originVec = DirectX::XMLoadFloat3(&(headPosition));
 		XMVECTOR hitVec = DirectX::XMLoadFloat3(&XMFLOAT3(Hit.x, Hit.y, Hit.z));
 		XMVECTOR distanceV = XMVector3Length(XMVectorSubtract(originVec, hitVec));
 		DirectX::XMStoreFloat(&_distance, distanceV);
-
+		
 		/*TRACE("In Gaze " << GetLabel() << " " << _inGaze << " " << _distance << std::endl);*/
 		_inGaze = currentBoundingBox.Intersects(DirectX::XMLoadFloat3(&headPosition), DirectX::XMLoadFloat3(&headDirection), distance);
+
+		//if (_inGaze)
+		//{
+		//	TRACE(this->GetLabel() << " in gaze " << _inGaze << " dist " << _distance << " hit " << Hit << " " << check << std::endl);
+		//	TRACE("User position " << L1 << " direction " << L2 << std::endl);
+		//	TRACE("Box extend is " << extents << std::endl);
+		//	TRACE("Real position is " << GetRealPosition() << std::endl);
+		//}
+		
+		//check is false when its colliding sometime because the extents dont reflex the orientation of the box
+		/*if (check != _inGaze)
+			_inGaze = false;*/
 	}
 	else
 	{
@@ -401,16 +413,20 @@ void HoloLensClient::Entity::rotateTowardGaze(Windows::Foundation::Numerics::flo
 	{
 		// Get the gaze direction relative to the given coordinate system.
 		const float3 headPosition = pointerPose->Head->Position;
-		const float3 headDirection = pointerPose->Head->ForwardDirection;
+		const float3 realPos = GetRealPosition();
+		const float3 headDirection = realPos - headPosition;
+		/*const float3 headDirection = pointerPose->Head->ForwardDirection;*/
 
-		const float3 gazeAtTwoMeters = headPosition + (1.0f * headDirection);
+		/*TRACE(GetLabel() << " GAZE ROT POS " << headPosition << " DIR " << headDirection << " " << pointerPose->Head->ForwardDirection << std::endl);
+
+		const float3 gazeAtTwoMeters = headPosition + (1.0f * headDirection);*/
 
 		// Lerp the position, to keep the hologram comfortably stable.
 		//auto lerpedPosition = lerp(getPosition(), gazeAtTwoMeters, dtime * c_lerpRate);
 
 		// Create a direction normal from the hologram's position to the origin of person space.
 		// This is the z-axis rotation.
-		XMVECTOR facingNormal = XMVector3Normalize(-XMLoadFloat3(&gazeAtTwoMeters));
+		XMVECTOR facingNormal = XMVector3Normalize(-XMLoadFloat3(&headDirection));
 
 		// Rotate the x-axis around the y-axis.
 		// This is a 90-degree angle from the normal, in the xz-plane.
@@ -445,7 +461,7 @@ void HoloLensClient::Entity::rotateTowardGaze(Windows::Foundation::Numerics::flo
 			facingNormal,
 			XMVectorSet(0.f, 0.f, 0.f, 1.f)
 		);
-		SetRealRotation(rotation);
+		SetModelRotation(rotation);
 	}
 }
 
@@ -513,3 +529,29 @@ void HoloLensClient::Entity::getInGazeEntities(std::vector<IEntity*>& entities)
 //	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_relativePosition));
 //	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
 //}
+
+
+// UTILITIES DISPLAY FUNCTIONS
+
+std::ostream& operator<<(std::ostream& stream, const DirectX::XMMATRIX& matrix) {
+	DirectX::XMFLOAT4X4 fView;
+	DirectX::XMStoreFloat4x4(&fView, matrix);
+	for (int i = 0; i < 4; i++)
+	{
+		stream << "[";
+		for (int j = 0; j < 4; j++)
+		{
+			stream << " " << fView.m[i][j];
+		}
+		stream << "]";
+	}
+	return (stream);
+}
+
+std::ostream& operator<<(std::ostream& stream, const Windows::Foundation::Numerics::float3 a)
+{
+	stream << "(" << a.x << ", " << a.y << ", " << a.z << ")";
+	return (stream);
+}
+
+// -- END OF UTILITIES FUNCTIONS

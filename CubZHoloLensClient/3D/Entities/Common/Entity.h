@@ -24,17 +24,21 @@ namespace HoloLensClient
 		bool										_focused{ false };
 		bool										_inGaze{ false };
 		bool										_isRoot{ false };
+		bool										_ignoreInGaze{ false };
 
 		bool										_followGazePosition = false;
 		bool										_followGazeRotation = false;
 		Windows::Foundation::Numerics::float3		_positionOffsetFromGaze = { 0, 0, 0 };
 		Windows::Foundation::Numerics::float3		_rotationOffsetFromGaze = { 0, 0, 0 };
 
-		Windows::Foundation::Numerics::float3		_relativePosition = { 0, 0, 0 };;
+		Windows::Foundation::Numerics::float3		_relativePosition = { 0, 0, 0 };
 		Windows::Foundation::Numerics::float3		_relativeRotation = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_scaling = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_originalSize = { 0, 0, 0 };
 
 		DirectX::XMMATRIX							_modelTranslation = {};
 		DirectX::XMMATRIX							_modelRotation = {};
+		DirectX::XMMATRIX							_modelScaling = {};
 		float										_distance{ 0 };
 
 	public:
@@ -44,6 +48,7 @@ namespace HoloLensClient
 	public:
 		void Update(DX::StepTimer const &timer) override final;
 		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override final;
+
 		void InitializeMesh() override;
 		void ReleaseMesh() override;
 		void Render() override;
@@ -52,9 +57,21 @@ namespace HoloLensClient
 		void setVisible(bool visibility);
 		bool isVisible() const override { return (_visible); }
 		bool isRoot() const override { return (_isRoot); }
+		bool IgnoreInGaze() const { return (_ignoreInGaze); }
+		void SetIgnoreInGaze(bool ignore) { _ignoreInGaze = ignore; }
 
 		void Move(Windows::Foundation::Numerics::float3 offset) override;
 		void Rotate(Windows::Foundation::Numerics::float3 offset) override;
+		void Scale(Windows::Foundation::Numerics::float3 offset) override;
+
+		void SetScale(Windows::Foundation::Numerics::float3 scale) override;
+
+		Windows::Foundation::Numerics::float3 GetSize() const override;
+		void SetSize(Windows::Foundation::Numerics::float3 originalSize) override { _originalSize = originalSize; }
+
+		void SetRelativeX(float x) override { _relativePosition.x = x; }
+		void SetRelativeY(float y) override { _relativePosition.y = y; }
+		void SetRelativeZ(float z) override { _relativePosition.z = z; }
 
 		void SetRealPosition(Windows::Foundation::Numerics::float3 position) override;
 		void SetRealRotation(Windows::Foundation::Numerics::float3 rotation) override;
@@ -62,8 +79,8 @@ namespace HoloLensClient
 		void SetRelativePosition(Windows::Foundation::Numerics::float3 position) override;
 		void SetRelativeRotation(Windows::Foundation::Numerics::float3 rotation) override;
 
-		void SetRealPosition(DirectX::XMMATRIX &positionMatrix) override;
-		void SetRealRotation(DirectX::XMMATRIX &rotationMatrix) override;
+		void SetModelPosition(DirectX::XMMATRIX &positionMatrix) override;
+		void SetModelRotation(DirectX::XMMATRIX &rotationMatrix) override;
 
 		Windows::Foundation::Numerics::float3 const GetRealPosition() const override;
 		Windows::Foundation::Numerics::float3 const GetRealRotation() const override;

@@ -83,6 +83,12 @@ namespace HoloLensClient
 		/// <summary>	Mark this entity for death. </summary>
 		virtual void kill() = 0;
 
+		/// <summary>	Return true is this entity is ignored in the gaze calculation. </summary>
+		virtual bool IgnoreInGaze() const = 0;
+
+		/// <summary>	Set the ignore in gaze property </summary>
+		virtual void SetIgnoreInGaze(bool ignore) = 0;
+
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Sets a visible. </summary>
 		///
@@ -119,11 +125,35 @@ namespace HoloLensClient
 		virtual void Move(Windows::Foundation::Numerics::float3 offset) = 0;
 
 		///-------------------------------------------------------------------------------------------------
-		/// <summary>	Rotates the given offset. </summary>
+		/// <summary>	Rotates using the given offset. </summary>
 		///
 		/// <param name="offset">	The offset. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void Rotate(Windows::Foundation::Numerics::float3 offset) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Scale using the given offset. Add up the previous scale and this one </summary>
+		///
+		/// <param name="offset">	The offset. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void Scale(Windows::Foundation::Numerics::float3 offset) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the scale to the specified vector, erase the previous one </summary>
+		///
+		/// <param name="scale">	The scaling vector. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetScale(Windows::Foundation::Numerics::float3 scale) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Get the real size of the object. </summary>
+		///-------------------------------------------------------------------------------------------------
+		virtual Windows::Foundation::Numerics::float3 GetSize() const = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the real size of the object. </summary>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetSize(Windows::Foundation::Numerics::float3 originalSize) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the relative position. </summary>
@@ -131,6 +161,27 @@ namespace HoloLensClient
 		/// <param name="position">	The position. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void SetRelativePosition(Windows::Foundation::Numerics::float3 position) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the relative X position. </summary>
+		///
+		/// <param name="position">	The position. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetRelativeX(float x) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the relative Y position. </summary>
+		///
+		/// <param name="position">	The position. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetRelativeY(float y) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set the relative Z position. </summary>
+		///
+		/// <param name="position">	The position. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetRelativeZ(float z) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the relative rotation. </summary>
@@ -158,14 +209,14 @@ namespace HoloLensClient
 		///
 		/// <param name="positionMatrix">	[in,out] The position matrix. </param>
 		///-------------------------------------------------------------------------------------------------
-		virtual void SetRealPosition(DirectX::XMMATRIX &positionMatrix) = 0;
+		virtual void SetModelPosition(DirectX::XMMATRIX &positionMatrix) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Set the real rotation matrix. </summary>
 		///
 		/// <param name="rotationMatrix">	[in,out] The rotation matrix. </param>
 		///-------------------------------------------------------------------------------------------------
-		virtual void SetRealRotation(DirectX::XMMATRIX &rotationMatrix) = 0;
+		virtual void SetModelRotation(DirectX::XMMATRIX &rotationMatrix) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Return the real position. </summary>

@@ -22,7 +22,6 @@ void HoloLensClient::MainMenu::InitializeMenu()
 			[]() {
 			},
 		float2(0.15f, 0.1f));
-	_button1->SetRelativePosition({ -0.1f, 0.1f, 0.1f });
 	_button1->setLabel(L"Test 1");
 
 	auto safeScene{ _scene };
@@ -33,11 +32,10 @@ void HoloLensClient::MainMenu::InitializeMenu()
 		safeScene->kill();
 	},
 		float2(0.15f, 0.1f));
-	_button2->SetRelativePosition({ -0.1f, -0.1f, 0.1f });
 	_button2->setLabel(L"Leave 3D");
 
-	_background->AddChild(std::move(_button1));
-	_background->AddChild(std::move(_button2));
+	_background->AddGUIEntity(std::move(_button1), { -0.1f, 0.1f });
+	_background->AddGUIEntity(std::move(_button2), { -0.1f, -0.1f });
 
 	AddChild(std::move(_background));
 }

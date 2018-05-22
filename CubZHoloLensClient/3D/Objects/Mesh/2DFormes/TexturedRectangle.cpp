@@ -109,7 +109,7 @@ void HoloLensClient::TexturedRectangle::CreateDeviceDependentResources()
 		float halfWidth = _size.x * 0.5f;
 		float halfHeight = _size.y * 0.5f;
 
-		_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(halfWidth, halfHeight, 0.1f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+		_boundingBox = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(halfWidth, halfHeight, 0.001f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
 		// Load mesh vertices. Each vertex has a position and a texture UV.
 		const std::array<VertexPositionTexture, 4> cubeVertices =

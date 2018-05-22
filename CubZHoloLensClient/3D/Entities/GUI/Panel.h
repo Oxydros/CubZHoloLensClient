@@ -20,6 +20,14 @@ namespace HoloLensClient
 
 	public:
 
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Add a child entity to the panel at a specify XY position. </summary>
+		///
+		/// <param name="child">	[in,out] If non-null, the child. </param>
+		/// <param name="offset">	[in,out] Position (x, y) of the child on the panel. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void AddGUIEntity(IEntity::IEntityPtr child, Windows::Foundation::Numerics::float2 offsetXY);
+
 		void DoUpdate(DX::StepTimer const &timer) override {};
 		// Inherited via GUIEntity
 		virtual bool OnAirTap() override final { return false; };

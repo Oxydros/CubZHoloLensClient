@@ -25,14 +25,7 @@ namespace HoloLensClient
 		/// <summary>	Defines an alias representing the shared pointer. </summary>
 		typedef std::shared_ptr<HolographicScene>				SharedPtr;
 
-		void OnListFile(Windows::Foundation::Collections::IVector<Platform::String^>^fileList);
-
 	private:
-		//Network events
-		Windows::Foundation::EventRegistrationToken				_listFileToken;
-		Windows::Foundation::TimeSpan							_timeSpanListFile;
-		Windows::System::Threading::ThreadPoolTimer				^_threadPoolTimerListFiles;
-
 		//Scene status
 		bool													_alive{ true };
 		/// <summary>	The coordinate system. </summary>

@@ -9,14 +9,6 @@
 
 using namespace HoloLensClient;
 
-void HoloLensClient::HolographicScene::OnListFile(Windows::Foundation::Collections::IVector<Platform::String^>^ fileList)
-{
-	TRACE("Got file list");
-	auto cube = std::make_unique<ObjEntity>(_deviceResources, shared_from_this(), Utility::GetRealInstallPath() + "\\Assets\\Models\\Special.obj");
-	cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
-	addEntity(std::move(cube));
-}
-
 HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> &deviceResources)
 	: _deviceResources(deviceResources)
 {
@@ -25,25 +17,11 @@ HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> &deviceR
 
 HolographicScene::~HolographicScene()
 {
-	CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->ListFileEvent -= _listFileToken;
 }
 
 void HolographicScene::Initialize()
 {
 	auto safeScene{ shared_from_this() };
-
-	//Initialize file list actualization
-	_listFileToken = CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->ListFileEvent +=
-		ref new CubZHoloLensClient::WinNetwork::FileListEvent(std::bind(&HoloLensClient::HolographicScene::OnListFile, this, std::placeholders::_1));
-
-	//Update file scene every 3 seconds
-	_timeSpanListFile.Duration = 50000000;
-
-	Windows::System::Threading::ThreadPoolTimer::CreatePeriodicTimer(
-		ref new Windows::System::Threading::TimerElapsedHandler([](Windows::System::Threading::ThreadPoolTimer^ source)
-		{
-			CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->listServerFiles(".");
-		}), _timeSpanListFile);
 
 	_root = std::make_unique<EntityRoot>(safeScene);
 
@@ -53,9 +31,9 @@ void HolographicScene::Initialize()
 	addEntity(std::move(gaze));
 
 	////Declare basic cube for test purposes
-	//auto cube = std::make_unique<CubeEntity>(_deviceResources, safeScene);
-	//cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
-	//addEntity(std::move(cube));
+	auto cube = std::make_unique<CubeEntity>(_deviceResources, safeScene);
+	cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
+	addEntity(std::move(cube));
 
 	auto mainMenu = std::make_unique<MainMenu>(_deviceResources, safeScene);
 	mainMenu->SetRelativePosition({ 0.0f, 0.0f, -3.0f });

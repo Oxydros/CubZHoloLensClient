@@ -5,7 +5,6 @@
 #include "3D\Entities\CubeEntity.h"
 #include "3D\Entities\ObjEntity.h"
 #include "3D\Loaders\OBJLoader.h"
-#include "3D\Entities\GUI\EntityMenu.h"
 
 using namespace HoloLensClient;
 
@@ -23,7 +22,7 @@ void HolographicScene::Initialize()
 {
 	auto safeScene{ shared_from_this() };
 
-	_root = std::make_unique<EntityRoot>(safeScene);
+	_root = std::make_unique<EmptyEntity>(safeScene, "Root", true);
 
 	//Declare gaze
 	auto gaze = std::make_unique<CursorEntity>(_deviceResources, safeScene);

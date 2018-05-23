@@ -1,7 +1,6 @@
 #pragma once
 
-#include <3D\Entities\GUI\Panel.h>
-#include <3D\Entities\GUI\Button.h>
+#include <3D\Entities\Common\EmptyEntity.h>
 #include <3D\Entities\Common\EditableEntity.h>
 
 using namespace Windows::Foundation::Numerics;
@@ -10,13 +9,23 @@ namespace HoloLensClient
 {
 	class ModificationMenu : public Entity
 	{
+	public:
+		enum Mode
+		{
+			BASIC,
+			ADJUST,
+		};
 	private:
 		std::shared_ptr<DX::DeviceResources>	_devicesResources;
-		Button									*_move{ nullptr };
-		Button									*_rotateLeft{ nullptr };
-		Button									*_rotateRight{ nullptr };
-		Button									*_kill{ nullptr };
+		Mode									_mode{ BASIC };
+
+		EmptyEntity								*_basicMenu{ nullptr };
+		EmptyEntity								*_adjustMenu{ nullptr };
+
 		EditableEntity							*_attachedEntity{ nullptr };
+
+		//Button									*_rotateLeft{ nullptr };
+		//Button									*_rotateRight{ nullptr };
 
 	public:
 		ModificationMenu(std::shared_ptr<DX::DeviceResources> devicesResources,
@@ -32,5 +41,10 @@ namespace HoloLensClient
 
 		void AttachEntity(EditableEntity *entity);
 		void DetachEntity();
+
+	private:
+		void initializeBasicMenu();
+		void initializeAdjustMenu();
+		void initializeAdjustBox();
 	};
 }

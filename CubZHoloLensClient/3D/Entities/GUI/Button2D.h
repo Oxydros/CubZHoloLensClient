@@ -1,10 +1,12 @@
 #pragma once
 
+#include <memory>
+#include <functional>
 #include <3D\Entities\GUI\GUIEntity.h>
 
 namespace HoloLensClient
 {
-	class Button : public GUIEntity
+	class Button2D : public GUIEntity
 	{
 	public:
 		static Windows::Foundation::Numerics::float4 DEFAULT_COLOR;
@@ -14,10 +16,10 @@ namespace HoloLensClient
 		std::function<void()>			_callback = nullptr;
 
 	public:
-		Button(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene,
+		Button2D(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene,
 			   std::function<void()> const &callback = {},
 			   Windows::Foundation::Numerics::float2 size = { 0.2f, 0.2f });
-		virtual ~Button() = default;
+		virtual ~Button2D() = default;
 
 	public:
 		void DoUpdate(DX::StepTimer const &timer) override {};

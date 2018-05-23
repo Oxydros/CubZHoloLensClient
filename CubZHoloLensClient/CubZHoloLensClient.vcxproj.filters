@@ -155,9 +155,6 @@
     <ClCompile Include="3D\Entities\Common\InteractableEntity.cpp">
       <Filter>3D\Entities\Common</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Entities\GUI\Button.cpp">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Objects\GUI\DistanceFieldRenderer.cpp">
       <Filter>3D\Objects\GUI\Text</Filter>
     </ClCompile>
@@ -212,11 +209,14 @@
     <ClCompile Include="Utility\Utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Entities\GUI\EntityMenu.cpp">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Entities\ObjEntity.cpp">
       <Filter>3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\Button3D.cpp">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\Button2D.cpp">
+      <Filter>3D\Entities\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,9 +307,6 @@
     <ClInclude Include="3D\Entities\Common\InteractableEntity.h">
       <Filter>3D\Entities\Common</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\GUI\Button.h">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Objects\GUI\DistanceFieldRenderer.h">
       <Filter>3D\Objects\GUI\Text</Filter>
     </ClInclude>
@@ -364,9 +361,6 @@
     <ClInclude Include="3D\Entities\GUI\ModificationMenu.h">
       <Filter>3D\Entities\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\Common\EntityRoot.h">
-      <Filter>3D\Entities\Common</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Entities\Common\EditableEntity.h">
       <Filter>3D\Entities\Common</Filter>
     </ClInclude>
@@ -379,11 +373,17 @@
     <ClInclude Include="Objects\UserDataTemplateSelector.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\GUI\EntityMenu.h">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Entities\ObjEntity.h">
       <Filter>3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Common\EmptyEntity.h">
+      <Filter>3D\Entities\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\Button3D.h">
+      <Filter>3D\Entities\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\Button2D.h">
+      <Filter>3D\Entities\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -487,10 +487,8 @@
     <Text Include="Assets\Models\Cube.obj">
       <Filter>Assets\Models</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="Assets\Models\Sphere.obj">
+    <Text Include="Assets\Models\Sphere.obj">
       <Filter>Assets\Models</Filter>
-    </Object>
+    </Text>
   </ItemGroup>
 </Project>

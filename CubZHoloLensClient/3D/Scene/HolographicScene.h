@@ -6,7 +6,7 @@
 #pragma once
 
 #include <3D\Resources\DeviceResources.h>
-#include "3D\Entities\Common\EntityRoot.h"
+#include "3D\Entities\Common\EmptyEntity.h"
 #include "3D\Entities\GUI\MainMenu.h"
 #include "3D\Entities\GUI\ModificationMenu.h"
 
@@ -35,7 +35,7 @@ namespace HoloLensClient
 		/// <summary>	The device resources. </summary>
 		std::shared_ptr<DX::DeviceResources>					_deviceResources;
 		/// <summary>	Root node. </summary>
-		std::unique_ptr<EntityRoot>								_root;
+		std::unique_ptr<EmptyEntity>							_root;
 
 		/// <summary>	The modif menu. </summary>
 		ModificationMenu										*_modifMenu{ nullptr };

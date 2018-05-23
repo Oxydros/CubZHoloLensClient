@@ -1,7 +1,6 @@
 #pragma once
 
-#include <3D\Entities\GUI\Panel.h>
-#include <3D\Entities\GUI\Button.h>
+#include <3D\Entities\Common\Entity.h>
 
 using namespace Windows::Foundation::Numerics;
 

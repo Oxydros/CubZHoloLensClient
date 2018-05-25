@@ -1,5 +1,6 @@
 #pragma once
 
+#include <3D\Entities\GUI\Button3D.h>
 #include <3D\Entities\Common\EmptyEntity.h>
 #include <3D\Entities\Common\EditableEntity.h>
 
@@ -18,6 +19,9 @@ namespace HoloLensClient
 	private:
 		std::shared_ptr<DX::DeviceResources>	_devicesResources;
 		Mode									_mode{ BASIC };
+
+		Button3D								*_scaleLeft{ nullptr };
+		Button3D								*_scaleRight{ nullptr };
 
 		EmptyEntity								*_basicMenu{ nullptr };
 		EmptyEntity								*_adjustMenu{ nullptr };

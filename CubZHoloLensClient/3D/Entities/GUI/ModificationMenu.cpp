@@ -42,11 +42,14 @@ void HoloLensClient::ModificationMenu::AttachEntity(EditableEntity *entity)
 		return;
 	DetachEntity();
 	_attachedEntity = entity;
+	_scaleLeft->SetRelativePosition({ -_attachedEntity->GetSize().x - 0.1f, -0.25f, 0.0f });
+	_scaleRight->SetRelativePosition({ _attachedEntity->GetSize().x + 0.1f, -0.25f, 0.0f });
 	/*_move->setCallback(std::bind(&EditableEntity::OnMoveClick, _attachedEntity));*/
 	//_rotateLeft->setCallback(std::bind(&EditableEntity::OnRotateLeftClick, _attachedEntity));
 	//_rotateRight->setCallback(std::bind(&EditableEntity::OnRotateRightClick, _attachedEntity));
 	/*_removeButton->setCallback(std::bind(&EditableEntity::OnKillClick, _attachedEntity));*/
 	setVisible(true);
+	_adjustMenu->setVisible(false);
 }
 
 void HoloLensClient::ModificationMenu::DetachEntity()
@@ -116,6 +119,7 @@ void HoloLensClient::ModificationMenu::initializeAdjustMenu()
 	_backgroundAdjust->AddGUIEntity(std::move(doneAdjust), { -0.015f, 0.0f });
 
 	adjustMenu->AddChild(std::move(_backgroundAdjust));
+	adjustMenu->setVisible(false);
 
 	_adjustMenu = adjustMenu.get();
 
@@ -124,7 +128,17 @@ void HoloLensClient::ModificationMenu::initializeAdjustMenu()
 
 void HoloLensClient::ModificationMenu::initializeAdjustBox()
 {
+	auto scaleLeft = std::make_unique<Button3D>(_devicesResources, _scene,
+		[]() {
+		TRACE("GOT INPUT ON SCALE LEFT" << std::endl);
+	}
+		, float3(0.04f, 0.09f, 0.1f));
+	auto scaleRight = std::make_unique<Button3D>(_devicesResources, _scene, nullptr, float3(0.04f, 0.09f, 0.1f));
 
+	_scaleLeft = scaleLeft.get();
+	_scaleRight = scaleRight.get();
+	_adjustMenu->AddChild(std::move(scaleLeft));
+	_adjustMenu->AddChild(std::move(scaleRight ));
 }
 
 

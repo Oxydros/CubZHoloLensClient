@@ -35,17 +35,11 @@ void WinNetwork::TCPClient::run()
 
 void WinNetwork::TCPClient::runAsync()
 {
-	try
-	{
-		if (_thread)
-			throw std::runtime_error("A thread is already running for this client instance");
-		_thread = new boost::thread([&] {
-			_client.run();
-		});
-	}
-	catch (exception& e)
-	{
-		TRACE(e.what() << " ici oui oui\n" << std::endl);
+	if (_thread)
+		throw std::runtime_error("A thread is already running for this client instance");
+	_thread = new boost::thread([&] {
+		_client.run();
+	});
 	}
 }
 

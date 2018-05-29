@@ -62,8 +62,6 @@ void CubZHoloLensClient::UserExploPage::OnListUser(Windows::Foundation::Collecti
 	}
 
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this, users]() {
-
-
 		this->UserView->ItemsSource = users;
 	}));
 }

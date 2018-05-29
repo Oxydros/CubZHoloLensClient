@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "Network\TCPClient.h"
 #include "Objects\HoloLensContext.h"
+#include <exception>
 
 using namespace Utility;
 using namespace CubZHoloLensClient;
+#include <iostream>
+#include <exception>
+using namespace std;
+
 
 WinNetwork::TCPClient::TCPClient(Platform::String ^username)
 {
@@ -30,11 +35,18 @@ void WinNetwork::TCPClient::run()
 
 void WinNetwork::TCPClient::runAsync()
 {
-	if (_thread)
-		throw std::runtime_error("A thread is already running for this client instance");
-	_thread = new boost::thread([&] {
-		_client.run();
-	});
+	try
+	{
+		if (_thread)
+			throw std::runtime_error("A thread is already running for this client instance");
+		_thread = new boost::thread([&] {
+			_client.run();
+		});
+	}
+	catch (exception& e)
+	{
+		TRACE(e.what() << " ici oui oui\n" << std::endl);
+	}
 }
 
 void WinNetwork::TCPClient::connect(Platform::String ^ip, Platform::String ^port)
@@ -58,6 +70,17 @@ void WinNetwork::TCPClient::connect(Platform::String ^ip, Platform::String ^port
 void CubZHoloLensClient::WinNetwork::TCPClient::disconnect()
 {
 	TRACE(&_user << std::endl);
+	auto packet = std::make_shared<Network::TCPPacket>();
+
+	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_AUTH);
+	packet->getTCPPacket().mutable_authmessage()->set_code(1);
+	packet->getTCPPacket().mutable_authmessage()->set_allocated_user(&_user);
+
+	_client.sendPacket(packet);
+
+	//Release allocated user to get ownership of the data back
+	//This way protobuf wont delete the resource
+	packet->getTCPPacket().mutable_authmessage()->release_user();
 	_client.disconnect();
 }
 
@@ -75,8 +98,6 @@ void CubZHoloLensClient::WinNetwork::TCPClient::listServerFiles(Platform::String
 	packet->getTCPPacket().mutable_listfilemessage()->set_allocated_pathtolist(&filePath);
 
 	_client.sendPacket(packet);
-
-	packet->getTCPPacket().mutable_listfilemessage()->release_pathtolist();
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::listServerUsers()

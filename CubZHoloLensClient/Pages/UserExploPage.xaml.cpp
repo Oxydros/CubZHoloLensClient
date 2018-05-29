@@ -38,6 +38,10 @@ UserExploPage::UserExploPage()
 
 void CubZHoloLensClient::UserExploPage::Button_Back(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->ListUserEvent -= _listUserToken;
+	_threadPoolTimerListUsers->Cancel();
+	delete _threadPoolTimerListUsers;
+
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
 		this->Frame->GoBack();
 	}));
@@ -58,6 +62,8 @@ void CubZHoloLensClient::UserExploPage::OnListUser(Windows::Foundation::Collecti
 	}
 
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this, users]() {
+
+
 		this->UserView->ItemsSource = users;
 	}));
 }

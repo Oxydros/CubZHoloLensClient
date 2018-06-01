@@ -48,8 +48,13 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	});
 	_newChilds.clear();
 
-	if (_scene->getPointerPose() != nullptr)
-		GazeMotion(_scene->getPointerPose()->Head->Position);
+	if (_scene->getPointerPose() != nullptr) {
+		float3 positionMotion = _scene->getPointerPose()->Head->Position - _previousGazePosition;
+		float3 directionMotion = _scene->getPointerPose()->Head->ForwardDirection - _previousGazeDirection;
+		GazeMotion(positionMotion, directionMotion);
+		_previousGazePosition = _scene->getPointerPose()->Head->Position;
+		_previousGazeDirection = _scene->getPointerPose()->Head->ForwardDirection;
+	}
 
 	//Update position and orient if needed
 	if (_followGazeRotation)

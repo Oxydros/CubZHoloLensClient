@@ -21,7 +21,8 @@ namespace HoloLensClient
 	{
 	public:
 		typedef std::unique_ptr<IEntity> IEntityPtr;
-		typedef std::function<void(IEntity *entity, Windows::Foundation::Numerics::float3 gazePosition)>	MotionCallback;
+		typedef std::function<void(IEntity *entity, Windows::Foundation::Numerics::float3 positionMotion,
+			Windows::Foundation::Numerics::float3 directionMotion)>	MotionCallback;
 
 	public:
 		/// <summary>	Destructor. </summary>

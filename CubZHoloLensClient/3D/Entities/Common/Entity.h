@@ -26,21 +26,24 @@ namespace HoloLensClient
 		bool										_inGaze{ false };
 		bool										_isRoot{ false };
 		bool										_ignoreInGaze{ false };
+
+		Windows::Foundation::Numerics::float3		_previousGazePosition{ -1, -1, -1};
+		Windows::Foundation::Numerics::float3		_previousGazeDirection{ -1, -1, -1};
 		MotionCallback								_motionCallback{ nullptr };
 
 		bool										_followGazePosition{ false };
 		bool										_followGazeRotation{ false };
-		Windows::Foundation::Numerics::float3		_positionOffsetFromGaze = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_rotationOffsetFromGaze = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_positionOffsetFromGaze{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_rotationOffsetFromGaze{ 0, 0, 0 };
 
-		Windows::Foundation::Numerics::float3		_relativePosition = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_relativeRotation = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_scaling = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_originalSize = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_relativePosition{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_relativeRotation{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_scaling{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_originalSize{ 0, 0, 0 };
 
-		DirectX::XMMATRIX							_modelTranslation = {};
-		DirectX::XMMATRIX							_modelRotation = {};
-		DirectX::XMMATRIX							_modelScaling = {};
+		DirectX::XMMATRIX							_modelTranslation{};
+		DirectX::XMMATRIX							_modelRotation{};
+		DirectX::XMMATRIX							_modelScaling{};
 		float										_distance{ 0 };
 
 	public:
@@ -131,10 +134,11 @@ namespace HoloLensClient
 		virtual bool OnLostFocus() { return false; }
 
 		/// <summary>	Notify the new position of the gaze at every frame when possible. </summary>
-		virtual void GazeMotion(Windows::Foundation::Numerics::float3 gazePosition) 
+		virtual void GazeMotion(Windows::Foundation::Numerics::float3 positionMotion,
+								Windows::Foundation::Numerics::float3 directionMotion) final
 		{
 			if (_motionCallback)
-				_motionCallback(this, gazePosition);
+				_motionCallback(this, positionMotion, directionMotion);
 		}
 
 	protected:

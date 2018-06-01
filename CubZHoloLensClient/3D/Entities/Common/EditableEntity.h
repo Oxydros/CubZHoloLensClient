@@ -37,5 +37,6 @@ namespace HoloLensClient
 		bool IsMoving() const { return _moving; }
 		void StopMoving();
 		void StartMoving();
+		void setEditableState(State state) { _state = state; }
 	};
 }

@@ -151,6 +151,7 @@ HolographicFrame^ SceneRenderer::Update()
 
 	//// Check for new input state since the last frame.
     SpatialInteractionSourceState^ pointerState = m_spatialInputHandler->CheckForInput();
+
 	_holoScene->Inputs(pointerState);
 
     m_timer.Tick([&] ()

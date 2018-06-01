@@ -32,9 +32,11 @@ bool HoloLensClient::EditableEntity::OnAirTap()
 		if (IsMoving())
 			StopMoving();
 		else
-		{
 			StartMoving();
-		}
+	}
+	else if (_state == ROTATE)
+	{
+		TRACE("ROTATING STATE" << std::endl);
 	}
 	return (true);
 }

@@ -28,23 +28,14 @@ namespace HoloLensClient
 		bool									_scaleTopSelected{ false };
 		bool									_scaleBotSelected{ false };
 
-		bool									_rotateLeftSelected{ false };
-		bool									_rotateRigthSelected{ false };
-		bool									_rotateTopSelected{ false };
-		bool									_rotateBotSelected{ false };
-
 		Button3D								*_scaleLeft{ nullptr };
 		Button3D								*_scaleRight{ nullptr };
 		Button3D								*_scaleTop{ nullptr };
 		Button3D								*_scaleBot{ nullptr };
 
-		Button3D								*_rotateLeft{ nullptr };
-		Button3D								*_rotateRight{ nullptr };
-		Button3D								*_rotateTop{ nullptr };
-		Button3D								*_rotateBot{ nullptr };
-
 		EmptyEntity								*_basicMenu{ nullptr };
 		EmptyEntity								*_adjustMenu{ nullptr };
+		EmptyEntity								*_rotateMenu{ nullptr };
 
 		EditableEntity							*_attachedEntity{ nullptr };
 
@@ -66,6 +57,7 @@ namespace HoloLensClient
 	private:
 		void initializeBasicMenu();
 		void initializeAdjustMenu();
+		void initializeRotateMenu();
 		void initializeAdjustBox();
 	};
 }

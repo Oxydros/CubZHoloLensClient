@@ -5,6 +5,7 @@
 ///-------------------------------------------------------------------------------------------------
 #pragma once
 
+#include <functional>
 #include <3D\Utility\StepTimer.h>
 
 
@@ -20,6 +21,7 @@ namespace HoloLensClient
 	{
 	public:
 		typedef std::unique_ptr<IEntity> IEntityPtr;
+		typedef std::function<void(IEntity *entity, Windows::Foundation::Numerics::float3 gazePosition)>	MotionCallback;
 
 	public:
 		/// <summary>	Destructor. </summary>
@@ -63,6 +65,8 @@ namespace HoloLensClient
 		virtual void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) = 0;
 
 	public:
+
+		virtual void setMotionCallback(MotionCallback callback) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Return the entity name. </summary>

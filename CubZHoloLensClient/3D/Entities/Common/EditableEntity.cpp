@@ -27,17 +27,14 @@ bool HoloLensClient::EditableEntity::OnAirTap()
 	//Retrieve Colored cube mesh
 	auto coloredMesh = dynamic_cast<ColoredObject*>(_mesh.get());	
 
-	if (IsMoving())
+	if (_state == MOVE)
 	{
-		if (coloredMesh)
+		if (IsMoving())
+			StopMoving();
+		else
 		{
-			float4 actualColor = coloredMesh->GetColor();
-			actualColor.x -= 0.1f;
-			actualColor.y -= 0.1f;
-			actualColor.z -= 0.1f;
-			coloredMesh->SetColor(actualColor);
+			StartMoving();
 		}
-		StopMoving();
 	}
 	return (true);
 }
@@ -56,17 +53,6 @@ void HoloLensClient::EditableEntity::OnRotateRightClick()
 
 void HoloLensClient::EditableEntity::OnMoveClick()
 {
-	auto coloredMesh = dynamic_cast<ColoredObject*>(_mesh.get());
-
-	if (coloredMesh)
-	{
-		float4 actualColor = coloredMesh->GetColor();
-		actualColor.x += 0.1f;
-		actualColor.y += 0.1f;
-		actualColor.z += 0.1f;
-		coloredMesh->SetColor(actualColor);
-	}
-
 	_moving = true;
 	//Distance should min between 2meters and distance of a wall / real object
 	setFollowGaze(true, false, { 0, 0, 2.0f });
@@ -80,6 +66,34 @@ void HoloLensClient::EditableEntity::OnKillClick()
 
 void HoloLensClient::EditableEntity::StopMoving()
 {
+	auto coloredMesh = dynamic_cast<ColoredObject*>(_mesh.get());
+
+	if (coloredMesh)
+	{
+		float4 actualColor = coloredMesh->GetColor();
+		actualColor.x -= 0.1f;
+		actualColor.y -= 0.1f;
+		actualColor.z -= 0.1f;
+		coloredMesh->SetColor(actualColor);
+	}
+
 	_moving = false;
 	setFollowGaze(false, false);
+}
+
+void HoloLensClient::EditableEntity::StartMoving()
+{
+	auto coloredMesh = dynamic_cast<ColoredObject*>(_mesh.get());
+
+	if (coloredMesh)
+	{
+		float4 actualColor = coloredMesh->GetColor();
+		actualColor.x += 0.1f;
+		actualColor.y += 0.1f;
+		actualColor.z += 0.1f;
+		coloredMesh->SetColor(actualColor);
+	}
+
+	setFollowGaze(true, false);
+	_moving = true;
 }

@@ -67,7 +67,7 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
                 // Quand la pile de navigation n'est pas restaurée, accédez à la première page,
                 // puis configurez la nouvelle page en transmettant les informations requises en tant que
                 // paramètre
-                rootFrame->Navigate(TypeName(ConnectionPage::typeid), e->Arguments);
+                rootFrame->Navigate(TypeName(HomePage::typeid), e->Arguments);
             }
             // Placez le frame dans la fenêtre active
             Window::Current->Content = rootFrame;
@@ -84,7 +84,7 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
                 // Quand la pile de navigation n'est pas restaurée, accédez à la première page,
                 // puis configurez la nouvelle page en transmettant les informations requises en tant que
                 // paramètre
-                rootFrame->Navigate(TypeName(ConnectionPage::typeid), e->Arguments);
+                rootFrame->Navigate(TypeName(HomePage::typeid), e->Arguments);
             }
             // Vérifiez que la fenêtre actuelle est active
             Window::Current->Activate();

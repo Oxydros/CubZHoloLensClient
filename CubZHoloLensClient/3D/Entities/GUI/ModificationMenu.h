@@ -10,26 +10,43 @@ namespace HoloLensClient
 {
 	class ModificationMenu : public Entity
 	{
+
 	public:
 		enum Mode
 		{
 			BASIC,
 			ADJUST,
+			ROTATE,
 		};
+
 	private:
 		std::shared_ptr<DX::DeviceResources>	_devicesResources;
 		Mode									_mode{ BASIC };
 
+		bool									_scaleLeftSelected{ false };
+		bool									_scaleRigthSelected{ false };
+		bool									_scaleTopSelected{ false };
+		bool									_scaleBotSelected{ false };
+
+		bool									_rotateLeftSelected{ false };
+		bool									_rotateRigthSelected{ false };
+		bool									_rotateTopSelected{ false };
+		bool									_rotateBotSelected{ false };
+
 		Button3D								*_scaleLeft{ nullptr };
 		Button3D								*_scaleRight{ nullptr };
+		Button3D								*_scaleTop{ nullptr };
+		Button3D								*_scaleBot{ nullptr };
+
+		Button3D								*_rotateLeft{ nullptr };
+		Button3D								*_rotateRight{ nullptr };
+		Button3D								*_rotateTop{ nullptr };
+		Button3D								*_rotateBot{ nullptr };
 
 		EmptyEntity								*_basicMenu{ nullptr };
 		EmptyEntity								*_adjustMenu{ nullptr };
 
 		EditableEntity							*_attachedEntity{ nullptr };
-
-		//Button									*_rotateLeft{ nullptr };
-		//Button									*_rotateRight{ nullptr };
 
 	public:
 		ModificationMenu(std::shared_ptr<DX::DeviceResources> devicesResources,

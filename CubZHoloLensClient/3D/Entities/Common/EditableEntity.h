@@ -6,8 +6,17 @@ namespace HoloLensClient
 {
 	class EditableEntity : public InteractableEntity
 	{
+	public:
+		enum State
+		{
+			IDLE = 0,
+			MOVE,
+			ROTATE,
+		};
+
 	protected:
-		bool					_moving{ false };
+		State				_state{ IDLE };
+		bool				_moving{ false };
 
 	public:
 		EditableEntity(std::shared_ptr<DX::DeviceResources> devicesResources,
@@ -27,5 +36,6 @@ namespace HoloLensClient
 	public:
 		bool IsMoving() const { return _moving; }
 		void StopMoving();
+		void StartMoving();
 	};
 }

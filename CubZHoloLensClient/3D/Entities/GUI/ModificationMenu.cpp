@@ -44,6 +44,8 @@ void HoloLensClient::ModificationMenu::AttachEntity(EditableEntity *entity)
 	_attachedEntity = entity;
 	_scaleLeft->SetRelativePosition({ -_attachedEntity->GetSize().x - 0.1f, -0.25f, 0.0f });
 	_scaleRight->SetRelativePosition({ _attachedEntity->GetSize().x + 0.1f, -0.25f, 0.0f });
+	_scaleTop->SetRelativePosition({ 0.0f, -_attachedEntity->GetSize().y - 0.1f - 0.25f, 0.0f });
+	_scaleBot->SetRelativePosition({ 0.0f, _attachedEntity->GetSize().y + 0.1f - 0.25f, 0.0f });
 	/*_move->setCallback(std::bind(&EditableEntity::OnMoveClick, _attachedEntity));*/
 	//_rotateLeft->setCallback(std::bind(&EditableEntity::OnRotateLeftClick, _attachedEntity));
 	//_rotateRight->setCallback(std::bind(&EditableEntity::OnRotateRightClick, _attachedEntity));
@@ -128,12 +130,34 @@ void HoloLensClient::ModificationMenu::initializeAdjustMenu()
 
 void HoloLensClient::ModificationMenu::initializeAdjustBox()
 {
-	auto scaleLeft = std::make_unique<Button3D>(_devicesResources, _scene,
-		[]() {
-		TRACE("GOT INPUT ON SCALE LEFT" << std::endl);
+	auto scaleLeft = std::make_unique<Button3D>(_devicesResources, _scene, 
+		[this]() {
+		_scaleLeftSelected = !_scaleLeftSelected;
+	}
+		,float3(0.04f, 0.09f, 0.1f));
+	auto scaleRight = std::make_unique<Button3D>(_devicesResources, _scene, 
+		[this]() {
+		_scaleRigthSelected = !_scaleRigthSelected;
 	}
 		, float3(0.04f, 0.09f, 0.1f));
-	auto scaleRight = std::make_unique<Button3D>(_devicesResources, _scene, nullptr, float3(0.04f, 0.09f, 0.1f));
+
+	scaleLeft->setMotionCallback(
+		[this](IEntity* scaleLeftPtr, float3 gazePosition) {
+		if (_scaleLeftSelected) {
+			auto realPos = scaleLeftPtr->GetRealPosition();
+			realPos.x = gazePosition.x;
+			scaleLeftPtr->SetRealPosition(realPos);
+		}
+	});
+
+	scaleRight->setMotionCallback(
+		[this](IEntity* scaleRightPtr, float3 gazePosition) {
+		if (_scaleRigthSelected) {
+			auto realPos = scaleRightPtr->GetRealPosition();
+			realPos.x = gazePosition.x;
+			scaleRightPtr->SetRealPosition(realPos);
+		}
+	});
 
 	_scaleLeft = scaleLeft.get();
 	_scaleRight = scaleRight.get();

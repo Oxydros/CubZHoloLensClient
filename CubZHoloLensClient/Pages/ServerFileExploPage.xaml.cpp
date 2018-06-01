@@ -52,9 +52,9 @@ void CubZHoloLensClient::ServerFileExploPage::OnListFile(Windows::Foundation::Co
 void CubZHoloLensClient::ServerFileExploPage::Button_GoBack(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	//Unregister for event
-	CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->ListFileEvent -= _listFileToken;
-	_threadPoolTimerListFiles->Cancel();
-	delete _threadPoolTimerListFiles;
+	//CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->ListFileEvent -= _listFileToken;
+	//_threadPoolTimerListFiles->Cancel();
+	//delete _threadPoolTimerListFiles;
 
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {
 		this->Frame->GoBack();
@@ -68,18 +68,18 @@ void CubZHoloLensClient::ServerFileExploPage::FileView_SelectionChanged(Platform
 
 void CubZHoloLensClient::ServerFileExploPage::OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs ^ e)
 {
-	//Register to receive info on fileList
-	_listFileToken = CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->ListFileEvent += ref new CubZHoloLensClient::WinNetwork::FileListEvent(this,
-		&CubZHoloLensClient::ServerFileExploPage::OnListFile);
+	////Register to receive info on fileList
+	//_listFileToken = CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->ListFileEvent += ref new CubZHoloLensClient::WinNetwork::FileListEvent(this,
+	//	&CubZHoloLensClient::ServerFileExploPage::OnListFile);
 
-	//Update file scene every 5 seconds
-	_timeSpanListFile.Duration = 50000000;
+	////Update file scene every 5 seconds
+	//_timeSpanListFile.Duration = 50000000;
 
-	_threadPoolTimerListFiles = Windows::System::Threading::ThreadPoolTimer::CreatePeriodicTimer(
-		ref new Windows::System::Threading::TimerElapsedHandler([](Windows::System::Threading::ThreadPoolTimer^ source)
-	{
-		CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->listServerFiles(".");
-	}), _timeSpanListFile);
+	//_threadPoolTimerListFiles = Windows::System::Threading::ThreadPoolTimer::CreatePeriodicTimer(
+	//	ref new Windows::System::Threading::TimerElapsedHandler([](Windows::System::Threading::ThreadPoolTimer^ source)
+	//{
+	//	CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->listServerFiles(".");
+	//}), _timeSpanListFile);
 
 
 	TRACE("Navigated to ServerFileExplo" << std::endl);

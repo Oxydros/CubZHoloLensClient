@@ -4,9 +4,9 @@
 //
 
 #include "pch.h"
-#include <Objects\HoloLensContext.h>
 #include "Objects\UserDataTemplateSelector.h"
 #include "Pages\UserExploPage.xaml.h"
+#include <Objects\HoloLensContext.h>
 
 using namespace CubZHoloLensClient;
 
@@ -25,9 +25,7 @@ using namespace Windows::UI::Xaml::Navigation;
 
 UserExploPage::UserExploPage()
 {
-
 	InitializeComponent();
-
 
 	Windows::UI::Xaml::DataTemplate ^adminTemplate = static_cast<DataTemplate^>(this->Resources->Lookup("AdminTemplate"));
 	Windows::UI::Xaml::DataTemplate ^guestTemplate = static_cast<DataTemplate^>(this->Resources->Lookup("GuestTemplate"));

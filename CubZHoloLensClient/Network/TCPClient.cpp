@@ -1,14 +1,9 @@
 #include "pch.h"
 #include "Network\TCPClient.h"
 #include "Objects\HoloLensContext.h"
-#include <exception>
 
 using namespace Utility;
 using namespace CubZHoloLensClient;
-#include <iostream>
-#include <exception>
-using namespace std;
-
 
 WinNetwork::TCPClient::TCPClient(Platform::String ^username)
 {
@@ -40,7 +35,6 @@ void WinNetwork::TCPClient::runAsync()
 	_thread = new boost::thread([&] {
 		_client.run();
 	});
-	}
 }
 
 void WinNetwork::TCPClient::connect(Platform::String ^ip, Platform::String ^port)
@@ -63,18 +57,6 @@ void WinNetwork::TCPClient::connect(Platform::String ^ip, Platform::String ^port
 
 void CubZHoloLensClient::WinNetwork::TCPClient::disconnect()
 {
-	TRACE(&_user << std::endl);
-	auto packet = std::make_shared<Network::TCPPacket>();
-
-	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_AUTH);
-	packet->getTCPPacket().mutable_authmessage()->set_code(1);
-	packet->getTCPPacket().mutable_authmessage()->set_allocated_user(&_user);
-
-	_client.sendPacket(packet);
-
-	//Release allocated user to get ownership of the data back
-	//This way protobuf wont delete the resource
-	packet->getTCPPacket().mutable_authmessage()->release_user();
 	_client.disconnect();
 }
 
@@ -92,6 +74,8 @@ void CubZHoloLensClient::WinNetwork::TCPClient::listServerFiles(Platform::String
 	packet->getTCPPacket().mutable_listfilemessage()->set_allocated_pathtolist(&filePath);
 
 	_client.sendPacket(packet);
+
+	packet->getTCPPacket().mutable_listfilemessage()->release_pathtolist();
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::listServerUsers()
@@ -101,8 +85,6 @@ void CubZHoloLensClient::WinNetwork::TCPClient::listServerUsers()
 	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_LIST_USER);
 
 	_client.sendPacket(packet);
-
-	packet->getTCPPacket().mutable_listfilemessage()->release_pathtolist();
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
@@ -116,6 +98,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handlePacket(Network::IConnectio
 		return handleFileListPacket(co, tcpPacket);
 	else if (tcpPacket->getPacketType() == Network::TCPPacket::Type::PacketTCP_Type_LIST_USER)
 		return handleUserListPacket(co, tcpPacket);
+
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleAuthPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
@@ -143,8 +126,10 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleFileListPacket(Network::IC
 	auto result = ref new Platform::Collections::Vector<Platform::String^>();
 	for (auto &file : fileList)
 	{
+		TRACE("file found" << std::endl);
 		result->Append(Utility::stringToPlatformString(file.file().name()));
 	}
+	TRACE("end of files" << std::endl);
 	ListFileEvent(result);
 }
 

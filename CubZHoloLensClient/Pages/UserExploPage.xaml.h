@@ -1,4 +1,5 @@
 ﻿//
+//
 // UserExploPage.xaml.h
 // Declaration of the UserExploPage class
 //
@@ -17,17 +18,12 @@ namespace CubZHoloLensClient
 	public ref class UserExploPage sealed
 	{
 	private:
-		//Network events
 		Windows::Foundation::EventRegistrationToken				_listUserToken;
 		Windows::Foundation::TimeSpan							_timeSpanListUser;
 		Windows::System::Threading::ThreadPoolTimer				^_threadPoolTimerListUsers;
-		//https://docs.microsoft.com/en-us/windows/uwp/data-binding/data-binding-quickstart
-		//https://stackoverflow.com/questions/36106829/uwp-listview-different-item-template-for-first-and-last-item
-		Windows::Foundation::Collections::IVector<User^>	^users;
 
 	public:
 		UserExploPage();
-
 		void OnListUser(Windows::Foundation::Collections::IVector<Platform::String^>^userList);
 
 	private:
@@ -39,4 +35,5 @@ namespace CubZHoloLensClient
 	protected:
 		virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs ^e) override;
 	};
+
 }

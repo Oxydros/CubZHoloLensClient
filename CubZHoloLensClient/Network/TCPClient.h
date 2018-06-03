@@ -10,11 +10,13 @@ namespace CubZHoloLensClient
 	namespace WinNetwork
 	{
 		public delegate void FileListEvent(Windows::Foundation::Collections::IVector<Platform::String^>^);
+		public delegate void UserListEvent(Windows::Foundation::Collections::IVector<Platform::String^>^);
 
 		public ref class TCPClient sealed
 		{
 		public:
 			event FileListEvent^ ListFileEvent;
+			event UserListEvent^ ListUserEvent;
 
 		private:
 			Network::TCPClient					_client{};
@@ -36,12 +38,14 @@ namespace CubZHoloLensClient
 			void setUsername(Platform::String ^username);
 
 			void listServerFiles(Platform::String ^path);
+			void listServerUsers();
 
 		private:
 			void handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet);
 
 			void handleAuthPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
 			void handleFileListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
+			void handleUserListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
 		};
 	}
 }

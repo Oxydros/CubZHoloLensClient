@@ -54,7 +54,7 @@ void CubZHoloLensClient::ConnectionPage::Button_Connect(Platform::Object^ sender
 		client->connect(this->IPInput->Text, this->PortInput->Text);
 		client->runAsync();
 	}
-	catch (std::exception &err)
+	catch (std::exception)
 	{
 		waitingConnectionState(true);
 	}

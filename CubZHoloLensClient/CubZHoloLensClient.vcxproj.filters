@@ -218,6 +218,9 @@
     <ClCompile Include="3D\Entities\GUI\Button2D.cpp">
       <Filter>3D\Entities\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Network\UDPClient.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -384,6 +387,9 @@
     </ClInclude>
     <ClInclude Include="3D\Entities\Common\IEntity.h">
       <Filter>3D\Entities\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\UDPClient.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

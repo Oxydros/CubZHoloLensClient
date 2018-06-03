@@ -237,6 +237,7 @@
     <ClInclude Include="3D\Utility\DirectXHelper.h" />
     <ClInclude Include="3D\Utility\StepTimer.h" />
     <ClInclude Include="Network\TCPClient.h" />
+    <ClInclude Include="Network\UDPClient.h" />
     <ClInclude Include="Objects\DeviceTypeValueConverter.h" />
     <ClInclude Include="Objects\File.h" />
     <ClInclude Include="Objects\FileDataTemplateSelector.h" />
@@ -333,6 +334,7 @@
     </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Network\TCPClient.cpp" />
+    <ClCompile Include="Network\UDPClient.cpp" />
     <ClCompile Include="Objects\DeviceTypeValueConverter.cpp" />
     <ClCompile Include="Objects\File.cpp" />
     <ClCompile Include="Objects\HoloLensContext.cpp" />

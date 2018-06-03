@@ -124,7 +124,7 @@ void HoloLensClient::ModificationMenu::initializeAdjustMenu()
 	}, float2(0.12f, 0.07f));
 	doneAdjust->setLabel(L"Done");
 
-	_backgroundAdjust->AddGUIEntity(std::move(doneAdjust), { 0.12, 0.0f });
+	_backgroundAdjust->AddGUIEntity(std::move(doneAdjust), { 0.12f, 0.0f });
 
 	adjustMenu->AddChild(std::move(_backgroundAdjust));
 	adjustMenu->setVisible(false);
@@ -151,7 +151,7 @@ void HoloLensClient::ModificationMenu::initializeRotateMenu()
 	}, float2(0.12f, 0.07f));
 	doneAdjust->setLabel(L"Done");
 
-	_backgroundRotate->AddGUIEntity(std::move(doneAdjust), { 0.12, 0.0f });
+	_backgroundRotate->AddGUIEntity(std::move(doneAdjust), { 0.12f, 0.0f });
 
 	rotateMenu->AddChild(std::move(_backgroundRotate));
 	rotateMenu->setVisible(false);

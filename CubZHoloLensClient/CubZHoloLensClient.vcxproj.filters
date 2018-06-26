@@ -86,6 +86,9 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{c4da1d88-7947-439b-94ea-5e71108e5078}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3D\Input">
+      <UniqueIdentifier>{a72782a8-4cf4-4f35-b366-737e9036a222}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -118,9 +121,6 @@
     <ClCompile Include="3D\AppView.cpp">
       <Filter>3D</Filter>
     </ClCompile>
-    <ClCompile Include="3D\SpatialInputHandler.cpp">
-      <Filter>3D</Filter>
-    </ClCompile>
     <ClCompile Include="Pages\ConnectionPage.xaml.cpp" />
     <ClCompile Include="3D\Scene\SceneRenderer.cpp">
       <Filter>3D\Scene</Filter>
@@ -150,9 +150,6 @@
       <Filter>3D\Utility</Filter>
     </ClCompile>
     <ClCompile Include="3D\Entities\Common\Entity.cpp">
-      <Filter>3D\Entities\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Entities\Common\InteractableEntity.cpp">
       <Filter>3D\Entities\Common</Filter>
     </ClCompile>
     <ClCompile Include="3D\Objects\GUI\DistanceFieldRenderer.cpp">
@@ -221,6 +218,9 @@
     <ClCompile Include="Network\UDPClient.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="3D\Input\SpatialInputHandler.cpp">
+      <Filter>3D\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -259,9 +259,6 @@
       <Filter>3D\Utility</Filter>
     </ClInclude>
     <ClInclude Include="3D\AppView.h">
-      <Filter>3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\SpatialInputHandler.h">
       <Filter>3D</Filter>
     </ClInclude>
     <ClInclude Include="Pages\ConnectionPage.xaml.h" />
@@ -305,9 +302,6 @@
       <Filter>3D\Objects\Common</Filter>
     </ClInclude>
     <ClInclude Include="3D\Entities\Common\Entity.h">
-      <Filter>3D\Entities\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Entities\Common\InteractableEntity.h">
       <Filter>3D\Entities\Common</Filter>
     </ClInclude>
     <ClInclude Include="3D\Objects\GUI\DistanceFieldRenderer.h">
@@ -385,11 +379,20 @@
     <ClInclude Include="3D\Entities\GUI\Button2D.h">
       <Filter>3D\Entities\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\Common\IEntity.h">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Network\UDPClient.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Input\SpatialInputHandler.h">
+      <Filter>3D\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Input\InputHandler.h">
+      <Filter>3D\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Input\InteractionListener.h">
+      <Filter>3D\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Common\IEntity.h">
+      <Filter>3D\Entities\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

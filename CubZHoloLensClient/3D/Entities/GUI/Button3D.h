@@ -4,6 +4,8 @@
 #include <memory>
 #include <3D\Entities\GUI\GUIEntity.h>
 
+using namespace Windows::UI::Input;
+
 namespace HoloLensClient
 {
 	class Button3D : public GUIEntity
@@ -29,7 +31,8 @@ namespace HoloLensClient
 		bool OnLostFocus() override;
 
 	public:
-		bool OnAirTap() override;
+		void OnAirTap(Spatial::SpatialGestureRecognizer ^sender,
+			Spatial::SpatialTappedEventArgs ^args);
 
 		std::string const GetLabel() const override { return std::string(_label.begin(), _label.end()); }
 	};

@@ -56,27 +56,34 @@ void HolographicScene::Initialize()
 	//addEntity(std::move(entityMenu));
 }
 
+void HoloLensClient::HolographicScene::InteractionDetectedEvent(Windows::UI::Input::Spatial::SpatialInteractionManager ^sender,
+	Windows::UI::Input::Spatial::SpatialInteractionDetectedEventArgs ^ args)
+{	
+	if (_focusedEntity)
+		_focusedEntity->CaptureInteraction(args->Interaction);
+}
+
 void HolographicScene::Update(DX::StepTimer const& timer)
 {
-	_root->Update(timer);
-
 	auto pair = _root->getNearestInGazeEntity();
 
 	//Focus only nearest entity in gaze direction
 	if (pair.second >= 0)
 	{
 		/*TRACE("Nearest entity is " << pair.first << " " << pair.first->GetLabel() << " " << pair.second << std::endl);*/
-		if (_previousEntityFocused != nullptr && _previousEntityFocused != pair.first)
-			_previousEntityFocused->setFocus(false);
+		if (_focusedEntity != nullptr && _focusedEntity != pair.first)
+			_focusedEntity->setFocus(false);
 		pair.first->setFocus(true);
-		_previousEntityFocused = pair.first;
+		_focusedEntity = pair.first;
 	}
-	else if (_previousEntityFocused != nullptr)
+	else if (_focusedEntity != nullptr)
 	{
 		//No entity found in gaze, remove focus from actual entity
-		_previousEntityFocused->setFocus(false);
-		_previousEntityFocused = nullptr;
+		_focusedEntity->setFocus(false);
+		_focusedEntity = nullptr;
 	}
+
+	_root->Update(timer);
 }
 
 void HolographicScene::Render()
@@ -92,11 +99,6 @@ void HoloLensClient::HolographicScene::UpdateCoordinateSystem(Windows::Perceptio
 void HoloLensClient::HolographicScene::UpdatePointerPose(Windows::UI::Input::Spatial::SpatialPointerPose ^ pointerPose)
 {
 	_pointerPose = pointerPose;
-}
-
-void HoloLensClient::HolographicScene::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState)
-{
-	_root->Inputs(pointerState);
 }
 
 void HolographicScene::OnDeviceLost()

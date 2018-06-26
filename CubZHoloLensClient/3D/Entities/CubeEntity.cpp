@@ -42,10 +42,3 @@ CubeEntity::~CubeEntity()
 void CubeEntity::DoUpdate(DX::StepTimer const & timer)
 {
 }
-
-bool HoloLensClient::CubeEntity::OnAirTap()
-{
-	EditableEntity::OnAirTap();
-	TRACE("Got input on " << this << std::endl;);
-	return true;
-}

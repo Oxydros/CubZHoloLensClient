@@ -22,7 +22,8 @@ SceneRenderer::SceneRenderer(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_deviceResources(deviceResources)
 {
     // Register to be notified if the device is lost or recreated.
-    m_deviceResources->RegisterDeviceNotify(this);}
+    m_deviceResources->RegisterDeviceNotify(this);
+}
 
 void SceneRenderer::SetHolographicSpace(HolographicSpace^ holographicSpace)
 {
@@ -33,7 +34,7 @@ void SceneRenderer::SetHolographicSpace(HolographicSpace^ holographicSpace)
 
     m_holographicSpace = holographicSpace;
 
-    m_spatialInputHandler = std::make_unique<SpatialInputHandler>();
+    m_spatialInputHandler = std::make_unique<SpatialInputHandler>(_holoScene.get());
 
     // Use the default SpatialLocator to track the motion of the device.
     m_locator = SpatialLocator::GetDefault();
@@ -148,11 +149,6 @@ HolographicFrame^ SceneRenderer::Update()
 
 	_holoScene->UpdateCoordinateSystem(currentCoordinateSystem);
 	_holoScene->UpdatePointerPose(pointerPose);
-
-	//// Check for new input state since the last frame.
-    SpatialInteractionSourceState^ pointerState = m_spatialInputHandler->CheckForInput();
-
-	_holoScene->Inputs(pointerState);
 
     m_timer.Tick([&] ()
     {

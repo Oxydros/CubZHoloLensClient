@@ -29,8 +29,6 @@ namespace HoloLensClient
 		virtual void AddGUIEntity(IEntity::IEntityPtr child, Windows::Foundation::Numerics::float2 offsetXY);
 
 		void DoUpdate(DX::StepTimer const &timer) override {};
-		// Inherited via GUIEntity
-		virtual bool OnAirTap() override final { return false; };
 
 		std::string const GetLabel() const override { return "Panel"; }
 	};

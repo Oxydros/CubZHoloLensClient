@@ -12,7 +12,6 @@ namespace HoloLensClient
 
 	protected:
 		void DoUpdate(DX::StepTimer const &timer) override;
-		void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override;
 
 		std::string const GetLabel() const override { return "Cursor"; }
 

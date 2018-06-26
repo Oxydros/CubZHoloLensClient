@@ -75,7 +75,6 @@ void HoloLensClient::ModificationMenu::initializeBasicMenu()
 	}
 	, float2(0.12f, 0.07f));
 	removeButton->setLabel(L"Remove");
-	removeButton->disableMultipleClick(false);
 
 	auto adjustButton = std::make_unique<Button2D>(_devicesResources, _scene,
 		[this]() {
@@ -83,7 +82,7 @@ void HoloLensClient::ModificationMenu::initializeBasicMenu()
 		_basicMenu->setVisible(false);
 		_adjustMenu->setVisible(true);
 		if (_attachedEntity)
-			_attachedEntity->setEditableState(EditableEntity::State::MOVE);
+			_attachedEntity->setEditableState(EditableEntity::State::ADJUST);
 	}, float2(0.12f, 0.07f));
 	adjustButton->setLabel(L"Adjust");
 

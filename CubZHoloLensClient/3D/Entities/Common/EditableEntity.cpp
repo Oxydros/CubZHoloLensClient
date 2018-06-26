@@ -7,8 +7,49 @@
 
 HoloLensClient::EditableEntity::EditableEntity(std::shared_ptr<DX::DeviceResources> devicesResources,
 											   std::shared_ptr<HolographicScene> scene)
-	: InteractableEntity(scene)
+	: Entity(scene)
 {
+	Spatial::SpatialGestureRecognizer ^spatial = ref new Spatial::SpatialGestureRecognizer(
+		Spatial::SpatialGestureSettings::Tap | Spatial::SpatialGestureSettings::ManipulationTranslate);
+
+	_tappedToken = spatial->Tapped +=
+		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
+		Spatial::SpatialTappedEventArgs ^>(
+			std::bind(&EditableEntity::OnAirTap, this, std::placeholders::_1, std::placeholders::_2)
+			);
+
+	_manipStartedToken = spatial->ManipulationStarted +=
+		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
+		Spatial::SpatialManipulationStartedEventArgs ^>(
+			std::bind(&EditableEntity::OnManipulationStarted, this, std::placeholders::_1, std::placeholders::_2)
+			);
+
+	_manipUpdatedToken = spatial->ManipulationUpdated +=
+		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
+		Spatial::SpatialManipulationUpdatedEventArgs ^>(
+			std::bind(&EditableEntity::OnManipulationUpdated, this, std::placeholders::_1, std::placeholders::_2)
+			);
+
+	_manipCompletedToken = spatial->ManipulationCompleted +=
+		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
+		Spatial::SpatialManipulationCompletedEventArgs ^>(
+			std::bind(&EditableEntity::OnManipulationCompleted, this, std::placeholders::_1, std::placeholders::_2)
+			);
+
+	_manipCanceledToken = spatial->ManipulationCanceled +=
+		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
+		Spatial::SpatialManipulationCanceledEventArgs ^>(
+			std::bind(&EditableEntity::OnManipulationCanceled, this, std::placeholders::_1, std::placeholders::_2)
+			);
+
+	SetSpatialGestureRecognizer(spatial);
+}
+
+HoloLensClient::EditableEntity::~EditableEntity()
+{
+	auto spatial = GetSpatialGestureRecognizer();
+	if (spatial)
+		spatial->Tapped -= _tappedToken;
 }
 
 bool HoloLensClient::EditableEntity::OnGetFocus()
@@ -22,48 +63,58 @@ bool HoloLensClient::EditableEntity::OnLostFocus()
 	return false;
 }
 
-bool HoloLensClient::EditableEntity::OnAirTap()
-{
-	//Retrieve Colored cube mesh
-	auto coloredMesh = dynamic_cast<ColoredObject*>(_mesh.get());	
-
-	if (_state == MOVE)
-	{
-		if (IsMoving())
-			StopMoving();
-		else
-			StartMoving();
-	}
-	else if (_state == ROTATE)
-	{
-		TRACE("ROTATING STATE" << std::endl);
-	}
-	return (true);
-}
-
-void HoloLensClient::EditableEntity::OnRotateLeftClick()
-{
-	TRACE("Rotate left" << std::endl);
-	Rotate({ 0, 20, 0 });
-}
-
-void HoloLensClient::EditableEntity::OnRotateRightClick()
-{
-	TRACE("Rotate Right" << std::endl);
-	Rotate({ 0, -20, 0 });
-}
-
-void HoloLensClient::EditableEntity::OnMoveClick()
-{
-	_moving = true;
-	//Distance should min between 2meters and distance of a wall / real object
-	setFollowGaze(true, false, { 0, 0, 2.0f });
-}
-
 void HoloLensClient::EditableEntity::OnKillClick()
 {
 	_scene->getModificationMenu()->DetachEntity();
 	kill();
+}
+
+void HoloLensClient::EditableEntity::OnAirTap(Spatial::SpatialGestureRecognizer ^sender,
+	Spatial::SpatialTappedEventArgs ^args)
+{
+	////Retrieve Colored cube mesh
+	//auto coloredMesh = dynamic_cast<ColoredObject*>(_mesh.get());	
+
+	//if (_state == ADJUST)
+	//{
+	//	if (IsMoving())
+	//		StopMoving();
+	//	else
+	//		StartMoving();
+	//}
+	//else if (_state == ROTATE)
+	//{
+	//	TRACE("ROTATING STATE" << std::endl);
+	//}
+}
+
+void HoloLensClient::EditableEntity::OnManipulationStarted(Spatial::SpatialGestureRecognizer ^recognizer, Spatial::SpatialManipulationStartedEventArgs ^args)
+{
+	if (_state == ADJUST)
+		StartMoving();
+}
+
+void HoloLensClient::EditableEntity::OnManipulationUpdated(Spatial::SpatialGestureRecognizer ^recognizer, Spatial::SpatialManipulationUpdatedEventArgs ^args)
+{
+	Spatial::SpatialManipulationDelta ^delta = args->TryGetCumulativeDelta(_scene->getCoordinateSystem());
+
+	if (_state == ADJUST)
+	{
+		TRACE("GOT DELTA OF " << delta->Translation << std::endl);
+		this->Move(delta->Translation);
+	}
+}
+
+void HoloLensClient::EditableEntity::OnManipulationCompleted(Spatial::SpatialGestureRecognizer ^recognizer, Spatial::SpatialManipulationCompletedEventArgs ^args)
+{
+	if (_state == ADJUST)
+		StopMoving();
+}
+
+void HoloLensClient::EditableEntity::OnManipulationCanceled(Spatial::SpatialGestureRecognizer ^recognizer, Spatial::SpatialManipulationCanceledEventArgs ^args)
+{
+	if (_state == ADJUST)
+		StopMoving();
 }
 
 void HoloLensClient::EditableEntity::StopMoving()
@@ -80,7 +131,6 @@ void HoloLensClient::EditableEntity::StopMoving()
 	}
 
 	_moving = false;
-	setFollowGaze(false, false);
 }
 
 void HoloLensClient::EditableEntity::StartMoving()
@@ -95,7 +145,5 @@ void HoloLensClient::EditableEntity::StartMoving()
 		actualColor.z += 0.1f;
 		coloredMesh->SetColor(actualColor);
 	}
-
-	setFollowGaze(true, false);
 	_moving = true;
 }

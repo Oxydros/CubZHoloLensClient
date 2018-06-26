@@ -9,6 +9,7 @@
 #include "3D\Entities\Common\EmptyEntity.h"
 #include "3D\Entities\GUI\MainMenu.h"
 #include "3D\Entities\GUI\ModificationMenu.h"
+#include <3D\Input\InteractionListener.h>
 
 
 ///-------------------------------------------------------------------------------------------------
@@ -19,7 +20,7 @@
 namespace HoloLensClient
 {
 	/// <summary>	A holographic scene. </summary>
-	class HolographicScene : public std::enable_shared_from_this<HolographicScene>
+	class HolographicScene : public std::enable_shared_from_this<HolographicScene>, public InteractionListener
 	{
 	public:
 		/// <summary>	Defines an alias representing the shared pointer. </summary>
@@ -41,8 +42,10 @@ namespace HoloLensClient
 		ModificationMenu										*_modifMenu{ nullptr };
 		/// <summary>	The main menu. </summary>
 		MainMenu												*_mainMenu{ nullptr };
+		/// <summary>	User cursor (head direction). </summary>
 		IEntity													*_cursor{ nullptr };
-		IEntity													*_previousEntityFocused{ nullptr };
+		/// <summary>	Entity currently focused (nearest) </summary>
+		IEntity													*_focusedEntity{ nullptr };
 
 	public:
 
@@ -82,12 +85,6 @@ namespace HoloLensClient
 		///-------------------------------------------------------------------------------------------------
 		void UpdatePointerPose(Windows::UI::Input::Spatial::SpatialPointerPose ^pointerPose);
 
-		///-------------------------------------------------------------------------------------------------
-		/// <summary>	Inputs the given pointer state. </summary>
-		///
-		/// <param name="pointerState">	State of the pointer. Null if no input is detected </param>
-		///-------------------------------------------------------------------------------------------------
-		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState);
 		/// <summary>	Executes the device lost action. </summary>
 		void OnDeviceLost();
 		/// <summary>	Executes the device restored action. </summary>
@@ -110,6 +107,11 @@ namespace HoloLensClient
 		/// <returns>	The device resources. </returns>
 		///-------------------------------------------------------------------------------------------------
 		std::shared_ptr<DX::DeviceResources> getDeviceResources() const { return (_deviceResources); };
+
+	public:
+		void InteractionDetectedEvent(
+			Windows::UI::Input::Spatial::SpatialInteractionManager^ sender,
+			Windows::UI::Input::Spatial::SpatialInteractionDetectedEventArgs^ args) override;
 
 	public:
 

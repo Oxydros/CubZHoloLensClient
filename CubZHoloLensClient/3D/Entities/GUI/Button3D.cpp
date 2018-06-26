@@ -31,8 +31,8 @@ bool HoloLensClient::Button3D::OnLostFocus()
 	return (true);
 }
 
-bool HoloLensClient::Button3D::OnAirTap()
+void HoloLensClient::Button3D::OnAirTap(Spatial::SpatialGestureRecognizer ^sender,
+										Spatial::SpatialTappedEventArgs ^args)
 {
 	if (_callback) _callback();
-	return (true);
 }

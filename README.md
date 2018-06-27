@@ -17,6 +17,10 @@ When everything is in order, launch the bat script initRepo.bat. It should compi
 
 You should now see cubznetwork.lib and proto.lib inside the folder libs/bin.
 
+# Compilation
+
+Be sure to set the project in x86 / Release in Visual Studio.  
+
 # Useful links
 
 - [Overview about DirectX development on HoloLens](https://developer.microsoft.com/en-us/windows/mixed-reality/directx_development_overview)

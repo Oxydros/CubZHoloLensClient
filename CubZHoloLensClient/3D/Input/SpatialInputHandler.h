@@ -15,14 +15,7 @@ namespace HoloLensClient
         SpatialInputHandler(InteractionListener *listener);
         ~SpatialInputHandler();
 
-        Windows::UI::Input::Spatial::SpatialInteractionSourceState^ CheckForInput();
-
     private:
-        // Interaction event handler.
-        void OnSourcePressed(
-            Windows::UI::Input::Spatial::SpatialInteractionManager^ sender,
-            Windows::UI::Input::Spatial::SpatialInteractionSourceEventArgs^ args);
-
 		void OnInteractionDetected(
 			Windows::UI::Input::Spatial::SpatialInteractionManager^ sender,
 			Windows::UI::Input::Spatial::SpatialInteractionDetectedEventArgs^ args);
@@ -30,11 +23,6 @@ namespace HoloLensClient
         // API objects used to process gesture input, and generate gesture events.
         Windows::UI::Input::Spatial::SpatialInteractionManager^     _interactionManager;
 
-        // Event registration tokens.
-        Windows::Foundation::EventRegistrationToken                 _sourcePressedEventToken;
 		Windows::Foundation::EventRegistrationToken                 _interactionDetectedEventToken;
-
-        // Used to indicate that a Pressed input event was received this frame.
-        Windows::UI::Input::Spatial::SpatialInteractionSourceState^ _sourceState = nullptr;
     };
 }

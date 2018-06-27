@@ -385,9 +385,6 @@
     <ClInclude Include="3D\Input\SpatialInputHandler.h">
       <Filter>3D\Input</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Input\InputHandler.h">
-      <Filter>3D\Input</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Input\InteractionListener.h">
       <Filter>3D\Input</Filter>
     </ClInclude>

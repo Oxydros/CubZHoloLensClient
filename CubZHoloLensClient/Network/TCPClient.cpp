@@ -1,4 +1,5 @@
 #include "pch.h"
+#include <map>
 #include "Network\TCPClient.h"
 #include "Objects\HoloLensContext.h"
 
@@ -90,15 +91,21 @@ void CubZHoloLensClient::WinNetwork::TCPClient::listServerUsers()
 void CubZHoloLensClient::WinNetwork::TCPClient::handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
 {
 	auto tcpPacket = std::static_pointer_cast<Network::TCPPacket>(packet);
+	auto type = tcpPacket->getPacketType();
 
 	TRACE("Received " << tcpPacket << std::endl);
-	if (tcpPacket->getPacketType() == Network::TCPPacket::Type::PacketTCP_Type_AUTH)
+	if (type == Network::TCPPacket::Type::PacketTCP_Type_AUTH)
 		return handleAuthPacket(co, tcpPacket);
-	else if (tcpPacket->getPacketType() == Network::TCPPacket::Type::PacketTCP_Type_LIST_FILE)
+	else if (type == Network::TCPPacket::Type::PacketTCP_Type_LIST_FILE)
 		return handleFileListPacket(co, tcpPacket);
-	else if (tcpPacket->getPacketType() == Network::TCPPacket::Type::PacketTCP_Type_LIST_USER)
+	else if (type == Network::TCPPacket::Type::PacketTCP_Type_LIST_USER)
 		return handleUserListPacket(co, tcpPacket);
-
+	else if (type == Network::TCPPacket::Type::PacketTCP_Type_LIST_DEVICE)
+		return handleDeviceListPacket(co, tcpPacket);
+	else if (type == Network::TCPPacket::Type::PacketTCP_Type_UDP)
+		return handleUDPPacket(co, tcpPacket);
+	else if (type == Network::TCPPacket::Type::PacketTCP_Type_PING)
+		return handlePingPacket(co, tcpPacket);
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleAuthPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
@@ -144,4 +151,27 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleUserListPacket(Network::IC
 		result->Append(Utility::stringToPlatformString(user.user().username()));
 	}
 	ListUserEvent(result);
+}
+
+void CubZHoloLensClient::WinNetwork::TCPClient::handleDeviceListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
+{
+	TRACE("Handling device list message" << std::endl);
+	auto listDevicePacket = packet->getTCPPacket().listdevicemessage();
+	auto deviceList = listDevicePacket.list();
+	auto result = ref new Platform::Collections::Vector<Platform::String^>();
+	for (auto &device : deviceList)
+	{
+		result->Append(Utility::stringToPlatformString(device.device().name()));
+	}
+	ListDeviceEvent(result);
+}
+
+void CubZHoloLensClient::WinNetwork::TCPClient::handlePingPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
+{
+	throw ref new Platform::NotImplementedException();
+}
+
+void CubZHoloLensClient::WinNetwork::TCPClient::handleUDPPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
+{
+	throw ref new Platform::NotImplementedException();
 }

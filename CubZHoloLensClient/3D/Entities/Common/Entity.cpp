@@ -48,6 +48,14 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	});
 	_newChilds.clear();
 
+	if (_scene->getPointerPose() != nullptr) {
+		float3 positionMotion = _scene->getPointerPose()->Head->Position - _previousGazePosition;
+		float3 directionMotion = _scene->getPointerPose()->Head->ForwardDirection - _previousGazeDirection;
+		GazeMotion(positionMotion, directionMotion);
+		_previousGazePosition = _scene->getPointerPose()->Head->Position;
+		_previousGazeDirection = _scene->getPointerPose()->Head->ForwardDirection;
+	}
+
 	//Update position and orient if needed
 	if (_followGazeRotation)
 		rotateTowardGaze(_rotationOffsetFromGaze);
@@ -83,16 +91,6 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	/*TRACE("For " << this << " Real position is (" << _realPosition.x << ", " << _realPosition.y << ", " << _realPosition.z 
 		  << ") Relative is (" << _relativePosition.x << ", " << _relativePosition.y << ", " << _relativePosition.z << ")"
 			<< " Bools matrix: " << _useTranslationMatrix << " " << _useRotationMatrix << std::endl);*/
-}
-
-void HoloLensClient::Entity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^ pointerState)
-{
-	std::for_each(_childs.begin(), _childs.end(),
-		[&pointerState](auto &child)
-	{
-		child->Inputs(pointerState);
-	});
-	OnInputs(pointerState);
 }
 
 void Entity::InitializeMesh()
@@ -378,6 +376,17 @@ std::pair<IEntity*, float> HoloLensClient::Entity::getNearestInGazeEntity()
 	});
 
 	return (pair);
+}
+
+void HoloLensClient::Entity::CaptureInteraction(Windows::UI::Input::Spatial::SpatialInteraction ^interaction)
+{
+	if (_spatialGestureRecognizer)
+		_spatialGestureRecognizer->CaptureInteraction(interaction);
+}
+
+void HoloLensClient::Entity::SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^ recognizer)
+{
+	_spatialGestureRecognizer = recognizer;
 }
 
 void HoloLensClient::Entity::positionInFrontOfGaze(Windows::Foundation::Numerics::float3 offsets)

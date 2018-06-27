@@ -1,5 +1,7 @@
 #include "pch.h"
-#include "MainMenu.h"
+#include <3D\Entities\GUI\MainMenu.h>
+#include <3D\Entities\GUI\Panel.h>
+#include <3D\Entities\GUI\Button2D.h>
 #include "3D\Scene\HolographicScene.h"
 
 HoloLensClient::MainMenu::MainMenu(std::shared_ptr<DX::DeviceResources> devicesResources,
@@ -18,7 +20,7 @@ void HoloLensClient::MainMenu::InitializeMenu()
 	/*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/
 	_background->SetRelativePosition({ 0.0f, 0.0f, 0.0f });
 
-	auto _button1 = std::make_unique<Button>(_devicesResources, _scene,
+	auto _button1 = std::make_unique<Button2D>(_devicesResources, _scene,
 			[]() {
 			},
 		float2(0.15f, 0.1f));
@@ -26,7 +28,7 @@ void HoloLensClient::MainMenu::InitializeMenu()
 
 	auto safeScene{ _scene };
 
-	auto _button2 = std::make_unique<Button>(_devicesResources, _scene,
+	auto _button2 = std::make_unique<Button2D>(_devicesResources, _scene,
 		[safeScene]() {
 		TRACE("Killing the scene" << std::endl);
 		safeScene->kill();

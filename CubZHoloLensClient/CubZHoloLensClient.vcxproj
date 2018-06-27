@@ -7,8 +7,8 @@
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
-    <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.15063.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.10586.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -197,18 +197,19 @@
     <ClInclude Include="3D\AppView.h" />
     <ClInclude Include="3D\Entities\Common\EditableEntity.h" />
     <ClInclude Include="3D\Entities\Common\Entity.h" />
-    <ClInclude Include="3D\Entities\Common\EntityRoot.h" />
+    <ClInclude Include="3D\Entities\Common\EmptyEntity.h" />
     <ClInclude Include="3D\Entities\Common\IEntity.h" />
-    <ClInclude Include="3D\Entities\Common\InteractableEntity.h" />
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\CursorEntity.h" />
-    <ClInclude Include="3D\Entities\GUI\Button.h" />
-    <ClInclude Include="3D\Entities\GUI\EntityMenu.h" />
+    <ClInclude Include="3D\Entities\GUI\Button3D.h" />
+    <ClInclude Include="3D\Entities\GUI\Button2D.h" />
     <ClInclude Include="3D\Entities\GUI\GUIEntity.h" />
     <ClInclude Include="3D\Entities\GUI\MainMenu.h" />
     <ClInclude Include="3D\Entities\GUI\ModificationMenu.h" />
     <ClInclude Include="3D\Entities\GUI\Panel.h" />
     <ClInclude Include="3D\Entities\ObjEntity.h" />
+    <ClInclude Include="3D\Input\InteractionListener.h" />
+    <ClInclude Include="3D\Input\SpatialInputHandler.h" />
     <ClInclude Include="3D\Loaders\OBJLoader.h" />
     <ClInclude Include="3D\Loaders\tiny_obj_loader.h" />
     <ClInclude Include="3D\Objects\Common\IObject.h" />
@@ -231,12 +232,12 @@
     <ClInclude Include="3D\Scene\HolographicScene.h" />
     <ClInclude Include="3D\Scene\SceneRenderer.h" />
     <ClInclude Include="3D\Shaders\ShaderStructures.h" />
-    <ClInclude Include="3D\SpatialInputHandler.h" />
     <ClInclude Include="3D\Utility\CFW1StateSaver.h" />
     <ClInclude Include="3D\Utility\Collision.h" />
     <ClInclude Include="3D\Utility\DirectXHelper.h" />
     <ClInclude Include="3D\Utility\StepTimer.h" />
     <ClInclude Include="Network\TCPClient.h" />
+    <ClInclude Include="Network\UDPClient.h" />
     <ClInclude Include="Objects\DeviceTypeValueConverter.h" />
     <ClInclude Include="Objects\File.h" />
     <ClInclude Include="Objects\FileDataTemplateSelector.h" />
@@ -299,15 +300,15 @@
     <ClCompile Include="3D\AppView.cpp" />
     <ClCompile Include="3D\Entities\Common\EditableEntity.cpp" />
     <ClCompile Include="3D\Entities\Common\Entity.cpp" />
-    <ClCompile Include="3D\Entities\Common\InteractableEntity.cpp" />
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />
     <ClCompile Include="3D\Entities\CursorEntity.cpp" />
-    <ClCompile Include="3D\Entities\GUI\Button.cpp" />
-    <ClCompile Include="3D\Entities\GUI\EntityMenu.cpp" />
+    <ClCompile Include="3D\Entities\GUI\Button2D.cpp" />
+    <ClCompile Include="3D\Entities\GUI\Button3D.cpp" />
     <ClCompile Include="3D\Entities\GUI\MainMenu.cpp" />
     <ClCompile Include="3D\Entities\GUI\ModificationMenu.cpp" />
     <ClCompile Include="3D\Entities\GUI\Panel.cpp" />
     <ClCompile Include="3D\Entities\ObjEntity.cpp" />
+    <ClCompile Include="3D\Input\SpatialInputHandler.cpp" />
     <ClCompile Include="3D\Loaders\OBJLoader.cpp" />
     <ClCompile Include="3D\Loaders\tiny_obj_loader.cpp" />
     <ClCompile Include="3D\Objects\GUI\ButtonObject.cpp" />
@@ -325,7 +326,6 @@
     <ClCompile Include="3D\Resources\Texture2D.cpp" />
     <ClCompile Include="3D\Scene\HolographicScene.cpp" />
     <ClCompile Include="3D\Scene\SceneRenderer.cpp" />
-    <ClCompile Include="3D\SpatialInputHandler.cpp" />
     <ClCompile Include="3D\Utility\CFW1StateSaver.cpp" />
     <ClCompile Include="3D\Utility\DirectXHelper.cpp" />
     <ClCompile Include="App.xaml.cpp">
@@ -333,6 +333,7 @@
     </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Network\TCPClient.cpp" />
+    <ClCompile Include="Network\UDPClient.cpp" />
     <ClCompile Include="Objects\DeviceTypeValueConverter.cpp" />
     <ClCompile Include="Objects\File.cpp" />
     <ClCompile Include="Objects\HoloLensContext.cpp" />

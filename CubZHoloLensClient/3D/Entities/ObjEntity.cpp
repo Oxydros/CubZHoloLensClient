@@ -27,9 +27,3 @@ ObjEntity::~ObjEntity()
 void ObjEntity::DoUpdate(DX::StepTimer const & timer)
 {
 }
-
-bool HoloLensClient::ObjEntity::OnAirTap()
-{
-	TRACE("Got input on " << this << std::endl;);
-	return true;
-}

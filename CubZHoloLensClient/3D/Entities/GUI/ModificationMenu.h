@@ -1,7 +1,7 @@
 #pragma once
 
-#include <3D\Entities\GUI\Panel.h>
-#include <3D\Entities\GUI\Button.h>
+#include <3D\Entities\GUI\Button3D.h>
+#include <3D\Entities\Common\EmptyEntity.h>
 #include <3D\Entities\Common\EditableEntity.h>
 
 using namespace Windows::Foundation::Numerics;
@@ -10,12 +10,33 @@ namespace HoloLensClient
 {
 	class ModificationMenu : public Entity
 	{
+
+	public:
+		enum Mode
+		{
+			BASIC,
+			ADJUST,
+			ROTATE,
+		};
+
 	private:
 		std::shared_ptr<DX::DeviceResources>	_devicesResources;
-		Button									*_move{ nullptr };
-		Button									*_rotateLeft{ nullptr };
-		Button									*_rotateRight{ nullptr };
-		Button									*_kill{ nullptr };
+		Mode									_mode{ BASIC };
+
+		bool									_scaleLeftSelected{ false };
+		bool									_scaleRigthSelected{ false };
+		bool									_scaleTopSelected{ false };
+		bool									_scaleBotSelected{ false };
+
+		Button3D								*_scaleLeft{ nullptr };
+		Button3D								*_scaleRight{ nullptr };
+		Button3D								*_scaleTop{ nullptr };
+		Button3D								*_scaleBot{ nullptr };
+
+		EmptyEntity								*_basicMenu{ nullptr };
+		EmptyEntity								*_adjustMenu{ nullptr };
+		EmptyEntity								*_rotateMenu{ nullptr };
+
 		EditableEntity							*_attachedEntity{ nullptr };
 
 	public:
@@ -32,5 +53,11 @@ namespace HoloLensClient
 
 		void AttachEntity(EditableEntity *entity);
 		void DetachEntity();
+
+	private:
+		void initializeBasicMenu();
+		void initializeAdjustMenu();
+		void initializeRotateMenu();
+		void initializeAdjustBox();
 	};
 }

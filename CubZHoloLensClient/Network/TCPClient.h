@@ -11,12 +11,16 @@ namespace CubZHoloLensClient
 	{
 		public delegate void FileListEvent(Windows::Foundation::Collections::IVector<Platform::String^>^);
 		public delegate void UserListEvent(Windows::Foundation::Collections::IVector<Platform::String^>^);
+		public delegate void DeviceListEvent(Windows::Foundation::Collections::IVector<Platform::String^>^);
+		public delegate void UDPMessageEvent(Platform::String ^ip, Platform::String ^port);
 
 		public ref class TCPClient sealed
 		{
 		public:
 			event FileListEvent^ ListFileEvent;
 			event UserListEvent^ ListUserEvent;
+			event DeviceListEvent^ ListDeviceEvent;
+			event UDPMessageEvent^ UDPEvent;
 
 		private:
 			Network::TCPClient					_client{};
@@ -46,6 +50,9 @@ namespace CubZHoloLensClient
 			void handleAuthPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
 			void handleFileListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
 			void handleUserListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
+			void handleDeviceListPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
+			void handlePingPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
+			void handleUDPPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
 		};
 	}
 }

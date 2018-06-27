@@ -1,12 +1,12 @@
 #pragma once
 
-#include <3D\Entities\Common\InteractableEntity.h>
+#include <3D\Entities\Common\Entity.h>
 
 using namespace Windows::Foundation::Numerics;
 
 namespace HoloLensClient
 {
-	class GUIEntity : public InteractableEntity
+	class GUIEntity : public Entity
 	{
 	protected:
 		float3				_size;
@@ -14,7 +14,7 @@ namespace HoloLensClient
 		std::wstring		_label;
 
 	public:
-		GUIEntity(std::shared_ptr<HolographicScene> scene) : InteractableEntity(scene) {}
+		GUIEntity(std::shared_ptr<HolographicScene> scene) : Entity(scene) {}
 		virtual ~GUIEntity() = default;
 
 	public:

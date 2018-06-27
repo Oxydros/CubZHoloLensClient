@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "3D\Resources\DeviceResources.h"
 #include "3D\Objects\Common\IObject.h"
 #include <3D\Entities\Common\IEntity.h>
@@ -13,33 +14,40 @@ namespace HoloLensClient
 	public:
 		typedef std::unique_ptr<Entity>	EntityPtr;
 
+	private:
+		Windows::UI::Input::Spatial::SpatialGestureRecognizer	^_spatialGestureRecognizer{ nullptr };
+
 	protected:
-		IObject::IObjectPtr							_mesh{ nullptr };
-		std::vector<IEntity::IEntityPtr>			_newChilds;
-		std::vector<IEntity::IEntityPtr>			_childs;
-		IEntity										*_parent = nullptr;
-		bool										_alive = true;
-		std::shared_ptr<HolographicScene>			_scene = nullptr;
-		bool										_visible{ true };
-		bool										_focused{ false };
-		bool										_inGaze{ false };
-		bool										_isRoot{ false };
-		bool										_ignoreInGaze{ false };
+		IObject::IObjectPtr										_mesh{ nullptr };
+		std::vector<IEntity::IEntityPtr>						_newChilds;
+		std::vector<IEntity::IEntityPtr>						_childs;
+		IEntity													*_parent{ nullptr };
+		bool													_alive{ true };
+		std::shared_ptr<HolographicScene>						_scene = nullptr;
+		bool													_visible{ true };
+		bool													_focused{ false };
+		bool													_inGaze{ false };
+		bool													_isRoot{ false };
+		bool													_ignoreInGaze{ false };
 
-		bool										_followGazePosition = false;
-		bool										_followGazeRotation = false;
-		Windows::Foundation::Numerics::float3		_positionOffsetFromGaze = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_rotationOffsetFromGaze = { 0, 0, 0 };
+		Windows::Foundation::Numerics::float3					_previousGazePosition{ -1, -1, -1};
+		Windows::Foundation::Numerics::float3					_previousGazeDirection{ -1, -1, -1};
+		MotionCallback											_motionCallback{ nullptr };
 
-		Windows::Foundation::Numerics::float3		_relativePosition = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_relativeRotation = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_scaling = { 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_originalSize = { 0, 0, 0 };
+		bool													_followGazePosition{ false };
+		bool													_followGazeRotation{ false };
+		Windows::Foundation::Numerics::float3					_positionOffsetFromGaze{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3					_rotationOffsetFromGaze{ 0, 0, 0 };
 
-		DirectX::XMMATRIX							_modelTranslation = {};
-		DirectX::XMMATRIX							_modelRotation = {};
-		DirectX::XMMATRIX							_modelScaling = {};
-		float										_distance{ 0 };
+		Windows::Foundation::Numerics::float3					_relativePosition{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3					_relativeRotation{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3					_scaling{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3					_originalSize{ 0, 0, 0 };
+
+		DirectX::XMMATRIX										_modelTranslation{};
+		DirectX::XMMATRIX										_modelRotation{};
+		DirectX::XMMATRIX										_modelScaling{};
+		float													_distance{ 0 };
 
 	public:
 		Entity(std::shared_ptr<HolographicScene> scene);
@@ -47,7 +55,6 @@ namespace HoloLensClient
 
 	public:
 		void Update(DX::StepTimer const &timer) override final;
-		void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) override final;
 
 		void InitializeMesh() override;
 		void ReleaseMesh() override;
@@ -59,6 +66,8 @@ namespace HoloLensClient
 		bool isRoot() const override { return (_isRoot); }
 		bool IgnoreInGaze() const { return (_ignoreInGaze); }
 		void SetIgnoreInGaze(bool ignore) { _ignoreInGaze = ignore; }
+
+		void setMotionCallback(MotionCallback callback) { _motionCallback = callback; }
 
 		void Move(Windows::Foundation::Numerics::float3 offset) override;
 		void Rotate(Windows::Foundation::Numerics::float3 offset) override;
@@ -119,11 +128,25 @@ namespace HoloLensClient
 		void getInGazeEntities(std::vector<IEntity*> &entities) override final;
 		std::pair<IEntity*, float> getNearestInGazeEntity() override final;
 
+		void CaptureInteraction(Windows::UI::Input::Spatial::SpatialInteraction ^interaction) override final;
+
+		void SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^recognizer) override final;
+		Windows::UI::Input::Spatial::SpatialGestureRecognizer ^GetSpatialGestureRecognizer() override { return _spatialGestureRecognizer; };
+
 	public:
 		/// <summary>	Executes the get focus action. </summary>
 		virtual bool OnGetFocus() { return false; }
+
 		/// <summary>	Executes the lost focus action. </summary>
 		virtual bool OnLostFocus() { return false; }
+
+		/// <summary>	Notify the new position of the gaze at every frame when possible. </summary>
+		virtual void GazeMotion(Windows::Foundation::Numerics::float3 positionMotion,
+								Windows::Foundation::Numerics::float3 directionMotion) final
+		{
+			if (_motionCallback)
+				_motionCallback(this, positionMotion, directionMotion);
+		}
 
 	protected:
 
@@ -137,7 +160,6 @@ namespace HoloLensClient
 
 	public:
 		virtual void DoUpdate(DX::StepTimer const &timer) = 0;
-		virtual void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) {};
 
 	private:
 		/*inline void UpdateReal();*/

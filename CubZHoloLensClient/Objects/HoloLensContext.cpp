@@ -8,6 +8,11 @@ WinNetwork::TCPClient	^HoloLensContext::getTCPClient()
 	return (_tcpClient);
 }
 
+WinNetwork::UDPClient ^ CubZHoloLensClient::HoloLensContext::getUDPClient()
+{
+	return (_udpClient);
+}
+
 void CubZHoloLensClient::HoloLensContext::login()
 {
 	_isLoggedIn = true;

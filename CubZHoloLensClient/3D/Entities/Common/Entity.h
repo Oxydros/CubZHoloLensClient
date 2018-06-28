@@ -133,6 +133,8 @@ namespace HoloLensClient
 		void SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^recognizer) override final;
 		Windows::UI::Input::Spatial::SpatialGestureRecognizer ^GetSpatialGestureRecognizer() override { return _spatialGestureRecognizer; };
 
+		std::shared_ptr<HolographicScene>	GetScene() override { return _scene; }
+
 	public:
 		/// <summary>	Executes the get focus action. </summary>
 		virtual bool OnGetFocus() { return false; }

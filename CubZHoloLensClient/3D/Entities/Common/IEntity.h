@@ -8,7 +8,6 @@
 #include <functional>
 #include <3D\Utility\StepTimer.h>
 
-
 ///-------------------------------------------------------------------------------------------------
 // namespace: HoloLensClient
 //
@@ -16,6 +15,9 @@
 ///-------------------------------------------------------------------------------------------------
 namespace HoloLensClient
 {
+
+	class HolographicScene;
+
 	/// <summary>	An entity. </summary>
 	class IEntity
 	{
@@ -362,5 +364,7 @@ namespace HoloLensClient
 		virtual void SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^recognizer) = 0;
 
 		virtual Windows::UI::Input::Spatial::SpatialGestureRecognizer ^GetSpatialGestureRecognizer() = 0;
+
+		virtual std::shared_ptr<HolographicScene>	GetScene() = 0;
 	};
 }

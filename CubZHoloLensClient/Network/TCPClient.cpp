@@ -88,6 +88,15 @@ void CubZHoloLensClient::WinNetwork::TCPClient::listServerUsers()
 	_client.sendPacket(packet);
 }
 
+void CubZHoloLensClient::WinNetwork::TCPClient::requestUDPInfos()
+{
+	auto packet = std::make_shared<Network::TCPPacket>();
+
+	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_UDP);
+
+	_client.sendPacket(packet);
+}
+
 void CubZHoloLensClient::WinNetwork::TCPClient::handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
 {
 	auto tcpPacket = std::static_pointer_cast<Network::TCPPacket>(packet);
@@ -173,5 +182,9 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handlePingPacket(Network::IConne
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleUDPPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
 {
-	throw ref new Platform::NotImplementedException();
+	TRACE("Handling UDP id message" << std::endl);
+	auto port = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().port());
+	auto ip = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().ip());
+
+	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->connect(ip, port);
 }

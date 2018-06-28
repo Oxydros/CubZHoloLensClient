@@ -48,4 +48,16 @@ void CubZHoloLensClient::WinNetwork::UDPClient::disconnect()
 
 void CubZHoloLensClient::WinNetwork::UDPClient::handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
 {
+	auto udpPacket = std::static_pointer_cast<Network::UDPPacket>(packet);
+	auto type = udpPacket->getPacketType();
+
+	TRACE("Received " << udpPacket << std::endl);
+
+	if (type == Network::UDPPacket::Type::PacketUDP_Type_ENTITY)
+		return handleEventPacket(udpPacket);
+}
+
+void CubZHoloLensClient::WinNetwork::UDPClient::handleEventPacket(Network::UDPPacket::SharedPtr packet)
+{
+	
 }

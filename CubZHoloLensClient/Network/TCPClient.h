@@ -17,10 +17,10 @@ namespace CubZHoloLensClient
 		public ref class TCPClient sealed
 		{
 		public:
-			event FileListEvent^ ListFileEvent;
-			event UserListEvent^ ListUserEvent;
-			event DeviceListEvent^ ListDeviceEvent;
-			event UDPMessageEvent^ UDPEvent;
+			event FileListEvent^	ListFileEvent;
+			event UserListEvent^	ListUserEvent;
+			event DeviceListEvent^	ListDeviceEvent;
+			event UDPMessageEvent^	UDPEvent;
 
 		private:
 			Network::TCPClient					_client{};
@@ -43,6 +43,8 @@ namespace CubZHoloLensClient
 
 			void listServerFiles(Platform::String ^path);
 			void listServerUsers();
+
+			void requestUDPInfos();
 
 		private:
 			void handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet);

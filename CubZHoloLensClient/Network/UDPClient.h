@@ -29,6 +29,7 @@ namespace CubZHoloLensClient
 
 		private:
 			void handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet);
+			void handleEventPacket(Network::UDPPacket::SharedPtr packet);
 		};
 	}
 }

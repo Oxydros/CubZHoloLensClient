@@ -10,6 +10,7 @@
 #include "3D\Entities\GUI\MainMenu.h"
 #include "3D\Entities\GUI\ModificationMenu.h"
 #include <3D\Input\InteractionListener.h>
+#include <Objects\HoloLensContext.h>
 
 
 ///-------------------------------------------------------------------------------------------------
@@ -46,6 +47,9 @@ namespace HoloLensClient
 		IEntity													*_cursor{ nullptr };
 		/// <summary>	Entity currently focused (nearest) </summary>
 		IEntity													*_focusedEntity{ nullptr };
+
+		Windows::Foundation::EventRegistrationToken				_updateEntityEventToken;
+		Windows::Foundation::EventRegistrationToken				_entityEventToken;
 
 	public:
 
@@ -98,6 +102,9 @@ namespace HoloLensClient
 		bool isAlive() const { return _alive; };
 		/// <summary>	Kills this object. </summary>
 		void kill() { _alive = false; }
+
+		void UpdateEntity(CubZHoloLensClient::WinNetwork::EntityDescription entity, CubZHoloLensClient::WinNetwork::SpaceDescription space);
+		void CreateDeleteEntity(CubZHoloLensClient::WinNetwork::EntityAction action, CubZHoloLensClient::WinNetwork::EntityDescription entity);
 
 	public:
 

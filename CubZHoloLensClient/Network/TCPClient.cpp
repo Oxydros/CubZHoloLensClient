@@ -198,5 +198,23 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleUDPPacket(Network::IConnec
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleEntityPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
 {
-	throw ref new Platform::NotImplementedException();
+	auto entity = packet->getTCPPacket().entitymessage().entity();
+
+	auto entityAction = CubZHoloLensClient::WinNetwork::EntityAction(packet->getTCPPacket().entitymessage().action());
+
+	WinNetwork::EntityDescription entityDescription =
+	{
+		WinNetwork::EntityType(entity.type()),
+	{
+		WinNetwork::FileType(entity.file().type()),
+		Utility::stringToPlatformString(entity.file().name()),
+		Utility::stringToPlatformString(entity.file().extension()),
+		Utility::stringToPlatformString(entity.file().path()),
+		entity.file().size(),
+		entity.file().rights()
+	},
+		entity.id()
+	};
+
+	EntityEvent(entityAction, entityDescription);
 }

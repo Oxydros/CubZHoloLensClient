@@ -89,6 +89,9 @@
     <Filter Include="3D\Input">
       <UniqueIdentifier>{a72782a8-4cf4-4f35-b366-737e9036a222}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network\Objects">
+      <UniqueIdentifier>{6044723b-a639-4945-8516-76e832a93bec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -390,6 +393,9 @@
     </ClInclude>
     <ClInclude Include="3D\Entities\Common\IEntity.h">
       <Filter>3D\Entities\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Objects\TypeDescription.h">
+      <Filter>Network\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

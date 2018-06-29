@@ -59,5 +59,29 @@ void CubZHoloLensClient::WinNetwork::UDPClient::handlePacket(Network::IConnectio
 
 void CubZHoloLensClient::WinNetwork::UDPClient::handleEventPacket(Network::UDPPacket::SharedPtr packet)
 {
-	
+	auto entity = packet->getUDPPacket().entitymessage().entityinfos();
+	auto space = packet->getUDPPacket().entitymessage().spaceinfos();
+
+	WinNetwork::EntityDescription entityDescription =
+	{
+		WinNetwork::EntityType(entity.type()),
+		{
+			WinNetwork::FileType(entity.file().type()),
+			Utility::stringToPlatformString(entity.file().name()),
+			Utility::stringToPlatformString(entity.file().extension()),
+			Utility::stringToPlatformString(entity.file().path()),
+			entity.file().size(),
+			entity.file().rights()
+		},
+		entity.id()
+	};
+
+	WinNetwork::SpaceDescription spaceDescription =
+	{
+		Windows::Foundation::Numerics::float3(space.x(), space.y(), space.z()),
+		Windows::Foundation::Numerics::float3(space.rx(), space.ry(), space.rz()),
+		Windows::Foundation::Numerics::float3(space.sx(), space.sy(), space.sz())
+	};
+
+	EntityUpdated(entityDescription, spaceDescription);
 }

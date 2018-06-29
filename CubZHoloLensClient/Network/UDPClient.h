@@ -4,13 +4,20 @@
 #include <libnetwork\UDPPacket.h>
 #include "boost\thread.hpp"
 #include "Utility\Utility.h"
+#include <Network\Objects\TypeDescription.h>
 
 namespace CubZHoloLensClient
 {
 	namespace WinNetwork
 	{
+
+		public delegate void EntityUpdateEvent(WinNetwork::EntityDescription, WinNetwork::SpaceDescription);
+
 		public ref class UDPClient sealed
 		{
+		public:
+			event EntityUpdateEvent ^ EntityUpdated;
+
 		private:
 			Network::UDPClient					_client{};
 			boost::thread						*_thread{ nullptr };

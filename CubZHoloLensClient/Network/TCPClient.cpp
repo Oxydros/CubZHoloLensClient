@@ -73,6 +73,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::listServerFiles(Platform::String
 
 	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_LIST_FILE);
 	packet->getTCPPacket().mutable_listfilemessage()->set_allocated_pathtolist(&filePath);
+	packet->getTCPPacket().mutable_listfilemessage()->set_userid(_id);
 
 	_client.sendPacket(packet);
 
@@ -84,6 +85,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::listServerUsers()
 	auto packet = std::make_shared<Network::TCPPacket>();
 
 	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_LIST_USER);
+	packet->getTCPPacket().mutable_listusermessage()->set_userid(_id);
 
 	_client.sendPacket(packet);
 }
@@ -93,6 +95,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::requestUDPInfos()
 	auto packet = std::make_shared<Network::TCPPacket>();
 
 	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_UDP);
+	packet->getTCPPacket().mutable_udpmessageid()->set_userid(_id);
 
 	_client.sendPacket(packet);
 }
@@ -115,6 +118,8 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handlePacket(Network::IConnectio
 		return handleUDPPacket(co, tcpPacket);
 	else if (type == Network::TCPPacket::Type::PacketTCP_Type_PING)
 		return handlePingPacket(co, tcpPacket);
+	else if (type == Network::TCPPacket::Type::PacketTCP_Type_ENTITY)
+		return handleEntityPacket(co, tcpPacket);
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleAuthPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
@@ -125,6 +130,8 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleAuthPacket(Network::IConne
 		packet->getTCPPacket().authmessage().action() == CubZPacket::AuthMessage::LOGIN)
 	{
 		HoloLensContext::Instance()->login();
+		_user = packet->getTCPPacket().authmessage().user();
+		_id = packet->getTCPPacket().authmessage().user().id();
 	}
 	else if (!packet->getTCPPacket().authmessage().user().username().compare(_user.username()) &&
 		packet->getTCPPacket().authmessage().code() == 0 &&
@@ -143,7 +150,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleFileListPacket(Network::IC
 	for (auto &file : fileList)
 	{
 		TRACE("file found" << std::endl);
-		result->Append(Utility::stringToPlatformString(file.file().name()));
+		result->Append(Utility::stringToPlatformString(file.name()));
 	}
 	TRACE("end of files" << std::endl);
 	ListFileEvent(result);
@@ -157,7 +164,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleUserListPacket(Network::IC
 	auto result = ref new Platform::Collections::Vector<Platform::String^>();
 	for (auto &user : userList)
 	{
-		result->Append(Utility::stringToPlatformString(user.user().username()));
+		result->Append(Utility::stringToPlatformString(user.username()));
 	}
 	ListUserEvent(result);
 }
@@ -170,7 +177,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleDeviceListPacket(Network::
 	auto result = ref new Platform::Collections::Vector<Platform::String^>();
 	for (auto &device : deviceList)
 	{
-		result->Append(Utility::stringToPlatformString(device.device().name()));
+		result->Append(Utility::stringToPlatformString(device.name()));
 	}
 	ListDeviceEvent(result);
 }
@@ -187,4 +194,9 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleUDPPacket(Network::IConnec
 	auto ip = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().ip());
 
 	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->connect(ip, port);
+}
+
+void CubZHoloLensClient::WinNetwork::TCPClient::handleEntityPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
+{
+	throw ref new Platform::NotImplementedException();
 }

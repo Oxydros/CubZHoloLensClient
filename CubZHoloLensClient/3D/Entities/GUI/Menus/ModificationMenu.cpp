@@ -1,7 +1,7 @@
 #include "pch.h"
-#include <3D\Entities\GUI\Button2D.h>
-#include <3D\Entities\GUI\Button3D.h>
-#include <3D\Entities\GUI\Panel.h>
+#include <3D\Entities\GUI\Widgets\Button2D.h>
+#include <3D\Entities\GUI\Widgets\Button3D.h>
+#include <3D\Entities\GUI\Widgets\Panel.h>
 #include "ModificationMenu.h"
 
 HoloLensClient::ModificationMenu::ModificationMenu(std::shared_ptr<DX::DeviceResources> devicesResources,

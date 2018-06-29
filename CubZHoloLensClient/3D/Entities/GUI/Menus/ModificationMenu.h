@@ -1,6 +1,6 @@
 #pragma once
 
-#include <3D\Entities\GUI\Button3D.h>
+#include <3D\Entities\GUI\Widgets\Button3D.h>
 #include <3D\Entities\Common\EmptyEntity.h>
 #include <3D\Entities\Common\EditableEntity.h>
 

@@ -92,6 +92,12 @@
     <Filter Include="Network\Objects">
       <UniqueIdentifier>{6044723b-a639-4945-8516-76e832a93bec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3D\Entities\GUI\Menus">
+      <UniqueIdentifier>{72f4c5c3-4b83-40be-a8b7-0185e96c83a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D\Entities\GUI\Widgets">
+      <UniqueIdentifier>{d50b8ad9-a93d-4759-8dc1-05f99e4d13fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -182,9 +188,6 @@
     <ClCompile Include="3D\Objects\GUI\TextObject.cpp">
       <Filter>3D\Objects\GUI\Text</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Entities\GUI\Panel.cpp">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Loaders\OBJLoader.cpp">
       <Filter>3D\Loaders</Filter>
     </ClCompile>
@@ -193,12 +196,6 @@
     </ClCompile>
     <ClCompile Include="3D\Loaders\tiny_obj_loader.cpp">
       <Filter>3D\Loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Entities\GUI\MainMenu.cpp">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Entities\GUI\ModificationMenu.cpp">
-      <Filter>3D\Entities\GUI</Filter>
     </ClCompile>
     <ClCompile Include="3D\Entities\Common\EditableEntity.cpp">
       <Filter>3D\Entities\Common</Filter>
@@ -212,17 +209,26 @@
     <ClCompile Include="3D\Entities\ObjEntity.cpp">
       <Filter>3D\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Entities\GUI\Button3D.cpp">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\Entities\GUI\Button2D.cpp">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Network\UDPClient.cpp">
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="3D\Input\SpatialInputHandler.cpp">
       <Filter>3D\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\Menus\MainMenu.cpp">
+      <Filter>3D\Entities\GUI\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\Menus\ModificationMenu.cpp">
+      <Filter>3D\Entities\GUI\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\Widgets\Button2D.cpp">
+      <Filter>3D\Entities\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\Widgets\Button3D.cpp">
+      <Filter>3D\Entities\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Entities\GUI\Widgets\Panel.cpp">
+      <Filter>3D\Entities\GUI\Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,9 +340,6 @@
     <ClInclude Include="3D\Objects\GUI\TextObject.h">
       <Filter>3D\Objects\GUI\Text</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\GUI\Panel.h">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="3D\Entities\GUI\GUIEntity.h">
       <Filter>3D\Entities\GUI</Filter>
     </ClInclude>
@@ -351,12 +354,6 @@
     </ClInclude>
     <ClInclude Include="Utility\Utility.h">
       <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Entities\GUI\MainMenu.h">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Entities\GUI\ModificationMenu.h">
-      <Filter>3D\Entities\GUI</Filter>
     </ClInclude>
     <ClInclude Include="3D\Entities\Common\EditableEntity.h">
       <Filter>3D\Entities\Common</Filter>
@@ -376,12 +373,6 @@
     <ClInclude Include="3D\Entities\Common\EmptyEntity.h">
       <Filter>3D\Entities\Common</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\GUI\Button3D.h">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Entities\GUI\Button2D.h">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Network\UDPClient.h">
       <Filter>Network</Filter>
     </ClInclude>
@@ -396,6 +387,21 @@
     </ClInclude>
     <ClInclude Include="Network\Objects\TypeDescription.h">
       <Filter>Network\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\Menus\MainMenu.h">
+      <Filter>3D\Entities\GUI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\Menus\ModificationMenu.h">
+      <Filter>3D\Entities\GUI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\Widgets\Button2D.h">
+      <Filter>3D\Entities\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\Widgets\Button3D.h">
+      <Filter>3D\Entities\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\GUI\Widgets\Panel.h">
+      <Filter>3D\Entities\GUI\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

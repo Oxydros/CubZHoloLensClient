@@ -1,5 +1,5 @@
 #include <pch.h>
-#include <3D\Entities\GUI\ModificationMenu.h>
+#include <3D\Entities\GUI\Menus\ModificationMenu.h>
 #include "3D\Scene\HolographicScene.h"
 #include <3D\Objects\Mesh\Common\ColoredObject.h>
 

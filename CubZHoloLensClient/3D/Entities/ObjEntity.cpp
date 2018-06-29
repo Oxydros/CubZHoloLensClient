@@ -3,7 +3,7 @@
 #include <3D\Objects\Mesh\3DFormes\OBJMesh.h>
 
 #include "3D\Entities\ObjEntity.h"
-#include "3D\Entities\GUI\ModificationMenu.h"
+#include "3D\Entities\GUI\Menus\ModificationMenu.h"
 #include "3D\Scene\HolographicScene.h"
 
 using namespace HoloLensClient;

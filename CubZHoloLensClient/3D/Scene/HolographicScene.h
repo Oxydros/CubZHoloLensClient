@@ -7,8 +7,8 @@
 
 #include <3D\Resources\DeviceResources.h>
 #include "3D\Entities\Common\EmptyEntity.h"
-#include "3D\Entities\GUI\MainMenu.h"
-#include "3D\Entities\GUI\ModificationMenu.h"
+#include "3D\Entities\GUI\Menus\MainMenu.h"
+#include "3D\Entities\GUI\Menus\ModificationMenu.h"
 #include <3D\Input\InteractionListener.h>
 #include <Objects\HoloLensContext.h>
 

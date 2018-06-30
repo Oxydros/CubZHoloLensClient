@@ -16,7 +16,7 @@ HoloLensClient::MainMenu::~MainMenu()
 
 void HoloLensClient::MainMenu::InitializeMenu()
 {
-	auto _background = std::make_unique<Panel>(_devicesResources, _scene, float2(0.45f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
+	auto _background = std::make_unique<Panel>(_devicesResources, _scene, float2(0.45f, 0.35f), float4(0.0f, 0.392f, 0.0f, 0.6f));
 	/*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/
 	_background->SetRelativePosition({ 0.0f, 0.0f, 0.0f });
 

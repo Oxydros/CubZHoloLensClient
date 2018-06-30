@@ -136,6 +136,8 @@ namespace HoloLensClient
 		///-------------------------------------------------------------------------------------------------
 		virtual void Rotate(Windows::Foundation::Numerics::float3 offset) = 0;
 
+		virtual  Windows::Foundation::Numerics::float3 GetScale() const = 0;
+
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Scale using the given offset. Add up the previous scale and this one </summary>
 		///
@@ -149,6 +151,9 @@ namespace HoloLensClient
 		/// <param name="scale">	The scaling vector. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void SetScale(Windows::Foundation::Numerics::float3 scale) = 0;
+		virtual void SetScaleX(float scaleX) = 0;
+		virtual void SetScaleY(float scaleY) = 0;
+		virtual void SetScaleZ(float scaleZ) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Get the real size of the object. </summary>

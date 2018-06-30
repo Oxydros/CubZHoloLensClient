@@ -24,7 +24,7 @@ namespace HoloLensClient
 		Mode									_mode{ BASIC };
 
 		bool									_scaleLeftSelected{ false };
-		bool									_scaleRigthSelected{ false };
+		bool									_scaleRightSelected{ false };
 		bool									_scaleTopSelected{ false };
 		bool									_scaleBotSelected{ false };
 

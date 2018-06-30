@@ -43,10 +43,10 @@ void HoloLensClient::ModificationMenu::AttachEntity(EditableEntity *entity)
 		return;
 	DetachEntity();
 	_attachedEntity = entity;
-	_scaleLeft->SetRelativePosition({ -_attachedEntity->GetSize().x - 0.1f, -0.25f, 0.0f });
-	_scaleRight->SetRelativePosition({ _attachedEntity->GetSize().x + 0.1f, -0.25f, 0.0f });
-	_scaleTop->SetRelativePosition({ 0.0f, -_attachedEntity->GetSize().y - 0.1f - 0.25f, 0.0f });
-	_scaleBot->SetRelativePosition({ 0.0f, _attachedEntity->GetSize().y + 0.1f - 0.25f, 0.0f });
+	_scaleLeft->SetRelativePosition({ -_attachedEntity->GetSize().x - 0.01f, -0.25f, 0.0f });
+	_scaleRight->SetRelativePosition({ _attachedEntity->GetSize().x + 0.01f, -0.25f, 0.0f });
+	_scaleTop->SetRelativePosition({ 0.0f, _attachedEntity->GetSize().y + 0.01f - 0.25f, 0.0f });
+	_scaleBot->SetRelativePosition({ 0.0f, -_attachedEntity->GetSize().y - 0.01f - 0.25f, 0.0f });
 	setVisible(true);
 	_adjustMenu->setVisible(false);
 }
@@ -170,7 +170,7 @@ void HoloLensClient::ModificationMenu::initializeAdjustBox()
 		,float3(0.04f, 0.09f, 0.1f));
 	auto scaleRight = std::make_unique<Button3D>(_devicesResources, _scene, 
 		[this]() {
-		_scaleRigthSelected = !_scaleRigthSelected;
+		_scaleRightSelected = !_scaleRightSelected;
 	}
 		, float3(0.04f, 0.09f, 0.1f));
 
@@ -186,27 +186,63 @@ void HoloLensClient::ModificationMenu::initializeAdjustBox()
 	, float3(0.09f, 0.04f, 0.1f));
 
 
-	auto callbackXAxis = [this](IEntity* scalePtr, float3, float3 directionMotion) {
-		if (_scaleLeftSelected) {
+	auto callbackXLAxis = [this](IEntity* scalePtr, float3, float3 directionMotion) {
+		if (_scaleLeftSelected && _attachedEntity) {
 			auto realPos = scalePtr->GetRealPosition();
 			realPos.x += directionMotion.x;
 			scalePtr->SetRealPosition(realPos);
+			float toScaleX = (directionMotion.x / _attachedEntity->GetSize().x);
+			auto newScale = _attachedEntity->GetScale();
+			newScale.x += toScaleX;
+			TRACE("ToScale " << toScaleX << " actScale " << _attachedEntity->GetScale() << " new " << newScale << std::endl);
+			_attachedEntity->SetScale(newScale);
 		}
 	};
 
-	scaleLeft->setMotionCallback(callbackXAxis);
-	scaleRight->setMotionCallback(callbackXAxis);
+	auto callbackXRAxis = [this](IEntity* scalePtr, float3, float3 directionMotion) {
+		if (_scaleRightSelected && _attachedEntity) {
+			auto realPos = scalePtr->GetRealPosition();
+			realPos.x += directionMotion.x;
+			scalePtr->SetRealPosition(realPos);
+			float toScaleX = (directionMotion.x / _attachedEntity->GetSize().x);
+			auto newScale = _attachedEntity->GetScale();
+			newScale.x += toScaleX;
+			TRACE("ToScale " << toScaleX << " actScale " << _attachedEntity->GetScale() << " new " << newScale << std::endl);
+			_attachedEntity->SetScale(newScale);
+		}
+	};
 
-	auto callbackYAxis = [this](IEntity* scalePtr, float3, float3 directionMotion) {
-		if (_scaleLeftSelected) {
+	scaleLeft->setMotionCallback(callbackXLAxis);
+	scaleRight->setMotionCallback(callbackXRAxis);
+
+	auto callbackYTAxis = [this](IEntity* scalePtr, float3, float3 directionMotion) {
+		if (_scaleTopSelected && _attachedEntity) {
 			auto realPos = scalePtr->GetRealPosition();
 			realPos.y += directionMotion.y;
 			scalePtr->SetRealPosition(realPos);
+			float toScaleY = (directionMotion.y / _attachedEntity->GetSize().y);
+			auto newScale = _attachedEntity->GetScale();
+			newScale.y += toScaleY;
+			TRACE("ToScale " << toScaleY << " actScale " << _attachedEntity->GetScale() << " new " << newScale << std::endl);
+			_attachedEntity->SetScale(newScale);
 		}
 	};
 
-	scaleTop->setMotionCallback(callbackYAxis);
-	scaleBot->setMotionCallback(callbackYAxis);
+	auto callbackYBAxis = [this](IEntity* scalePtr, float3, float3 directionMotion) {
+		if (_scaleBotSelected && _attachedEntity) {
+			auto realPos = scalePtr->GetRealPosition();
+			realPos.y += directionMotion.y;
+			scalePtr->SetRealPosition(realPos);
+			float toScaleY = (directionMotion.y / _attachedEntity->GetSize().y);
+			auto newScale = _attachedEntity->GetScale();
+			newScale.y += toScaleY;
+			TRACE("ToScale " << toScaleY << " actScale " << _attachedEntity->GetScale() << " new " << newScale << std::endl);
+			_attachedEntity->SetScale(newScale);
+		}
+	};
+
+	scaleTop->setMotionCallback(callbackYTAxis);
+	scaleBot->setMotionCallback(callbackYBAxis);
 
 	_scaleLeft = scaleLeft.get();
 	_scaleRight = scaleRight.get();

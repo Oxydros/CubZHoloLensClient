@@ -13,10 +13,6 @@ InteractableEntity::InteractableEntity(std::shared_ptr<HolographicScene> scene, 
 
 void HoloLensClient::InteractableEntity::OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^pointerState)
 {
-	if (pointerState != nullptr)
-	{
-		TRACE("LALA" << std::endl);
-	}
 	if (pointerState != nullptr && pointerState->IsPressed && _focused)
 	{
 		TRACE("Process onInputs on " << GetLabel() << std::endl);

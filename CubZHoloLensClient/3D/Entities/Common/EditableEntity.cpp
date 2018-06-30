@@ -96,6 +96,6 @@ void HoloLensClient::EditableEntity::StartMoving()
 		coloredMesh->SetColor(actualColor);
 	}
 
-	setFollowGaze(true, false);
+	setFollowGaze(true, false, { 0, 0, 2.0f });
 	_moving = true;
 }

@@ -38,7 +38,7 @@ namespace HoloLensClient
 
 		Windows::Foundation::Numerics::float3		_relativePosition{ 0, 0, 0 };
 		Windows::Foundation::Numerics::float3		_relativeRotation{ 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_scaling{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3		_scaling{ 1, 1, 1 };
 		Windows::Foundation::Numerics::float3		_originalSize{ 0, 0, 0 };
 
 		DirectX::XMMATRIX							_modelTranslation{};
@@ -69,9 +69,14 @@ namespace HoloLensClient
 
 		void Move(Windows::Foundation::Numerics::float3 offset) override;
 		void Rotate(Windows::Foundation::Numerics::float3 offset) override;
+
+		Windows::Foundation::Numerics::float3 GetScale() const override { return _scaling; }
 		void Scale(Windows::Foundation::Numerics::float3 offset) override;
 
 		void SetScale(Windows::Foundation::Numerics::float3 scale) override;
+		void SetScaleX(float scaleX);
+		void SetScaleY(float scaleY);
+		void SetScaleZ(float scaleZ);
 
 		Windows::Foundation::Numerics::float3 GetSize() const override;
 		void SetSize(Windows::Foundation::Numerics::float3 originalSize) override { _originalSize = originalSize; }

@@ -385,11 +385,11 @@
     <ClInclude Include="3D\Entities\GUI\Button2D.h">
       <Filter>3D\Entities\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Entities\Common\IEntity.h">
-      <Filter>3D\Entities\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Network\UDPClient.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Common\IEntity.h">
+      <Filter>3D\Entities\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

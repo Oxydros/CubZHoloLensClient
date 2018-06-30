@@ -39,10 +39,10 @@ namespace HoloLensClient
 		Windows::Foundation::Numerics::float3					_positionOffsetFromGaze{ 0, 0, 0 };
 		Windows::Foundation::Numerics::float3					_rotationOffsetFromGaze{ 0, 0, 0 };
 
-		Windows::Foundation::Numerics::float3		_relativePosition{ 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_relativeRotation{ 0, 0, 0 };
-		Windows::Foundation::Numerics::float3		_scaling{ 1, 1, 1 };
-		Windows::Foundation::Numerics::float3		_originalSize{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3					_relativePosition{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3					_relativeRotation{ 0, 0, 0 };
+		Windows::Foundation::Numerics::float3					_scaling{ 1, 1, 1 };
+		Windows::Foundation::Numerics::float3					_originalSize{ 0, 0, 0 };
 
 		DirectX::XMMATRIX										_modelTranslation{};
 		DirectX::XMMATRIX										_modelRotation{};

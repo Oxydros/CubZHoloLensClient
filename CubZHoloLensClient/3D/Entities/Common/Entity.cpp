@@ -93,16 +93,6 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 			<< " Bools matrix: " << _useTranslationMatrix << " " << _useRotationMatrix << std::endl);*/
 }
 
-void HoloLensClient::Entity::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState ^ pointerState)
-{
-	std::for_each(_childs.begin(), _childs.end(),
-		[&pointerState](auto &child)
-	{
-		child->Inputs(pointerState);
-	});
-	OnInputs(pointerState);
-}
-
 void Entity::InitializeMesh()
 {
 	std::for_each(_childs.begin(), _childs.end(),
@@ -394,6 +384,17 @@ std::pair<IEntity*, float> HoloLensClient::Entity::getNearestInGazeEntity()
 	});
 
 	return (pair);
+}
+
+void HoloLensClient::Entity::CaptureInteraction(Windows::UI::Input::Spatial::SpatialInteraction ^interaction)
+{
+	if (_spatialGestureRecognizer)
+		_spatialGestureRecognizer->CaptureInteraction(interaction);
+}
+
+void HoloLensClient::Entity::SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^ recognizer)
+{
+	_spatialGestureRecognizer = recognizer;
 }
 
 void HoloLensClient::Entity::positionInFrontOfGaze(Windows::Foundation::Numerics::float3 offsets)

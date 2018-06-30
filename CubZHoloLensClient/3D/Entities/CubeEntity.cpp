@@ -9,7 +9,7 @@
 #include <3D\Objects\Mesh\3DFormes\OBJMesh.h>
 
 #include "3D\Entities\CubeEntity.h"
-#include "3D\Entities\GUI\ModificationMenu.h"
+#include "3D\Entities\GUI\Menus\ModificationMenu.h"
 #include "3D\Scene\HolographicScene.h"
 
 using namespace HoloLensClient;
@@ -41,11 +41,4 @@ CubeEntity::~CubeEntity()
 
 void CubeEntity::DoUpdate(DX::StepTimer const & timer)
 {
-}
-
-bool HoloLensClient::CubeEntity::OnAirTap()
-{
-	EditableEntity::OnAirTap();
-	TRACE("Got input on " << this << std::endl;);
-	return true;
 }

@@ -8,7 +8,6 @@
 #include <functional>
 #include <3D\Utility\StepTimer.h>
 
-
 ///-------------------------------------------------------------------------------------------------
 // namespace: HoloLensClient
 //
@@ -16,6 +15,9 @@
 ///-------------------------------------------------------------------------------------------------
 namespace HoloLensClient
 {
+
+	class HolographicScene;
+
 	/// <summary>	An entity. </summary>
 	class IEntity
 	{
@@ -37,13 +39,6 @@ namespace HoloLensClient
 		///-------------------------------------------------------------------------------------------------
 		virtual void Update(DX::StepTimer const &timer) = 0;
 
-		///-------------------------------------------------------------------------------------------------
-		/// <summary>	Inputs the given pointer state. </summary>
-		///
-		/// <param name="pointerState">	State of the pointer. </param>
-		///-------------------------------------------------------------------------------------------------
-		virtual void Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) = 0;
-
 	public:
 
 		///-------------------------------------------------------------------------------------------------
@@ -55,15 +50,6 @@ namespace HoloLensClient
 		/// <param name="timer">	StepTimer object used to get the elapsed time since the last frame. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void DoUpdate(DX::StepTimer const &timer) = 0;
-
-		///-------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// 	Entity input notification function. You need to override this function to receive inputs.
-		/// </summary>
-		///
-		/// <param name="pointerState">	State of the pointer. </param>
-		///-------------------------------------------------------------------------------------------------
-		virtual void OnInputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState) = 0;
 
 	public:
 
@@ -367,5 +353,23 @@ namespace HoloLensClient
 		/// <returns>	Null if it fails, else the nearest in gaze entity. </returns>
 		///-------------------------------------------------------------------------------------------------
 		virtual std::pair<IEntity*, float> getNearestInGazeEntity() = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Start capturing interaction using the SpatialGestureRecognizer. </summary>
+		///
+		/// <param name="interaction">	[in,out] [in,out] If non-null, the spatial interaction forwarded to the recognizer. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void CaptureInteraction(Windows::UI::Input::Spatial::SpatialInteraction ^interaction) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Set a custom SpatialGestureRecognizer </summary>
+		///
+		/// <param name="recognizer"> SpatialGestureRecognizer </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^recognizer) = 0;
+
+		virtual Windows::UI::Input::Spatial::SpatialGestureRecognizer ^GetSpatialGestureRecognizer() = 0;
+
+		virtual std::shared_ptr<HolographicScene>	GetScene() = 0;
 	};
 }

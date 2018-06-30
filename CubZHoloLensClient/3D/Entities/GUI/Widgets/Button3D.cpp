@@ -1,5 +1,5 @@
 #include "pch.h"
-#include <3D\Entities\GUI\Button3D.h>
+#include <3D\Entities\GUI\Widgets\Button3D.h>
 #include <3D\Objects\Mesh\3DFormes\ColoredCube.h>
 
 Windows::Foundation::Numerics::float4 HoloLensClient::Button3D::DEFAULT_COLOR = { 0.243f, 0.815f, 0.854f, 1.0f };
@@ -31,8 +31,8 @@ bool HoloLensClient::Button3D::OnLostFocus()
 	return (true);
 }
 
-bool HoloLensClient::Button3D::OnAirTap()
+void HoloLensClient::Button3D::OnAirTap(Spatial::SpatialGestureRecognizer ^sender,
+										Spatial::SpatialTappedEventArgs ^args)
 {
 	if (_callback) _callback();
-	return (true);
 }

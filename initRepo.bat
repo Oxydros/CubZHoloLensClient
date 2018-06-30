@@ -20,3 +20,5 @@ move lib_src\proto\TypeDescription.pb.h ..\include\protocol\
 move lib_src\proto\ChatMessage.pb.h ..\include\protocol\
 
 xcopy /e /v lib_src\include ..\include\libnetwork\
+
+PAUSE

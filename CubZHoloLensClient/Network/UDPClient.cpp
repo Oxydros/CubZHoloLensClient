@@ -48,4 +48,40 @@ void CubZHoloLensClient::WinNetwork::UDPClient::disconnect()
 
 void CubZHoloLensClient::WinNetwork::UDPClient::handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
 {
+	auto udpPacket = std::static_pointer_cast<Network::UDPPacket>(packet);
+	auto type = udpPacket->getPacketType();
+
+	TRACE("Received " << udpPacket << std::endl);
+
+	if (type == Network::UDPPacket::Type::PacketUDP_Type_ENTITY)
+		return handleEventPacket(udpPacket);
+}
+
+void CubZHoloLensClient::WinNetwork::UDPClient::handleEventPacket(Network::UDPPacket::SharedPtr packet)
+{
+	auto entity = packet->getUDPPacket().entitymessage().entityinfos();
+	auto space = packet->getUDPPacket().entitymessage().spaceinfos();
+
+	WinNetwork::EntityDescription entityDescription =
+	{
+		WinNetwork::EntityType(entity.type()),
+		{
+			WinNetwork::FileType(entity.file().type()),
+			Utility::stringToPlatformString(entity.file().name()),
+			Utility::stringToPlatformString(entity.file().extension()),
+			Utility::stringToPlatformString(entity.file().path()),
+			entity.file().size(),
+			entity.file().rights()
+		},
+		entity.id()
+	};
+
+	WinNetwork::SpaceDescription spaceDescription =
+	{
+		Windows::Foundation::Numerics::float3(space.x(), space.y(), space.z()),
+		Windows::Foundation::Numerics::float3(space.rx(), space.ry(), space.rz()),
+		Windows::Foundation::Numerics::float3(space.sx(), space.sy(), space.sz())
+	};
+
+	EntityUpdated(entityDescription, spaceDescription);
 }

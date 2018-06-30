@@ -11,11 +11,23 @@ using namespace HoloLensClient;
 HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> &deviceResources)
 	: _deviceResources(deviceResources)
 {
-}
+	_updateEntityEventToken =
+		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->EntityUpdated +=
+		ref new CubZHoloLensClient::WinNetwork::EntityUpdateEvent(
+			std::bind(&HolographicScene::UpdateEntity, this,
+				std::placeholders::_1, std::placeholders::_2));
 
+	_entityEventToken =
+		CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->EntityEvent +=
+		ref new CubZHoloLensClient::WinNetwork::EntityEvent(
+			std::bind(&HolographicScene::CreateDeleteEntity, this,
+				std::placeholders::_1, std::placeholders::_2));
+}
 
 HolographicScene::~HolographicScene()
 {
+	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->EntityUpdated -= _updateEntityEventToken;
+	CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->EntityEvent -= _entityEventToken;
 }
 
 void HolographicScene::Initialize()
@@ -56,27 +68,34 @@ void HolographicScene::Initialize()
 	//addEntity(std::move(entityMenu));
 }
 
+void HoloLensClient::HolographicScene::InteractionDetectedEvent(Windows::UI::Input::Spatial::SpatialInteractionManager ^sender,
+	Windows::UI::Input::Spatial::SpatialInteractionDetectedEventArgs ^ args)
+{	
+	if (_focusedEntity)
+		_focusedEntity->CaptureInteraction(args->Interaction);
+}
+
 void HolographicScene::Update(DX::StepTimer const& timer)
 {
-	_root->Update(timer);
-
 	auto pair = _root->getNearestInGazeEntity();
 
 	//Focus only nearest entity in gaze direction
 	if (pair.second >= 0)
 	{
 		/*TRACE("Nearest entity is " << pair.first << " " << pair.first->GetLabel() << " " << pair.second << std::endl);*/
-		if (_previousEntityFocused != nullptr && _previousEntityFocused != pair.first)
-			_previousEntityFocused->setFocus(false);
+		if (_focusedEntity != nullptr && _focusedEntity != pair.first)
+			_focusedEntity->setFocus(false);
 		pair.first->setFocus(true);
-		_previousEntityFocused = pair.first;
+		_focusedEntity = pair.first;
 	}
-	else if (_previousEntityFocused != nullptr)
+	else if (_focusedEntity != nullptr)
 	{
 		//No entity found in gaze, remove focus from actual entity
-		_previousEntityFocused->setFocus(false);
-		_previousEntityFocused = nullptr;
+		_focusedEntity->setFocus(false);
+		_focusedEntity = nullptr;
 	}
+
+	_root->Update(timer);
 }
 
 void HolographicScene::Render()
@@ -94,11 +113,6 @@ void HoloLensClient::HolographicScene::UpdatePointerPose(Windows::UI::Input::Spa
 	_pointerPose = pointerPose;
 }
 
-void HoloLensClient::HolographicScene::Inputs(Windows::UI::Input::Spatial::SpatialInteractionSourceState^ pointerState)
-{
-	_root->Inputs(pointerState);
-}
-
 void HolographicScene::OnDeviceLost()
 {
 	_root->ReleaseMesh();
@@ -107,6 +121,16 @@ void HolographicScene::OnDeviceLost()
 void HolographicScene::OnDeviceRestored()
 {
 	_root->InitializeMesh();
+}
+
+void HoloLensClient::HolographicScene::UpdateEntity(CubZHoloLensClient::WinNetwork::EntityDescription entity, CubZHoloLensClient::WinNetwork::SpaceDescription space)
+{
+	TRACE("Received update on Entity " << entity.id << std::endl);
+}
+
+void HoloLensClient::HolographicScene::CreateDeleteEntity(CubZHoloLensClient::WinNetwork::EntityAction action, CubZHoloLensClient::WinNetwork::EntityDescription entity)
+{
+	TRACE("Received create/delete on Entity " << entity.id << std::endl);
 }
 
 void HoloLensClient::HolographicScene::addEntity(IEntity::IEntityPtr e)

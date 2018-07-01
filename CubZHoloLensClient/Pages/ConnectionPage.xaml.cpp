@@ -52,10 +52,12 @@ void CubZHoloLensClient::ConnectionPage::Button_Connect(Platform::Object^ sender
 
 	try {
 		client->connect(this->IPInput->Text, this->PortInput->Text);
+		TRACE("TCP CONNECTED" << std::endl);
 		client->runAsync();
 	}
-	catch (std::exception)
+	catch (std::exception const &e)
 	{
+		TRACE("ERROR CONNECT TCP " << e.what() << std::endl);
 		waitingConnectionState(true);
 	}
 }

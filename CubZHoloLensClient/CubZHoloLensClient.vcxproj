@@ -334,6 +334,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Network\Objects\TypeConversion.cpp" />
     <ClCompile Include="Network\TCPClient.cpp" />
     <ClCompile Include="Network\UDPClient.cpp" />
     <ClCompile Include="Objects\DeviceTypeValueConverter.cpp" />

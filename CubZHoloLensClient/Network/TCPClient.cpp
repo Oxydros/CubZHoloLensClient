@@ -101,7 +101,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::requestUDPInfos()
 	_client.sendPacket(packet);
 }
 
-void CubZHoloLensClient::WinNetwork::TCPClient::entityCreateDelete(WinNetwork::EntityAction action, WinNetwork::EntityDescription & entityDesc)
+void CubZHoloLensClient::WinNetwork::TCPClient::entityCreateDelete(WinNetwork::EntityAction const &action, WinNetwork::EntityDescription const &entityDesc)
 {
 	auto packet = std::make_shared<Network::TCPPacket>();
 	auto entity = WinNetwork::UWPEntityDescriptionToNative(entityDesc);
@@ -115,12 +115,12 @@ void CubZHoloLensClient::WinNetwork::TCPClient::entityCreateDelete(WinNetwork::E
 	_client.sendPacket(packet);
 }
 
-void CubZHoloLensClient::WinNetwork::TCPClient::createEntity(WinNetwork::EntityDescription & entityDesc)
+void CubZHoloLensClient::WinNetwork::TCPClient::createEntity(WinNetwork::EntityDescription const &entityDesc)
 {
 	entityCreateDelete(WinNetwork::EntityAction::ADD, entityDesc);
 }
 
-void CubZHoloLensClient::WinNetwork::TCPClient::deleteEntity(WinNetwork::EntityDescription & entityDesc)
+void CubZHoloLensClient::WinNetwork::TCPClient::deleteEntity(WinNetwork::EntityDescription const &entityDesc)
 {
 	entityCreateDelete(WinNetwork::EntityAction::REMOVE, entityDesc);
 }

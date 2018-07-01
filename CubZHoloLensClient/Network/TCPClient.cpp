@@ -217,8 +217,16 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleUDPPacket(Network::IConnec
 	TRACE("Handling UDP id message" << std::endl);
 	auto port = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().port());
 	auto ip = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().ip());
-
-	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->connect(ip, port);
+	
+	try {
+		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->connect(ip, port);
+		TRACE("UDP CONNECTED" << std::endl);
+		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->runAsync();
+	}
+	catch (std::exception const &e)
+	{
+		TRACE("ERROR CONNECT UDP " << e.what() << std::endl);
+	}
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleEntityPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)

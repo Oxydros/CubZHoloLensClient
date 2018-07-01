@@ -56,6 +56,9 @@ namespace CubZHoloLensClient
 
 			void requestUDPInfos();
 
+			void createEntity(WinNetwork::EntityDescription entityDesc);
+			void deleteEntity(WinNetwork::EntityDescription entityDesc);
+
 			unsigned int GetUID() { return _id; }
 
 		private:
@@ -68,6 +71,9 @@ namespace CubZHoloLensClient
 			void handlePingPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
 			void handleUDPPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
 			void handleEntityPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet);
+
+		private:
+			void entityCreateDelete(WinNetwork::EntityAction action, WinNetwork::EntityDescription &entityDesc);
 		};
 	}
 }

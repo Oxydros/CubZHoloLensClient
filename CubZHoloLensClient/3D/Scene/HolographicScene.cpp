@@ -59,13 +59,6 @@ void HolographicScene::Initialize()
 	_modifMenu = modificationMenu.get();
 
 	addEntity(std::move(modificationMenu));
-
-	//auto entityMenu = std::make_unique<EntityMenu>(_deviceResources, safeScene);
-	//entityMenu->SetRelativePosition({ 0.0f, -5.0f, -3.0f });
-
-	//entityMenu->InitializeMenu();
-
-	//addEntity(std::move(entityMenu));
 }
 
 void HoloLensClient::HolographicScene::InteractionDetectedEvent(Windows::UI::Input::Spatial::SpatialInteractionManager ^sender,

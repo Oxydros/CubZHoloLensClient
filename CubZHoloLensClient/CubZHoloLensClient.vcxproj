@@ -236,6 +236,7 @@
     <ClInclude Include="3D\Utility\Collision.h" />
     <ClInclude Include="3D\Utility\DirectXHelper.h" />
     <ClInclude Include="3D\Utility\StepTimer.h" />
+    <ClInclude Include="Network\Objects\TypeConversion.h" />
     <ClInclude Include="Network\Objects\TypeDescription.h" />
     <ClInclude Include="Network\TCPClient.h" />
     <ClInclude Include="Network\UDPClient.h" />

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Network\UDPClient.h"
 #include "Objects\HoloLensContext.h"
+#include <Network\Objects\TypeConversion.h>
 
 using namespace Utility;
 using namespace CubZHoloLensClient;
@@ -46,6 +47,22 @@ void CubZHoloLensClient::WinNetwork::UDPClient::disconnect()
 	_client.disconnect();
 }
 
+void CubZHoloLensClient::WinNetwork::UDPClient::notifyEntityUpdate(WinNetwork::EntityDescription const & entityDesc,
+																	WinNetwork::SpaceDescription const & spatialDesc)
+{
+	auto packet = std::make_shared<Network::UDPPacket>();
+	auto entity = WinNetwork::UWPEntityDescriptionToNative(entityDesc);
+	auto space = WinNetwork::UWPSpaceDescriptionToNative(spatialDesc);
+
+	packet->setType(CubZPacket::PacketUDP_Type::PacketUDP_Type_ENTITY);
+	packet->getUDPPacket().set_userid(HoloLensContext::Instance()->GetUID());
+
+	packet->getUDPPacket().mutable_entitymessage()->set_allocated_entityinfos(entity);
+	packet->getUDPPacket().mutable_entitymessage()->set_allocated_spaceinfos(space);
+
+	_client.sendPacket(packet);
+}
+
 void CubZHoloLensClient::WinNetwork::UDPClient::handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
 {
 	auto udpPacket = std::static_pointer_cast<Network::UDPPacket>(packet);
@@ -62,26 +79,8 @@ void CubZHoloLensClient::WinNetwork::UDPClient::handleEventPacket(Network::UDPPa
 	auto entity = packet->getUDPPacket().entitymessage().entityinfos();
 	auto space = packet->getUDPPacket().entitymessage().spaceinfos();
 
-	WinNetwork::EntityDescription entityDescription =
-	{
-		WinNetwork::EntityType(entity.type()),
-		{
-			WinNetwork::FileType(entity.file().type()),
-			Utility::stringToPlatformString(entity.file().name()),
-			Utility::stringToPlatformString(entity.file().extension()),
-			Utility::stringToPlatformString(entity.file().path()),
-			entity.file().size(),
-			entity.file().rights()
-		},
-		entity.id()
-	};
-
-	WinNetwork::SpaceDescription spaceDescription =
-	{
-		Windows::Foundation::Numerics::float3(space.x(), space.y(), space.z()),
-		Windows::Foundation::Numerics::float3(space.rx(), space.ry(), space.rz()),
-		Windows::Foundation::Numerics::float3(space.sx(), space.sy(), space.sz())
-	};
+	WinNetwork::EntityDescription entityDescription = WinNetwork::NativeEntityDescriptionToUWP(entity);
+	WinNetwork::SpaceDescription spaceDescription = NativeSpaceDescriptionToUWP(space);
 
 	EntityUpdated(entityDescription, spaceDescription);
 }

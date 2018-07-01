@@ -34,6 +34,8 @@ namespace CubZHoloLensClient
 			void connect(Platform::String ^ip, Platform::String ^port);
 			void disconnect();
 
+			void notifyEntityUpdate(WinNetwork::EntityDescription const &entityDesc, WinNetwork::SpaceDescription const &spatialDesc);
+
 		private:
 			void handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet);
 			void handleEventPacket(Network::UDPPacket::SharedPtr packet);

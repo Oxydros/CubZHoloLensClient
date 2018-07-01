@@ -2,6 +2,7 @@
 #include <map>
 #include "Network\TCPClient.h"
 #include "Objects\HoloLensContext.h"
+#include <Network\Objects\TypeConversion.h>
 
 using namespace Utility;
 using namespace CubZHoloLensClient;
@@ -98,6 +99,30 @@ void CubZHoloLensClient::WinNetwork::TCPClient::requestUDPInfos()
 	packet->getTCPPacket().mutable_udpmessageid()->set_userid(_id);
 
 	_client.sendPacket(packet);
+}
+
+void CubZHoloLensClient::WinNetwork::TCPClient::entityCreateDelete(WinNetwork::EntityAction action, WinNetwork::EntityDescription & entityDesc)
+{
+	auto packet = std::make_shared<Network::TCPPacket>();
+	auto entity = WinNetwork::UWPEntityDescriptionToNative(entityDesc);
+
+	packet->setType(Network::TCPPacket::Type::PacketTCP_Type_ENTITY);
+
+	packet->getTCPPacket().mutable_entitymessage()->set_action(CubZPacket::EntityMessage_Action(action));
+	packet->getTCPPacket().mutable_entitymessage()->set_userid(GetUID());
+	packet->getTCPPacket().mutable_entitymessage()->set_allocated_entity(entity);
+
+	_client.sendPacket(packet);
+}
+
+void CubZHoloLensClient::WinNetwork::TCPClient::createEntity(WinNetwork::EntityDescription & entityDesc)
+{
+	entityCreateDelete(WinNetwork::EntityAction::ADD, entityDesc);
+}
+
+void CubZHoloLensClient::WinNetwork::TCPClient::deleteEntity(WinNetwork::EntityDescription & entityDesc)
+{
+	entityCreateDelete(WinNetwork::EntityAction::REMOVE, entityDesc);
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handlePacket(Network::IConnection::SharedPtr co, Network::IPacket::SharedPtr packet)

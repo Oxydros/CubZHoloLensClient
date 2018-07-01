@@ -1,5 +1,5 @@
 [submodule "libs/LibNetwork"]
 	path = libs/LibNetwork
 	url = git@gitlab.com:cubz/LibNetworks.git
-	branch = V0.4
+	branch = V0.4.1
 	

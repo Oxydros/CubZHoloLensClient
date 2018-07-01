@@ -201,12 +201,12 @@
     <ClInclude Include="3D\Entities\Common\IEntity.h" />
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\CursorEntity.h" />
-    <ClInclude Include="3D\Entities\GUI\Button3D.h" />
-    <ClInclude Include="3D\Entities\GUI\Button2D.h" />
     <ClInclude Include="3D\Entities\GUI\GUIEntity.h" />
-    <ClInclude Include="3D\Entities\GUI\MainMenu.h" />
-    <ClInclude Include="3D\Entities\GUI\ModificationMenu.h" />
-    <ClInclude Include="3D\Entities\GUI\Panel.h" />
+    <ClInclude Include="3D\Entities\GUI\Menus\MainMenu.h" />
+    <ClInclude Include="3D\Entities\GUI\Menus\ModificationMenu.h" />
+    <ClInclude Include="3D\Entities\GUI\Widgets\Button2D.h" />
+    <ClInclude Include="3D\Entities\GUI\Widgets\Button3D.h" />
+    <ClInclude Include="3D\Entities\GUI\Widgets\Panel.h" />
     <ClInclude Include="3D\Entities\ObjEntity.h" />
     <ClInclude Include="3D\Input\InteractionListener.h" />
     <ClInclude Include="3D\Input\SpatialInputHandler.h" />
@@ -236,6 +236,8 @@
     <ClInclude Include="3D\Utility\Collision.h" />
     <ClInclude Include="3D\Utility\DirectXHelper.h" />
     <ClInclude Include="3D\Utility\StepTimer.h" />
+    <ClInclude Include="Network\Objects\TypeConversion.h" />
+    <ClInclude Include="Network\Objects\TypeDescription.h" />
     <ClInclude Include="Network\TCPClient.h" />
     <ClInclude Include="Network\UDPClient.h" />
     <ClInclude Include="Objects\DeviceTypeValueConverter.h" />
@@ -302,11 +304,11 @@
     <ClCompile Include="3D\Entities\Common\Entity.cpp" />
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />
     <ClCompile Include="3D\Entities\CursorEntity.cpp" />
-    <ClCompile Include="3D\Entities\GUI\Button2D.cpp" />
-    <ClCompile Include="3D\Entities\GUI\Button3D.cpp" />
-    <ClCompile Include="3D\Entities\GUI\MainMenu.cpp" />
-    <ClCompile Include="3D\Entities\GUI\ModificationMenu.cpp" />
-    <ClCompile Include="3D\Entities\GUI\Panel.cpp" />
+    <ClCompile Include="3D\Entities\GUI\Menus\MainMenu.cpp" />
+    <ClCompile Include="3D\Entities\GUI\Menus\ModificationMenu.cpp" />
+    <ClCompile Include="3D\Entities\GUI\Widgets\Button2D.cpp" />
+    <ClCompile Include="3D\Entities\GUI\Widgets\Button3D.cpp" />
+    <ClCompile Include="3D\Entities\GUI\Widgets\Panel.cpp" />
     <ClCompile Include="3D\Entities\ObjEntity.cpp" />
     <ClCompile Include="3D\Input\SpatialInputHandler.cpp" />
     <ClCompile Include="3D\Loaders\OBJLoader.cpp" />
@@ -332,6 +334,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Network\Objects\TypeConversion.cpp" />
     <ClCompile Include="Network\TCPClient.cpp" />
     <ClCompile Include="Network\UDPClient.cpp" />
     <ClCompile Include="Objects\DeviceTypeValueConverter.cpp" />

@@ -11,11 +11,23 @@ using namespace HoloLensClient;
 HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> &deviceResources)
 	: _deviceResources(deviceResources)
 {
-}
+	_updateEntityEventToken =
+		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->EntityUpdated +=
+		ref new CubZHoloLensClient::WinNetwork::EntityUpdateEvent(
+			std::bind(&HolographicScene::UpdateEntity, this,
+				std::placeholders::_1, std::placeholders::_2));
 
+	_entityEventToken =
+		CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->EntityEvent +=
+		ref new CubZHoloLensClient::WinNetwork::EntityEvent(
+			std::bind(&HolographicScene::CreateDeleteEntity, this,
+				std::placeholders::_1, std::placeholders::_2));
+}
 
 HolographicScene::~HolographicScene()
 {
+	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->EntityUpdated -= _updateEntityEventToken;
+	CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->EntityEvent -= _entityEventToken;
 }
 
 void HolographicScene::Initialize()
@@ -47,13 +59,6 @@ void HolographicScene::Initialize()
 	_modifMenu = modificationMenu.get();
 
 	addEntity(std::move(modificationMenu));
-
-	//auto entityMenu = std::make_unique<EntityMenu>(_deviceResources, safeScene);
-	//entityMenu->SetRelativePosition({ 0.0f, -5.0f, -3.0f });
-
-	//entityMenu->InitializeMenu();
-
-	//addEntity(std::move(entityMenu));
 }
 
 void HoloLensClient::HolographicScene::InteractionDetectedEvent(Windows::UI::Input::Spatial::SpatialInteractionManager ^sender,
@@ -109,6 +114,16 @@ void HolographicScene::OnDeviceLost()
 void HolographicScene::OnDeviceRestored()
 {
 	_root->InitializeMesh();
+}
+
+void HoloLensClient::HolographicScene::UpdateEntity(CubZHoloLensClient::WinNetwork::EntityDescription entity, CubZHoloLensClient::WinNetwork::SpaceDescription space)
+{
+	TRACE("Received update on Entity " << entity.id << std::endl);
+}
+
+void HoloLensClient::HolographicScene::CreateDeleteEntity(CubZHoloLensClient::WinNetwork::EntityAction action, CubZHoloLensClient::WinNetwork::EntityDescription entity)
+{
+	TRACE("Received create/delete on Entity " << entity.id << std::endl);
 }
 
 void HoloLensClient::HolographicScene::addEntity(IEntity::IEntityPtr e)

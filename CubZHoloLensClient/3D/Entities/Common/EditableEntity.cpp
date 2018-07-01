@@ -1,12 +1,12 @@
 #include <pch.h>
-#include <3D\Entities\GUI\ModificationMenu.h>
+#include <3D\Entities\GUI\Menus\ModificationMenu.h>
 #include "3D\Scene\HolographicScene.h"
 #include <3D\Objects\Mesh\Common\ColoredObject.h>
 
 #include "EditableEntity.h"
 
 HoloLensClient::EditableEntity::EditableEntity(std::shared_ptr<DX::DeviceResources> devicesResources,
-											   std::shared_ptr<HolographicScene> scene)
+	std::shared_ptr<HolographicScene> scene)
 	: Entity(scene)
 {
 	Spatial::SpatialGestureRecognizer ^spatial = ref new Spatial::SpatialGestureRecognizer(

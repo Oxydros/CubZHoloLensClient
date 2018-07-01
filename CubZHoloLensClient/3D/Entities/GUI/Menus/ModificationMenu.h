@@ -1,6 +1,6 @@
 #pragma once
 
-#include <3D\Entities\GUI\Button3D.h>
+#include <3D\Entities\GUI\Widgets\Button3D.h>
 #include <3D\Entities\Common\EmptyEntity.h>
 #include <3D\Entities\Common\EditableEntity.h>
 
@@ -24,7 +24,7 @@ namespace HoloLensClient
 		Mode									_mode{ BASIC };
 
 		bool									_scaleLeftSelected{ false };
-		bool									_scaleRigthSelected{ false };
+		bool									_scaleRightSelected{ false };
 		bool									_scaleTopSelected{ false };
 		bool									_scaleBotSelected{ false };
 

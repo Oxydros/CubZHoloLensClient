@@ -35,6 +35,8 @@ namespace CubZHoloLensClient
 		WinNetwork::TCPClient ^getTCPClient();
 		WinNetwork::UDPClient ^getUDPClient();
 
+		unsigned int GetUID() { return _tcpClient->GetUID(); }
+
 	public:
 		void login();
 		void logout();

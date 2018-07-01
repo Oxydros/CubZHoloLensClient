@@ -136,16 +136,6 @@ void Entity::Render()
 void HoloLensClient::Entity::kill()
 {
 	_alive = false;
-	//std::for_each(_childs.begin(), _childs.end(),
-	//	[](auto &child)
-	//{
-	//	//Kill all the childs
-	//	//No need to remove the parent from them since all entities are deleted
-	//	//After the call to the update function
-	//	//So there should be no memory race
-	//	child->kill();
-	//});
-	//if (_parent != nullptr) _parent->RemoveChild(this);
 }
 
 bool HoloLensClient::Entity::isDead() const
@@ -184,6 +174,24 @@ void HoloLensClient::Entity::Scale(Windows::Foundation::Numerics::float3 offset)
 void HoloLensClient::Entity::SetScale(Windows::Foundation::Numerics::float3 scale)
 {
 	_scaling = scale;
+	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
+}
+
+void HoloLensClient::Entity::SetScaleX(float scaleX)
+{
+	_scaling.x = scaleX;
+	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
+}
+
+void HoloLensClient::Entity::SetScaleY(float scaleY)
+{
+	_scaling.y = scaleY;
+	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
+}
+
+void HoloLensClient::Entity::SetScaleZ(float scaleZ)
+{
+	_scaling.z = scaleZ;
 	_modelScaling = XMMatrixScalingFromVector(XMLoadFloat3(&_scaling));
 }
 

@@ -8,7 +8,6 @@
 #include <functional>
 #include <3D\Utility\StepTimer.h>
 
-
 ///-------------------------------------------------------------------------------------------------
 // namespace: HoloLensClient
 //
@@ -16,6 +15,9 @@
 ///-------------------------------------------------------------------------------------------------
 namespace HoloLensClient
 {
+
+	class HolographicScene;
+
 	/// <summary>	An entity. </summary>
 	class IEntity
 	{
@@ -120,6 +122,8 @@ namespace HoloLensClient
 		///-------------------------------------------------------------------------------------------------
 		virtual void Rotate(Windows::Foundation::Numerics::float3 offset) = 0;
 
+		virtual  Windows::Foundation::Numerics::float3 GetScale() const = 0;
+
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Scale using the given offset. Add up the previous scale and this one </summary>
 		///
@@ -133,6 +137,9 @@ namespace HoloLensClient
 		/// <param name="scale">	The scaling vector. </param>
 		///-------------------------------------------------------------------------------------------------
 		virtual void SetScale(Windows::Foundation::Numerics::float3 scale) = 0;
+		virtual void SetScaleX(float scaleX) = 0;
+		virtual void SetScaleY(float scaleY) = 0;
+		virtual void SetScaleZ(float scaleZ) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Get the real size of the object. </summary>
@@ -362,5 +369,7 @@ namespace HoloLensClient
 		virtual void SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^recognizer) = 0;
 
 		virtual Windows::UI::Input::Spatial::SpatialGestureRecognizer ^GetSpatialGestureRecognizer() = 0;
+
+		virtual std::shared_ptr<HolographicScene>	GetScene() = 0;
 	};
 }

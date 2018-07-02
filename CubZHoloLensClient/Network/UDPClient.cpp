@@ -10,7 +10,13 @@ WinNetwork::UDPClient::UDPClient()
 {
 	_client.setPacketCallback([this](Network::IPacketConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
 	{
-		this->handlePacket(co, packet);
+		try {
+			this->handlePacket(co, packet);
+		}
+		catch (std::exception &e)
+		{
+			TRACE("Exception while handling UDP packet " << e.what() << std::endl);
+		}
 	});
 }
 

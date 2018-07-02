@@ -4,6 +4,7 @@
 #include <3D\Entities\GUI\Widgets\Button2D.h>
 #include <3D\Entities\CubeEntity.h>
 #include "3D\Scene\HolographicScene.h"
+#include "Objects\HoloLensContext.h"
 
 HoloLensClient::MainMenu::MainMenu(std::shared_ptr<DX::DeviceResources> devicesResources,
 								   std::shared_ptr<HolographicScene> scene)
@@ -18,15 +19,18 @@ HoloLensClient::MainMenu::~MainMenu()
 void HoloLensClient::MainMenu::InitializeMenu()
 {
 	auto _background = std::make_unique<Panel>(_devicesResources, _scene, float2(0.65f, 0.35f), float4(0.7f, 0.1f, 0.2f, 0.6f));
-	/*panel->setFollowGaze(true, true, { -0.2f, 0,  2.0f});*/
 	_background->SetRelativePosition({ 0.0f, 0.0f, 0.0f });
 
 	auto buttonCube = std::make_unique<Button2D>(_devicesResources, _scene,
 			[this]() {
-				auto cube = std::make_unique<CubeEntity>(this->GetScene()->getDeviceResources(), this->GetScene());
-
-				this->GetScene()->addEntityInFront(std::move(cube), 2.0f);
-			},
+		CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->createEntity(
+			{ 
+				CubZHoloLensClient::WinNetwork::EntityType::CUBE,
+				{},
+				0
+			}
+		);
+		},
 		float2(0.15f, 0.1f));
 	buttonCube->setLabel(L"Spawn cube");
 

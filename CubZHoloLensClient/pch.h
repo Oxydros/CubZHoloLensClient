@@ -7,13 +7,16 @@
 
 //Disable the generation of a XAML main file
 #define  DISABLE_XAML_GENERATED_MAIN
+#define BOOST_ASIO_ENABLE_HANDLER_TRACKING
+#define BOOST_ASIO_WINDOWS_RUNTIME
+#define CUBZ_NETWORK_DEBUG
 
-#define TRACE(x) \
-			{std::stringstream s;  s << x;     \
-            ::OutputDebugStringA(s.str().c_str());}
+//#define TRACE(x) \
+//			{std::stringstream s;  s << x;     \
+//            ::OutputDebugStringA(s.str().c_str());}
 
-#include <libnetwork\TCPClient.h>
-#include <libnetwork\TCPPacket.h>
+#include <windows.h>
+#include <boost/asio.hpp>
 
 #include "Utility\Utility.h"
 
@@ -54,5 +57,8 @@
 #include <mutex>
 #include <wincodec.h>
 #include <WindowsNumerics.h>
+
+#include <libnetwork\TCPClient.h>
+#include <libnetwork\TCPPacket.h>
 
 #include "App.xaml.h"

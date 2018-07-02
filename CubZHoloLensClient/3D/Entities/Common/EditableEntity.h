@@ -29,12 +29,14 @@ namespace HoloLensClient
 
 	public:
 		EditableEntity(std::shared_ptr<DX::DeviceResources> devicesResources,
-			std::shared_ptr<HolographicScene> scene);
+			std::shared_ptr<HolographicScene> scene,
+			CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc = {});
 		virtual ~EditableEntity();
 
 	public:
 		virtual bool OnGetFocus() override;
 		virtual bool OnLostFocus() override;
+		void kill() override;
 
 		virtual void OnKillClick();
 

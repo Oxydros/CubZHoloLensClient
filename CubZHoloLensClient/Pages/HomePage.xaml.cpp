@@ -52,16 +52,23 @@ void CubZHoloLensClient::HomePage::Button_Launch3D(Platform::Object^ sender, Win
 	TRACE("Dispatching 3D view thread" << std::endl);
 	::IAsyncAction ^a = newView->Dispatcher->RunAsync(::CoreDispatcherPriority::Normal, ref new DispatchedHandler(
 		[]() {
-		ApplicationView ^newV = ::ApplicationView::GetForCurrentView();
-		int spaceViewId = newV->Id;
+		try
+		{
+			ApplicationView ^newV = ::ApplicationView::GetForCurrentView();
+			int spaceViewId = newV->Id;
 
-		TRACE("3D View id " << spaceViewId << std::endl);
-		CoreWindow ^thW = CoreWindow::GetForCurrentThread();
+			TRACE("3D View id " << spaceViewId << std::endl);
+			CoreWindow ^thW = CoreWindow::GetForCurrentThread();
 
-		thW->Activate();
-		auto task = concurrency::create_task(ApplicationViewSwitcher::TryShowAsStandaloneAsync(spaceViewId))
-			.then([](bool result) {
-		});
+			thW->Activate();
+			auto task = concurrency::create_task(ApplicationViewSwitcher::TryShowAsStandaloneAsync(spaceViewId))
+				.then([](bool result) {
+			});
+		}
+		catch (std::exception &e)
+		{
+			TRACE("EXCEPTION IN LAUNCHING 3D " << e.what() << std::endl);
+		}
 	}
 	));
 

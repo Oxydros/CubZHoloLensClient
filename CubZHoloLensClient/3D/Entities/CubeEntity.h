@@ -7,7 +7,8 @@ namespace HoloLensClient
 	class CubeEntity : public EditableEntity
 	{
 	public:
-		CubeEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene);
+		CubeEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene,
+			CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc = {});
 		~CubeEntity();
 
 	public:

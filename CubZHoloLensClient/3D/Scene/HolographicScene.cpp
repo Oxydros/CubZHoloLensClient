@@ -5,8 +5,10 @@
 #include "3D\Entities\CubeEntity.h"
 #include "3D\Entities\ObjEntity.h"
 #include "3D\Loaders\OBJLoader.h"
+#include "3D\Entities\EntityFactory.h"
 
 using namespace HoloLensClient;
+using namespace CubZHoloLensClient;
 
 HolographicScene::HolographicScene(std::shared_ptr<DX::DeviceResources> &deviceResources)
 	: _deviceResources(deviceResources)
@@ -34,6 +36,8 @@ void HolographicScene::Initialize()
 {
 	auto safeScene{ shared_from_this() };
 
+	_factory = std::make_unique<EntityFactory>(_deviceResources, safeScene);
+
 	_root = std::make_unique<EmptyEntity>(safeScene, "Root", true);
 
 	//Declare gaze
@@ -42,9 +46,9 @@ void HolographicScene::Initialize()
 	addEntity(std::move(gaze));
 
 	////Declare basic cube for test purposes
-	auto cube = std::make_unique<CubeEntity>(_deviceResources, safeScene);
-	cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
-	addEntity(std::move(cube));
+	//auto cube = _factory->createCube();
+	//cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
+	//addEntity(std::move(cube));
 
 	auto mainMenu = std::make_unique<MainMenu>(_deviceResources, safeScene);
 	mainMenu->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
@@ -123,7 +127,34 @@ void HoloLensClient::HolographicScene::UpdateEntity(CubZHoloLensClient::WinNetwo
 
 void HoloLensClient::HolographicScene::CreateDeleteEntity(CubZHoloLensClient::WinNetwork::EntityAction action, CubZHoloLensClient::WinNetwork::EntityDescription entity)
 {
-	TRACE("Received create/delete on Entity " << entity.id << std::endl);
+	TRACE("Received " << (action == WinNetwork::EntityAction::ADD ? "CREATE" : "DELETE")
+					  << " on Entity " << entity.id << std::endl);
+	if (action == WinNetwork::EntityAction::REMOVE)
+	{
+		if (entity.id == 0)
+		{
+			TRACE("RECEIVED DELETE WITH ID 0. REFUSED." << std::endl);
+			return;
+		}
+		auto entityPtr = _root->RetrieveEntity(entity.id);
+		if (entityPtr == nullptr)
+		{
+			TRACE("Wanted to delete nullptr Entity !" << std::endl);
+		}
+		else
+		{
+			entityPtr->kill();
+		}
+	}
+	else if (action == WinNetwork::EntityAction::ADD)
+	{
+		auto newEntity = _factory->createEntity(entity);
+		addEntityInFront(std::move(newEntity), 2.0f);
+	}
+	else
+	{
+		TRACE("UNKNOWN action received for entity " << entity.id << " " << int(action) << std::endl);
+	}
 }
 
 void HoloLensClient::HolographicScene::addEntity(IEntity::IEntityPtr e)

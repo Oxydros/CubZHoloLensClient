@@ -11,7 +11,7 @@
 #include "3D\Entities\GUI\Menus\ModificationMenu.h"
 #include <3D\Input\InteractionListener.h>
 #include <Objects\HoloLensContext.h>
-
+#include <3D\Entities\EntityFactory.h>
 
 ///-------------------------------------------------------------------------------------------------
 // namespace: HoloLensClient
@@ -50,6 +50,7 @@ namespace HoloLensClient
 
 		Windows::Foundation::EventRegistrationToken				_updateEntityEventToken;
 		Windows::Foundation::EventRegistrationToken				_entityEventToken;
+		std::unique_ptr<EntityFactory>							_factory{};
 
 	public:
 

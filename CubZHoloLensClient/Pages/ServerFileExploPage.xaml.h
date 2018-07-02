@@ -25,6 +25,7 @@ namespace CubZHoloLensClient
 		Windows::Foundation::EventRegistrationToken				_listFileToken;
 		Windows::Foundation::TimeSpan							_timeSpanListFile;
 		Windows::System::Threading::ThreadPoolTimer				^_threadPoolTimerListFiles;
+		Platform::String										^path;
 
 	public:
 		ServerFileExploPage();
@@ -39,5 +40,8 @@ namespace CubZHoloLensClient
 
 	protected:
 		virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs ^e) override;
+	private:
+		void GoInsideButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void GoPrevFolder_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	};
 }

@@ -7,8 +7,9 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-Entity::Entity(std::shared_ptr<HolographicScene> scene) 
-	: _parent(nullptr), _alive(true), _scene(scene)
+Entity::Entity(std::shared_ptr<HolographicScene> scene,
+				CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc)
+	: _parent(nullptr), _alive(true), _scene(scene), _networkDescription(entityDesc)
 {
 	SetRealRotation({ 0, 0, 0 });
 	SetRealPosition({ 0, 0, 0 });
@@ -136,6 +137,7 @@ void Entity::Render()
 void HoloLensClient::Entity::kill()
 {
 	_alive = false;
+	TRACE("KILLING " << GetLabel() << std::endl);
 }
 
 bool HoloLensClient::Entity::isDead() const
@@ -395,6 +397,28 @@ void HoloLensClient::Entity::CaptureInteraction(Windows::UI::Input::Spatial::Spa
 void HoloLensClient::Entity::SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^ recognizer)
 {
 	_spatialGestureRecognizer = recognizer;
+}
+
+IEntity  *HoloLensClient::Entity::RetrieveEntity(int id)
+{
+	if (this->GetID() == id && !isRoot())
+		return (this);
+	for (auto it = _childs.begin(); it != _childs.end(); ++it)
+	{
+		if ((*it)->GetID() == id && !(*it)->isRoot())
+			return ((*it).get());
+	}
+	return (nullptr);
+}
+
+CubZHoloLensClient::WinNetwork::EntityDescription HoloLensClient::Entity::GetNetworkDescription() const
+{
+	return (_networkDescription);
+}
+
+void HoloLensClient::Entity::SetNetworkDescription(CubZHoloLensClient::WinNetwork::EntityDescription const & desc)
+{
+	_networkDescription = desc;
 }
 
 void HoloLensClient::Entity::positionInFrontOfGaze(Windows::Foundation::Numerics::float3 offsets)

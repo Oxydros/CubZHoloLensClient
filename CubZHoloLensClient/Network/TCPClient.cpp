@@ -12,7 +12,13 @@ WinNetwork::TCPClient::TCPClient(Platform::String ^username)
 	_user.set_username(Utility::platformStringToString(username));
 	_client.setPacketCallback([this](Network::IPacketConnection::SharedPtr co, Network::IPacket::SharedPtr packet)
 	{
-		this->handlePacket(co, packet);
+		try {
+			this->handlePacket(co, packet);
+		}
+		catch (std::exception &e)
+		{
+			TRACE("Exception while handling TCP packet " << e.what() << std::endl);
+		}
 	});
 }
 
@@ -117,6 +123,7 @@ void CubZHoloLensClient::WinNetwork::TCPClient::entityCreateDelete(WinNetwork::E
 
 void CubZHoloLensClient::WinNetwork::TCPClient::createEntity(WinNetwork::EntityDescription const &entityDesc)
 {
+	TRACE("Sending entity creation Packet" << std::endl);
 	entityCreateDelete(WinNetwork::EntityAction::ADD, entityDesc);
 }
 
@@ -215,18 +222,18 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handlePingPacket(Network::IConne
 void CubZHoloLensClient::WinNetwork::TCPClient::handleUDPPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
 {
 	TRACE("Handling UDP id message" << std::endl);
-	auto port = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().port());
-	auto ip = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().ip());
-	
-	try {
-		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->connect(ip, port);
-		TRACE("UDP CONNECTED" << std::endl);
-		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->runAsync();
-	}
-	catch (std::exception const &e)
-	{
-		TRACE("ERROR CONNECT UDP " << e.what() << std::endl);
-	}
+	//auto port = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().port());
+	//auto ip = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().ip());
+	//
+	//try {
+	//	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->connect(ip, port);
+	//	TRACE("UDP CONNECTED" << std::endl);
+	//	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->runAsync();
+	//}
+	//catch (std::exception const &e)
+	//{
+	//	TRACE("ERROR CONNECT UDP " << e.what() << std::endl);
+	//}
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleEntityPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)

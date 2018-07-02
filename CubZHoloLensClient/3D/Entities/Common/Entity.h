@@ -49,8 +49,11 @@ namespace HoloLensClient
 		DirectX::XMMATRIX										_modelScaling{};
 		float													_distance{ 0 };
 
+		CubZHoloLensClient::WinNetwork::EntityDescription		_networkDescription{};
+
 	public:
-		Entity(std::shared_ptr<HolographicScene> scene);
+		Entity(std::shared_ptr<HolographicScene> scene,
+			CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc = {});
 		virtual ~Entity();
 
 	public:
@@ -140,6 +143,15 @@ namespace HoloLensClient
 
 		std::shared_ptr<HolographicScene>	GetScene() override { return _scene; }
 
+		void SetID(int id) override final { _networkDescription.id = id; }
+
+		int GetID() const override final { return (_networkDescription.id); }
+
+		IEntity	*RetrieveEntity(int id) override;
+
+		CubZHoloLensClient::WinNetwork::EntityDescription GetNetworkDescription() const override;
+		void SetNetworkDescription(CubZHoloLensClient::WinNetwork::EntityDescription const &desc);
+
 	public:
 		/// <summary>	Executes the get focus action. </summary>
 		virtual bool OnGetFocus() { return false; }
@@ -167,10 +179,6 @@ namespace HoloLensClient
 
 	public:
 		virtual void DoUpdate(DX::StepTimer const &timer) = 0;
-
-	private:
-		/*inline void UpdateReal();*/
-		/*inline void UpdateRelative();*/
 
 	public:
 

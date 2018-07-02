@@ -16,8 +16,9 @@ using namespace HoloLensClient;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
-CubeEntity::CubeEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene)
-	: EditableEntity(devicesResources, scene)
+CubeEntity::CubeEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene,
+						CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc)
+	: EditableEntity(devicesResources, scene, entityDesc)
 {
 	//auto texture = std::make_shared<Texture2D>(devicesResources, "ms-appx:////Assets//folderIcon.png");
 	//auto cube = std::make_unique<TexturedRectangle>(devicesResources, float2(0.1f, 0.1f));

@@ -6,6 +6,7 @@
 #pragma once
 
 #include <functional>
+#include <Network\Objects\TypeDescription.h>
 #include <3D\Utility\StepTimer.h>
 
 ///-------------------------------------------------------------------------------------------------
@@ -371,5 +372,14 @@ namespace HoloLensClient
 		virtual Windows::UI::Input::Spatial::SpatialGestureRecognizer ^GetSpatialGestureRecognizer() = 0;
 
 		virtual std::shared_ptr<HolographicScene>	GetScene() = 0;
+
+		virtual void SetID(int id) = 0;
+
+		virtual int GetID() const = 0;
+
+		virtual IEntity	*RetrieveEntity(int id) = 0;
+
+		virtual CubZHoloLensClient::WinNetwork::EntityDescription GetNetworkDescription() const = 0;
+		virtual void SetNetworkDescription(CubZHoloLensClient::WinNetwork::EntityDescription const &desc) = 0;
 	};
 }

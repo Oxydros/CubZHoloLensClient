@@ -101,28 +101,41 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)..\libs\include\protocol;$(ProjectDir)\Generated Files\Pages;$(ProjectDir)\Generated Files;$(IncludePath);$(ProjectDir)..\libs\include;$(PROTOBUF_ROOT)\include;$(BOOST_ROOT)</IncludePath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
-      <AdditionalOptions>/bigobj /doc %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /doc /Zi %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -131,10 +144,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
-      <AdditionalOptions>/bigobj /doc %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /doc /Zi %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -143,10 +157,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalOptions>/bigobj /doc %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /doc /Zi %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -155,11 +170,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalOptions>/bigobj /doc %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /doc /Zi %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <BrowseInformation>true</BrowseInformation>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -171,10 +187,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalOptions>/bigobj /doc %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /doc /Zi %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\bin\release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -183,10 +200,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalOptions>/bigobj /doc %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /doc /Zi %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)\stage\lib;$(PROTOBUF_LIBS);$(OGRE_HOME)\lib\Release;$(ProjectDir)..\libs\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -201,6 +219,7 @@
     <ClInclude Include="3D\Entities\Common\IEntity.h" />
     <ClInclude Include="3D\Entities\CubeEntity.h" />
     <ClInclude Include="3D\Entities\CursorEntity.h" />
+    <ClInclude Include="3D\Entities\EntityFactory.h" />
     <ClInclude Include="3D\Entities\GUI\GUIEntity.h" />
     <ClInclude Include="3D\Entities\GUI\Menus\MainMenu.h" />
     <ClInclude Include="3D\Entities\GUI\Menus\ModificationMenu.h" />
@@ -304,6 +323,7 @@
     <ClCompile Include="3D\Entities\Common\Entity.cpp" />
     <ClCompile Include="3D\Entities\CubeEntity.cpp" />
     <ClCompile Include="3D\Entities\CursorEntity.cpp" />
+    <ClCompile Include="3D\Entities\EntityFactory.cpp" />
     <ClCompile Include="3D\Entities\GUI\Menus\MainMenu.cpp" />
     <ClCompile Include="3D\Entities\GUI\Menus\ModificationMenu.cpp" />
     <ClCompile Include="3D\Entities\GUI\Widgets\Button2D.cpp" />

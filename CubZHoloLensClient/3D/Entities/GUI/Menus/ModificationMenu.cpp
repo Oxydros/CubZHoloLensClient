@@ -60,6 +60,12 @@ void HoloLensClient::ModificationMenu::DetachEntity()
 	setVisible(false);
 }
 
+void HoloLensClient::ModificationMenu::TryDetachEntity(EditableEntity * entity)
+{
+	if (_attachedEntity == entity)
+		DetachEntity();
+}
+
 void HoloLensClient::ModificationMenu::initializeBasicMenu()
 {
 	//Build basic menu

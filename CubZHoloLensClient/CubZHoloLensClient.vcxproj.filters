@@ -233,6 +233,9 @@
     <ClCompile Include="Network\Objects\TypeConversion.cpp">
       <Filter>Network\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="3D\Entities\EntityFactory.cpp">
+      <Filter>3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -408,6 +411,9 @@
     </ClInclude>
     <ClInclude Include="Network\Objects\TypeConversion.h">
       <Filter>Network\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\EntityFactory.h">
+      <Filter>3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

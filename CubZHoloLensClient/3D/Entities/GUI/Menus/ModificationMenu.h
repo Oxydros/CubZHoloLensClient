@@ -53,6 +53,7 @@ namespace HoloLensClient
 
 		void AttachEntity(EditableEntity *entity);
 		void DetachEntity();
+		void TryDetachEntity(EditableEntity *entity);
 
 	private:
 		void initializeBasicMenu();

@@ -104,6 +104,7 @@ void App::OnSuspending(Object^ sender, SuspendingEventArgs^ e)
     (void) sender;  // Paramètre non utilisé
     (void) e;   // Paramètre non utilisé
 
+	TRACE("SUSPENDING APP" << std::endl);
     //TODO: enregistrez l'état de l'application et arrêtez toute activité en arrière-plan
 }
 

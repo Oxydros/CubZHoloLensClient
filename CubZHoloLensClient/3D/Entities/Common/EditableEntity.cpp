@@ -6,8 +6,8 @@
 #include "EditableEntity.h"
 
 HoloLensClient::EditableEntity::EditableEntity(std::shared_ptr<DX::DeviceResources> devicesResources,
-	std::shared_ptr<HolographicScene> scene)
-	: Entity(scene)
+	std::shared_ptr<HolographicScene> scene, CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc)
+	: Entity(scene, entityDesc)
 {
 	Spatial::SpatialGestureRecognizer ^spatial = ref new Spatial::SpatialGestureRecognizer(
 		Spatial::SpatialGestureSettings::Tap | Spatial::SpatialGestureSettings::ManipulationTranslate);
@@ -63,10 +63,15 @@ bool HoloLensClient::EditableEntity::OnLostFocus()
 	return false;
 }
 
+void HoloLensClient::EditableEntity::kill()
+{
+	Entity::kill();
+	_scene->getModificationMenu()->TryDetachEntity(this);
+}
+
 void HoloLensClient::EditableEntity::OnKillClick()
 {
-	_scene->getModificationMenu()->DetachEntity();
-	kill();
+	CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->deleteEntity(GetNetworkDescription());
 }
 
 void HoloLensClient::EditableEntity::OnAirTap(Spatial::SpatialGestureRecognizer ^sender,

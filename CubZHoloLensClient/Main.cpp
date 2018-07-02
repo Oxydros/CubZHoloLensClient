@@ -6,15 +6,24 @@
 [Platform::MTAThread]
 int main(Platform::Array<Platform::String^>^)
 {
-	CubZHoloLensClient::HoloLensContext::Instance();
-	//Launch the XAML App
-	::Windows::UI::Xaml::Application::Start(
-		ref new ::Windows::UI::Xaml::ApplicationInitializationCallback(
-			[](::Windows::UI::Xaml::ApplicationInitializationCallbackParams^ p) {
-		(void)p; // Unused parameter
-		auto app = ref new CubZHoloLensClient::App();
-	}));
-	/*AppViewSource^ appViewSource = ref new ::AppViewSource();
-	CoreApplication::Run(appViewSource);*/
+	try
+	{
+		auto callback = ref new ::Windows::UI::Xaml::ApplicationInitializationCallback(
+			[](::Windows::UI::Xaml::ApplicationInitializationCallbackParams^) {
+
+			CubZHoloLensClient::HoloLensContext::Instance();
+
+			auto app = ref new CubZHoloLensClient::App();
+		});
+		//Launch the XAML App
+		::Windows::UI::Xaml::Application::Start(callback);
+
+		/*AppViewSource^ appViewSource = ref new ::AppViewSource();
+		CoreApplication::Run(appViewSource);*/
+	}
+	catch (std::exception &e)
+	{
+		TRACE("GOT UNHANDLED EXCEPTION ON MAIN " << e.what() << std::endl);
+	}
 	return 0;
 }

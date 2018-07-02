@@ -56,6 +56,7 @@ void CubZHoloLensClient::WinNetwork::UDPClient::disconnect()
 void CubZHoloLensClient::WinNetwork::UDPClient::notifyEntityUpdate(WinNetwork::EntityDescription const & entityDesc,
 																	WinNetwork::SpaceDescription const & spatialDesc)
 {
+	TRACE("Sending update for entity " << entityDesc.id << std::endl);
 	auto packet = std::make_shared<Network::UDPPacket>();
 	auto entity = WinNetwork::UWPEntityDescriptionToNative(entityDesc);
 	auto space = WinNetwork::UWPSpaceDescriptionToNative(spatialDesc);

@@ -106,7 +106,14 @@ void HoloLensClient::EditableEntity::OnManipulationUpdated(Spatial::SpatialGestu
 	if (_state == ADJUST)
 	{
 		TRACE("GOT DELTA OF " << delta->Translation << std::endl);
-		this->Move(delta->Translation);
+		/*this->Move(delta->Translation);*/
+		auto spaceDesc = CubZHoloLensClient::WinNetwork::SpaceDescription();
+
+		spaceDesc.position = GetRealPosition() + delta->Translation;
+		spaceDesc.rotation = GetRealRotation();
+		spaceDesc.scale = GetScale();
+
+		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->notifyEntityUpdate(GetNetworkDescription(), spaceDesc);
 	}
 }
 

@@ -222,18 +222,18 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handlePingPacket(Network::IConne
 void CubZHoloLensClient::WinNetwork::TCPClient::handleUDPPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)
 {
 	TRACE("Handling UDP id message" << std::endl);
-	//auto port = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().port());
-	//auto ip = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().ip());
-	//
-	//try {
-	//	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->connect(ip, port);
-	//	TRACE("UDP CONNECTED" << std::endl);
-	//	CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->runAsync();
-	//}
-	//catch (std::exception const &e)
-	//{
-	//	TRACE("ERROR CONNECT UDP " << e.what() << std::endl);
-	//}
+	auto port = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().port());
+	auto ip = Utility::stringToPlatformString(packet->getTCPPacket().udpmessageid().ip());
+	
+	try {
+		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->connect(ip, port);
+		TRACE("UDP CONNECTED" << std::endl);
+		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->runAsync();
+	}
+	catch (std::exception const &e)
+	{
+		TRACE("ERROR CONNECT UDP " << e.what() << std::endl);
+	}
 }
 
 void CubZHoloLensClient::WinNetwork::TCPClient::handleEntityPacket(Network::IConnection::SharedPtr co, Network::TCPPacket::SharedPtr packet)

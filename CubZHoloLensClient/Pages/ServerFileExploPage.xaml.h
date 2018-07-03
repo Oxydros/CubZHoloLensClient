@@ -30,7 +30,7 @@ namespace CubZHoloLensClient
 	public:
 		ServerFileExploPage();
 
-		void OnListFile(Windows::Foundation::Collections::IVector<Platform::String^>^fileList);
+		void OnListFile(Windows::Foundation::Collections::IVector<WinNetwork::FileDescription>^fileList);
 
 	private:
 		void Button_GoBack(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);

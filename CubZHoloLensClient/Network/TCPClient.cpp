@@ -178,11 +178,11 @@ void CubZHoloLensClient::WinNetwork::TCPClient::handleFileListPacket(Network::IC
 	TRACE("Handling file list message" << std::endl);
 	auto listFilePacket = packet->getTCPPacket().listfilemessage();
 	auto fileList = listFilePacket.list();
-	auto result = ref new Platform::Collections::Vector<Platform::String^>();
+	auto result = ref new Platform::Collections::Vector<WinNetwork::FileDescription,WinNetwork::equal_FileDescription>();
 	for (auto &file : fileList)
 	{
 		TRACE("file found" << std::endl);
-		result->Append(Utility::stringToPlatformString(file.name()));
+		result->Append(CubZHoloLensClient::WinNetwork::NativeFileDescriptionToUWP(file));
 	}
 	TRACE("end of files" << std::endl);
 	ListFileEvent(result);

@@ -34,14 +34,17 @@ ServerFileExploPage::ServerFileExploPage()
 	this->path = ".";
 }
 
-void CubZHoloLensClient::ServerFileExploPage::OnListFile(Windows::Foundation::Collections::IVector<Platform::String^>^ fileList)
+void CubZHoloLensClient::ServerFileExploPage::OnListFile(Windows::Foundation::Collections::IVector<WinNetwork::FileDescription>^ fileList)
 {
 	auto files = ref new Platform::Collections::Vector<File^>();
-	/*TRACE("Got files:" << std::endl);*/
-	for (Platform::String ^fileName : fileList)
+	for (WinNetwork::FileDescription file : fileList)
 	{
-		files->Append(ref new File(fileName, FileType::DIRECTORY));
-		/*TRACE("Name: " << Utility::platformStringToString(fileName) << std::endl);*/
+		if (file.type == CubZHoloLensClient::WinNetwork::FileType::DIRECTORY) {
+			files->Append(ref new File(file.name, FileType::DIRECTORY));
+		}
+		else if (file.type == CubZHoloLensClient::WinNetwork::FileType::FILE) {
+			files->Append(ref new File(file.name, FileType::FILE));
+		}
 	}
 
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this, files]() {
@@ -89,10 +92,9 @@ void CubZHoloLensClient::ServerFileExploPage::OnNavigatedTo(Windows::UI::Xaml::N
 
 void CubZHoloLensClient::ServerFileExploPage::GoInsideButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	//if c'est un fichier alors ne rien faire
-
-	//sinon faire le reste
-	this->path = this->path + "/" + this->FileName->Text;
+	if (this->FileType->Text != "File") {
+		this->path = this->path + "/" + this->FileName->Text;
+	}
 }
 
 

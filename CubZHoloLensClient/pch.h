@@ -19,6 +19,8 @@
 #include <boost/asio.hpp>
 
 #include "Utility\Utility.h"
+#include "Network\Objects\TypeDescription.h"
+
 
 #include <collection.h>
 #include <ppltasks.h>

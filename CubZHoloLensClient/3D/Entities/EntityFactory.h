@@ -24,5 +24,8 @@ namespace HoloLensClient
 	public:
 		IEntity::IEntityPtr	createEntity(CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc);
 		IEntity::IEntityPtr	createCube(CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc);
+		IEntity::IEntityPtr	createSphere(CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc);
+		IEntity::IEntityPtr	createFromFile(std::string const &fileName,
+											CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc);
 	};
 }

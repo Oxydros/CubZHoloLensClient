@@ -36,9 +36,13 @@ void HoloLensClient::MainMenu::InitializeMenu()
 
 	auto buttonSphere = std::make_unique<Button2D>(_devicesResources, _scene,
 		[this]() {
-			auto cube = std::make_unique<CubeEntity>(this->GetScene()->getDeviceResources(), this->GetScene());
-
-			this->GetScene()->addEntityInFront(std::move(cube), 2.0f);
+		CubZHoloLensClient::HoloLensContext::Instance()->getTCPClient()->createEntity(
+			{
+				CubZHoloLensClient::WinNetwork::EntityType::SPHERE,
+			{},
+			0
+			}
+		);
 		},
 		float2(0.15f, 0.1f));
 	buttonSphere->setLabel(L"Spawn sphere");

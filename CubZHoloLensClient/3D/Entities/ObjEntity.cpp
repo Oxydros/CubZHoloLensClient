@@ -11,8 +11,8 @@ using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
 ObjEntity::ObjEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene,
-					 std::string const&fileName)
-	: EditableEntity(devicesResources, scene)
+					 std::string const&fileName, CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc)
+	: EditableEntity(devicesResources, scene, entityDesc)
 {
 
 	auto mesh = std::make_unique<OBJMesh>(devicesResources, fileName);

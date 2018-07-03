@@ -6,10 +6,8 @@ Windows::Foundation::Numerics::float4 HoloLensClient::Button3D::DEFAULT_COLOR = 
 Windows::Foundation::Numerics::float4 HoloLensClient::Button3D::FOCUS_COLOR = { 0.443f, 0.515f, 0.454f, 1.0f };
 
 HoloLensClient::Button3D::Button3D(std::shared_ptr<DX::DeviceResources> devicesResources,
-	std::shared_ptr<HolographicScene> scene,
-	std::function<void()> const &callback,
-	Windows::Foundation::Numerics::float3 size)
-	: GUIEntity(scene), _callback(callback)
+	std::shared_ptr<HolographicScene> scene, Windows::Foundation::Numerics::float3 size)
+	: GUIEntity(scene, Spatial::SpatialGestureSettings::Tap | Spatial::SpatialGestureSettings::ManipulationTranslate)
 {
 	_color = DEFAULT_COLOR;
 	SetSize(size);
@@ -29,10 +27,4 @@ bool HoloLensClient::Button3D::OnLostFocus()
 	auto button = dynamic_cast<ColoredCube*>(_mesh.get());
 	button->SetColor(DEFAULT_COLOR);
 	return (true);
-}
-
-void HoloLensClient::Button3D::OnAirTap(Spatial::SpatialGestureRecognizer ^sender,
-										Spatial::SpatialTappedEventArgs ^args)
-{
-	if (_callback) _callback();
 }

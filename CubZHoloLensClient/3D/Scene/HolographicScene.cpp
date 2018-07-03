@@ -45,11 +45,6 @@ void HolographicScene::Initialize()
 	_cursor = gaze.get();
 	addEntity(std::move(gaze));
 
-	////Declare basic cube for test purposes
-	//auto cube = _factory->createCube();
-	//cube->SetRelativePosition({ 2.0f, 0.0f, -3.0f });
-	//addEntity(std::move(cube));
-
 	auto mainMenu = std::make_unique<MainMenu>(_deviceResources, safeScene);
 	mainMenu->SetRelativePosition({ 0.0f, 0.0f, -3.0f });
 
@@ -120,9 +115,25 @@ void HolographicScene::OnDeviceRestored()
 	_root->InitializeMesh();
 }
 
-void HoloLensClient::HolographicScene::UpdateEntity(CubZHoloLensClient::WinNetwork::EntityDescription entity, CubZHoloLensClient::WinNetwork::SpaceDescription space)
+void HoloLensClient::HolographicScene::UpdateEntity(CubZHoloLensClient::WinNetwork::EntityDescription entity,
+													CubZHoloLensClient::WinNetwork::SpaceDescription space)
 {
 	TRACE("Received update on Entity " << entity.id << std::endl);
+
+	if (entity.id == 0)
+	{
+		TRACE("RECEIVED DELETE WITH ID 0. REFUSED." << std::endl);
+		return;
+	}
+	auto entityPtr = _root->RetrieveEntity(entity.id);
+	if (entityPtr == nullptr)
+	{
+		TRACE("Wanted to update nullptr Entity !" << std::endl);
+		return;
+	}
+	entityPtr->SetRealPosition(space.position);
+	entityPtr->SetRealRotation(space.rotation);
+	entityPtr->SetScale(space.scale);
 }
 
 void HoloLensClient::HolographicScene::CreateDeleteEntity(CubZHoloLensClient::WinNetwork::EntityAction action, CubZHoloLensClient::WinNetwork::EntityDescription entity)

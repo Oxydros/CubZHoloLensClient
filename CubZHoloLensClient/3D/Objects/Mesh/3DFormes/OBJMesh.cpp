@@ -38,6 +38,12 @@ void OBJMesh::CreateMesh()
 {
 	std::vector<VertexPosition> triangleVertices;
 
+	// Wrap in parenthesis to prevent macro expension of min and max
+	float min_x, min_y, min_z;
+	min_x = min_y = min_z = (std::numeric_limits<float>::max)();
+	float max_x, max_y, max_z;
+	max_x = max_y = max_z = (std::numeric_limits<float>::min)();
+
 	//Load triangle vertices
 	for (size_t i = 0; i < _attrib.vertices.size() / 3; i++)
 	{
@@ -46,9 +52,32 @@ void OBJMesh::CreateMesh()
 		v.pos.y = _attrib.vertices[3 * i + 1];
 		v.pos.z = _attrib.vertices[3 * i + 2];
 
+		min_x = MIN(min_x, v.pos.x);
+		min_y = MIN(min_y, v.pos.y);
+		min_z = MIN(min_z, v.pos.z);
+
+		max_x = MAX(max_x, v.pos.x);
+		max_y = MAX(max_y, v.pos.y);
+		max_z = MAX(max_z, v.pos.z);
+
 		triangleVertices.push_back(v);
 		//TRACE("v " << vx << " " << vy << " " << vz << std::endl);
 	}
+
+	float width = max_x - min_x;
+	float height = max_y - min_y;
+	float depht = max_z - min_z;
+
+	float3 maxPoint = { max_x, max_y, max_z };
+	float3 minPoint = { min_x, min_y, min_z };
+	float3 centerPoint = (maxPoint + minPoint) / 2;
+
+	_boundingBox = BoundingOrientedBox(XMFLOAT3(centerPoint.x, centerPoint.y, centerPoint.z),
+										XMFLOAT3(width / 2.0f, height / 2.0f, depht / 2.0f),
+										XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+
+	TRACE("For " << _meshFile << " width: " << width << " height: " << height << " depht: " << depht
+		<< " maxPoint: " << maxPoint << " minPoint: " << minPoint << " centerPoint: " << centerPoint << std::endl);
 
 	D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
 	vertexBufferData.pSysMem = triangleVertices.data();

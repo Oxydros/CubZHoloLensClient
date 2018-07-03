@@ -8,7 +8,7 @@ using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 
 Entity::Entity(std::shared_ptr<HolographicScene> scene,
-				CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc)
+	CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc)
 	: _parent(nullptr), _alive(true), _scene(scene), _networkDescription(entityDesc)
 {
 	SetRealRotation({ 0, 0, 0 });
@@ -35,7 +35,6 @@ DirectX::XMMATRIX const Entity::GetTransformMatrix() const
 	//TRACE("For " << GetLabel() << " Local " << localTransform << std::endl);
 	//TRACE("For " << GetLabel() << " Final " << finalTransform << std::endl);
 	return (finalTransform);
-
 }
 
 void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
@@ -52,7 +51,7 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	if (_scene->getPointerPose() != nullptr) {
 		float3 positionMotion = _scene->getPointerPose()->Head->Position - _previousGazePosition;
 		float3 directionMotion = _scene->getPointerPose()->Head->ForwardDirection - _previousGazeDirection;
-		GazeMotion(positionMotion, directionMotion);
+		/*GazeMotion(positionMotion, directionMotion);*/
 		_previousGazePosition = _scene->getPointerPose()->Head->Position;
 		_previousGazeDirection = _scene->getPointerPose()->Head->ForwardDirection;
 	}
@@ -74,7 +73,7 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	updateInGaze();
 	DoUpdate(timer);
 
-	if(_mesh)
+	if (_mesh)
 		_mesh->SetModelTransform(GetTransformMatrix());
 
 	// If child is delete, remove the unique_ptr from the child list
@@ -82,14 +81,14 @@ void HoloLensClient::Entity::Update(DX::StepTimer const & timer)
 	_childs.erase(
 		std::remove_if(_childs.begin(), _childs.end(),
 			[](auto &child) {
-				if (child->isDead())
-					TRACE("Killing child " << child->GetLabel() << std::endl);
-				return child->isDead();
-			}),
+		if (child->isDead())
+			TRACE("Killing child " << child->GetLabel() << std::endl);
+		return child->isDead();
+	}),
 		_childs.end()
-	);
+		);
 
-	/*TRACE("For " << this << " Real position is (" << _realPosition.x << ", " << _realPosition.y << ", " << _realPosition.z 
+	/*TRACE("For " << this << " Real position is (" << _realPosition.x << ", " << _realPosition.y << ", " << _realPosition.z
 		  << ") Relative is (" << _relativePosition.x << ", " << _relativePosition.y << ", " << _relativePosition.z << ")"
 			<< " Bools matrix: " << _useTranslationMatrix << " " << _useRotationMatrix << std::endl);*/
 }
@@ -292,8 +291,8 @@ void HoloLensClient::Entity::RemoveChild(IEntity *child)
 	_childs.erase(
 		std::remove_if(_childs.begin(), _childs.end(),
 			[&child](auto &c) {
-				return c.get() == child;
-			}),
+		return c.get() == child;
+	}),
 		_childs.end());
 }
 
@@ -343,12 +342,12 @@ void HoloLensClient::Entity::updateInGaze()
 		float3 L2{ headDirection.x, headDirection.y, headDirection.z };
 
 		bool check = CheckLineBox(B1, B2, L1, (L1 + (L2 * 6.0f)), Hit, 0.1f);
-		
+
 		XMVECTOR originVec = DirectX::XMLoadFloat3(&(headPosition));
 		XMVECTOR hitVec = DirectX::XMLoadFloat3(&XMFLOAT3(Hit.x, Hit.y, Hit.z));
 		XMVECTOR distanceV = XMVector3Length(XMVectorSubtract(originVec, hitVec));
 		DirectX::XMStoreFloat(&_distance, distanceV);
-		
+
 		/*TRACE("In Gaze " << GetLabel() << " " << _inGaze << " " << _distance << std::endl);*/
 		_inGaze = currentBoundingBox.Intersects(DirectX::XMLoadFloat3(&headPosition), DirectX::XMLoadFloat3(&headDirection), distance);
 
@@ -359,7 +358,7 @@ void HoloLensClient::Entity::updateInGaze()
 		//	TRACE("Box extend is " << extents << std::endl);
 		//	TRACE("Real position is " << GetRealPosition() << std::endl);
 		//}
-		
+
 		//check is false when its colliding sometime because the extents dont reflex the orientation of the box
 		/*if (check != _inGaze)
 			_inGaze = false;*/
@@ -419,6 +418,16 @@ CubZHoloLensClient::WinNetwork::EntityDescription HoloLensClient::Entity::GetNet
 void HoloLensClient::Entity::SetNetworkDescription(CubZHoloLensClient::WinNetwork::EntityDescription const & desc)
 {
 	_networkDescription = desc;
+}
+
+DirectX::BoundingOrientedBox const HoloLensClient::Entity::GetBoundingBox()
+{
+	DirectX::BoundingOrientedBox box{};
+
+	//Note: Trivial right now. If child entity, should construct a bounding box surrounding all childs
+	if (_mesh)
+		_mesh->GetBoundingBox(box);
+	return (box);
 }
 
 void HoloLensClient::Entity::positionInFrontOfGaze(Windows::Foundation::Numerics::float3 offsets)
@@ -494,7 +503,6 @@ void HoloLensClient::Entity::rotateTowardGaze(Windows::Foundation::Numerics::flo
 		//	<< "(" << z.x << ", " << z.y << ", " << z.z << ") "
 		//	<< std::endl);
 
-
 		// Rotate the quad to face the user.
 		auto rotation = XMMATRIX(
 			xAxisRotation,
@@ -538,7 +546,6 @@ void HoloLensClient::Entity::getInGazeEntities(std::vector<IEntity*>& entities)
 		entities.push_back(this);
 }
 
-
 //inline void HoloLensClient::Entity::UpdateReal()
 //{
 //	if (_parent != nullptr)
@@ -570,7 +577,6 @@ void HoloLensClient::Entity::getInGazeEntities(std::vector<IEntity*>& entities)
 //	_modelTranslation = XMMatrixTranslationFromVector(XMLoadFloat3(&_relativePosition));
 //	_modelRotation = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&_relativeRotation));
 //}
-
 
 // UTILITIES DISPLAY FUNCTIONS
 

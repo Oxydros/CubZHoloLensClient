@@ -236,6 +236,9 @@
     <ClCompile Include="3D\Entities\EntityFactory.cpp">
       <Filter>3D\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="3D\Entities\Common\InteractableEntity.cpp">
+      <Filter>3D\Entities\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -414,6 +417,9 @@
     </ClInclude>
     <ClInclude Include="3D\Entities\EntityFactory.h">
       <Filter>3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Entities\Common\InteractableEntity.h">
+      <Filter>3D\Entities\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

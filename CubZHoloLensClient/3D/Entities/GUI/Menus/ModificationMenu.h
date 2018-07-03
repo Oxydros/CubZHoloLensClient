@@ -23,11 +23,6 @@ namespace HoloLensClient
 		std::shared_ptr<DX::DeviceResources>	_devicesResources;
 		Mode									_mode{ BASIC };
 
-		bool									_scaleLeftSelected{ false };
-		bool									_scaleRightSelected{ false };
-		bool									_scaleTopSelected{ false };
-		bool									_scaleBotSelected{ false };
-
 		Button3D								*_scaleLeft{ nullptr };
 		Button3D								*_scaleRight{ nullptr };
 		Button3D								*_scaleTop{ nullptr };
@@ -51,8 +46,11 @@ namespace HoloLensClient
 		std::string const GetLabel() const override { return "ModificationMenu"; };
 		void DoUpdate(DX::StepTimer const & timer) override;
 
+		// Attach an entity
 		void AttachEntity(EditableEntity *entity);
+		// Detach an entity
 		void DetachEntity();
+		// Try to detach an entity
 		void TryDetachEntity(EditableEntity *entity);
 
 	private:

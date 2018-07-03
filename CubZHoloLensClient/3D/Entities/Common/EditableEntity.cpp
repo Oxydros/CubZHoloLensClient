@@ -7,50 +7,14 @@
 
 HoloLensClient::EditableEntity::EditableEntity(std::shared_ptr<DX::DeviceResources> devicesResources,
 	std::shared_ptr<HolographicScene> scene, CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc)
-	: Entity(scene, entityDesc)
+	: InteractableEntity(scene,
+		Spatial::SpatialGestureSettings::Tap | Spatial::SpatialGestureSettings::ManipulationTranslate,
+		entityDesc)
 {
-	Spatial::SpatialGestureRecognizer ^spatial = ref new Spatial::SpatialGestureRecognizer(
-		Spatial::SpatialGestureSettings::Tap | Spatial::SpatialGestureSettings::ManipulationTranslate);
-
-	_tappedToken = spatial->Tapped +=
-		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
-		Spatial::SpatialTappedEventArgs ^>(
-			std::bind(&EditableEntity::OnAirTap, this, std::placeholders::_1, std::placeholders::_2)
-			);
-
-	_manipStartedToken = spatial->ManipulationStarted +=
-		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
-		Spatial::SpatialManipulationStartedEventArgs ^>(
-			std::bind(&EditableEntity::OnManipulationStarted, this, std::placeholders::_1, std::placeholders::_2)
-			);
-
-	_manipUpdatedToken = spatial->ManipulationUpdated +=
-		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
-		Spatial::SpatialManipulationUpdatedEventArgs ^>(
-			std::bind(&EditableEntity::OnManipulationUpdated, this, std::placeholders::_1, std::placeholders::_2)
-			);
-
-	_manipCompletedToken = spatial->ManipulationCompleted +=
-		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
-		Spatial::SpatialManipulationCompletedEventArgs ^>(
-			std::bind(&EditableEntity::OnManipulationCompleted, this, std::placeholders::_1, std::placeholders::_2)
-			);
-
-	_manipCanceledToken = spatial->ManipulationCanceled +=
-		ref new Windows::Foundation::TypedEventHandler<Spatial::SpatialGestureRecognizer^,
-		Spatial::SpatialManipulationCanceledEventArgs ^>(
-			std::bind(&EditableEntity::OnManipulationCanceled, this, std::placeholders::_1, std::placeholders::_2)
-			);
-
-	SetSpatialGestureRecognizer(spatial);
 }
 
 HoloLensClient::EditableEntity::~EditableEntity()
-{
-	auto spatial = GetSpatialGestureRecognizer();
-	if (spatial)
-		spatial->Tapped -= _tappedToken;
-}
+{}
 
 bool HoloLensClient::EditableEntity::OnGetFocus()
 {
@@ -77,20 +41,6 @@ void HoloLensClient::EditableEntity::OnKillClick()
 void HoloLensClient::EditableEntity::OnAirTap(Spatial::SpatialGestureRecognizer ^sender,
 	Spatial::SpatialTappedEventArgs ^args)
 {
-	////Retrieve Colored cube mesh
-	//auto coloredMesh = dynamic_cast<ColoredObject*>(_mesh.get());	
-
-	//if (_state == ADJUST)
-	//{
-	//	if (IsMoving())
-	//		StopMoving();
-	//	else
-	//		StartMoving();
-	//}
-	//else if (_state == ROTATE)
-	//{
-	//	TRACE("ROTATING STATE" << std::endl);
-	//}
 }
 
 void HoloLensClient::EditableEntity::OnManipulationStarted(Spatial::SpatialGestureRecognizer ^recognizer, Spatial::SpatialManipulationStartedEventArgs ^args)
@@ -105,8 +55,15 @@ void HoloLensClient::EditableEntity::OnManipulationUpdated(Spatial::SpatialGestu
 
 	if (_state == ADJUST)
 	{
-		TRACE("GOT DELTA OF " << delta->Translation << std::endl);
-		this->Move(delta->Translation);
+		/*TRACE("GOT DELTA OF " << delta->Translation << std::endl);*/
+		/*this->Move(delta->Translation);*/
+		auto spaceDesc = CubZHoloLensClient::WinNetwork::SpaceDescription();
+
+		spaceDesc.position = GetRealPosition() + delta->Translation;
+		spaceDesc.rotation = GetRealRotation();
+		spaceDesc.scale = GetScale();
+
+		CubZHoloLensClient::HoloLensContext::Instance()->getUDPClient()->notifyEntityUpdate(GetNetworkDescription(), spaceDesc);
 	}
 }
 

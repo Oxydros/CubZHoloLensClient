@@ -8,7 +8,7 @@ namespace HoloLensClient
 	{
 	public:
 		ObjEntity(std::shared_ptr<DX::DeviceResources> devicesResources, std::shared_ptr<HolographicScene> scene,
-				  std::string const&fileName);
+			std::string const&fileName, CubZHoloLensClient::WinNetwork::EntityDescription const &entityDesc = {});
 		~ObjEntity();
 
 	public:

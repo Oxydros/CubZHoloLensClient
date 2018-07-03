@@ -16,7 +16,7 @@ namespace CubZHoloLensClient
 			REMOVE
 		};
 
-		public delegate void FileListEvent(Windows::Foundation::Collections::IVector<Platform::String^>^);
+		public delegate void FileListEvent(Windows::Foundation::Collections::IVector<WinNetwork::FileDescription>^);
 		public delegate void UserListEvent(Windows::Foundation::Collections::IVector<Platform::String^>^);
 		public delegate void DeviceListEvent(Windows::Foundation::Collections::IVector<Platform::String^>^);
 		public delegate void UDPMessageEvent(Platform::String ^ip, Platform::String ^port);

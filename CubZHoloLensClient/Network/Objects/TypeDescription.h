@@ -4,6 +4,7 @@ namespace CubZHoloLensClient
 {
 	namespace WinNetwork
 	{
+		
 		public enum class FileType : int
 		{
 			DIRECTORY = 0,
@@ -73,6 +74,21 @@ namespace CubZHoloLensClient
 			EntityType				type;
 			FileDescription			fileDescription;
 			int						id;
+		};
+
+		//function for operator == between two FileDescription
+		struct equal_FileDescription
+		{
+			constexpr bool operator()(const WinNetwork::FileDescription& _Left, WinNetwork::FileDescription& _Right)
+			{
+				if (_Left.type == _Right.type && _Left.type == _Right.type && _Left.name == _Right.name && _Left.extension == _Right.extension && _Left.size == _Right.size && _Left.rights == _Right.rights) {
+					return (true);
+				}
+				else {
+					return (false);
+				}
+
+			}
 		};
 	}
 }

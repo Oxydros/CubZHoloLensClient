@@ -77,20 +77,6 @@ void HoloLensClient::EditableEntity::OnKillClick()
 void HoloLensClient::EditableEntity::OnAirTap(Spatial::SpatialGestureRecognizer ^sender,
 	Spatial::SpatialTappedEventArgs ^args)
 {
-	////Retrieve Colored cube mesh
-	//auto coloredMesh = dynamic_cast<ColoredObject*>(_mesh.get());	
-
-	//if (_state == ADJUST)
-	//{
-	//	if (IsMoving())
-	//		StopMoving();
-	//	else
-	//		StartMoving();
-	//}
-	//else if (_state == ROTATE)
-	//{
-	//	TRACE("ROTATING STATE" << std::endl);
-	//}
 }
 
 void HoloLensClient::EditableEntity::OnManipulationStarted(Spatial::SpatialGestureRecognizer ^recognizer, Spatial::SpatialManipulationStartedEventArgs ^args)
@@ -105,7 +91,7 @@ void HoloLensClient::EditableEntity::OnManipulationUpdated(Spatial::SpatialGestu
 
 	if (_state == ADJUST)
 	{
-		TRACE("GOT DELTA OF " << delta->Translation << std::endl);
+		/*TRACE("GOT DELTA OF " << delta->Translation << std::endl);*/
 		/*this->Move(delta->Translation);*/
 		auto spaceDesc = CubZHoloLensClient::WinNetwork::SpaceDescription();
 

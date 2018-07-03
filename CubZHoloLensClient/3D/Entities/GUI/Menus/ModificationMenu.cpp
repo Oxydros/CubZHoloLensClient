@@ -31,9 +31,17 @@ void HoloLensClient::ModificationMenu::DoUpdate(DX::StepTimer const & timer)
 	if (_visible && _attachedEntity != nullptr)
 	{
 		float3 basePosition = _attachedEntity->GetRealPosition();
-		float3 offset = {0, 0.25f, 0};
+		auto boundingBox = _attachedEntity->GetBoundingBox();
+		
+		//Display menu 15cm above bounding box of entity
+		//No orientation take in consideration
+		float3 offset = {0, boundingBox.Extents.y + 0.15f, 0};
 
-		SetRealPosition(basePosition + offset);
+		float3 boundingBoxCenter = { boundingBox.Center.x, boundingBox.Center.y, boundingBox.Center.z };
+
+		//BoundingBox is calculated from the current position of the mesh in space
+
+		SetRealPosition(boundingBoxCenter + offset);
 	}
 }
 

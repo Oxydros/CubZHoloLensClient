@@ -421,6 +421,16 @@ void HoloLensClient::Entity::SetNetworkDescription(CubZHoloLensClient::WinNetwor
 	_networkDescription = desc;
 }
 
+DirectX::BoundingOrientedBox const & HoloLensClient::Entity::GetBoundingBox()
+{
+	DirectX::BoundingOrientedBox box{};
+
+	//Note: Trivial right now. If child entity, should construct a bounding box surrounding all childs
+	if (_mesh)
+		_mesh->GetBoundingBox(box);
+	return (box);
+}
+
 void HoloLensClient::Entity::positionInFrontOfGaze(Windows::Foundation::Numerics::float3 offsets)
 {
 	auto pointerPose = _scene->getPointerPose();

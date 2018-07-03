@@ -369,17 +369,60 @@ namespace HoloLensClient
 		///-------------------------------------------------------------------------------------------------
 		virtual void SetSpatialGestureRecognizer(Windows::UI::Input::Spatial::SpatialGestureRecognizer ^recognizer) = 0;
 
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Return the binded SpatialGestureRecognizer </summary>
+		///
+		/// <returns>	ref to SpatialGestureRecognizer </returns>
+		///-------------------------------------------------------------------------------------------------
 		virtual Windows::UI::Input::Spatial::SpatialGestureRecognizer ^GetSpatialGestureRecognizer() = 0;
 
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Return the scene in which this entity is stored </summary>
+		///
+		/// <returns>	shared_ptr to the HolographicScene </returns>
+		///-------------------------------------------------------------------------------------------------
 		virtual std::shared_ptr<HolographicScene>	GetScene() = 0;
 
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Force set the network ID </summary>
+		///
+		/// <param name="id">	The entity id. </param>
+		///-------------------------------------------------------------------------------------------------
 		virtual void SetID(int id) = 0;
 
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Return the network ID </summary>
+		///
+		/// <returns>	The ID in int. (int32 in network protocol) </returns>
+		///-------------------------------------------------------------------------------------------------
 		virtual int GetID() const = 0;
 
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Try to retrieve an entity with the given network ID in the entity tree </summary>
+		///
+		/// <returns>	nullptr if not found, or else a ptr to the entity </returns>
+		///-------------------------------------------------------------------------------------------------
 		virtual IEntity	*RetrieveEntity(int id) = 0;
 
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Return the network description </summary>
+		///
+		/// <returns>	The network description </returns>
+		///-------------------------------------------------------------------------------------------------
 		virtual CubZHoloLensClient::WinNetwork::EntityDescription GetNetworkDescription() const = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Force set the network description </summary>
+		///
+		/// <param name="desc">	Network description. </param>
+		///-------------------------------------------------------------------------------------------------
 		virtual void SetNetworkDescription(CubZHoloLensClient::WinNetwork::EntityDescription const &desc) = 0;
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Get the BoundingBox of the entity. </summary>
+		///
+		/// <returns>	The bounding box. </returns>
+		///-------------------------------------------------------------------------------------------------
+		virtual DirectX::BoundingOrientedBox const &GetBoundingBox() = 0;
 	};
 }

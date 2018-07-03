@@ -152,6 +152,8 @@ namespace HoloLensClient
 		CubZHoloLensClient::WinNetwork::EntityDescription GetNetworkDescription() const override;
 		void SetNetworkDescription(CubZHoloLensClient::WinNetwork::EntityDescription const &desc);
 
+		DirectX::BoundingOrientedBox const &GetBoundingBox() override;
+
 	public:
 		/// <summary>	Executes the get focus action. </summary>
 		virtual bool OnGetFocus() { return false; }
@@ -175,10 +177,18 @@ namespace HoloLensClient
 		/// <param name="mesh">	The mesh. </param>
 		///-------------------------------------------------------------------------------------------------
 		void addMesh(IObject::IObjectPtr mesh);
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Calculate if this entity is in user gaze. </summary>
+		///-------------------------------------------------------------------------------------------------
 		void updateInGaze();
 
 	public:
-		virtual void DoUpdate(DX::StepTimer const &timer) = 0;
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Update function getting called at this tick. Override it if you need to. </summary>
+		///
+		/// <param name="timer">	Delta time since last tick. </param>
+		///-------------------------------------------------------------------------------------------------
+		virtual void DoUpdate(DX::StepTimer const &timer) {};
 
 	public:
 

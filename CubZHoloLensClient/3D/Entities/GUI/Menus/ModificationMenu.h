@@ -51,8 +51,11 @@ namespace HoloLensClient
 		std::string const GetLabel() const override { return "ModificationMenu"; };
 		void DoUpdate(DX::StepTimer const & timer) override;
 
+		// Attach an entity
 		void AttachEntity(EditableEntity *entity);
+		// Detach an entity
 		void DetachEntity();
+		// Try to detach an entity
 		void TryDetachEntity(EditableEntity *entity);
 
 	private:

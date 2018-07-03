@@ -38,7 +38,6 @@ void DeviceManagerPage::Button_GoBack(Platform::Object^ sender, Windows::UI::Xam
 	this->Frame->GoBack();
 }
 
-
 void DeviceManagerPage::Button_AddDevice(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([this]() {

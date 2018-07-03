@@ -23,11 +23,6 @@ namespace HoloLensClient
 		std::shared_ptr<DX::DeviceResources>	_devicesResources;
 		Mode									_mode{ BASIC };
 
-		bool									_scaleLeftSelected{ false };
-		bool									_scaleRightSelected{ false };
-		bool									_scaleTopSelected{ false };
-		bool									_scaleBotSelected{ false };
-
 		Button3D								*_scaleLeft{ nullptr };
 		Button3D								*_scaleRight{ nullptr };
 		Button3D								*_scaleTop{ nullptr };

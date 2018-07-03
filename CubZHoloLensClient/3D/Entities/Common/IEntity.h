@@ -24,8 +24,6 @@ namespace HoloLensClient
 	{
 	public:
 		typedef std::unique_ptr<IEntity> IEntityPtr;
-		typedef std::function<void(IEntity *entity, Windows::Foundation::Numerics::float3 positionMotion,
-			Windows::Foundation::Numerics::float3 directionMotion)>	MotionCallback;
 
 	public:
 		/// <summary>	Destructor. </summary>
@@ -53,8 +51,6 @@ namespace HoloLensClient
 		virtual void DoUpdate(DX::StepTimer const &timer) = 0;
 
 	public:
-
-		virtual void setMotionCallback(MotionCallback callback) = 0;
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Return the entity name. </summary>
@@ -423,6 +419,6 @@ namespace HoloLensClient
 		///
 		/// <returns>	The bounding box. </returns>
 		///-------------------------------------------------------------------------------------------------
-		virtual DirectX::BoundingOrientedBox const &GetBoundingBox() = 0;
+		virtual DirectX::BoundingOrientedBox const GetBoundingBox() = 0;
 	};
 }

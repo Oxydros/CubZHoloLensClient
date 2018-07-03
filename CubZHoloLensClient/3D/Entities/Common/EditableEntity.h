@@ -1,12 +1,12 @@
 #pragma once
 
-#include <3D\Entities\Common\Entity.h>
+#include <3D\Entities\Common\InteractableEntity.h>
 
 using namespace Windows::UI::Input;
 
 namespace HoloLensClient
 {
-	class EditableEntity : public Entity
+	class EditableEntity : public InteractableEntity
 	{
 	public:
 		enum State
@@ -15,13 +15,6 @@ namespace HoloLensClient
 			ADJUST,
 			ROTATE,
 		};
-
-	private:
-		Windows::Foundation::EventRegistrationToken _tappedToken;
-		Windows::Foundation::EventRegistrationToken _manipStartedToken;
-		Windows::Foundation::EventRegistrationToken _manipUpdatedToken;
-		Windows::Foundation::EventRegistrationToken _manipCompletedToken;
-		Windows::Foundation::EventRegistrationToken _manipCanceledToken;
 
 	protected:
 		State				_state{ IDLE };
@@ -45,13 +38,13 @@ namespace HoloLensClient
 			Spatial::SpatialTappedEventArgs ^args);
 
 		void OnManipulationStarted(Spatial::SpatialGestureRecognizer^,
-			Spatial::SpatialManipulationStartedEventArgs ^);
+			Spatial::SpatialManipulationStartedEventArgs ^) override;
 		void OnManipulationUpdated(Spatial::SpatialGestureRecognizer^,
-			Spatial::SpatialManipulationUpdatedEventArgs ^);
+			Spatial::SpatialManipulationUpdatedEventArgs ^) override;
 		void OnManipulationCompleted(Spatial::SpatialGestureRecognizer^,
-			Spatial::SpatialManipulationCompletedEventArgs ^);
+			Spatial::SpatialManipulationCompletedEventArgs ^) override;
 		void OnManipulationCanceled(Spatial::SpatialGestureRecognizer^,
-			Spatial::SpatialManipulationCanceledEventArgs ^);
+			Spatial::SpatialManipulationCanceledEventArgs ^) override;
 
 	public:
 		bool IsMoving() const { return _moving; }

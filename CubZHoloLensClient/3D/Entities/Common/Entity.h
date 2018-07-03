@@ -32,7 +32,6 @@ namespace HoloLensClient
 
 		Windows::Foundation::Numerics::float3					_previousGazePosition{ -1, -1, -1};
 		Windows::Foundation::Numerics::float3					_previousGazeDirection{ -1, -1, -1};
-		MotionCallback											_motionCallback{ nullptr };
 
 		bool													_followGazePosition{ false };
 		bool													_followGazeRotation{ false };
@@ -69,8 +68,6 @@ namespace HoloLensClient
 		bool isRoot() const override { return (_isRoot); }
 		bool IgnoreInGaze() const { return (_ignoreInGaze); }
 		void SetIgnoreInGaze(bool ignore) { _ignoreInGaze = ignore; }
-
-		void setMotionCallback(MotionCallback callback) { _motionCallback = callback; }
 
 		void Move(Windows::Foundation::Numerics::float3 offset) override;
 		void Rotate(Windows::Foundation::Numerics::float3 offset) override;
@@ -152,7 +149,7 @@ namespace HoloLensClient
 		CubZHoloLensClient::WinNetwork::EntityDescription GetNetworkDescription() const override;
 		void SetNetworkDescription(CubZHoloLensClient::WinNetwork::EntityDescription const &desc);
 
-		DirectX::BoundingOrientedBox const &GetBoundingBox() override;
+		DirectX::BoundingOrientedBox const GetBoundingBox() override;
 
 	public:
 		/// <summary>	Executes the get focus action. </summary>
@@ -160,14 +157,6 @@ namespace HoloLensClient
 
 		/// <summary>	Executes the lost focus action. </summary>
 		virtual bool OnLostFocus() { return false; }
-
-		/// <summary>	Notify the new position of the gaze at every frame when possible. </summary>
-		virtual void GazeMotion(Windows::Foundation::Numerics::float3 positionMotion,
-								Windows::Foundation::Numerics::float3 directionMotion) final
-		{
-			if (_motionCallback)
-				_motionCallback(this, positionMotion, directionMotion);
-		}
 
 	protected:
 

@@ -1,4 +1,8 @@
-# Repo initialization
+# CubZ C++ HoloLens Client
+
+**DISCLAIMER: This repository is not yet functional. It will be soon.**
+
+## Repo initialization
 
 We are using the git submodule fonctionality to improve our use of internal libraries.
 
@@ -17,11 +21,11 @@ When everything is in order, launch the bat script initRepo.bat. It should compi
 
 You should now see cubznetwork.lib and proto.lib inside the folder libs/bin.
 
-# Compilation
+## Compilation
 
 Be sure to set the project in x86 / Release in Visual Studio.  
 
-# Useful links
+## Useful links
 
 - [Overview about DirectX development on HoloLens](https://developer.microsoft.com/en-us/windows/mixed-reality/directx_development_overview)
 - [App model proposed by Microsoft](https://developer.microsoft.com/en-us/windows/mixed-reality/app_model)
@@ -34,8 +38,12 @@ Be sure to set the project in x86 / Release in Visual Studio.
 - [Gesture and motion inputs](https://developer.microsoft.com/en-us/windows/mixed-reality/gaze,_gestures,_and_motion_controllers_in_directx)
 - [Lightning and texture in Dx11][https://www.3dgep.com/texturing-lighting-directx-11/]
 
-# Library used
+## Library used
 
 - [DirectX Tool Kit](https://github.com/Microsoft/DirectXTK)
 - [DirectX Mesh](https://github.com/Microsoft/DirectXMesh)
 - [DirectX Texture](https://github.com/Microsoft/DirectXTex)
+
+## Contact
+
+You can contact me on Twitter @oxydros or via e-mail oxydros at gmail
